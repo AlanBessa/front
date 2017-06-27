@@ -11,7 +11,7 @@ export class AppSessionService {
 
     constructor(
         private _sessionService: SessionServiceProxy,
-        private _abpMultiTenancyService: AbpMultiTenancyService) {
+        private _abpMultiTenancyService: AbpMultiTenancyService) { 
     }
 
     get application(): ApplicationInfoDto {

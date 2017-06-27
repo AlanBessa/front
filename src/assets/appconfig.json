@@ -1,0 +1,7 @@
+﻿{
+  "remoteServiceBaseUrl": "http://localhost:22742",
+  "appBaseUrl": "http://localhost:4200",
+  "recaptchaSiteKey": "6LfD-wUTAAAAACULAVXvL61K0w02RIsjhI8EyiS-",
+  "paypalEnvironment": "sandbox",
+  "subscriptionExpireNootifyDayCount": 7
+}

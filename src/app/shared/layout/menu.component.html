@@ -1,0 +1,40 @@
+<div class="dropdown dropdown-user dropdown-dark no-p-l box-user">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" title="{{showUserNameTitle}}">
+        <img *ngIf="profilePicture" alt="" class="img-circle img-profile m-r-xxs" [src]="profilePicture" /> 
+        <span>{{userName}}</span>
+    </a> 
+    | 
+    <a href="javascript:;" (click)="logout()">{{l("Logout")}}</a>
+        
+    <ul class="dropdown-menu dropdown-menu-default box-user-menu">
+        <li class="arrow-up"></li>
+        <template ngFor let-menuItem [ngForOf]="menu.items" let-mainMenuItemIndex="index">
+            <li class="close-nav" *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': mainMenuItemIndex == 0}">
+                <a [routerLink]="menuItem.parameter != '' ? [menuItem.route + '/' + menuItem.parameter] : [menuItem.route]" *ngIf="!menuItem.items.length">
+                    <i class="{{menuItem.icon}}"></i>
+                    <span class="title">{{l(menuItem.name)}}</span>
+                </a>
+            </li>
+        </template>
+        <li>
+            <a id="UserProfileChangePasswordLink" (click)="changePassword()">
+                {{l("ChangePassword")}}            
+            </a>
+        </li>
+        <li *ngIf="switchRole && currentRoleName == 'Worbbior'">
+            <a class="close-nav" href="javascript:;" (click)="switchToWorbbientProfile()">{{l("SwitchToWorbbientProfile")}}</a>
+        </li>
+        <li *ngIf="switchRole && currentRoleName == 'Worbbient'">
+            <a class="close-nav" href="javascript:;" (click)="switchToWorbbiorProfile()">{{l("SwitchToWorbbiorProfile")}}</a>
+        </li>
+        <li *ngIf="toWorbbiorRegister && currentRoleName == 'Worbbient'">
+            <a class="close-nav" href="javascript:;" (click)="worbbientToWorbbior()">Seja um Worbbior</a>
+        </li>
+        <li>
+            <a href="javascript:;" (click)="logout()">
+                <i class="icon-logout close-nav"></i> 
+                {{l("Logout")}}
+            </a>
+        </li>
+    </ul>
+</div>

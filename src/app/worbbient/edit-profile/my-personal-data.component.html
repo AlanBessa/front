@@ -1,0 +1,51 @@
+<div class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        Precisa achar uma pessoa talentosa para realizar uma tarefa? <br />
+        Sua conta WORBBIENTE já está ativa para você contratar.
+    </div>
+</div>
+
+<h3 class="profile-xs cor-Cinder">{{l("Data")}}</h3>
+
+<form *ngIf="active" #myPersonalDataForm="ngForm" (ngSubmit)="save()" class="form-type-label user-data m-t-xs">
+    <div class="panel panel-clean m-b-xs">
+        <div class="panel-body p-y-sm">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                    <div class="form-group no-hint">
+                        <div class="edit-avatar">
+                            <img *ngIf="active" id="HeaderProfilePicture" alt="Photo Profile" class="img-circle img-profile pro" [src]="profilePicture" (click)="changeProfilePicture()" title="clique para alterar Imagem"/>
+                            <button type="button" class="btn btn-secondary" (click)="changeProfilePicture()" title="Alterar Imagem" >Alterar imagem</button>
+                        </div>
+                    </div>
+                     <div class="form-group no-hint">
+                        <label class="control-label">{{l("Name")}}</label><i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input #nameInput class="form-control edited" type="text" name="Name" [(ngModel)]="user.name" required maxlength="32" placeholder="Nome" />      
+                    </div>
+
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Surname")}}</label><i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input type="text" name="Surname" class="form-control edited" [(ngModel)]="user.surname" required maxlength="32" placeholder="Sobrenome" />
+                    </div>
+
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("EmailAddress")}}</label><i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input type="email" name="EmailAddress" class="form-control edited" [(ngModel)]="user.emailAddress" required maxlength="256" placeholder="E-mail" />
+                        
+                    </div>                    
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("PhoneNumber")}}</label><i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input type="text" [textMask]="{mask: AppConsts.phoneMask}" name="PhoneNumber" class="form-control edited" [(ngModel)]="user.phoneNumber" placeholder="Telefone"/>
+                    </div>
+                    <p class="no-m-t cor-Botticelli txt-small">
+                        <i class="fa fa-asterisk"></i>
+                        <span>
+                            Campos obrigatórios.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<changeProfilePictureModal #changeProfilePictureModal></changeProfilePictureModal>

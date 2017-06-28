@@ -1,0 +1,79 @@
+<div class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        Documentos
+    </div>
+</div>
+
+<h3 class="cor-Cinder profile-xs">Endereço</h3>
+
+<form #myAdresslForm="ngForm" (ngSubmit)="save()" class="form-type-label m-t-xs" *ngIf="active">
+    <div class="panel panel-clean m-b-xs">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("ChooseAdministrativeArea")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-toggle btn btn-prime-inverted" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                {{currentAdministrativeArea.text}}
+                                <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li *ngFor="let item of administrativeAreas.items">
+                                    <a href="javascript:;" (click)="changeAdministativeArea(item)">
+                                        {{item.text}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Locality")}}</label>
+                        <input class="form-control" type="text" name="Locality" [(ngModel)]="address.locality" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("SubLocality")}}</label>
+                        <input class="form-control" type="text" name="SubLocality" [(ngModel)]="address.subLocality" required>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("PostalCode")}}</label>
+                        <input class="form-control" type="text" name="PostalCode" [textMask]="{mask: AppConsts.cepMask}" [(ngModel)]="address.postalCode"
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Address")}}</label>
+                        <input class="form-control" type="text" name="Thoroughfare" [(ngModel)]="address.thoroughfare" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("ThoroughfareNumber")}}</label>
+                        <input class="form-control" type="number" name="ThoroughfareNumber" [(ngModel)]="address.thoroughfareNumber" required>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Premise")}}</label>
+                        <input class="form-control" type="text" name="Premise" [(ngModel)]="address.premise">
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

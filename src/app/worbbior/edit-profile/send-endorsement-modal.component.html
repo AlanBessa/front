@@ -1,0 +1,45 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <form *ngIf="active" #sendEndorsementForm="ngForm" (ngSubmit)="save()">
+            <div class="modal-header">
+              <button type="button" class="close" (click)="close()" aria-label="Close">
+                <i class="fa fa-remove"></i>
+              </button>
+              <h3 class="modal-title m-t-xs m-b-xxs text-center">{{l("SendEndorsement")}}</h3>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-xs-12"></div>
+                <div class="col-xs-12">
+                  <div class="form-group no-hint">
+                    <input class="form-control edited" type="text" name="From" [(ngModel)]="activityEndorsementForCreateUpdate.endorsementDto.email" placeholder="{{l('EmailAddress')}}" required />
+                  </div>
+                </div>
+              </div>
+              <!--<div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group no-hint">
+                    <input class="form-control edited" type="text" name="Subject" [(ngModel)]="activityEndorsementForCreateUpdate.subject" placeholder="{{l('Subject')}}" required />
+                  </div>
+                </div>
+              </div>-->
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group no-hint">
+                    <textarea rows="6" class="form-control edited" name="Message" [(ngModel)]="activityEndorsementForCreateUpdate.message" placeholder="{{l('Message')}}" required></textarea>
+                  </div> 
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around pull-left" (click)="close()">{{l("Cancel")}}</button>
+              <button type="submit" class="btn btn-prime btn-around" [disabled]="!sendEndorsementForm.form.valid" [buttonBusy]="saving" [busyText]="l('SendWithThreeDot')">
+                <span>{{l("Send")}}</span>
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>

@@ -14,14 +14,10 @@ import {
 } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 
-import { LoginAttemptsModalComponent } from './login-attempts-modal.component';
-import { LinkedAccountsModalComponent } from './linked-accounts-modal.component';
 import { ChangePasswordModalComponent } from './profile/change-password-modal.component';
 import { ChangeProfilePictureModalComponent } from './profile/change-profile-picture-modal.component';
 import { MySettingsModalComponent } from './profile/my-settings-modal.component'
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
-import { ImpersonationService } from '@app/admin/users/impersonation.service';
-import { LinkedAccountService } from '@app/shared/layout/linked-account.service';
 import { NotificationSettingsModalCompoent } from '@app/shared/layout/notifications/notification-settings-modal.component';
 import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNotificationHelper';
 import { AppConsts } from '@shared/AppConsts';
@@ -39,8 +35,6 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
 
     @ViewChild('notificationSettingsModal') notificationSettingsModal: NotificationSettingsModalCompoent;
 
-    @ViewChild('loginAttemptsModal') loginAttemptsModal: LoginAttemptsModalComponent;
-    @ViewChild('linkedAccountsModal') linkedAccountsModal: LinkedAccountsModalComponent;
     @ViewChild('changePasswordModal') changePasswordModal: ChangePasswordModalComponent;
     @ViewChild('changeProfilePictureModal') changeProfilePictureModal: ChangeProfilePictureModalComponent;
     @ViewChild('mySettingsModal') mySettingsModal: MySettingsModalComponent;
@@ -71,8 +65,6 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
         private _userLinkServiceProxy: UserLinkServiceProxy,
         private _userServiceProxy: UserServiceProxy,
         private _authService: AppAuthService,
-        private _impersonationService: ImpersonationService,
-        private _linkedAccountService: LinkedAccountService,
         private _userNotificationHelper: UserNotificationHelper,
         private _sessionService: SessionServiceProxy,
         private _appSessionService: AppSessionService
@@ -159,14 +151,6 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
         });
     }
 
-    showLoginAttempts(): void {
-        this.loginAttemptsModal.show();
-    }
-
-    showLinkedAccounts(): void {
-        this.linkedAccountsModal.show();
-    }
-
     changePassword(): void {
         this.changePasswordModal.show();
     }
@@ -185,14 +169,6 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
 
     onMySettingsModalSaved(): void {
         this.shownLoginName = this.appSession.getShownLoginName();
-    }
-
-    backToMyAccount(): void {
-        this._impersonationService.backToImpersonator();
-    }
-
-    switchToLinkedUser(linkedUser: LinkedUserDto): void {
-        this._linkedAccountService.switchToAccount(linkedUser.id, linkedUser.tenantId);
     }
 
     get chatEnabled(): boolean {

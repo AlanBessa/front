@@ -1,0 +1,376 @@
+<div [@routerTransition] id="topo" name="topo">
+    <section class="post-a-task-edit" *ngIf="active">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 p-xxs m-t-sm m-b-xs clearfix">
+                            <h3>Editar tarefa postada</h3>                   
+                        </div>
+                        <div class="col-xs-12 p-t-sm p-b-sm bg-White m-b-sm">
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-divider-botton">
+                                    <p class="no-m-t cor-Botticelli txt-small">
+                                        <i class="fa fa-asterisk"></i>
+                                        <span>Campos obrigatórios.</span>
+                                    </p>
+                                    <form #taskForm="ngForm" novalidate (ngSubmit)="save()">
+                                        <div class="row">
+                                            <h3 class="m-b-xss col-xs-12">Sua tarefa</h3> 
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">Titulo da tarefa <span class="small">(Máximo de 120 caracteres)</span> <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input placeholder="Ex: Cupcakes decorados" 
+                                                           [ngClass]="{'borda-Flamingo cor-Flamingo': titulo.value.length > 120}" 
+                                                           class="form-control m-b-xxxs" 
+                                                           #titulo 
+                                                           type="text" 
+                                                           name="Title" 
+                                                           [(ngModel)]="worbbyTask.title" 
+                                                           required />
+                                                    <p class="small">{{titulo.value.length}} / 120 caracteres usados.</p> 
+                                                </div>
+                                                <div [hidden]="titulo.value.length <= 120" class="form-group m-y-10px">
+                                                    <span class="cor-Flamingo">O máximo permitidos é de 120 caracteres.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">Descrição da tarefa <small>(Máximo de 400 caracteres)</small> <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <textarea placeholder="Descrição curta do que você precisa." 
+                                                        rows="6" 
+                                                        class="form-control m-b-xxxs" 
+                                                        name="Description" 
+                                                        [(ngModel)]="worbbyTask.description" 
+                                                        maxlength="400" 
+                                                        required #description>
+                                                    </textarea>
+                                                    <p class="small">{{description.value.length}} / 400 caracteres usados.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h3 class="m-b-xss">Endereço</h3>
+                                                <p class="small">Onde a tarefa será realizada ou entregue?</p>
+                                                <p class="small cor-Botticelli m-b-xss">Para a sua segurança, seu endereço completo só será visível pelo talento contratado para a tarefa.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("ChooseAdministrativeArea")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle width-sm-210px w-100-xs width-320px txt-small-only-mobile" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                            {{currentAdministrativeArea.text}}
+                                                            <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li *ngFor="let item of administrativeAreas.items">
+                                                                <a href="javascript:;" (click)="changeAdministativeArea(item)">
+                                                                    {{item.text}}
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("Address")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" 
+                                                            type="text" 
+                                                            name="Thoroughfare" 
+                                                            [(ngModel)]="address.thoroughfare" 
+                                                            [minlength]="3" 
+                                                            [maxlength]="120"
+                                                            #Address="ngModel"
+                                                            required />
+                                                </div>
+                                                <div [hidden]="taskForm.form.valid || taskForm.form.pristine" class="form-group m-b-xs">
+                                                    <ul class="help-block text-danger" *ngIf="Address.errors">
+                                                        <li [hidden]="!Address.errors.minlength">O texto tem que ter no mínimo 3 caracteres</li>
+                                                        <li [hidden]="!Address.errors.maxlength">O texto não pode passar o limite máximo de 120 caracteres</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-4">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("ThoroughfareNumber")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" type="number" #ThoroughfareNumber="ngModel" name="ThoroughfareNumber" [(ngModel)]="address.thoroughfareNumber" required />
+                                                </div>
+                                                <div [hidden]="taskForm.form.valid || taskForm.form.pristine" class="form-group m-b-xs">
+                                                    <ul class="help-block text-danger" *ngIf="ThoroughfareNumber.errors">
+                                                        <li [hidden]="!ThoroughfareNumber.errors.number">Somente números são aceitos</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-8">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("Premise")}}</label>
+                                                    <input class="form-control" type="text" name="Premise" [(ngModel)]="address.premise" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("SubLocality")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" type="text" name="SubLocality" [(ngModel)]="address.subLocality" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-6">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("PostalCode")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" type="text" name="PostalCode" [textMask]="{mask: AppConsts.cepMask}" [(ngModel)]="address.postalCode" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">{{l("Locality")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" type="text" name="Locality" [(ngModel)]="address.locality" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h3 class="m-b-xss">Detalhes</h3>
+                                                <p class="m-b-xss m-t-xs">
+                                                    <span *ngIf="!isOffer">
+                                                        Escolha o centro de interesse e subcategoria onde se encaixa a tarefa.
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row"> 
+                                            <div *ngIf="!isOffer" class="form-group no-hint">                                          
+                                                <div class="ic-top-dropdown">
+                                                    <div *ngIf="showInterestCentersTopLevel" class="ic-top-dropdown-background"></div>
+                                                    <div *ngIf="interestCentersTopLevel.length" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ic-top-dropdown-select">
+                                                        <div class="form-group no-hint">
+                                                            <label class="control-label">{{l("ChooseMainInterest")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                            <div class="dropdown">
+                                                                <button type="button" class="dropdown-toggle btn btn-prime-inverted select-dropdown-toggle">
+                                                                    <div (click)="selectInterestCenterTopLevel()">
+                                                                        <img *ngIf="currentInterestCenterTopLevel.interestCenterPicture" class="ico-btn-dropdown" [src]="currentInterestCenterTopLevel.interestCenterPicture"
+                                                                            alt="{{currentInterestCenterTopLevel.displayName}}" />
+                                                                            {{currentInterestCenterTopLevel.displayName}}
+                                                                        <i *ngIf="!currentInterestCenterTopLevel.id" class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                                                    </div>                                                            
+                                                                    <div *ngIf="currentInterestCenterTopLevel.id">
+                                                                        <button type="button" class="close close-dropdown" (click)="clearSelectedInterestCenter()" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="showInterestCentersTopLevel" class="dropdown-interest-center col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-3" *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                                                                <a (click)="changeInterestCenterTopLevel(interestCenterTopLevel)" class="card-shadow card-talent hovereffect">
+                                                                    <img *ngIf="interestCenterTopLevel.interestCenterPicture != ''" class="ico-btn" [src]="interestCenterTopLevel.interestCenterPicture" alt="{{interestCenterTopLevel.displayName}}" />
+                                                                    <h5>{{interestCenterTopLevel.displayName}}</h5>
+                                                                    <div class="overlay">
+                                                                        <p>{{interestCenterTopLevel.description}}</p>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                        
+                                                </div>
+                                                <div *ngIf="interestCentersChidren.length" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <div class="form-group no-hint">
+                                                        <label class="control-label cor-Botticelli">{{l("Subcategory")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                {{currentInterestCenterChild.displayName}}
+                                                                <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="javascript:;" (click)="changeInterestCenterChildren()">
+                                                                        {{l('Select')}}
+                                                                    </a>
+                                                                </li>
+                                                                <li *ngFor="let interestCenterChild of interestCentersChidren">
+                                                                    <a href="javascript:;" (click)="changeInterestCenterChildren(interestCenterChild)">
+                                                                        {{interestCenterChild.displayName}}
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" [(ngModel)]="worbbyTask.interestCenterId" name="InterestCenterId" required />
+                                            </div>
+                                        </div>
+                                        <div class="row" *ngIf="isOffer">
+                                            <div class="col-xs-12 m-b-xxs">
+                                                <div class="form-group no-hint">
+                                                    <div *ngFor="let interestCenter of userActivity.listInterestCenter.items  | groupBy:'parentDisplayName'">
+                                                        <img alt="" class="img-circle img-icon-list" [src]="interestCenter.value[0].parentPicture" /> {{interestCenter.value[0].parentDisplayName}} -
+                                                        <div class="p-y-xxs display-inline-block">
+                                                            <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
+                                                                <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-xxs">
+                                            <div class="form-group no-hint"> 
+                                                <div class="col-xs-12">
+                                                    <p class="m-b-xss m-t-xs">
+                                                        <span *ngIf="public">Selecione em qual centro de interesse a sua tarefa mais se encaixa. Em seguida, escolha a subcategoria, </span>
+                                                        <span *ngIf="!public">Escolha </span>
+                                                        a data e o horário em que necessita que a tarefa seja realizada ou entregue.
+                                                    </p>
+                                                </div>                                   
+                                                <div class="col-xs-12 col-md-6">                                            
+                                                    <div class="form-group no-hint">                                    
+                                                        <div class="col-xs-12 no-pad-x">
+                                                            <label class="control-label">Data <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                            <button type="button" class="btn btn-block btn-secondary btn-check" [ngClass]="{'active' : worbbyTask.scheduleDateType == 1}" (click)="scheduleDateWhenPossibleChange()">Quando possível</button>
+                                                        </div>
+                                                        <div class="col-xs-12 text-center">
+                                                            <div class="divOu">- ou -</div>
+                                                        </div>
+                                                        <div class="col-xs-12 no-pad-x">
+                                                            <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : worbbyTask.scheduleDateType == 2}" (click)="scheduleDateFixeChange()">
+                                                                <i class="fa fa-calendar-o"></i>
+                                                                {{scheduleDateDisplay}}
+                                                            </button>
+                                                            <datepicker [showWeeks]="false" class="datepicker-custom" *ngIf="worbbyTask.scheduleDateType == 2 && showDataPicker" name="ScheduleDate" [(ngModel)]="worbbyTask.scheduledDate" (selectionDone)="scheduleDateDone($event)"></datepicker>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6">
+                                                    <div class="form-group no-hint">
+                                                        <label class="control-label">Horário <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                        <div class="dropdown">
+                                                            <button type="button" class="dropdown-toggle btn btn-prime-inverted select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                {{currentTime}}
+                                                                <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="javascript:;" (click)="changeTime('Qualquer horário')">Qualquer horário</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;" (click)="changeTime('Manhã (08:00-12:00)')">Manhã (08:00-12:00)</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;" (click)="changeTime('Tarde (12:00-18:00)')">Tarde (12:00-18:00)</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;" (click)="changeTime('Noite (após as 18:00)')">Noite (após as 18:00)</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;" (click)="changeTime('O dia todo')">O dia todo</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                            </div> 
+                                        </div>                                 
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h3 class="m-b-xss m-t-xs">Qual é o seu orçamento?</h3>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!isOffer" class="form-group no-hint m-b-xs">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-5">
+                                                    <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">Preço unidade / Hora</button>
+                                                </div>
+                                                <div class="col-xs-12 col-md-2">
+                                                    <div class="divOu">- ou -</div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-5">
+                                                    <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="0" btnCheckboxFalse="1">Preço total</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">                                            
+                                            <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 col-md-4">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label class="control-label">Por <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <div class="dropdown">
+                                                        <button [disabled]="isOffer" type="button" class="dropdown-toggle btn btn-prime-inverted select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                            {{l(currentUnitMeasureOptions)}}
+                                                            <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li *ngFor="let name of unitMeasureOptions">
+                                                                <a href="javascript:;" (click)="changeUnitMeasure(name)">
+                                                                    {{l(name)}}
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 col-md-4">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label>{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Quantas hora(s)" : "Quantas unidade(s)"}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" type="text" name="Amount" [(ngModel)]="worbbyTask.amount" [minlength]="1" min="0" required />
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="worbbyTask.isUnitPrice"  class="col-xs-12 col-md-4">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label>{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input [disabled]="isOffer" class="form-control" type="number" name="Price" [(ngModel)]="worbbyTask.unitPrice" [minlength]="1" min="0" required />
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!worbbyTask.isUnitPrice" class="col-xs-12">
+                                                <div class="form-group no-hint m-b-xs">
+                                                    <label>Preço <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
+                                                    <input class="form-control" type="number" name="Price" [(ngModel)]="worbbyTask.totalPrice" [minlength]="1" min="0" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">    
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint">
+                                                    <label>Valor Total: R$</label>
+                                                    <h3 class="display-inline m-l-5px" *ngIf="!worbbyTask.isUnitPrice"> {{worbbyTask.totalPrice}}</h3>
+                                                    <h3 class="display-inline m-l-5px" *ngIf="worbbyTask.isUnitPrice"> {{worbbyTask.unitPrice * worbbyTask.amount}}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-xs">
+                                            <div class="col-xs-12 col-sm-6 col-md-4 m-b-xxs">
+                                                <button routerLink="/worbbient/my-worbby" type="button" class="btn btn-secondary btn-around btn-block">Voltar</button>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-4 m-b-xxs">
+                                                <button [disabled]="!taskForm.form.valid || description.value.length > 400 || titulo.value.length > 60" (click)="save()" type="button" class="btn btn-prime btn-around btn-block">Editar</button>
+                                            </div>
+                                        </div>                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Ir ao Topo -->
+    <button class="btn btn-anchor-para-topo visible-xs" (click)="goTo('topo')">
+        <i class="fa fa-angle-double-up no-m-x"></i>
+    </button>
+</div>

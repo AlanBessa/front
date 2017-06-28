@@ -1,0 +1,53 @@
+<div [@routerTransition]>
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 m-t-sm m-b-sm">
+                    <div class="wizard-steps wizard-container" *ngIf="active">
+                        <div *ngIf="active" class="row m-b-sm">
+                            <div class="col-xs-12">
+                                <h1 class="text-center m-y-sm cor-Tangerine">Avaliação</h1>
+                                <div class="divProfile">
+                                    <img id="HeaderProfilePicture" width="120px" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbior.userPicture" />
+                                    <span *ngIf="worbbyTask.worbbior.premium" class="profile-pro"></span>
+                                </div>
+                                <p class="text-center m-t-20px">{{worbbyTask.worbbior.displayName}}</p>
+                            </div>
+                        </div>
+                        <div class="borda-bottom-2 borda-Botticelli m-b-xs">
+                            <div class="row borda-Botticelli borda-top-2 p-t-xxs p-b-xxs no-m-x" *ngFor="let evaluation of evaluationValues">
+                                <div class="col-xs-6 no-pad-x">
+                                    <p class="inline no-m-b" style="padding: 2px 0;">{{evaluation.evaluationType.name}}</p>
+                                </div>
+                                <div class="col-xs-6 text-right no-pad-x">
+                                    <rating [(ngModel)]="evaluation.value" max="5" required="true" [readonly]="false" stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"
+                                        [titles]="['um', 'dois', 'três', 'quatro', 'cinco']" class="worbbyRating">
+                                    </rating>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form (ngSubmit)="save()" #evaluateForm="ngForm" novalidate>
+                                    <div class="form-group no-hint m-b-sm">
+                                        <label class="control-label m-b-10px">Revisão</label>
+                                        <textarea
+                                            placeholder="Seus elogios e críticas são muito importantes." 
+                                            rows="6" 
+                                            class="form-control edited m-b-xxxs"
+                                            name="Comments" 
+                                            [(ngModel)]="evaluation.comments" #comments>
+                                        </textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-prime btn-block btn-around" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                                        <span>Avaliar</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

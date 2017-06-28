@@ -1,0 +1,44 @@
+<div [@routerTransition]>
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 p-xxs m-t-sm m-b-xs clearfix">
+                        <h3>Detalhe de pagamento</h3>                   
+                    </div>
+                    <div class="col-xs-12 p-t-sm p-b-sm bg-White m-b-sm">
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <div *ngIf="active" class="card-talents w-100 row">
+                                    <!-- card -->
+                                    <div class="card-simple">
+                                        <div class="row">
+                                            <div class="w-100">
+                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                    <div class="divProfile">
+                                                        <!--<span class="profile-online"></span>-->
+                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbior.userPicture" />
+                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7 col-md-8 card-simple-info">
+                                                    <p class="no-m-y display-inline-block">"{{worbbyTask.title}}"</p>
+                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
+                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.description}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <button type="button" (click)="capturePayment()" class="btn btn-round bg-Sunglow cor-White m-b-lg m-t-xxs" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">Liberar Pagamento</button>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

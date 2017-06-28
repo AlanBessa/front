@@ -1,6 +1,18 @@
 import { Injectable } from '@angular/core';
-import { SessionServiceProxy, UserLoginInfoDto, TenantLoginInfoDto, ApplicationInfoDto, GetCurrentLoginInformationsOutput } from '@shared/service-proxies/service-proxies'
+import { 
+    SessionServiceProxy, 
+    UserLoginInfoDto, 
+    TenantLoginInfoDto, 
+    ApplicationInfoDto, 
+    GetCurrentLoginInformationsOutput,
+    ActivityEndorsementForCreateUpdate,
+    UserLoginServiceProxy,
+    WorbbiorServiceProxy
+} from '@shared/service-proxies/service-proxies'
 import { AbpMultiTenancyService } from '@abp/multi-tenancy/abp-multi-tenancy.service'
+import { WorbbiorState } from '@shared/AppEnums';
+import { CookieService, CookieOptionsArgs } from 'angular2-cookie/core';
+import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 
 @Injectable()
 export class AppSessionService {
@@ -8,10 +20,23 @@ export class AppSessionService {
     private _user: UserLoginInfoDto;
     private _tenant: TenantLoginInfoDto;
     private _application: ApplicationInfoDto;
+    private _currentRoleName: string;
+    private _defaultRoleName: string;
+    private _worbbiorState: WorbbiorState;
+    private _endorsement: ActivityEndorsementForCreateUpdate;
+    private _worbbiorId:number;
+    public _worbbiorSlug:string;
+    public _worbbiorDisplayName: string;
+    public _worbbiorPremium: boolean;
+    public _firstAccess:boolean = true;
 
     constructor(
         private _sessionService: SessionServiceProxy,
-        private _abpMultiTenancyService: AbpMultiTenancyService) {
+        private _abpMultiTenancyService: AbpMultiTenancyService,
+        private _cookieService: CookieService,
+        private _authService: AppAuthService,
+        private _userLoginService: UserLoginServiceProxy,
+        private _worbbiorService: WorbbiorServiceProxy) {
     }
 
     get application(): ApplicationInfoDto {
@@ -34,6 +59,102 @@ export class AppSessionService {
         return this.tenant ? this.tenant.id : null;
     }
 
+    get worbbiorState(): WorbbiorState{
+        return this._worbbiorState;
+    }
+
+    set worbbiorState(value: WorbbiorState){
+        this._worbbiorState = value;
+    }
+
+    get firstAccess(): boolean{
+        return this._firstAccess;
+    }
+
+    set firstAccess(value: boolean){
+        this._firstAccess = value;
+        var today = new Date();
+        today.setHours(today.getHours() + 24);
+        var options:CookieOptionsArgs = {
+            expires: today
+        };
+        
+        this.setCookie("firstAccess", value.toString(), options);
+    }
+
+    get worbbiorPremium(): boolean{
+        return this._worbbiorPremium;
+    }
+
+    set worbbiorPremium(value: boolean){
+        this._worbbiorPremium = value;
+    }
+
+    set worbbiorId(value:number) {
+        this._worbbiorId = value;
+    }
+
+    get worbbiorId(): number{
+        return this._worbbiorId;
+    }
+
+    set worbbiorSlug(value:string) {
+        this._worbbiorSlug = value;
+    }
+
+    get worbbiorSlug(): string{
+        return this._worbbiorSlug;
+    }
+
+    set worbbiorDisplayName(value:string) {
+        this._worbbiorDisplayName = value;
+    }
+
+    get worbbiorDisplayName(): string{
+        return this._worbbiorDisplayName;
+    }
+
+    get endorsement(): ActivityEndorsementForCreateUpdate {
+        return this._endorsement;
+    }
+
+    set endorsement(value: ActivityEndorsementForCreateUpdate) {
+        this._endorsement = value;
+    }
+
+
+    get userRoleName(): string {
+        return this._currentRoleName;
+    }
+
+    set userRoleName(value: string) {
+        this._currentRoleName = value;
+        this.setCookie("userRoleName", value);
+    }
+
+    getCookie(key: string){
+        return this._cookieService.get(key);
+    }
+
+    setCookie(key: string, value: string, options?: CookieOptionsArgs){
+        if(this._cookieService.get(key)){
+            this._cookieService.remove(key, options);
+        }
+        this._cookieService.put(key, value, options);
+    }
+
+    clearCookies(): void {
+        this._cookieService.removeAll();
+    }
+
+    set firstLoginUser(value:string) {
+        this.setCookie("firstLoginUser", value);
+    }
+
+    get firstLoginUser(): string{
+        return this.getCookie("firstLoginUser")
+    }
+
     getShownLoginName(): string {
         let userName = this._user.userName;
         if (!this._abpMultiTenancyService.isEnabled) {
@@ -49,7 +170,40 @@ export class AppSessionService {
                 this._application = result.application;
                 this._user = result.user;
                 this._tenant = result.tenant;
-                resolve(true);
+
+                this._currentRoleName = result.defaultRoleName;
+                this._defaultRoleName = result.defaultRoleName;
+
+                if (this.getCookie("userRoleName")) {
+                    this._currentRoleName = this.getCookie("userRoleName");
+                }
+
+                if(this.getCookie("firstAccess")){
+                    this.firstAccess = (this.getCookie("firstAccess") == "true");
+                }
+                
+                if (abp.session.userId && this._currentRoleName == "Worbbior") {
+                    this._worbbiorService.getWorbbiorByUserId(abp.session.userId).subscribe((result) => {
+                        this.worbbiorState = Number(result.worbbiorState);
+                        this.worbbiorId = result.id;
+                        this.worbbiorSlug = result.slug;
+                        this.worbbiorDisplayName = result.displayName;
+                        this.worbbiorPremium = result.premium;
+                        resolve(true);
+                    });  
+
+                    if(!this.firstLoginUser){
+                        this._userLoginService.getRecentUserLoginAttempts().subscribe(result => {
+                            let logins = result.items;
+                            this.firstLoginUser = (result.items.length <= 1).toString();
+                        });
+                    }
+                    
+                }
+                else {
+                    resolve(true);
+                }  
+
             }, (err) => {
                 reject(err);
             });

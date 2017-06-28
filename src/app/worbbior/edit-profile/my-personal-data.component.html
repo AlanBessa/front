@@ -1,0 +1,85 @@
+<div *ngIf="worbbiorState == WorbbiorState.PreRegistration" class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        <strong>Falta pouco para você ser um worbbior!</strong> 
+        Preencha os dados abaixo para ganhar dinheiro oferecendo suas habilidades. 
+        Você pode salvar os dados inseridos e terminar de preencher o cadastro depois. 
+        Mas atenção, só após completar todos os campos, o seu perfil será ativado na plataforma.
+    </div>
+</div>
+
+<div *ngIf="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"  class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+
+        <strong>Atenção! Seu perfil de worbbior está desativado momentaneamente.</strong><br /> 
+         Para ser reativado, você precisa fazer a alteração solicitada pela equipe da Worbby, detalhada no e-mail que enviamos a você. 
+         Após fazer a alteração, clique no botão Solicitar ativação.
+    </div>
+</div>
+
+<div *ngIf="worbbiorState == WorbbiorState.Active"  class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        <strong>Por segurança, você não pode editar estes campos do seu perfil: Nome; Sobrenome; Como você gostaria de ser chamado; RG; CPF; Comprovante de inscrição e de situação cadastral do CNPJ e Comprovante de residência.</strong><br /> 
+                Caso seja necessário editar um deles, entre em contato com a gente.
+    </div>
+</div>
+
+<h3 class="cor-Cinder profile-xs">{{l("Data")}}</h3>
+
+<form *ngIf="active" #myPersonalDataForm="ngForm" (ngSubmit)="save()" class="form-type-label user-data m-t-xs">
+    <div class="panel panel-clean m-b-xs">
+        <div class="panel-body p-y-sm">            
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1">                    
+                    <div class="form-group no-hint">
+                        <div class="edit-avatar">
+                            <img *ngIf="active" id="HeaderProfilePicture" alt="Photo Profile" class="img-circle img-profile pro" [src]="profilePicture" (click)="changeProfilePicture()" title="clique para alterar Imagem" />                        
+                            <button type="button" class="btn btn-secondary" (click)="changeProfilePicture()" title="Alterar Imagem">Alterar imagem</button>                                                     
+                        </div>
+                    </div>
+                    <p class="no-m-t cor-Botticelli txt-small">
+                        <i class="fa fa-asterisk"></i>
+                        <span>Campos obrigatórios para a ativação do cadastro.</span>
+                    </p>
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Name")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState != WorbbiorState.PreRegistration &&  worbbiorState != WorbbiorState.WaitingEdit" #nameInput class="form-control edited" type="text" name="Name" [(ngModel)]="user.name">
+                    </div>
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Surname")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState != WorbbiorState.PreRegistration && worbbiorState != WorbbiorState.WaitingEdit" type="text" name="Surname" class="form-control edited" [(ngModel)]="user.surname">
+                    </div>
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("DisplayName")}}</label> 
+                        <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="{{tooltipApelido}}"></i>
+                        <input [disabled]="worbbiorState != WorbbiorState.PreRegistration && worbbiorState != WorbbiorState.WaitingEdit" type="text" name="DisplayName" class="form-control edited" [(ngModel)]="user.displayName">
+                    </div>                    
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("EmailAddress")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="text" name="EmailAddress" class="form-control edited" [(ngModel)]="user.emailAddress" required>
+                    </div>
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("PhoneNumber")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [textMask]="{mask: AppConsts.phoneMask}" [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="tel" name="PhoneNumber" class="form-control edited" [(ngModel)]="user.phoneNumber">
+                    </div>
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("AboutMe")}} <small>(Máximo de 400 caracteres)</small></label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i> <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="{{tooltipSobreMim}}"></i>
+                        <textarea [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" 
+                            placeholder="Conte-nos um pouco sobre você para que os membros da comunidade Worbby te conheçam melhor e queiram te contratar." 
+                            rows="9" 
+                            class="form-control edited m-b-xxxs" [ngClass]="{'borda-Flamingo cor-Flamingo': description.value.length > 400}"
+                            name="Description" 
+                            [(ngModel)]="user.description" #description>
+                        </textarea>
+                        <p class="small">{{description.value.length}} / 400 caracteres usados.</p>
+                        <div [hidden]="description.value.length < 400" class="form-group m-y-10px">
+                            <span class="cor-Flamingo">O máximo permitidos é de 400 caracteres.</span>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<changeProfilePictureModal (modalSave)="getProfilePicture()" #userDataChangeProfilePictureModal></changeProfilePictureModal>
+<infoTutorialCadastroModal #infoTutorialModal></infoTutorialCadastroModal>

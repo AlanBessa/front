@@ -1,0 +1,93 @@
+<div class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        <strong>Peça recomendações!</strong><br />
+        Você precisa que duas pessoas, no mínimo, recomendem suas habilidades em cada atividade que você selecionou para ter o seu cadastro
+        como worbbior ativado.<br />
+        Quanto mais recomendações conseguir, mais visibilidade você pode obter dentro da plataforma.
+    </div>
+</div>
+
+<h3 class="cor-Cinder profile-xs">{{l("Endorsement")}}<template #popTemplateEndosso><div class="text-left" [innerHtml]="tooltipEndosso"></div></template>
+<i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateEndosso"></i></h3>
+
+<div class="panel panel-clean m-b-xs m-t-xs">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group no-hint row" *ngFor="let endorsement of endorsements">
+                    <div class="col-md-12 col-xs-12">
+                        <label class="control-label">E-mail</label><!-- {{l("Email")}} -->
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <span *ngIf="endorsement.endorsementState != null">{{ endorsement.email }}</span>
+                    </div>
+                    <div class="col-md-6 col-xs-12 p-y-xxxs">
+                        <span *ngIf="endorsement.endorsementState != null">{{ l("Endorsament" + EndorsementState[endorsement.endorsementState]) }}</span>
+                    </div>                        
+                </div>  
+                <div class="text-center">
+                    <ul *ngIf="pager.totalPages?.length > 1" class="pagination">
+                        <li>
+                            <a (click)="getSendEndorsements(1)" [ngClass]="{disabled:pager.currentPage === 1}">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="getSendEndorsements(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li *ngFor="let page of pager.totalPages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="getSendEndorsements(page)">{{page}}</a>
+                        </li>
+                        <li>
+                            <a (click)="getSendEndorsements(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="getSendEndorsements(pager.totalPages?.length)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>    
+                </div>           
+            </div>
+            <div class="col-xs-12">
+                <div class="card-talents-new">
+                    <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" 
+                            type="button" class="btn btn-prime btn-around btn-block txt-small-only-mobile txt-small-tablet" (click)="sendEndorsement()">
+                            Solicitar recomendação
+                   </button>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+<h3 *ngIf="suggestedActivities != null && suggestedActivities.length > 0" class="cor-Cinder profile-xs">{{l("SuggestedActivities")}}</h3>
+
+<div *ngIf="active" class="row m-b-xss">
+    <div class="col-xs-12">
+        <div *ngFor="let activityUser of suggestedActivities" class="card-default m-y-xxs">
+            <a class="card-talents" (click)="updateActivity(activityUser)">
+                <h4 class="m-b-xxs no-pad-right-lg">{{activityUser.activity.title}}</h4>
+                
+                <div class="card-content clearfix" *ngFor="let interestCenter of activityUser.listInterestCenter.items  | groupBy:'parentDisplayName'">
+                    <img alt="" class="img-circle img-icon-list" [src]="interestCenter.value[0].parentPicture" />
+                    <div class="p-y-xxs">
+                        <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
+                            <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
+                        </span>
+                    </div>
+                </div>
+            </a>
+            <button (click)="addActivity(activityUser)" title="{{l('Adicionar')}}" class="btn btn-remove cor-CaribbeanGreen add-activity-user" href="javascript:;">
+                <i class="icon-plus"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<createOrEditUserActivityModal #createOrEditUserActivityModal (modalSave)="modalActivitySuggestResult()"></createOrEditUserActivityModal>
+<sendEndorsementModal #sendEndorsementModal (modalSave)="getSendEndorsements(pager.currentPage)"></sendEndorsementModal>

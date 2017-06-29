@@ -1,0 +1,60 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form *ngIf="active" #avaibilityForm="ngForm" novalidate (ngSubmit)="save()">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <i class="fa fa-remove"></i>
+          </button>
+          <h3 class="modal-title m-t-xs m-b-xxs text-center">{{l("SelectedAvailability")}}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12"></div>
+            <div class="col-md-6 col-xs-12">
+              <div class="form-group no-hint">
+                <label class="control-label">Dias da semana</label>
+                <div *ngIf="dayOfWeekOptions.length" class="dropdown">
+                  <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit " type="button" class="dropdown-toggle btn btn-prime-inverted"
+                    data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    {{currentDayOfWeekOptions}}
+                      <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li *ngFor="let item of dayOfWeekOptions">
+                      <a href="javascript:;" (click)="changeDayOfWeek(item)">{{l(item)}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="form-group no-hint">
+                <label class="control-label">{{l("StartTime")}}</label>
+                <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control edited" type="time" name="StartTime"
+                  [(ngModel)]="availability.startTime" required>
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <div class="form-group no-hint">
+                <label class="control-label">{{l("EndTime")}}</label>
+                <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control edited" type="time" name="EndTime"
+                  [(ngModel)]="availability.endTime" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around pull-left" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-prime btn-around" [disabled]="!avaibilityForm.form.valid || worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+            [buttonBusy]="saving" [busyText]="l('SendWithThreeDot')">
+            <span>{{l("Save")}}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

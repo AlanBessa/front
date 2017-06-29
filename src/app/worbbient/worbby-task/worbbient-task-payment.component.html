@@ -1,0 +1,125 @@
+<div [@routerTransition] id="topo" name="topo">
+    <section class="worbbient-task-payment" *ngIf="active">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 p-xxs m-t-sm m-b-xs clearfix">
+                            <h3>Detalhe de pagamento</h3>                   
+                        </div>
+                        <div class="col-xs-12 p-t-sm p-b-sm bg-White m-b-sm">
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1">
+                                    <form [formGroup]="form" novalidate (ngSubmit)="sendPayment()">
+                                        <p class="cor-Botticelli txt-small m-b-xss">
+                                            <i class="fa fa-asterisk"></i>
+                                            <span>Campos obrigatórios para a ativação do cadastro.</span>
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group no-hint clearfix">
+                                                    <label class="control-label">Escolha a bandeira <i class="fa fa-asterisk cor-Botticelli"></i></label>
+                                                    <ul class="payment-methods">
+                                                        <li class="payment-method visa">
+                                                            <input name="brand" [(ngModel)]="sale.payment.creditCard.brand" type="radio" id="visa" btnRadio="Visa" formControlName="brand" />
+                                                            <label for="visa">Visa</label>
+                                                        </li>
+                                                        <li class="payment-method mastercard">
+                                                            <input name="brand" [(ngModel)]="sale.payment.creditCard.brand" type="radio" id="mastercard" btnRadio="Master" formControlName="brand" />
+                                                            <label for="mastercard">Mastercard</label>
+                                                        </li>
+                                                        <li class="payment-method americanExpress">
+                                                            <input name="brand" [(ngModel)]="sale.payment.creditCard.brand" type="radio" id="americanExpress" btnRadio="Amex" formControlName="brand" />
+                                                            <label for="americanExpress">American Express</label>
+                                                        </li>
+                                                        <li class="payment-method elo">
+                                                            <input name="brand" [(ngModel)]="sale.payment.creditCard.brand" type="radio" id="elo" btnRadio="Elo" formControlName="brand" />
+                                                            <label for="elo">ELO</label>
+                                                        </li>
+
+                                                        <li class="payment-method diners">
+                                                            <input name="brand" [(ngModel)]="sale.payment.creditCard.brand" type="radio" id="diners" btnRadio="Diners" formControlName="brand" />
+                                                            <label for="diners">Diners</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 m-b-xxxs">
+                                                <div class="form-group no-hint">
+                                                    <label class="control-label">Número do Cartão <i class="fa fa-asterisk cor-Botticelli"></i></label>
+                                                    <input class="form-control edited" type="number" name="CardNumber" [(ngModel)]="sale.payment.creditCard.cardNumber" formControlName="cardNumber" />
+                                                </div>
+                                                <div [hidden]="form.controls.cardNumber.valid || form.controls.cardNumber.pristine" class="form-group">
+                                                    <ul class="help-block text-danger" *ngIf="form.controls.cardNumber.errors">
+                                                        <li>Este campo só aceita números.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 m-b-xxxs">
+                                                <div class="form-group no-hint">
+                                                    <label class="control-label">Nome impresso no cartão <i class="fa fa-asterisk cor-Botticelli"></i></label>
+                                                    <input class="form-control edited" type="text" name="Holder" [(ngModel)]="sale.payment.creditCard.holder" formControlName="nomeCard" />
+                                                </div>
+                                                <div [hidden]="form.controls.nomeCard.valid || form.controls.nomeCard.pristine" class="form-group">
+                                                    <ul class="help-block text-danger" *ngIf="form.controls.nomeCard.errors">
+                                                        <li *ngIf="form.controls.nomeCard.errors && !form.controls.nomeCard.errors.minlength">Minimo de 6 caracteres.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-8 m-b-xxxs">
+                                                <div class="form-group no-hint">
+                                                    <label class="control-label">Data de expiração <i class="fa fa-asterisk cor-Botticelli"></i></label>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6 m-b-10px">
+                                                            <ng-select [allowClear]="true" class="select-prime-inverted txt-md-only-mobile"
+                                                                [items]="monthList"
+                                                                [active]="month"
+                                                                (selected)="selectedMonth($event)"
+                                                                placeholder="Mês">
+                                                            </ng-select>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-6 m-b-10px">
+                                                            <ng-select [allowClear]="true" class="select-prime-inverted txt-md-only-mobile"
+                                                                [items]="yearList"
+                                                                [active]="year"
+                                                                (selected)="selectedYear($event)"
+                                                                placeholder="Ano">
+                                                            </ng-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 m-b-xxxs">
+                                                <div class="form-group no-hint">
+                                                    <label class="control-label">Código de segurança <i class="fa fa-asterisk cor-Botticelli"></i></label>
+                                                    <input class="form-control edited" type="text" name="Holder" [(ngModel)]="sale.payment.creditCard.securityCode" formControlName="securityCode" />
+                                                </div>
+                                                <div [hidden]="form.controls.securityCode.valid || form.controls.securityCode.pristine" class="form-group">
+                                                    <ul class="help-block text-danger" *ngIf="form.controls.securityCode.errors">
+                                                        <li *ngIf="form.controls.securityCode.errors && !form.controls.securityCode.errors.minlength">Minimo de 3 caracteres.</li>
+                                                        <li *ngIf="form.controls.securityCode.errors && !form.controls.securityCode.errors.maxlength">Máximo de 3 caracteres.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button type="submit" class="btn btn-around btn-prime btn-block m-t-xs" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" [disabled]="!form.valid">Enviar</button>
+                                            </div>
+                                        </div>  
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

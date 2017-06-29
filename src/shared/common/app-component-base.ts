@@ -8,6 +8,7 @@ import { SettingService } from '@abp/settings/setting.service';
 import { MessageService } from '@abp/message/message.service';
 import { AbpMultiTenancyService } from '@abp/multi-tenancy/abp-multi-tenancy.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
+import { BinaryObjectServiceProxy } from '@shared/service-proxies/service-proxies';
 
 export abstract class AppComponentBase {
 
@@ -21,6 +22,7 @@ export abstract class AppComponentBase {
     message: MessageService;
     multiTenancy: AbpMultiTenancyService;
     appSession: AppSessionService;
+    storageService: BinaryObjectServiceProxy;
 
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
@@ -51,4 +53,120 @@ export abstract class AppComponentBase {
     isGranted(permissionName: string): boolean {
         return this.permission.isGranted(permissionName);
     }
+
+
+    getAverage(list:any[], propert:string){
+        if(list.length == 0)
+            return 0;
+
+        var sum:number = 0;
+        var count:number = list.length;
+
+        list.forEach(element => {
+            sum = sum + Number(element[propert]);
+        });
+
+        return Math.round(sum / count);
+    }
+
+    distance(lat1, lon1, lat2, lon2):number {
+        var radlat1 = Math.PI * lat1/180
+        var radlat2 = Math.PI * lat2/180
+        var theta = lon1-lon2
+        var radtheta = Math.PI * theta/180
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        dist = Math.acos(dist)
+        dist = dist * 180/Math.PI
+        dist = dist * 60 * 1.1515
+        dist = dist * 1.609344 * 1000;
+        return dist
+    }
+
+    getPictureByGuid(guid:string):Promise<string> {
+        let self = this;
+        return new Promise<string>((resolve,reject) => {
+            self.storageService.getBase64String(guid).subscribe((result) => {
+                var base64String = "";
+                if(result.base64String != ""){
+                    base64String = "data:image/jpeg;base64,";
+                }
+                resolve(base64String + result.base64String);
+                
+            });  
+        });
+    }
+
+    toNumber(value):number {
+        return Number(value);
+    }
+
+    isEmpty(value):boolean{
+        return (value == null || value === '');
+    }
+
+    goTo(location): void {
+        var heightMenu = $('header').outerHeight();
+
+        var aTag = $('#' + location);
+        var scrollOffset = aTag.offset().top - heightMenu;
+
+        if (navigator.userAgent.match(/iPad|iPhone|iPod|Android|Windows Phone/i)) {
+            this.customScrollTo(scrollOffset, 1000);
+        }
+        else {
+            $('html, body').animate({
+                scrollTop: scrollOffset
+            }, 500);
+        }
+    }
+
+    private customScrollTo(to, duration) {
+        var start = 0,
+            change = to - start,
+            currentTime = 0,
+            increment = 20;
+
+        var easeInOutQuad = function(t, b, c, d) {
+            t /= d/2;
+            if (t < 1) return c/2*t*t + b;
+            t--;
+            return -c/2 * (t*(t-2) - 1) + b;
+        }
+
+        var animateScroll = function(){        
+            currentTime += increment;
+            var val = easeInOutQuad(currentTime, start, change, duration);                        
+            window.scrollTo(0,val);
+
+            if(currentTime < duration) {
+                setTimeout(animateScroll, increment);
+            }
+        };
+        
+        animateScroll();
+    }    
+
+    isImageFile(fileName: string): boolean {
+
+        var fileExtension = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName) : undefined;
+
+        var isValid:boolean = false;
+        switch (fileExtension.toString()) {
+            case 'jpeg':
+                isValid =  true
+                break;
+            case 'png':
+                isValid =  true
+                break;
+            case 'jpg':
+                isValid =  true
+                break;
+            default:
+        }
+        return isValid;
+    }
+
+    megByteToBytes(value:number):number{
+        return value * 1048576;
+    }   
 }

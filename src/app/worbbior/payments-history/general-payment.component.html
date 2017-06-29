@@ -1,0 +1,223 @@
+<h3 class="cor-Cinder profile-xs m-t-20px">Carteira</h3>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-clean">
+            <div class="panel-body p-xss">                 
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Saldo</h5>
+                    </div>
+                    <div class="col-xs-12">
+                        <table class="table table-hover table-payment">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            Saldo Worbby disponível 
+                                            <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="Explicação"></i>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        R$ <span>300,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            Saldo liberado p/ transferência
+                                            <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="Explicação"></i>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        R$ <span>100,00</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>                    
+                </div>
+                <div class="row">                 
+                    <div class="col-xs-12 text-center m-t-20px">
+                        <button class="btn btn-prime white-space" type="button" (click)="transferir()">Transferir saldo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-clean">
+            <div class="panel-body p-xss"> 
+               <div class="row m-b-20px">
+                    <div class="col-xs-12 col-sm-5 m-b-10px">
+                        <h5>Histórico</h5>                        
+                    </div>
+                    <div class="col-xs-12 col-sm-5 text-right payment-date-picker m-b-10px">
+                        <date-range-picker [(startDate)]="filtroDataHistorico.de" 
+                                           [(endDate)]="filtroDataHistorico.ate"
+                                           [dateRangePickerOptions]="{'opens': 'left'}">
+                        </date-range-picker>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 payment-date-picker m-b-10px">
+                        <button class="btn btn-prime btn-block">
+                            <i class="fa fa-filter"></i>
+                        </button>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-hover table-payment">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4>Recebidos</h4>
+                                    </td>
+                                    <td>
+                                        R$ <span class="cor-CaribbeanGreen">5320,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            - Pagos<br />
+                                            <small>com créditos worbby</small>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        R$ <span class="cor-Flamingo">120,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            - Reservados <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="Explicação"></i><br />
+                                            <small>tarefas já contratadas</small>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        R$ <span class="cor-Flamingo">40,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            - Transferidos<br />
+                                            <small>para sua conta</small>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        R$ <span class="cor-Flamingo">4200,00</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><h3>TOTAL</h3></td>
+                                    <td>
+                                        R$ <span class="cor-CaribbeanGreen">960,00</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="cor-Cinder profile-xs m-t-20px">Transferências</h3>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-clean">
+            <div class="panel-body p-xss"> 
+                <div class="row m-b-20px">
+                    <div class="col-xs-12 col-sm-offset-5 col-sm-5 text-right payment-date-picker m-b-10px">
+                        <date-range-picker [(startDate)]="filtroDataTransferencia.de" 
+                                           [(endDate)]="filtroDataTransferencia.ate"
+                                           [dateRangePickerOptions]="{'opens': 'left'}">
+                        </date-range-picker>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 payment-date-picker m-b-10px">
+                        <button class="btn btn-prime btn-block">
+                            <i class="fa fa-filter"></i>
+                        </button>
+                    </div>
+               </div>
+               <div class="row">
+                   <div class="col-xs-12">
+                       <table class="table table-hover table-payment">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">TOTAL</th>
+                                    <th>
+                                        R$ <span>960,00</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10/06/2017</td>
+                                    <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">Em andamento</i></small></td>
+                                    <td>R$ <span>960,00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10/06/2017</td>
+                                    <td>Conta Itaú 123456</td>
+                                    <td>R$ <span class="cor-CaribbeanGreen">960,00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10/06/2017</td>
+                                    <td>Conta Itaú 123456</td>
+                                    <td>R$ <span class="cor-Flamingo">4200,00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10/06/2017</td>
+                                    <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">Cancelado</i></small></td>
+                                    <td>R$ <span class="cor-Botticelli">4200,00</span></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="text-center">
+                                            <ul class="pagination no-m-b">
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-double-left"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-left"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="active">
+                                                    <a href="#">1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-double-right"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>    
+                                        </div> 
+                                    </td>
+                                </tr>
+                            </tfoot>
+                       </table>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

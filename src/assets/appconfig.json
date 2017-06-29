@@ -3,5 +3,9 @@
   "appBaseUrl": "http://localhost:4200",
   "recaptchaSiteKey": "6LfD-wUTAAAAACULAVXvL61K0w02RIsjhI8EyiS-",
   "paypalEnvironment": "sandbox",
-  "subscriptionExpireNootifyDayCount": 7
+  "subscriptionExpireNootifyDayCount": 7,
+  "contactEmail": "contato@worbby.com",
+  "facebookPixelId": "112452959293003",
+  "googleAnalyticsId": "UA-93089793-1",
+  "maxFileSizeUpload": 5
 }

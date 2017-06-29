@@ -48,6 +48,11 @@ export class AppPreBootstrap {
             AppConsts.recaptchaSiteKey = result.recaptchaSiteKey;
             AppConsts.subscriptionExpireNootifyDayCount = result.subscriptionExpireNootifyDayCount;
 
+            AppConsts.contactEmail = result.contactEmail;
+            AppConsts.facebookPixelId = result.facebookPixelId;
+            AppConsts.googleAnalyticsId = result.googleAnalyticsId;
+            AppConsts.maxFileSizeUpload = result.maxFileSizeUpload;
+
             if (tenancyName == null) {
                 AppConsts.appBaseUrl = result.appBaseUrl.replace(AppConsts.tenancyNamePlaceHolderInUrl + ".", "");
                 AppConsts.remoteServiceBaseUrl = result.remoteServiceBaseUrl.replace(AppConsts.tenancyNamePlaceHolderInUrl + ".", "");

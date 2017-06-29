@@ -1,0 +1,546 @@
+<div [@routerTransition]>
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="row">
+            <div class="container">
+                <div class="row my-worbby-content m-b-lg">
+                    <!-- menu perfil : inicio -->
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="sidebar-header m-t-sm p-b-sm">
+                                    <a class="visible-xs icon-msg-profile" role="button" href="#" id="chat" *ngIf="false">
+                                        <!-- Icone do chat : inicio -->
+                                        <svg width="26px" height="20px" viewBox="0 0 26 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+                                            <title>icon chat</title>
+                                            <desc>Chat icon</desc>
+                                            <defs>
+                                                <path d="M0,2.00585866 C0,0.898053512 0.894978851,0 1.99700466,0 L24.0029953,0 C25.1059106,0 26,0.897060126 26,2.00585866 L26,11.9941413 C26,13.1019465 25.1064574,14 23.9972399,14 L13,14 L6,20 L6,14 L1.99791312,14 C0.894496173,14 0,13.1029399 0,11.9941413 L0,2.00585866 Z"
+                                                    id="path-1"></path>
+                                                <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="26" height="20" fill="white">
+                                                    <use xlink:href="#path-1"></use>
+                                                </mask>
+                                            </defs>
+                                            <g id="Edit-profile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Edit-Profile-5" transform="translate(-20.000000, -100.000000)">
+                                                    <g id="icon-chat-blue" transform="translate(20.000000, 100.000000)">
+                                                        <g>
+                                                            <use id="Rectangle" stroke="#1498CC" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+                                                            <circle id="Oval-3" fill="#1498CC" cx="8" cy="7" r="1"></circle>
+                                                            <circle id="Oval-3" fill="#1498CC" cx="13" cy="7" r="1"></circle>
+                                                            <circle id="Oval-3" fill="#1498CC" cx="18" cy="7" r="1"></circle>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <!-- Icone do chat : Fim -->
+                                    </a>
+                                    <a class="visible-xs icon-menu-profile" role="button" data-toggle="collapse" href="#menuProfileLinks" aria-expanded="false"
+                                        aria-controls="menuProfileLinks">
+                                        <img class="" src="/assets/metronic/worbby/global/img/Yellow.png" alt="icon menu profile" />
+                                    </a>
+                                    <div class="display-table">
+                                        <div class="divProfile">
+                                            <img *ngIf="active" id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="profilePicture" />
+                                            <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                        </div>
+                                        <div class="display-cell alignTop">
+                                            <h4 *ngIf="active" class="no-m-y">{{user.name}}</h4>
+                                            <p *ngIf="active" class="no-m-y cor-Botticelli small">{{defaultAddress.subLocality}}, {{defaultAddress.administrativeArea}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menuProfileLinks" class="col-xs-12 collapse  navbar-collapse">
+                                <ul class="nav m-t-sm m-b-sm">
+                                    <template ngFor let-menuItem [ngForOf]="menu.items" let-mainMenuItemIndex="index">
+                                        <li *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': mainMenuItemIndex == 0}">
+                                            <a [routerLink]="[menuItem.route]" *ngIf="!menuItem.items.length">
+                                                {{l(menuItem.name)}}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <li *ngIf="switchRole && currentRoleName == 'Worbbior'">
+                                        <a href="javascript:;" (click)="switchToWorbbientProfile()">{{l("SwitchToWorbbientProfile")}}</a>
+                                    </li>
+                                    <li *ngIf="switchRole && currentRoleName == 'Worbbient'">
+                                        <a href="javascript:;" (click)="switchToWorbbiorProfile()">{{l("SwitchToWorbbiorProfile")}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" (click)="logout()"><i class="icon-logout close-nav"></i> {{l("Logout")}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- menu perfil : Fim -->
+                    <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                        <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#tasksInProgress" class="tasks-in-progress" aria-controls="tasks-in-progress" role="tab" data-toggle="tab">
+                                    Tarefas em progresso
+                                </a>
+                                <div class="arrow-nav"></div>
+                            </li>
+                            <li role="presentation">
+                                <a href="#offers" class="offers" aria-controls="offers" role="tab" data-toggle="tab">
+                                    Ofertas
+                                </a>
+                                <div class="arrow-nav"></div>
+                            </li>                            
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="tasksInProgress">
+                                <div class="row">
+                                    <!-- Tarefas em progresso -->
+                                    <div *ngIf="worbbyTasksInProgress.length > 0" class="col-xs-12">
+                                        <h3 class="m-t-sm m-b-xss">Tarefas em progresso</h3>
+                                        <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksInProgress">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <a [routerLink]="['/worbbior/worbby-task-details', worbbyTask.id]" class="card-talents w-100">
+                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                    <div class="divProfile">
+                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-9 col-md-10 card-simple-info">
+                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-md-6 no-p-r">
+                                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 text-right">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-md-6 no-p-l">
+                                                                                    <p *ngIf="worbbyTask.distance" class="inline small cor-Botticelli text-right"> {{worbbyTask.distance}} m <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-md-6 no-p-l">
+                                                                                    <p class="no-m-y small cor-Botticelli text-right"><span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="offers">
+                                <div class="row">
+                                    <div *ngIf="worbbyTasksOffersAccepted.length > 0 || tasksProposed.length > 0" class="col-xs-12">
+                                        <h3 class="m-t-sm m-b-xss">Requerendo sua ação</h3>
+
+                                        <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksOffersAccepted">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <div  class="card-talents w-100">
+                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                    <div class="divProfile">
+                                                                        <!--<span class="profile-online"></span>-->
+                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                </div>
+                                                                <div class="col-xs-2 col-md-2">
+                                                                    <div class="card-actions">              
+                                                                        <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                            <i class="fa fa-cog"></i>
+                                                                        </a> 
+                                                                        <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+                                                                            <li class="arrow-up"></li>
+                                                                            <li>
+                                                                                <a (click)="viewWorbbyTask(worbbyTask)">
+                                                                                    Visualizar
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a (click)="confirmOfferAccepted(worbbyTask)">
+                                                                                    <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
+                                                                                    Confirmar                            
+                                                                                </a> 
+                                                                            </li>
+                                                                            <li>
+                                                                                <a (click)="refusedOfferAccepted(worbbyTask)">
+                                                                                    <i class="fa fa-trash cor-Flamingo"></i>
+                                                                                    Recusar                            
+                                                                                </a> 
+                                                                            </li>
+                                                                        </ul>                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <table class="w-100">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <p class="small">
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                                <span class="cor-CaribbeanGreen">Oferta aceita pelo Worbbient</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            <p class="no-m-y small cor-Botticelli text-right">
+                                                                                                <span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="row">
+                                                                    <div class="col-xs-6">
+                                                                        <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="confirmOfferAccepted(worbbyTask)">Confirmar</button>                                                                        
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedOfferAccepted(worbbyTask)">Recusar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-b-xss" *ngFor="let worbbyTask of tasksProposed">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <div class="card-talents w-100">
+                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                    <div class="divProfile">
+                                                                        <!--<span class="profile-online"></span>-->
+                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                </div>
+                                                                <div class="col-xs-2 col-md-2">
+                                                                    <div class="card-actions">              
+                                                                        <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                            <i class="fa fa-cog"></i>
+                                                                        </a> 
+                                                                        <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+                                                                            <li class="arrow-up"></li>
+                                                                            <li>
+                                                                                <a (click)="viewWorbbyTask(worbbyTask)">
+                                                                                    Visualizar
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a (click)="acceptWorbbyTaskProposed(worbbyTask)">
+                                                                                    <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
+                                                                                    Aceitar                            
+                                                                                </a> 
+                                                                            </li>
+                                                                            <li>
+                                                                                <a (click)="refusedWorbbyTaskProposed(worbbyTask)">
+                                                                                    <i class="fa fa-trash cor-Flamingo"></i>
+                                                                                    Recusar                            
+                                                                                </a> 
+                                                                            </li>
+                                                                        </ul>                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <table class="w-100">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <p class="small">
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                                <span class="cor-CaribbeanGreen">Proposta de Tarefa</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            <p class="no-m-y small cor-Botticelli text-right">
+                                                                                                <span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="row">
+                                                                    <div class="col-xs-6">
+                                                                        <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="acceptWorbbyTaskProposed(worbbyTask)">Aceitar</button>                                                                        
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedWorbbyTaskProposed(worbbyTask)">Recusar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="tasksProposedAcceptedByWorbbior.length > 0 || worbbyTasksOffersConfirmed.length > 0 || pendingOffers.length > 0" class="col-xs-12">
+                                        <h3 class="m-t-sm m-b-xss">Aguardando</h3>
+
+                                        <div class="row m-b-xss" *ngFor="let worbbyTask of tasksProposedAcceptedByWorbbior">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                <div class="divProfile">
+                                                                    <!--<span class="profile-online"></span>-->
+                                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                    <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                            </div>
+                                                            <div class="col-xs-2 col-md-2">
+                                                                <div class="card-actions">              
+                                                                    <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                        <i class="fa fa-cog"></i>
+                                                                    </a> 
+                                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+                                                                        <li class="arrow-up"></li>
+                                                                        <li>
+                                                                            <a (click)="viewWorbbyTask(worbbyTask)">
+                                                                                Visualizar
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a (click)="acceptWorbbyTaskProposed(worbbyTask)">
+                                                                                <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
+                                                                                Aceitar                            
+                                                                            </a> 
+                                                                        </li>
+                                                                        <li>
+                                                                            <a (click)="refusedWorbbyTaskProposed(worbbyTask)">
+                                                                                <i class="fa fa-trash cor-Flamingo"></i>
+                                                                                Recusar                            
+                                                                            </a> 
+                                                                        </li>
+                                                                    </ul>                      
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <table class="w-100">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <p class="small">
+                                                                                            Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                            <span class="cor-CaribbeanGreen">Tarefa aceita, aguardando contratação pelo Worbbient</span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                    <td class="text-right">
+                                                                                        <p class="no-m-y small cor-Botticelli text-right">
+                                                                                            <span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksOffersConfirmed">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <div class="card-talents w-100">
+                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                    <div class="divProfile">
+                                                                        <!--<span class="profile-online"></span>-->
+                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                </div>
+                                                                <div class="col-xs-2 col-md-2">
+                                                                    <div class="card-actions">              
+                                                                        <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                            <i class="fa fa-cog"></i>
+                                                                        </a> 
+                                                                        <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+                                                                            <li class="arrow-up"></li>
+                                                                            <li>
+                                                                                <a (click)="viewWorbbyTask(worbbyTask)">
+                                                                                    Visualizar
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a (click)="refusedOfferAccepted(worbbyTask)">
+                                                                                    <i class="fa fa-trash cor-Flamingo"></i>
+                                                                                    Recusar                            
+                                                                                </a> 
+                                                                            </li>
+                                                                        </ul>                    
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <table class="w-100">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <p class="small">
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                                <span class="cor-CaribbeanGreen">Oferta confirmada, aguardando contratação pelo Worbbient</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            <p class="no-m-y small cor-Botticelli text-right">
+                                                                                                <span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-b-xss" *ngFor="let worbbyOffer of pendingOffers">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                <div class="divProfile">
+                                                                    <!--<span class="profile-online"></span>-->
+                                                                    <img alt="Photo Profile" class="img-responsive w-70" [src]="worbbyOffer.worbbyTask.interestCenter.parentPicture" />
+                                                                  <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                <p class="no-m-y">"{{worbbyOffer.worbbyTask.title}}"</p>
+                                                                <p class="small profileName cor-Botticelli">{{worbbyOffer.worbbior.displayName}}</p>                                                            
+                                                            </div>
+                                                            <div class="col-xs-2 col-md-2">
+                                                                <div class="card-actions">              
+                                                                    <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                        <i class="fa fa-cog"></i>
+                                                                    </a> 
+                                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+                                                                        <li class="arrow-up"></li>
+                                                                        <li>
+                                                                            <a (click)="pendingOfferView(worbbyOffer)">
+                                                                                Visualizar
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a (click)="pendingOfferCancel(worbbyTask)">
+                                                                                <i class="fa fa-trash cor-Flamingo"></i>
+                                                                                Cancelar                            
+                                                                            </a> 
+                                                                        </li>
+                                                                    </ul>                    
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <table class="w-100">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <p class="small">
+                                                                                            Publicado em {{worbbyOffer.worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                            <span class="cor-CaribbeanGreen">Oferta realizada aguardando Worbbient selecionar</span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                    <td class="text-right">
+                                                                                        <p class="no-m-y small cor-Botticelli text-right">
+                                                                                            <span class="cor-Denim">{{worbbyOffer.worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>                                 
+                                </div>                   
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,31 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="close()" aria-label="Close">
+          <i class="fa fa-remove"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div *ngIf="pdf" class="col-xs-12">
+            <div class="form-group no-hint">
+              <pdf-viewer [src]="srcPdf" [page]="page" [original-size]="true" style="display: block;">
+              </pdf-viewer>
+            </div>
+          </div>
+          <div class="col-xs-12">
+            <div *ngIf="img" class="form-group no-hint">
+              <img class="img-responsive" [src]="srcImg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around pull-left" (click)="close()">{{l("Cancel")}}</button>
+        <button type="button" class="btn btn-prime btn-around" (click)="downloadFile('documento',fileDtoBase64.fileGuid)">Download</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        <strong>Em quais áreas estão os seus talentos?</strong><br /> Escolha a(s) atividade(s) que você quer oferecer aos
+        membros da comunidade Worbby.<br /> Comece selecionando o centro de interesse em que se encaixa a atividade e a respectiva
+        subcategoria.
+    </div>
+</div>
+
+<h3 class="cor-Cinder profile-xs">{{l("Activities")}}</h3>
+
+<div *ngIf="active" class="row">
+    <div class="col-xs-12">
+        <div *ngFor="let activityUser of myActivities" class="card-default m-y-xxs">
+            <div class="card-actions">
+                <template #popTemplateStatusText><div class="text-left" [innerHtml]="tooltipStatusText"></div></template>
+                <span [ngClass]="{'cor-Flamingo': activityUser.endorsementsCount < 2, 'cor-CaribbeanGreen': activityUser.endorsementsCount > 1}">
+                    {{activityUser.endorsementsCount}} Recomendações /  
+                </span>                    
+                <span class="cor-flamingo underline cursor-pointer" *ngIf="activityUser.activityState == ActivityState.Inactive" placement="left" container="body" [tooltip]="popTemplateStatusText">
+                    Inativa pelo administrador
+                </span>
+                <span [ngClass]="{'cor-Flamingo': activityUser.endorsementsCount < 2 || activityUser.activityState == ActivityState.Inactive || activityUser.activityState == ActivityState.InactiveByWorbbior, 'cor-CaribbeanGreen': activityUser.activityState != ActivityState.InactiveByWorbbior && activityUser.endorsementsCount > 1}" *ngIf="activityUser.activityState != ActivityState.Inactive">                    
+                    <span *ngIf="activityUser.activityState == ActivityState.InactiveByWorbbior || activityUser.endorsementsCount < 2" class="cursor-pointer underline" placement="left" container="body" [tooltip]="popTemplateStatusText">{{activityUser.endorsementsCount < 2 ? 'Inativa' : 'Desativada'}}</span>
+                    <span *ngIf="activityUser.activityState != ActivityState.InactiveByWorbbior && activityUser.endorsementsCount > 1">Ativa</span>
+                </span>              
+                <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <i class="fa fa-cog"></i>
+                </a> 
+                <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+                    <li class="arrow-up"></li>
+                    <li *ngIf="activityUser.activityState != ActivityState.Inactive">
+                        <a (click)="toogleUserActivityState(activityUser)" class="cursor-pointer" placement="left" container="body" [tooltip]="popTemplateStatus">
+                            <span class="title" >{{activityUser.activityState == ActivityState.InactiveByWorbbior ? 'Ativar' : 'Desativar'}}</span>
+                            <template #popTemplateStatus><div class="text-left" [innerHtml]="tooltipStatus"></div></template>
+                            <i class="fa fa-question-circle tooltip-icone"></i>
+                        </a>
+                    </li>
+                    <li *ngIf="worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit">
+                        <a (click)="removeActivity(activityUser)">
+                            <i class="fa fa-trash cor-Flamingo"></i>
+                            Remover                            
+                        </a> 
+                    </li>
+                    <li>
+                        <a [routerLink]="['/worbbior/pagina', worbbiorSlug]" fragment="atividade-{{activityUser.id}}">
+                            Visualizar Atividade
+                        </a>
+                    </li>
+                </ul>                        
+            </div>
+            <a class="card-talents" (click)="updateActivity(activityUser)">
+                <h4 class="m-b-xxs no-pad-right-lg w-77">"{{activityUser.title}}"</h4>
+               
+                <div class="card-content clearfix" *ngFor="let interestCenter of activityUser.listInterestCenter.items  | groupBy:'parentDisplayName'">
+                    <img alt="" class="img-circle img-icon-list" [src]="interestCenter.value[0].parentPicture" />
+                    <div class="p-y-xxs">
+                        <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
+                            <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="new-activity" *ngIf="myActivities.length == 0 && worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit && false">
+            <p class="text-center new-activity-title">Caso esteja com dificuldade em descobrir seu verdadeiro talento, nós podemos te ajudar!</p>
+            <div class="text-center new-activity-body">
+                <img class="m-b-xss" src="/assets/metronic/worbby/global/img/worbbior-descuberta-talentos.png" />
+                <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" (click)="navigateToPage('/worbbior/talent-questionnaire')"
+                    class="btn btn-prime btn-around btn-block txt-small-only-mobile">
+                    <span>Descubra seus talentos</span>
+                </button>
+            </div>
+            <div class="m-t-xs text-center">ou</div>
+        </div>
+        <div *ngIf="(worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit) && (editProfile.editMyPersonalDataWorbbior.active && active && editProfile.editMyDocumentsWorbbior.active && editProfile.editMyAvailabilityWorbbior.active && editProfile.editMyEndorsementsWorbbior.active)" class="card-talents-new">
+            <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" (click)="addActivity()"
+                class="btn btn-prime btn-around btn-block txt-small-only-mobile" href="javascript:;">
+                <span>Registre uma nova atividade +</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<createOrEditUserActivityModal #createOrEditUserActivityModal (modalSave)="getMyAcitivities()"></createOrEditUserActivityModal>

@@ -1,0 +1,47 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" 
+[config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <i class="fa fa-remove"></i>
+          </button>
+          <h3 class="modal-title m-t-xs m-b-xxs text-center">Vamos começar o seu cadastro</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12"></div>
+            <div class="col-xs-12">
+              <p class="text-center m-b-xss">Para ser ativado como worbbior e oferecer os seus talentos a outras pessoas, você deve:</p>
+              <ul class="list-tutorial">
+                <li class="ico-number ico-number-um">
+                  <p class="m-b-xxxs">Preencher seus dados corretamente</p>
+                  <p class="small no-m-b">Os campos com <i class="fa fa-asterisk cor-Botticelli txt-small"></i> são obrigatórios</p>
+                </li>
+                <li class="ico-number ico-number-dois">
+                  <p class="m-b-xxxs">Escolher a(s) atividades(s) que quer oferecer</p>
+                  <p class="small no-m-b">Precisa(m) refletir suas habilidades</p>
+                </li>
+                <li class="ico-number ico-number-tres">
+                  <p class="m-b-xxxs">Pedir recomendações</p>
+                  <p class="small no-m-b">É necessário, no mínimo, duas por atividade</p>
+                </li>
+                <li class="ico-number ico-number-quatro">
+                  <p class="m-b-xxxs">Anexar as cópias dos documentos</p>
+                  <p class="small no-m-b">RG, CPF e comprovante de residência</p>
+                </li>
+                <li class="ico-number ico-number-cinco">
+                  <p class="m-b-xxxs">Solicitar ativação da sua conta</p>
+                  <p class="small no-m-b">A ativação requer análise dos dados enviados</p>
+                </li>
+              </ul>
+              <h3 class="text-center cor-Cinder">Pronto</h3>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="button" class="btn btn-prime-inverted btn-around btn-center-modal" (click)="close()">{{l("Ok")}}</button>
+        </div>
+    </div>
+  </div>
+</div>

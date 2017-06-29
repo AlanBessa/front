@@ -1,5 +1,4 @@
 ﻿import { Component, ViewContainerRef, OnInit, AfterViewInit, Injector } from '@angular/core';
-import { ChatSignalrService } from 'app/shared/layout/chat/chat-signalr.service';
 import { SignalRHelper } from 'shared/helpers/SignalRHelper';
 import { AppComponentBase } from 'shared/common/app-component-base';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -19,16 +18,12 @@ export class AppComponent extends AppComponentBase implements OnInit, AfterViewI
     public constructor(
         injector: Injector,
         viewContainerRef: ViewContainerRef,
-        private _chatSignalrService: ChatSignalrService,
         private _appSessionService: AppSessionService) {
         super(injector);
         this.viewContainerRef = viewContainerRef; // You need this small hack in order to catch application root view container ref (required by ng2 bootstrap modal)
     }
 
     ngOnInit(): void {
-        if (this.appSession.application.features['SignalR']) {
-            SignalRHelper.initSignalR(() => { this._chatSignalrService.init(); });
-        }
     }
 
     subscriptionStatusBarVisible(): boolean {

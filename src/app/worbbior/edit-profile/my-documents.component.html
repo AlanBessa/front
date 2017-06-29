@@ -1,0 +1,212 @@
+<h3 class="cor-Cinder profile-xs">{{l('MyDocuments')}}</h3>
+
+<form *ngIf="active" #myUserDocumentsInfoForm="ngForm" (ngSubmit)="save()">
+    <div class="panel panel-clean m-b-xs m-t-xs">
+        <div class="panel-body p-y-sm">
+            <div class="row m-b-xxs">
+                <div class="col-xs-12 col-md-12">
+                    <div class="no-m-t cor-Botticelli txt-small">
+                        <i class="fa fa-asterisk"></i>
+                        <span>Campos obrigatórios para a ativação do cadastro.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-b-xxs">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("RG")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input class="form-control" type="tel" name="rg" [textMask]="{mask: AppConsts.rgMask}" [(ngModel)]="userDocumentsInfo.rgNumber" [disabled]="worbbiorState != WorbbiorState.PreRegistration && worbbiorState != WorbbiorState.WaitingEdit" />                    
+                    </div>                    
+                </div>
+                <div class="col-xs-12 col-md-6" *ngIf="worbbiorState == WorbbiorState.PreRegistration || worbbiorState == WorbbiorState.WaitingEdit ">
+                    <div class="form-group">
+                        <label class="control-label">{{l("RGUpload")}}</label><i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <div class="input-group">
+                            <label for="rg">
+                                <span [ngClass]="{'disabled': sending.rgFileName}" class="btn btn-file">
+                                    {{sending.rgFileName ? "Enviando..." : l("Attach")}}                                    
+                                </span>
+                            </label>
+                            <input [disabled]="sending.rgFileName" style="display:none;" id="rg" name="rg" *ngIf="active" type="file" ng2FileSelect [uploader]="rgUploader"  />
+                            <input id="rgFileName" type="text" class="form-control" readonly=""/>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <button *ngIf="userDocumentsInfo.rg" type="button" class="btn btn-secondary m-t-xs m-b-xss txt-small-only-mobile" (click)="viewDocument(userDocumentsInfo.rg)">Visualizar documento</button>
+                </div>
+            </div>
+            <div class="row m-b-xxs">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("CPF")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState != WorbbiorState.PreRegistration && worbbiorState != WorbbiorState.WaitingEdit " class="form-control" type="tel" name="cpf" [textMask] = "{mask: AppConsts.cpfMask}" [(ngModel)]="userDocumentsInfo.cpfNumber" />
+                    </div>                    
+                </div>
+                <div class="col-xs-12 col-md-6" *ngIf="worbbiorState == WorbbiorState.PreRegistration ||  worbbiorState == WorbbiorState.WaitingEdit">
+                    <div class="form-group">
+                        <label class="control-label">{{l("CPFUpload")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <div class="input-group">
+                            <label for="cpf">
+                                <span [ngClass]="{'disabled': sending.cpfFileName}" class="btn btn-file">
+                                    {{sending.cpfFileName ? "Enviando..." : l("Attach")}}                                    
+                                </span>
+                            </label>
+                            <input [disabled]="sending.cpfFileName" style="display:none;" id="cpf" name="cpf" *ngIf="active" type="file" ng2FileSelect [uploader]="cpfUploader" />
+                            <input id="cpfFileName" type="text" class="form-control" readonly=""/>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <button *ngIf="userDocumentsInfo.cpf" type="button" class="btn btn-secondary m-t-xs m-b-xss txt-small-only-mobile" (click)="viewDocument(userDocumentsInfo.cpf)">Visualizar documento</button>
+                </div>
+            </div>
+            <div class="row m-b-xxs">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            {{l("CriminalRecordsCertificate")}}
+                            <template #popTemplateAntecendenteCriminal><div class="text-left" [innerHtml]="tooltipAntecendenteCriminal"></div></template>
+                            <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateAntecendenteCriminal"></i>
+                        </label>
+                        <div *ngIf="worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit" class="input-group">
+                            <label for="AntecendentesCriminais">
+                                <span [ngClass]="{'disabled': sending.criminalRecordsCertificateFileName}" class="btn btn-file">
+                                    {{sending.criminalRecordsCertificateFileName ? "Enviando..." : l("Attach")}}                                    
+                                </span>
+                            </label>                         
+                            <input [disabled]="sending.criminalRecordsCertificateFileName" style="display:none;" id="AntecendentesCriminais" name="AntecendentesCriminais" *ngIf="active" type="file" ng2FileSelect [uploader]="criminalRecordsCertificateUploader" />
+                            <input id="criminalRecordsCertificateFileName" type="text" class="form-control" readonly="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <button *ngIf="userDocumentsInfo.criminalRecordsCertificate" class="btn btn-secondary txt-small-only-mobile" type="button" (click)="viewDocument(userDocumentsInfo.criminalRecordsCertificate)">Visualizar documento</button>
+                </div>
+            </div>
+            <div class="row m-b-xxs">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">{{l("Proofofaddress")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i> <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="{{tooltipComprovanteResidencia}}"></i>
+                        <div *ngIf="worbbiorState == WorbbiorState.PreRegistration || worbbiorState == WorbbiorState.WaitingEdit" class="input-group">
+                            <label for="CertificadoResidencia">
+                                <span [ngClass]="{'disabled': sending.proofOfAddressFileName}" class="btn btn-file">
+                                    {{sending.proofOfAddressFileName ? "Enviando..." : l("Attach")}}                                    
+                                </span>
+                            </label>  
+                            <input [disabled]="sending.proofOfAddressFileName" style="display:none;" id="CertificadoResidencia" name="CertificadoResidencia" *ngIf="active" type="file" ng2FileSelect [uploader]="proofOfAddressUploader" />
+                            <input id="proofOfAddressFileName" type="text" class="form-control" readonly=""/>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <button *ngIf="userDocumentsInfo.proofOfAddress" type="button" class="btn btn-secondary txt-small-only-mobile m-b-xxs" (click)="viewDocument(userDocumentsInfo.proofOfAddress)">Visualizar documento</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">{{l("IsCompany")}}</label>
+                        <input type="checkbox" name="isCompany" [(ngModel)]="userDocumentsInfo.isCompany" (ngModelChange)="onChangeIsCompany($event)" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div *ngIf="userDocumentsInfo.isCompany" class="form-group no-hint">
+                        <label class="control-label">{{l("CNPJ")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Cnpj" [textMask]="{mask: AppConsts.cnpjMask}" [(ngModel)]="userDocumentsInfo.cnpj" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div *ngIf="userDocumentsInfo.isCompany" class="form-group no-hint">
+                        <label class="control-label">{{l("MunicipalRegistration")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="MunicipalRegistration" [(ngModel)]="userDocumentsInfo.municipalRegistration" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div *ngIf="userDocumentsInfo.isCompany" class="form-group no-hint">
+                        <label class="control-label">{{l("FantasyName")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="FantasyName" [(ngModel)]="userDocumentsInfo.fantasyName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div *ngIf="userDocumentsInfo.isCompany" class="form-group">
+                        <label class="control-label">{{l("RegistrationRegistrationStatus")}}</label>
+                        <div *ngIf="worbbiorState == WorbbiorState.PreRegistration || worbbiorState == WorbbiorState.WaitingEdit" class="input-group">
+                            <label for="Registro">
+                                <span [ngClass]="{'disabled': sending.companyRegistrationFileName}" class="btn btn-file">
+                                    {{sending.companyRegistrationFileName ? "Enviando..." : l("Attach")}}                                    
+                                </span>
+                            </label>  
+                            <input [disabled]="sending.companyRegistrationFileName" style="display:none;" id="Registro" name="Registro" *ngIf="active" type="file" ng2FileSelect [uploader]="companyRegistrationUploader" />
+                            <input id="companyRegistrationFileName" type="text" class="form-control" readonly="" />
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <button *ngIf="userDocumentsInfo.companyRegistration" type="button" class="btn btn-secondary txt-small-only-mobile m-b-xss" (click)="viewDocument(userDocumentsInfo.companyRegistration)">Visualizar documento</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        {{l("IssuecertificateFarm")}} 
+                        <a href="http://www.receita.fazenda.gov.br/PessoaJuridica/CNPJ/cnpjreva/Cnpjreva_Solicitacao.asp" target="_blank">Clique aqui</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <h3 class="cor-Cinder">{{l("BankAccount")}}</h3>
+
+    <div class="panel panel-clean m-b-xs">
+        <div class="panel-body p-y-sm">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Bank")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Bank" [(ngModel)]="userBankAccount.bank" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Agency")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Agency" [(ngModel)]="userBankAccount.agency" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("CurrentAccount")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="CurrentAccount" [(ngModel)]="userBankAccount.currentAccount" />
+                    </div>   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">                 
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("HolderName")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="HolderName" [(ngModel)]="userBankAccount.holderName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12"> 
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("HolderCpf")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" [textMask] = "{mask: AppConsts.cpfMask}" class="form-control" type="tel" name="HolderCpf" [(ngModel)]="userBankAccount.holderCpf" />
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<viewDocumentModal #viewDocumentModal></viewDocumentModal>

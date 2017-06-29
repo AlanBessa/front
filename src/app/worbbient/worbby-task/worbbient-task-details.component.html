@@ -1,0 +1,211 @@
+<div [@routerTransition]>
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="row">
+            <div class="container">
+                <div *ngIf="active" class="row">
+                    <div class="col-xs-12">
+                        <h3 class="visible-xs titulo-WorbbiorProfile">Chat com {{worbbyTask.worbbior.displayName}}</h3>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss p-b-xxs box-chat-info" [ngClass]="{'closeInfo': !isOpenedInfo}">
+                        <div *ngIf="active" class="card-profile">
+                            <div class="profile-details">
+                                <div class="col-xs-12 m-t-sm">
+                                    <h3>{{worbbyTask.title}}</h3>
+                                </div>
+                                <div class="col-xs-12 divider">
+                                    <p class="cor-Botticelli small">{{worbbyTask.description}}</p>
+                                </div>
+                                <div *ngIf="worbbyTask.interestCenter" class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Centro de interesse</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <img alt="" class="img-circle img-icon-list" [src]="worbbyTask.interestCenter.parentPicture" />
+                                            <div class="p-y-xxxs">{{worbbyTask.interestCenter.parentDisplayName}} - {{worbbyTask.interestCenter.displayName}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="worbbyTask.userActivity" class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Centro(s) de interesse(s)</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <div *ngFor="let interestCenter of worbbyTask.userActivity.listInterestCenter.items  | groupBy:'parentDisplayName'">
+                                                <img alt="" class="img-circle img-icon-list" [src]="interestCenter.value[0].parentPicture" />
+                                                <div class="p-y-xxs">
+                                                    <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
+                                                        <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Data</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">{{worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible ? "Quando possível" : scheduleDateDisplay}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Horário</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">{{worbbyTask.time}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Localização</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">{{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Duração" : "Quantidade"}}</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">{{worbbyTask.amount}} {{worbbyTask.unitMeasure == UnitMeasure.Hour ? "hora(s)" : "unidade(s)"}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}}</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">R$ {{worbbyTask.unitPrice}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Valor total</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">R$ {{worbbyTask.totalPrice}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                  
+                        </div>
+                        <button type="button" class="btn btn-prime-inverted btn-block visible-xs btn-chat-info" (click)="openDetails(isOpenedInfo)">
+                            <i class="fa" [ngClass]="{'fa-angle-double-down': !isOpenedInfo, 'fa-angle-double-up': isOpenedInfo}"></i>
+                            {{isOpenedInfo ? 'Fechar' : worbbyOffer.worbbyTask.title}}
+                        </button>
+                    </div>
+                    <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3 class="m-b-xss hidden-xs">Chat com {{worbbyTask.worbbior.displayName}}</h3>
+                                <div class="bg-White clearfix display-two-photo hidden-xs p-y-xs m-b-xss">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="divProfile divProfile-medium">
+                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" src="{{worbbyTask.worbbient.userPicture}}">
+                                        </div>
+                                        <div class="text-center">
+                                            <h4>{{worbbyTask.worbbient.name}} - {{worbbyTask.worbbient.surname}}</h4>
+                                            <span>{{worbbyTask.address.subLocality}} - {{worbbyTask.address.administrativeArea}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="divProfile divProfile-medium">
+                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile-blue pro" src="{{worbbyTask.worbbior.userPicture}}">
+                                            <span *ngIf="worbbyTask.worbbior.premium" class="profile-pro"></span>
+                                        </div>
+                                        <div class="text-center">
+                                            <h4>{{worbbyTask.worbbior.displayName}}</h4>
+                                            <span>{{worbbyTask.worbbior.address.subLocality}} - {{worbbyTask.worbbior.address.administrativeArea}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>                            
+                        </div>
+                        <form class="hidden-xs" #messageForm="ngForm" method="post" novalidate (ngSubmit)="sendMessage()" class="m-b-xss form-chat-xs">
+                            <div class="card-default">
+                                <div class="card-talents p-xxs">
+                                    <div class="card-content">
+                                        <div class="relative">
+                                            <textarea 
+                                                rows="3" 
+                                                class="form-control edited no-m-b"
+                                                name="Message" 
+                                                (keyup)="onKeyUp($event)"
+                                                [(ngModel)]="worbbyTaskMessage">
+                                            </textarea>
+                                            <button type="submit" class="btn btn-prime btn-chat" [disabled]="worbbyTaskMessage == '' || worbbyTaskMessage == undefined">Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </form>                        
+                        <div class="box-chat m-b-xss">
+                            <!-- Mobile Version -->
+                            <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
+                            <div class="clearfix m-b-xss visible-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages | reverse">
+                                <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyTaskMessage.side == 2}">
+                                    <div class="divProfile divProfile-small">
+                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyTaskMessage.userPicture" [ngClass]="{'img-profile-blue': worbbyTaskMessage.side == 2, 'img-profile': worbbyTaskMessage.side == 1}">
+                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10 col-xs-9" [ngClass]="{'col-xs-pull-3 col-sm-pull-2': worbbyTaskMessage.side == 2}">
+                                    <div class="col-sm-offset-0 no-pad-left-lg">
+                                        <div class="card-chat" [ngClass]="{'arrow-right': worbbyTaskMessage.side == 2, 'arrow-left': worbbyTaskMessage.side == 1}">
+                                            <div class="arrow-chat"></div>
+                                            <div class="card-chat-content cor-Cinder">
+                                                <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 2, 'cor-Sunglow': worbbyTaskMessage.side == 1}">
+                                                    {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'L HH:mm:ss'}}
+                                                </div>
+                                                {{worbbyTaskMessage.message}}
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </div>
+                            </div>
+                            <!-- Desktop Version -->
+                            <div class="clearfix m-b-xss hidden-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages">
+                                <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyTaskMessage.side == 2}">
+                                    <div class="divProfile divProfile-small">
+                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyTaskMessage.userPicture" [ngClass]="{'img-profile-blue': worbbyTaskMessage.side == 2, 'img-profile': worbbyTaskMessage.side == 1}">
+                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10 col-xs-9" [ngClass]="{'col-xs-pull-3 col-sm-pull-2': worbbyTaskMessage.side == 2}">
+                                    <div class="col-sm-offset-0 no-pad-left-lg">
+                                        <div class="card-chat" [ngClass]="{'arrow-right': worbbyTaskMessage.side == 2, 'arrow-left': worbbyTaskMessage.side == 1}">
+                                            <div class="arrow-chat"></div>
+                                            <div class="card-chat-content cor-Cinder">
+                                                <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 2, 'cor-Sunglow': worbbyTaskMessage.side == 1}">
+                                                    {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'L HH:mm:ss'}}
+                                                </div>
+                                                {{worbbyTaskMessage.message}}
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </div>
+                            </div>
+                            <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
+                        </div>                        
+                    </div>                    
+                </div>             
+            </div>
+        </div>
+    </div>
+</div>

@@ -457,6 +457,1521 @@ export class AccountServiceProxy {
 }
 
 @Injectable()
+export class ActivityServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createOrEditActivity(input: CreateOrEditActivityDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/CreateOrEditActivity";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrEditActivity(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrEditActivity(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrEditActivity(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteActivity(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/DeleteActivity?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeleteActivity(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteActivity(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteActivity(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesAdmin(filter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfCreateOrEditActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesAdmin?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesAdmin(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfCreateOrEditActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfCreateOrEditActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesAdmin(response: Response): Observable<PagedResultDtoOfCreateOrEditActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfCreateOrEditActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfCreateOrEditActivityDto.fromJS(resultData200) : new PagedResultDtoOfCreateOrEditActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfCreateOrEditActivityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivities(filter: string, interestCenterTopLevelId: number, interestCenterChildId: number, userId: number, address: string, orderBy: string, latitude: string, longitude: string, page: number): Observable<WorbbyPagedResultDtoOfActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivities?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (interestCenterTopLevelId !== undefined)
+            url_ += "InterestCenterTopLevelId=" + encodeURIComponent("" + interestCenterTopLevelId) + "&"; 
+        if (interestCenterChildId !== undefined)
+            url_ += "InterestCenterChildId=" + encodeURIComponent("" + interestCenterChildId) + "&"; 
+        if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
+        if (address !== undefined)
+            url_ += "Address=" + encodeURIComponent("" + address) + "&"; 
+        if (orderBy !== undefined)
+            url_ += "OrderBy=" + encodeURIComponent("" + orderBy) + "&"; 
+        if (latitude !== undefined)
+            url_ += "Latitude=" + encodeURIComponent("" + latitude) + "&"; 
+        if (longitude !== undefined)
+            url_ += "Longitude=" + encodeURIComponent("" + longitude) + "&"; 
+        if (page !== undefined)
+            url_ += "page=" + encodeURIComponent("" + page) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivities(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivities(response_);
+                } catch (e) {
+                    return <Observable<WorbbyPagedResultDtoOfActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbyPagedResultDtoOfActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivities(response: Response): Observable<WorbbyPagedResultDtoOfActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbyPagedResultDtoOfActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbyPagedResultDtoOfActivityDto.fromJS(resultData200) : new WorbbyPagedResultDtoOfActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbyPagedResultDtoOfActivityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorActivities(filter: string, interestCenterTopLevelId: number, interestCenterChildId: number, userId: number, address: string, orderBy: string, latitude: string, longitude: string, page: number): Observable<ListResultDtoOfWorbbiorActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetWorbbiorActivities?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (interestCenterTopLevelId !== undefined)
+            url_ += "InterestCenterTopLevelId=" + encodeURIComponent("" + interestCenterTopLevelId) + "&"; 
+        if (interestCenterChildId !== undefined)
+            url_ += "InterestCenterChildId=" + encodeURIComponent("" + interestCenterChildId) + "&"; 
+        if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
+        if (address !== undefined)
+            url_ += "Address=" + encodeURIComponent("" + address) + "&"; 
+        if (orderBy !== undefined)
+            url_ += "OrderBy=" + encodeURIComponent("" + orderBy) + "&"; 
+        if (latitude !== undefined)
+            url_ += "Latitude=" + encodeURIComponent("" + latitude) + "&"; 
+        if (longitude !== undefined)
+            url_ += "Longitude=" + encodeURIComponent("" + longitude) + "&"; 
+        if (page !== undefined)
+            url_ += "page=" + encodeURIComponent("" + page) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorActivities(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorActivities(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbiorActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbiorActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorActivities(response: Response): Observable<ListResultDtoOfWorbbiorActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbiorActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbiorActivityDto.fromJS(resultData200) : new ListResultDtoOfWorbbiorActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbiorActivityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getSuggestActivitiesByUserId(id: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetSuggestActivitiesByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetSuggestActivitiesByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetSuggestActivitiesByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetSuggestActivitiesByUserId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getSuggestActivitiesByEndorsementUserId(userId: number, endorsementUserId: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetSuggestActivitiesByEndorsementUserId?";
+        if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
+        if (endorsementUserId !== undefined)
+            url_ += "EndorsementUserId=" + encodeURIComponent("" + endorsementUserId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetSuggestActivitiesByEndorsementUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetSuggestActivitiesByEndorsementUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetSuggestActivitiesByEndorsementUserId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesByUserId(id: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesByUserId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesByUserIdAdmin(id: number): Observable<ListResultDtoOfUserActivityAdminInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesByUserIdAdmin?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesByUserIdAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesByUserIdAdmin(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityAdminInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityAdminInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesByUserIdAdmin(response: Response): Observable<ListResultDtoOfUserActivityAdminInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityAdminInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityAdminInput.fromJS(resultData200) : new ListResultDtoOfUserActivityAdminInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityAdminInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesForWorbbiorPageByUserId(id: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesForWorbbiorPageByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesForWorbbiorPageByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesForWorbbiorPageByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesForWorbbiorPageByUserId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesForPreviewWorbbiorPageByUserId(id: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesForPreviewWorbbiorPageByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesForPreviewWorbbiorPageByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesForPreviewWorbbiorPageByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesForPreviewWorbbiorPageByUserId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    addActivityToUser(input: UserActivityInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/AddActivityToUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processAddActivityToUser(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processAddActivityToUser(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processAddActivityToUser(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    addSuggestActivityToUser(input: UserActivityInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/AddSuggestActivityToUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processAddSuggestActivityToUser(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processAddSuggestActivityToUser(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processAddSuggestActivityToUser(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    adminUpdteActivityToUser(input: UserActivityInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/AdminUpdteActivityToUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processAdminUpdteActivityToUser(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processAdminUpdteActivityToUser(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processAdminUpdteActivityToUser(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    removeActivityToUser(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/RemoveActivityToUser?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRemoveActivityToUser(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRemoveActivityToUser(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRemoveActivityToUser(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    removeSuggestActivityToUser(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/RemoveSuggestActivityToUser?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRemoveSuggestActivityToUser(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRemoveSuggestActivityToUser(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRemoveSuggestActivityToUser(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivityAdmin(id: number): Observable<CreateOrEditActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivityAdmin?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivityAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivityAdmin(response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CreateOrEditActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivityAdmin(response: Response): Observable<CreateOrEditActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CreateOrEditActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CreateOrEditActivityDto.fromJS(resultData200) : new CreateOrEditActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CreateOrEditActivityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivity(id: number): Observable<ActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivity?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivity(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivity(response_);
+                } catch (e) {
+                    return <Observable<ActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivity(response: Response): Observable<ActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ActivityDto.fromJS(resultData200) : new ActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ActivityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getUserActivity(id: number): Observable<UserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetUserActivity?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUserActivity(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUserActivity(response_);
+                } catch (e) {
+                    return <Observable<UserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<UserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUserActivity(response: Response): Observable<UserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: UserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? UserActivityInput.fromJS(resultData200) : new UserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<UserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCentersByActivityId(id: number): Observable<ListResultDtoOfInterestCenterForActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetInterestCentersByActivityId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCentersByActivityId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCentersByActivityId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfInterestCenterForActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfInterestCenterForActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCentersByActivityId(response: Response): Observable<ListResultDtoOfInterestCenterForActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfInterestCenterForActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfInterestCenterForActivityDto.fromJS(resultData200) : new ListResultDtoOfInterestCenterForActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfInterestCenterForActivityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivitiesEndorsedByActivityId(id: number): Observable<ListResultDtoOfActivityEndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetActivitiesEndorsedByActivityId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetActivitiesEndorsedByActivityId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetActivitiesEndorsedByActivityId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfActivityEndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfActivityEndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetActivitiesEndorsedByActivityId(response: Response): Observable<ListResultDtoOfActivityEndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfActivityEndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfActivityEndorsementDto.fromJS(resultData200) : new ListResultDtoOfActivityEndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfActivityEndorsementDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    setUpdateStatusActivityUser(input: UserActivityInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/SetUpdateStatusActivityUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSetUpdateStatusActivityUser(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSetUpdateStatusActivityUser(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSetUpdateStatusActivityUser(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class AddressServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    deleteAddress(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Address/DeleteAddress?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeleteAddress(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteAddress(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteAddress(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAddressDefaultByUserId(id: number): Observable<AddressDto> {
+        let url_ = this.baseUrl + "/api/services/app/Address/GetAddressDefaultByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAddressDefaultByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAddressDefaultByUserId(response_);
+                } catch (e) {
+                    return <Observable<AddressDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<AddressDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAddressDefaultByUserId(response: Response): Observable<AddressDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: AddressDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? AddressDto.fromJS(resultData200) : new AddressDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<AddressDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAddressListByUserId(id: number): Observable<ListAddressDto> {
+        let url_ = this.baseUrl + "/api/services/app/Address/GetAddressListByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAddressListByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAddressListByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListAddressDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListAddressDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAddressListByUserId(response: Response): Observable<ListAddressDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListAddressDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListAddressDto.fromJS(resultData200) : new ListAddressDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListAddressDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdate(input: AddressDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Address/CreateOrUpdate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdate(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdate(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdate(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdateDisableValidation(input: AddressDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Address/CreateOrUpdateDisableValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdateDisableValidation(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdateDisableValidation(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdateDisableValidation(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAddressById(id: number): Observable<AddressDto> {
+        let url_ = this.baseUrl + "/api/services/app/Address/GetAddressById?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAddressById(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAddressById(response_);
+                } catch (e) {
+                    return <Observable<AddressDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<AddressDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAddressById(response: Response): Observable<AddressDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: AddressDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? AddressDto.fromJS(resultData200) : new AddressDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<AddressDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getDefaultByUserId(id: number): Observable<AddressDto> {
+        let url_ = this.baseUrl + "/api/services/app/Address/GetDefaultByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetDefaultByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetDefaultByUserId(response_);
+                } catch (e) {
+                    return <Observable<AddressDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<AddressDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetDefaultByUserId(response: Response): Observable<AddressDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: AddressDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? AddressDto.fromJS(resultData200) : new AddressDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<AddressDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class AuditLogServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -609,6 +2124,526 @@ export class AuditLogServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<FileDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class AvailabilityServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createAvailability(input: AvailabilityDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Availability/CreateAvailability";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateAvailability(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateAvailability(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateAvailability(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAvailabilitiesByUserId(id: number): Observable<ListResultDtoOfAvailabilityDto> {
+        let url_ = this.baseUrl + "/api/services/app/Availability/GetAvailabilitiesByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAvailabilitiesByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAvailabilitiesByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfAvailabilityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfAvailabilityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAvailabilitiesByUserId(response: Response): Observable<ListResultDtoOfAvailabilityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfAvailabilityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfAvailabilityDto.fromJS(resultData200) : new ListResultDtoOfAvailabilityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfAvailabilityDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    removeAvailability(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Availability/RemoveAvailability?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRemoveAvailability(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRemoveAvailability(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRemoveAvailability(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class BalanceTransferServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    requestBalanceTransfer(input: RequestBalanceTransferInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/RequestBalanceTransfer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRequestBalanceTransfer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRequestBalanceTransfer(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRequestBalanceTransfer(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    confirmBalanceTransfer(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/ConfirmBalanceTransfer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processConfirmBalanceTransfer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processConfirmBalanceTransfer(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processConfirmBalanceTransfer(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelBalanceTransfer(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/CancelBalanceTransfer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelBalanceTransfer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelBalanceTransfer(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelBalanceTransfer(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class BankAccountServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createBankAccount(input: CreateBankAccountInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BankAccount/CreateBankAccount";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateBankAccount(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateBankAccount(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateBankAccount(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getBankAccountByUserId(id: number): Observable<CreateBankAccountInput> {
+        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBankAccountByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBankAccountByUserId(response_);
+                } catch (e) {
+                    return <Observable<CreateBankAccountInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CreateBankAccountInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBankAccountByUserId(response: Response): Observable<CreateBankAccountInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CreateBankAccountInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CreateBankAccountInput.fromJS(resultData200) : new CreateBankAccountInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CreateBankAccountInput>(<any>null);
+    }
+}
+
+@Injectable()
+export class BinaryObjectServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getBinaryObject(guid: string): Observable<BinaryObjectDto> {
+        let url_ = this.baseUrl + "/api/services/app/BinaryObject/GetBinaryObject?";
+        if (guid !== undefined)
+            url_ += "guid=" + encodeURIComponent("" + guid) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBinaryObject(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBinaryObject(response_);
+                } catch (e) {
+                    return <Observable<BinaryObjectDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<BinaryObjectDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBinaryObject(response: Response): Observable<BinaryObjectDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: BinaryObjectDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? BinaryObjectDto.fromJS(resultData200) : new BinaryObjectDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<BinaryObjectDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getBase64String(guid: string): Observable<Base64Dto> {
+        let url_ = this.baseUrl + "/api/services/app/BinaryObject/GetBase64String?";
+        if (guid !== undefined)
+            url_ += "guid=" + encodeURIComponent("" + guid) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBase64String(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBase64String(response_);
+                } catch (e) {
+                    return <Observable<Base64Dto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<Base64Dto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBase64String(response: Response): Observable<Base64Dto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: Base64Dto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Base64Dto.fromJS(resultData200) : new Base64Dto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<Base64Dto>(<any>null);
     }
 }
 
@@ -918,6 +2953,162 @@ export class ChatServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class CieloServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createSale(input: CieloSaleInput): Observable<CieloSaleOutput> {
+        let url_ = this.baseUrl + "/api/Cielo/CreateSale";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateSale(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateSale(response_);
+                } catch (e) {
+                    return <Observable<CieloSaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CieloSaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateSale(response: Response): Observable<CieloSaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CieloSaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CieloSaleOutput.fromJS(resultData200) : new CieloSaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CieloSaleOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPaymentTransactionByWorbbyTaskId(worbbyTaskId: number): Observable<SaleOutput> {
+        let url_ = this.baseUrl + "/api/Cielo/GetPaymentTransactionByWorbbyTaskId";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskId);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentTransactionByWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentTransactionByWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<SaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<SaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentTransactionByWorbbyTaskId(response: Response): Observable<SaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: SaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? SaleOutput.fromJS(resultData200) : new SaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<SaleOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    capturePaymentTransaction(worbbyTaskId: number): Observable<CieloCaptureSaleOutput> {
+        let url_ = this.baseUrl + "/api/Cielo/CapturePaymentTransaction";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskId);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCapturePaymentTransaction(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCapturePaymentTransaction(response_);
+                } catch (e) {
+                    return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCapturePaymentTransaction(response: Response): Observable<CieloCaptureSaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CieloCaptureSaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CieloCaptureSaleOutput.fromJS(resultData200) : new CieloCaptureSaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CieloCaptureSaleOutput>(<any>null);
     }
 }
 
@@ -1340,6 +3531,1042 @@ export class EditionServiceProxy {
 }
 
 @Injectable()
+export class EndorsementServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getEndorsement(id: number): Observable<EndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetEndorsement?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEndorsement(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEndorsement(response_);
+                } catch (e) {
+                    return <Observable<EndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<EndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEndorsement(response: Response): Observable<EndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: EndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? EndorsementDto.fromJS(resultData200) : new EndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<EndorsementDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEndorsementByUserIdAndFromUserId(userId: number, fromUserId: number): Observable<EndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetEndorsementByUserIdAndFromUserId?";
+        if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
+        if (fromUserId !== undefined)
+            url_ += "FromUserId=" + encodeURIComponent("" + fromUserId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEndorsementByUserIdAndFromUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEndorsementByUserIdAndFromUserId(response_);
+                } catch (e) {
+                    return <Observable<EndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<EndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEndorsementByUserIdAndFromUserId(response: Response): Observable<EndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: EndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? EndorsementDto.fromJS(resultData200) : new EndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<EndorsementDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEndorsementsByUserId(id: number, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfEndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetEndorsementsByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEndorsementsByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEndorsementsByUserId(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfEndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfEndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEndorsementsByUserId(response: Response): Observable<PagedResultDtoOfEndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfEndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfEndorsementDto.fromJS(resultData200) : new PagedResultDtoOfEndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfEndorsementDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateEndorsement(input: EndorsementDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/UpdateEndorsement";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateEndorsement(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateEndorsement(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateEndorsement(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateEndorsementAlterStatus(input: EndorsementAlterStatusDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/UpdateEndorsementAlterStatus";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateEndorsementAlterStatus(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateEndorsementAlterStatus(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateEndorsementAlterStatus(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorByUserId(id: number): Observable<WorbbiorDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetWorbbiorByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorByUserId(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorByUserId(response: Response): Observable<WorbbiorDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorDto.fromJS(resultData200) : new WorbbiorDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdateEndorsament(input: ActivityEndorsementForCreateUpdate): Observable<ActivityEndorsementForCreateUpdate> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/CreateOrUpdateEndorsament";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdateEndorsament(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdateEndorsament(response_);
+                } catch (e) {
+                    return <Observable<ActivityEndorsementForCreateUpdate>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ActivityEndorsementForCreateUpdate>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdateEndorsament(response: Response): Observable<ActivityEndorsementForCreateUpdate> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ActivityEndorsementForCreateUpdate = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ActivityEndorsementForCreateUpdate.fromJS(resultData200) : new ActivityEndorsementForCreateUpdate();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ActivityEndorsementForCreateUpdate>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    validateQuestionnaireEndorsement(input: ActivityEndorsementForCreateUpdate): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/ValidateQuestionnaireEndorsement";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processValidateQuestionnaireEndorsement(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processValidateQuestionnaireEndorsement(response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<boolean>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processValidateQuestionnaireEndorsement(response: Response): Observable<boolean> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: boolean = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<boolean>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdateEnableValidationEndorsament(input: ActivityEndorsementForCreateUpdate): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/CreateOrUpdateEnableValidationEndorsament";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdateEnableValidationEndorsament(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdateEnableValidationEndorsament(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdateEnableValidationEndorsament(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getUserActivitiesByUserId(userId: number, endorsementId: number): Observable<ListResultDtoOfActivityEndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetUserActivitiesByUserId?";
+        if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&"; 
+        if (endorsementId !== undefined)
+            url_ += "endorsementId=" + encodeURIComponent("" + endorsementId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUserActivitiesByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUserActivitiesByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfActivityEndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfActivityEndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUserActivitiesByUserId(response: Response): Observable<ListResultDtoOfActivityEndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfActivityEndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfActivityEndorsementDto.fromJS(resultData200) : new ListResultDtoOfActivityEndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfActivityEndorsementDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getUserActivitiesByEndorsementId(id: number): Observable<ListResultDtoOfActivityEndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetUserActivitiesByEndorsementId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUserActivitiesByEndorsementId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUserActivitiesByEndorsementId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfActivityEndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfActivityEndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUserActivitiesByEndorsementId(response: Response): Observable<ListResultDtoOfActivityEndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfActivityEndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfActivityEndorsementDto.fromJS(resultData200) : new ListResultDtoOfActivityEndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfActivityEndorsementDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEndorsementsByActivitId(userId: number, userActivitId: number): Observable<ListResultDtoOfGetEndorsementsByActivitIdDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetEndorsementsByActivitId?";
+        if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&"; 
+        if (userActivitId !== undefined)
+            url_ += "userActivitId=" + encodeURIComponent("" + userActivitId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEndorsementsByActivitId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEndorsementsByActivitId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfGetEndorsementsByActivitIdDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfGetEndorsementsByActivitIdDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEndorsementsByActivitId(response: Response): Observable<ListResultDtoOfGetEndorsementsByActivitIdDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfGetEndorsementsByActivitIdDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfGetEndorsementsByActivitIdDto.fromJS(resultData200) : new ListResultDtoOfGetEndorsementsByActivitIdDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfGetEndorsementsByActivitIdDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEndorsements(filter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfEndorsementDto> {
+        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetEndorsements?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEndorsements(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEndorsements(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfEndorsementDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfEndorsementDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEndorsements(response: Response): Observable<PagedResultDtoOfEndorsementDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfEndorsementDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfEndorsementDto.fromJS(resultData200) : new PagedResultDtoOfEndorsementDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfEndorsementDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class EvaluationServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getEvaluationsByToUserId(id: number): Observable<ListResultDtoOfEvaluationDto> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetEvaluationsByToUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationsByToUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationsByToUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfEvaluationDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfEvaluationDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationsByToUserId(response: Response): Observable<ListResultDtoOfEvaluationDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfEvaluationDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfEvaluationDto.fromJS(resultData200) : new ListResultDtoOfEvaluationDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfEvaluationDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEvaluationsByUserActivityId(id: number): Observable<ListResultDtoOfEvaluationDto> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetEvaluationsByUserActivityId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationsByUserActivityId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationsByUserActivityId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfEvaluationDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfEvaluationDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationsByUserActivityId(response: Response): Observable<ListResultDtoOfEvaluationDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfEvaluationDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfEvaluationDto.fromJS(resultData200) : new ListResultDtoOfEvaluationDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfEvaluationDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEvaluationValuesByEvaluationId(id: number): Observable<ListResultDtoOfEvaluationValueDto> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetEvaluationValuesByEvaluationId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationValuesByEvaluationId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationValuesByEvaluationId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfEvaluationValueDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfEvaluationValueDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationValuesByEvaluationId(response: Response): Observable<ListResultDtoOfEvaluationValueDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfEvaluationValueDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfEvaluationValueDto.fromJS(resultData200) : new ListResultDtoOfEvaluationValueDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfEvaluationValueDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEvaluationValuesByToUserId(id: number): Observable<ListResultDtoOfEvaluationValueDto> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetEvaluationValuesByToUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationValuesByToUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationValuesByToUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfEvaluationValueDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfEvaluationValueDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationValuesByToUserId(response: Response): Observable<ListResultDtoOfEvaluationValueDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfEvaluationValueDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfEvaluationValueDto.fromJS(resultData200) : new ListResultDtoOfEvaluationValueDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfEvaluationValueDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createEvaluation(input: EvaluationInput): Observable<EvaluationInput> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/CreateEvaluation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateEvaluation(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateEvaluation(response_);
+                } catch (e) {
+                    return <Observable<EvaluationInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<EvaluationInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateEvaluation(response: Response): Observable<EvaluationInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: EvaluationInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? EvaluationInput.fromJS(resultData200) : new EvaluationInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<EvaluationInput>(<any>null);
+    }
+}
+
+@Injectable()
+export class EvaluationTypeServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getEvaluationTypes(): Observable<ListResultDtoOfEvaluationValueDto> {
+        let url_ = this.baseUrl + "/api/services/app/EvaluationType/GetEvaluationTypes";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationTypes(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationTypes(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfEvaluationValueDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfEvaluationValueDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationTypes(response: Response): Observable<ListResultDtoOfEvaluationValueDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfEvaluationValueDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfEvaluationValueDto.fromJS(resultData200) : new ListResultDtoOfEvaluationValueDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfEvaluationValueDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class EvaluationValueServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createEvaluationValue(input: EvaluationValueInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/EvaluationValue/CreateEvaluationValue";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateEvaluationValue(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateEvaluationValue(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateEvaluationValue(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class FriendshipServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -1579,6 +4806,160 @@ export class FriendshipServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class GalleryActivityServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createGalleryActivity(input: GalleryActivityDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GalleryActivity/CreateGalleryActivity";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateGalleryActivity(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateGalleryActivity(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateGalleryActivity(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    removeOneImageGalleryActivity(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GalleryActivity/RemoveOneImageGalleryActivity?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRemoveOneImageGalleryActivity(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRemoveOneImageGalleryActivity(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRemoveOneImageGalleryActivity(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getGalleriesByActivityUserId(id: number): Observable<ListResultDtoOfGalleryActivityDto> {
+        let url_ = this.baseUrl + "/api/services/app/GalleryActivity/GetGalleriesByActivityUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetGalleriesByActivityUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetGalleriesByActivityUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfGalleryActivityDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfGalleryActivityDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetGalleriesByActivityUserId(response: Response): Observable<ListResultDtoOfGalleryActivityDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfGalleryActivityDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfGalleryActivityDto.fromJS(resultData200) : new ListResultDtoOfGalleryActivityDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfGalleryActivityDto>(<any>null);
     }
 }
 
@@ -1901,6 +5282,698 @@ export class HostSettingsServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class InterestCenterServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCenters(): Observable<ListResultDtoOfInterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCenters";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCenters(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCenters(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfInterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfInterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCenters(response: Response): Observable<ListResultDtoOfInterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfInterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfInterestCenterDto.fromJS(resultData200) : new ListResultDtoOfInterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfInterestCenterDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCenterActivities(id: number, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfInterestCenterActivityListDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCenterActivities?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCenterActivities(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCenterActivities(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfInterestCenterActivityListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfInterestCenterActivityListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCenterActivities(response: Response): Observable<PagedResultDtoOfInterestCenterActivityListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfInterestCenterActivityListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfInterestCenterActivityListDto.fromJS(resultData200) : new PagedResultDtoOfInterestCenterActivityListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfInterestCenterActivityListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createInterestCenter(input: CreateInterestCenterInput): Observable<InterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/CreateInterestCenter";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<InterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<InterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateInterestCenter(response: Response): Observable<InterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: InterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? InterestCenterDto.fromJS(resultData200) : new InterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<InterestCenterDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateInterestCenter(input: UpdateInterestCenterInput): Observable<InterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/UpdateInterestCenter";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<InterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<InterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateInterestCenter(response: Response): Observable<InterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: InterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? InterestCenterDto.fromJS(resultData200) : new InterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<InterestCenterDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    moveInterestCenter(input: MoveInterestCenterInput): Observable<InterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/MoveInterestCenter";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processMoveInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processMoveInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<InterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<InterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processMoveInterestCenter(response: Response): Observable<InterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: InterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? InterestCenterDto.fromJS(resultData200) : new InterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<InterestCenterDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteInterestCenter(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/DeleteInterestCenter?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeleteInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteInterestCenter(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    addActivityToInterestCenter(input: ActivityToInterestCenterInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/AddActivityToInterestCenter";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processAddActivityToInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processAddActivityToInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processAddActivityToInterestCenter(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    removeActivityFromInterestCenter(activityId: number, interestCenterId: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/RemoveActivityFromInterestCenter?";
+        if (activityId !== undefined)
+            url_ += "ActivityId=" + encodeURIComponent("" + activityId) + "&"; 
+        if (interestCenterId !== undefined)
+            url_ += "InterestCenterId=" + encodeURIComponent("" + interestCenterId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRemoveActivityFromInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRemoveActivityFromInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRemoveActivityFromInterestCenter(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    isInInterestCenter(input: ActivityToInterestCenterInput): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/IsInInterestCenter";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processIsInInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processIsInInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<boolean>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processIsInInterestCenter(response: Response): Observable<boolean> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: boolean = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<boolean>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateInterestCenterPicture(input: UpdateInterestCenterPictureInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/UpdateInterestCenterPicture";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateInterestCenterPicture(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateInterestCenterPicture(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateInterestCenterPicture(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCenterPicture(id: number): Observable<GetPictureOutput> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCenterPicture?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCenterPicture(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCenterPicture(response_);
+                } catch (e) {
+                    return <Observable<GetPictureOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<GetPictureOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCenterPicture(response: Response): Observable<GetPictureOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: GetPictureOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetPictureOutput.fromJS(resultData200) : new GetPictureOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<GetPictureOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCenter(id: number): Observable<InterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCenter?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCenter(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCenter(response_);
+                } catch (e) {
+                    return <Observable<InterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<InterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCenter(response: Response): Observable<InterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: InterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? InterestCenterDto.fromJS(resultData200) : new InterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<InterestCenterDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCentersTopLevel(): Observable<ListResultDtoOfInterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCentersTopLevel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCentersTopLevel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCentersTopLevel(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfInterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfInterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCentersTopLevel(response: Response): Observable<ListResultDtoOfInterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfInterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfInterestCenterDto.fromJS(resultData200) : new ListResultDtoOfInterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfInterestCenterDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getInterestCentersChildrenById(id: number): Observable<ListResultDtoOfInterestCenterDto> {
+        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCentersChildrenById?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetInterestCentersChildrenById(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetInterestCentersChildrenById(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfInterestCenterDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfInterestCenterDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetInterestCentersChildrenById(response: Response): Observable<ListResultDtoOfInterestCenterDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfInterestCenterDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfInterestCenterDto.fromJS(resultData200) : new ListResultDtoOfInterestCenterDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfInterestCenterDto>(<any>null);
     }
 }
 
@@ -3829,6 +7902,303 @@ export class RoleServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class SaleServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createPayment(input: SaleInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/CreatePayment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreatePayment(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreatePayment(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreatePayment(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    finishPayment(input: SaleInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/FinishPayment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processFinishPayment(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processFinishPayment(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processFinishPayment(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelPayment(input: SaleInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/CancelPayment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelPayment(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelPayment(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelPayment(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getSale(id: number): Observable<SaleOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetSale?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetSale(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetSale(response_);
+                } catch (e) {
+                    return <Observable<SaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<SaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetSale(response: Response): Observable<SaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: SaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? SaleOutput.fromJS(resultData200) : new SaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<SaleOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getSaleByWorbbyTaskId(id: number): Observable<SaleOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetSaleByWorbbyTaskId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetSaleByWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetSaleByWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<SaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<SaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetSaleByWorbbyTaskId(response: Response): Observable<SaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: SaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? SaleOutput.fromJS(resultData200) : new SaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<SaleOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPaymentById(id: number): Observable<SaleOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentById?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentById(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentById(response_);
+                } catch (e) {
+                    return <Observable<SaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<SaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentById(response: Response): Observable<SaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: SaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? SaleOutput.fromJS(resultData200) : new SaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<SaleOutput>(<any>null);
     }
 }
 
@@ -6018,6 +10388,352 @@ export class UserServiceProxy {
 }
 
 @Injectable()
+export class UserDocumentsInfoServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    createUserDocumentsInfo(input: CreateUserDocumentsInfoInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/CreateUserDocumentsInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateUserDocumentsInfo(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateUserDocumentsInfo(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateUserDocumentsInfo(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createUserDocumentsInfoDisableValidation(input: CreateUserDocumentsInfoInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/CreateUserDocumentsInfoDisableValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateUserDocumentsInfoDisableValidation(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateUserDocumentsInfoDisableValidation(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateUserDocumentsInfoDisableValidation(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    validateFormCompany(input: CreateUserDocumentsInfoInput): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/ValidateFormCompany";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processValidateFormCompany(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processValidateFormCompany(response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<boolean>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processValidateFormCompany(response: Response): Observable<boolean> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: boolean = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<boolean>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getUserDocumentsInfoForEdit(): Observable<CreateUserDocumentsInfoInput> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/GetUserDocumentsInfoForEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUserDocumentsInfoForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUserDocumentsInfoForEdit(response_);
+                } catch (e) {
+                    return <Observable<CreateUserDocumentsInfoInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CreateUserDocumentsInfoInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUserDocumentsInfoForEdit(response: Response): Observable<CreateUserDocumentsInfoInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CreateUserDocumentsInfoInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CreateUserDocumentsInfoInput.fromJS(resultData200) : new CreateUserDocumentsInfoInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CreateUserDocumentsInfoInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getExtensionBase64(id: string): Observable<FileDtoBase64> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/GetExtensionBase64?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetExtensionBase64(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetExtensionBase64(response_);
+                } catch (e) {
+                    return <Observable<FileDtoBase64>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDtoBase64>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetExtensionBase64(response: Response): Observable<FileDtoBase64> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDtoBase64 = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDtoBase64.fromJS(resultData200) : new FileDtoBase64();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDtoBase64>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    downloadDocumentFile(fileDownload: FileDownloadDto): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/DownloadDocumentFile";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(fileDownload ? fileDownload.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDownloadDocumentFile(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDownloadDocumentFile(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDownloadDocumentFile(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getUserDocumentsInfoByUserId(id: number): Observable<CreateUserDocumentsInfoInput> {
+        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/GetUserDocumentsInfoByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUserDocumentsInfoByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUserDocumentsInfoByUserId(response_);
+                } catch (e) {
+                    return <Observable<CreateUserDocumentsInfoInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CreateUserDocumentsInfoInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUserDocumentsInfoByUserId(response: Response): Observable<CreateUserDocumentsInfoInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CreateUserDocumentsInfoInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CreateUserDocumentsInfoInput.fromJS(resultData200) : new CreateUserDocumentsInfoInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CreateUserDocumentsInfoInput>(<any>null);
+    }
+}
+
+@Injectable()
 export class UserLinkServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -6389,6 +11105,2585 @@ export class WebLogServiceProxy {
     }
 }
 
+@Injectable()
+export class WorbbiorServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorsToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiorsToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorsToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorsToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorsToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiors(filter: string, permission: string, worbbiorStateCombo: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbiorForEditDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiors?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (worbbiorStateCombo !== undefined)
+            url_ += "worbbiorStateCombo=" + encodeURIComponent("" + worbbiorStateCombo) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiors(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiors(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfWorbbiorForEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfWorbbiorForEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiors(response: Response): Observable<PagedResultDtoOfWorbbiorForEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfWorbbiorForEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfWorbbiorForEditDto.fromJS(resultData200) : new PagedResultDtoOfWorbbiorForEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfWorbbiorForEditDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorForEdit(): Observable<WorbbiorForEditDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiorForEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorForEdit(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorForEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorForEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorForEdit(response: Response): Observable<WorbbiorForEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorForEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorForEditDto.fromJS(resultData200) : new WorbbiorForEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorForEditDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorForEditByUserid(id: number): Observable<WorbbiorForEditDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiorForEditByUserid?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorForEditByUserid(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorForEditByUserid(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorForEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorForEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorForEditByUserid(response: Response): Observable<WorbbiorForEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorForEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorForEditDto.fromJS(resultData200) : new WorbbiorForEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorForEditDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateCurrentWorbbiorDisableValidation(input: WorbbiorForEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/UpdateCurrentWorbbiorDisableValidation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateCurrentWorbbiorDisableValidation(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateCurrentWorbbiorDisableValidation(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateCurrentWorbbiorDisableValidation(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateCurrentWorbbior(input: WorbbiorForEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/UpdateCurrentWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateCurrentWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateCurrentWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateCurrentWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorByUserId(id: number): Observable<WorbbiorDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiorByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorByUserId(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorByUserId(response: Response): Observable<WorbbiorDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorDto.fromJS(resultData200) : new WorbbiorDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    changeActionAdminWorbbiorAccount(input: RequestEditWorbbiorDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/ChangeActionAdminWorbbiorAccount";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processChangeActionAdminWorbbiorAccount(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processChangeActionAdminWorbbiorAccount(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processChangeActionAdminWorbbiorAccount(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendEmail(input: SendEmailWorbbiorDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/SendEmail";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmail(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmail(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmail(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    requestActivation(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/RequestActivation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRequestActivation(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRequestActivation(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRequestActivation(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorProfile(id: number): Observable<WorbbiorProfileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiorProfile?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorProfile(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorProfile(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorProfileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorProfileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorProfile(response: Response): Observable<WorbbiorProfileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorProfileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorProfileDto.fromJS(resultData200) : new WorbbiorProfileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorProfileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPreviewWorbbiorProfile(id: number): Observable<WorbbiorProfileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetPreviewWorbbiorProfile?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPreviewWorbbiorProfile(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPreviewWorbbiorProfile(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorProfileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorProfileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPreviewWorbbiorProfile(response: Response): Observable<WorbbiorProfileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorProfileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorProfileDto.fromJS(resultData200) : new WorbbiorProfileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorProfileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbiorProfileByUserId(id: number): Observable<WorbbiorProfileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetWorbbiorProfileByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbiorProfileByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbiorProfileByUserId(response_);
+                } catch (e) {
+                    return <Observable<WorbbiorProfileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbiorProfileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbiorProfileByUserId(response: Response): Observable<WorbbiorProfileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbiorProfileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbiorProfileDto.fromJS(resultData200) : new WorbbiorProfileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbiorProfileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    reportEmailWorbbior(input: ReportEmailDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/ReportEmailWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processReportEmailWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processReportEmailWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processReportEmailWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    reportEmailWorbbient(input: ReportWorbbintEmailDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/ReportEmailWorbbient";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processReportEmailWorbbient(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processReportEmailWorbbient(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processReportEmailWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    worbbientToWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/WorbbientToWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processWorbbientToWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processWorbbientToWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processWorbbientToWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    requestWorbbiorRegisterCode(input: RequestWorbbiorRegisterCodeEmailDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Worbbior/RequestWorbbiorRegisterCode";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processRequestWorbbiorRegisterCode(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processRequestWorbbiorRegisterCode(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processRequestWorbbiorRegisterCode(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class WorbbyTaskServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTask(id: number): Observable<WorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTask?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<WorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTask(response: Response): Observable<WorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbyTaskDto.fromJS(resultData200) : new WorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    findWorbbyTasks(input: FindWorbbyTaskInput): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/FindWorbbyTasks";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processFindWorbbyTasks(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processFindWorbbyTasks(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processFindWorbbyTasks(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdateWorbbyOffer(input: WorbbyOfferDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CreateOrUpdateWorbbyOffer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdateWorbbyOffer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdateWorbbyOffer(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdateWorbbyOffer(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyOffer(id: number): Observable<WorbbyOfferDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyOffer?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyOffer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyOffer(response_);
+                } catch (e) {
+                    return <Observable<WorbbyOfferDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbyOfferDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyOffer(response: Response): Observable<WorbbyOfferDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbyOfferDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbyOfferDto.fromJS(resultData200) : new WorbbyOfferDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbyOfferDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksCloseOrCanceledByTargetUserId(id: number, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksCloseOrCanceledByTargetUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksCloseOrCanceledByTargetUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksCloseOrCanceledByTargetUserId(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksCloseOrCanceledByTargetUserId(response: Response): Observable<PagedResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new PagedResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksCloseOrCanceledByUserId(id: number, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksCloseOrCanceledByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksCloseOrCanceledByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksCloseOrCanceledByUserId(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksCloseOrCanceledByUserId(response: Response): Observable<PagedResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new PagedResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTaskMessagesByWorbbyTaskId(id: number, currentLength: number, isMore: boolean, worbbyTaskMessageId: number): Observable<WorbbyTaskMessageListDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTaskMessagesByWorbbyTaskId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (currentLength !== undefined)
+            url_ += "CurrentLength=" + encodeURIComponent("" + currentLength) + "&"; 
+        if (isMore !== undefined)
+            url_ += "IsMore=" + encodeURIComponent("" + isMore) + "&"; 
+        if (worbbyTaskMessageId !== undefined)
+            url_ += "WorbbyTaskMessageId=" + encodeURIComponent("" + worbbyTaskMessageId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTaskMessagesByWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTaskMessagesByWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<WorbbyTaskMessageListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbyTaskMessageListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTaskMessagesByWorbbyTaskId(response: Response): Observable<WorbbyTaskMessageListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbyTaskMessageListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbyTaskMessageListDto.fromJS(resultData200) : new WorbbyTaskMessageListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbyTaskMessageListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTaskMessagesByOfferId(id: number, currentLength: number, isMore: boolean, worbbyTaskMessageId: number): Observable<WorbbyTaskMessageListDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTaskMessagesByOfferId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (currentLength !== undefined)
+            url_ += "CurrentLength=" + encodeURIComponent("" + currentLength) + "&"; 
+        if (isMore !== undefined)
+            url_ += "IsMore=" + encodeURIComponent("" + isMore) + "&"; 
+        if (worbbyTaskMessageId !== undefined)
+            url_ += "WorbbyTaskMessageId=" + encodeURIComponent("" + worbbyTaskMessageId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTaskMessagesByOfferId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTaskMessagesByOfferId(response_);
+                } catch (e) {
+                    return <Observable<WorbbyTaskMessageListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbyTaskMessageListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTaskMessagesByOfferId(response: Response): Observable<WorbbyTaskMessageListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbyTaskMessageListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbyTaskMessageListDto.fromJS(resultData200) : new WorbbyTaskMessageListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbyTaskMessageListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendWorbbyTaskMassage(input: WorbbyTaskMessageDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/SendWorbbyTaskMassage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendWorbbyTaskMassage(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendWorbbyTaskMassage(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendWorbbyTaskMassage(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksProposedByTargetUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksProposedByTargetUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksProposedByTargetUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksProposedByTargetUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksProposedByTargetUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksProposedByUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksProposedByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksProposedByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksProposedByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksProposedByUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksProposedAndAcceptedByTargetUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksProposedAndAcceptedByTargetUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksProposedAndAcceptedByTargetUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksProposedAndAcceptedByTargetUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksProposedAndAcceptedByTargetUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksProposedAndAcceptedByUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksProposedAndAcceptedByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksProposedAndAcceptedByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksProposedAndAcceptedByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksProposedAndAcceptedByUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    postProposedWorbbyTask(input: WorbbyTaskInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/PostProposedWorbbyTask";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processPostProposedWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processPostProposedWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processPostProposedWorbbyTask(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    editProposedWorbbyTask(input: WorbbyTaskInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/EditProposedWorbbyTask";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processEditProposedWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processEditProposedWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processEditProposedWorbbyTask(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelProposedWorbbyTask(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelProposedWorbbyTask";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelProposedWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelProposedWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelProposedWorbbyTask(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    worbbyTaskProposalAcceptedByWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/WorbbyTaskProposalAcceptedByWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processWorbbyTaskProposalAcceptedByWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processWorbbyTaskProposalAcceptedByWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processWorbbyTaskProposalAcceptedByWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    worbbyTaskProposalRefusedByWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/WorbbyTaskProposalRefusedByWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processWorbbyTaskProposalRefusedByWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processWorbbyTaskProposalRefusedByWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processWorbbyTaskProposalRefusedByWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPendingOffersByUserId(id: number): Observable<ListResultDtoOfWorbbyOfferDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetPendingOffersByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPendingOffersByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPendingOffersByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyOfferDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyOfferDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPendingOffersByUserId(response: Response): Observable<ListResultDtoOfWorbbyOfferDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyOfferDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyOfferDto.fromJS(resultData200) : new ListResultDtoOfWorbbyOfferDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyOfferDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPublicWorbbyTasksPostedByUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetPublicWorbbyTasksPostedByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPublicWorbbyTasksPostedByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPublicWorbbyTasksPostedByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPublicWorbbyTasksPostedByUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTaskWithOffers(id: number): Observable<WorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTaskWithOffers?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTaskWithOffers(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTaskWithOffers(response_);
+                } catch (e) {
+                    return <Observable<WorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTaskWithOffers(response: Response): Observable<WorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: WorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorbbyTaskDto.fromJS(resultData200) : new WorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<WorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksWithOffersConfirmedByTargetUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksWithOffersConfirmedByTargetUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksWithOffersConfirmedByTargetUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksWithOffersConfirmedByTargetUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksWithOffersConfirmedByTargetUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksWithOffersConfirmedByUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksWithOffersConfirmedByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksWithOffersConfirmedByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksWithOffersConfirmedByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksWithOffersConfirmedByUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksWithOffersAcceptedByUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksWithOffersAcceptedByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksWithOffersAcceptedByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksWithOffersAcceptedByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksWithOffersAcceptedByUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksWithOffersAcceptedByTargetUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksWithOffersAcceptedByTargetUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksWithOffersAcceptedByTargetUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksWithOffersAcceptedByTargetUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksWithOffersAcceptedByTargetUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    postPublicWorbbyTask(input: WorbbyTaskInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/PostPublicWorbbyTask";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processPostPublicWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processPostPublicWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processPostPublicWorbbyTask(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    editPublicWorbbyTask(input: WorbbyTaskInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/EditPublicWorbbyTask";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processEditPublicWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processEditPublicWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processEditPublicWorbbyTask(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelPublicWorbbyTask(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelPublicWorbbyTask";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelPublicWorbbyTask(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelPublicWorbbyTask(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelPublicWorbbyTask(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    offerAcceptedByWorbbient(input: WorbbyOfferDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/OfferAcceptedByWorbbient";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processOfferAcceptedByWorbbient(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processOfferAcceptedByWorbbient(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processOfferAcceptedByWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    offerCanceledByWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/OfferCanceledByWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processOfferCanceledByWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processOfferCanceledByWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processOfferCanceledByWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    offerConfirmedByWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/OfferConfirmedByWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processOfferConfirmedByWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processOfferConfirmedByWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processOfferConfirmedByWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    offerCanceledByWorbbient(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/OfferCanceledByWorbbient";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processOfferCanceledByWorbbient(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processOfferCanceledByWorbbient(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processOfferCanceledByWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelWorbbyTaskAfterHired(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskAfterHired";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelWorbbyTaskAfterHired(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelWorbbyTaskAfterHired(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelWorbbyTaskAfterHired(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksInProgressByUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksInProgressByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksInProgressByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksInProgressByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksInProgressByUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getWorbbyTasksInProgressByTargetUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksInProgressByTargetUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetWorbbyTasksInProgressByTargetUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorbbyTasksInProgressByTargetUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorbbyTasksInProgressByTargetUserId(response: Response): Observable<ListResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new ListResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    worbbyTaskDelivered(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/WorbbyTaskDelivered";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processWorbbyTaskDelivered(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processWorbbyTaskDelivered(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processWorbbyTaskDelivered(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
 export class IsTenantAvailableInput implements IIsTenantAvailableInput {
     tenancyName: string;
 
@@ -6470,6 +13765,11 @@ export class RegisterInput implements IRegisterInput {
     emailAddress: string;
     password: string;
     captchaResponse: string;
+    roleName: string;
+    endorsementId: number;
+    endorsementUserId: number;
+    administrativeArea: string;
+    worbbiorRegisterCode: string;
 
     constructor(data?: IRegisterInput) {
         if (data) {
@@ -6488,6 +13788,11 @@ export class RegisterInput implements IRegisterInput {
             this.emailAddress = data["emailAddress"];
             this.password = data["password"];
             this.captchaResponse = data["captchaResponse"];
+            this.roleName = data["roleName"];
+            this.endorsementId = data["endorsementId"];
+            this.endorsementUserId = data["endorsementUserId"];
+            this.administrativeArea = data["administrativeArea"];
+            this.worbbiorRegisterCode = data["worbbiorRegisterCode"];
         }
     }
 
@@ -6505,6 +13810,11 @@ export class RegisterInput implements IRegisterInput {
         data["emailAddress"] = this.emailAddress;
         data["password"] = this.password;
         data["captchaResponse"] = this.captchaResponse;
+        data["roleName"] = this.roleName;
+        data["endorsementId"] = this.endorsementId;
+        data["endorsementUserId"] = this.endorsementUserId;
+        data["administrativeArea"] = this.administrativeArea;
+        data["worbbiorRegisterCode"] = this.worbbiorRegisterCode;
         return data; 
     }
 }
@@ -6516,6 +13826,11 @@ export interface IRegisterInput {
     emailAddress: string;
     password: string;
     captchaResponse: string;
+    roleName: string;
+    endorsementId: number;
+    endorsementUserId: number;
+    administrativeArea: string;
+    worbbiorRegisterCode: string;
 }
 
 export class RegisterOutput implements IRegisterOutput {
@@ -6908,6 +14223,1512 @@ export interface ISwitchToLinkedAccountOutput {
     tenancyName: string;
 }
 
+export class CreateOrEditActivityDto implements ICreateOrEditActivityDto {
+    title: string;
+    description: string;
+    keyWords: string;
+    activityState: CreateOrEditActivityDtoActivityState;
+    isFeatured: boolean;
+    creationTime: moment.Moment;
+    tenantId: number;
+    id: number;
+
+    constructor(data?: ICreateOrEditActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.title = data["title"];
+            this.description = data["description"];
+            this.keyWords = data["keyWords"];
+            this.activityState = data["activityState"];
+            this.isFeatured = data["isFeatured"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditActivityDto {
+        let result = new CreateOrEditActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["keyWords"] = this.keyWords;
+        data["activityState"] = this.activityState;
+        data["isFeatured"] = this.isFeatured;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditActivityDto {
+    title: string;
+    description: string;
+    keyWords: string;
+    activityState: CreateOrEditActivityDtoActivityState;
+    isFeatured: boolean;
+    creationTime: moment.Moment;
+    tenantId: number;
+    id: number;
+}
+
+export class FileDto implements IFileDto {
+    fileName: string;
+    fileType: string;
+    fileToken: string;
+
+    constructor(data?: IFileDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fileName = data["fileName"];
+            this.fileType = data["fileType"];
+            this.fileToken = data["fileToken"];
+        }
+    }
+
+    static fromJS(data: any): FileDto {
+        let result = new FileDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileName"] = this.fileName;
+        data["fileType"] = this.fileType;
+        data["fileToken"] = this.fileToken;
+        return data; 
+    }
+}
+
+export interface IFileDto {
+    fileName: string;
+    fileType: string;
+    fileToken: string;
+}
+
+export class PagedResultDtoOfCreateOrEditActivityDto implements IPagedResultDtoOfCreateOrEditActivityDto {
+    totalCount: number;
+    items: CreateOrEditActivityDto[];
+
+    constructor(data?: IPagedResultDtoOfCreateOrEditActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(CreateOrEditActivityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfCreateOrEditActivityDto {
+        let result = new PagedResultDtoOfCreateOrEditActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfCreateOrEditActivityDto {
+    totalCount: number;
+    items: CreateOrEditActivityDto[];
+}
+
+export class WorbbyPagedResultDtoOfActivityDto implements IWorbbyPagedResultDtoOfActivityDto {
+    parcialCount: number;
+    totalCount: number;
+    items: ActivityDto[];
+
+    constructor(data?: IWorbbyPagedResultDtoOfActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parcialCount = data["parcialCount"];
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(ActivityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): WorbbyPagedResultDtoOfActivityDto {
+        let result = new WorbbyPagedResultDtoOfActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parcialCount"] = this.parcialCount;
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IWorbbyPagedResultDtoOfActivityDto {
+    parcialCount: number;
+    totalCount: number;
+    items: ActivityDto[];
+}
+
+export class ActivityDto implements IActivityDto {
+    title: string;
+    description: string;
+    keyWords: string;
+    tenantId: number;
+    isFeatured: boolean;
+    listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
+    id: number;
+
+    constructor(data?: IActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.title = data["title"];
+            this.description = data["description"];
+            this.keyWords = data["keyWords"];
+            this.tenantId = data["tenantId"];
+            this.isFeatured = data["isFeatured"];
+            this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ActivityDto {
+        let result = new ActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["keyWords"] = this.keyWords;
+        data["tenantId"] = this.tenantId;
+        data["isFeatured"] = this.isFeatured;
+        data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IActivityDto {
+    title: string;
+    description: string;
+    keyWords: string;
+    tenantId: number;
+    isFeatured: boolean;
+    listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
+    id: number;
+}
+
+export class ListResultDtoOfInterestCenterForActivityDto implements IListResultDtoOfInterestCenterForActivityDto {
+    items: InterestCenterForActivityDto[];
+
+    constructor(data?: IListResultDtoOfInterestCenterForActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(InterestCenterForActivityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfInterestCenterForActivityDto {
+        let result = new ListResultDtoOfInterestCenterForActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfInterestCenterForActivityDto {
+    items: InterestCenterForActivityDto[];
+}
+
+export class InterestCenterForActivityDto implements IInterestCenterForActivityDto {
+    parentId: number;
+    parentDisplayName: string;
+    parentPictureId: string;
+    parentPicture: string;
+    code: string;
+    displayName: string;
+    description: string;
+    titleSuggestionActivity: string;
+    descriptionSuggestionActivity: string;
+    keyWords: string;
+    interestCenterPictureId: string;
+    interestCenterPicture: string;
+    activityCount: number;
+    id: number;
+
+    constructor(data?: IInterestCenterForActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parentId = data["parentId"];
+            this.parentDisplayName = data["parentDisplayName"];
+            this.parentPictureId = data["parentPictureId"];
+            this.parentPicture = data["parentPicture"];
+            this.code = data["code"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.titleSuggestionActivity = data["titleSuggestionActivity"];
+            this.descriptionSuggestionActivity = data["descriptionSuggestionActivity"];
+            this.keyWords = data["keyWords"];
+            this.interestCenterPictureId = data["interestCenterPictureId"];
+            this.interestCenterPicture = data["interestCenterPicture"];
+            this.activityCount = data["activityCount"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InterestCenterForActivityDto {
+        let result = new InterestCenterForActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parentId"] = this.parentId;
+        data["parentDisplayName"] = this.parentDisplayName;
+        data["parentPictureId"] = this.parentPictureId;
+        data["parentPicture"] = this.parentPicture;
+        data["code"] = this.code;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["titleSuggestionActivity"] = this.titleSuggestionActivity;
+        data["descriptionSuggestionActivity"] = this.descriptionSuggestionActivity;
+        data["keyWords"] = this.keyWords;
+        data["interestCenterPictureId"] = this.interestCenterPictureId;
+        data["interestCenterPicture"] = this.interestCenterPicture;
+        data["activityCount"] = this.activityCount;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInterestCenterForActivityDto {
+    parentId: number;
+    parentDisplayName: string;
+    parentPictureId: string;
+    parentPicture: string;
+    code: string;
+    displayName: string;
+    description: string;
+    titleSuggestionActivity: string;
+    descriptionSuggestionActivity: string;
+    keyWords: string;
+    interestCenterPictureId: string;
+    interestCenterPicture: string;
+    activityCount: number;
+    id: number;
+}
+
+export class ListResultDtoOfWorbbiorActivityDto implements IListResultDtoOfWorbbiorActivityDto {
+    items: WorbbiorActivityDto[];
+
+    constructor(data?: IListResultDtoOfWorbbiorActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbiorActivityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfWorbbiorActivityDto {
+        let result = new ListResultDtoOfWorbbiorActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfWorbbiorActivityDto {
+    items: WorbbiorActivityDto[];
+}
+
+export class WorbbiorActivityDto implements IWorbbiorActivityDto {
+    worbbior: WorbbiorDto;
+    userActivity: UserActivityInput;
+
+    constructor(data?: IWorbbiorActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
+            this.userActivity = data["userActivity"] ? UserActivityInput.fromJS(data["userActivity"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): WorbbiorActivityDto {
+        let result = new WorbbiorActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
+        data["userActivity"] = this.userActivity ? this.userActivity.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IWorbbiorActivityDto {
+    worbbior: WorbbiorDto;
+    userActivity: UserActivityInput;
+}
+
+export class WorbbiorDto implements IWorbbiorDto {
+    userId: number;
+    description: string;
+    displayName: string;
+    slug: string;
+    email: string;
+    userPictureId: string;
+    userPicture: string;
+    name: string;
+    surname: string;
+    radius: number;
+    worbbiorState: WorbbiorDtoWorbbiorState;
+    premium: boolean;
+    address: AddressDto;
+    distance: number;
+    averageEvaluations: number;
+    id: number;
+
+    constructor(data?: IWorbbiorDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.description = data["description"];
+            this.displayName = data["displayName"];
+            this.slug = data["slug"];
+            this.email = data["email"];
+            this.userPictureId = data["userPictureId"];
+            this.userPicture = data["userPicture"];
+            this.name = data["name"];
+            this.surname = data["surname"];
+            this.radius = data["radius"];
+            this.worbbiorState = data["worbbiorState"];
+            this.premium = data["premium"];
+            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
+            this.distance = data["distance"];
+            this.averageEvaluations = data["averageEvaluations"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbiorDto {
+        let result = new WorbbiorDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["description"] = this.description;
+        data["displayName"] = this.displayName;
+        data["slug"] = this.slug;
+        data["email"] = this.email;
+        data["userPictureId"] = this.userPictureId;
+        data["userPicture"] = this.userPicture;
+        data["name"] = this.name;
+        data["surname"] = this.surname;
+        data["radius"] = this.radius;
+        data["worbbiorState"] = this.worbbiorState;
+        data["premium"] = this.premium;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["distance"] = this.distance;
+        data["averageEvaluations"] = this.averageEvaluations;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbiorDto {
+    userId: number;
+    description: string;
+    displayName: string;
+    slug: string;
+    email: string;
+    userPictureId: string;
+    userPicture: string;
+    name: string;
+    surname: string;
+    radius: number;
+    worbbiorState: WorbbiorDtoWorbbiorState;
+    premium: boolean;
+    address: AddressDto;
+    distance: number;
+    averageEvaluations: number;
+    id: number;
+}
+
+export class UserActivityInput implements IUserActivityInput {
+    userId: number;
+    endorsementUserId: number;
+    activityId: number;
+    activity: ActivityDto;
+    title: string;
+    description: string;
+    price: number;
+    listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
+    listGalleryActivity: ListResultDtoOfGalleryActivityDto;
+    evaluation: EvaluationAverageDto;
+    tenantId: number;
+    unitMeasure: UserActivityInputUnitMeasure;
+    cancellationPolicy: UserActivityInputCancellationPolicy;
+    activityState: UserActivityInputActivityState;
+    isSuggestActivity: boolean;
+    endorsementsCount: number;
+    taskPerformed: number;
+    id: number;
+
+    constructor(data?: IUserActivityInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.endorsementUserId = data["endorsementUserId"];
+            this.activityId = data["activityId"];
+            this.activity = data["activity"] ? ActivityDto.fromJS(data["activity"]) : <any>undefined;
+            this.title = data["title"];
+            this.description = data["description"];
+            this.price = data["price"];
+            this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
+            this.listGalleryActivity = data["listGalleryActivity"] ? ListResultDtoOfGalleryActivityDto.fromJS(data["listGalleryActivity"]) : <any>undefined;
+            this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.unitMeasure = data["unitMeasure"];
+            this.cancellationPolicy = data["cancellationPolicy"];
+            this.activityState = data["activityState"];
+            this.isSuggestActivity = data["isSuggestActivity"];
+            this.endorsementsCount = data["endorsementsCount"];
+            this.taskPerformed = data["taskPerformed"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UserActivityInput {
+        let result = new UserActivityInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["endorsementUserId"] = this.endorsementUserId;
+        data["activityId"] = this.activityId;
+        data["activity"] = this.activity ? this.activity.toJSON() : <any>undefined;
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["price"] = this.price;
+        data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
+        data["listGalleryActivity"] = this.listGalleryActivity ? this.listGalleryActivity.toJSON() : <any>undefined;
+        data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["unitMeasure"] = this.unitMeasure;
+        data["cancellationPolicy"] = this.cancellationPolicy;
+        data["activityState"] = this.activityState;
+        data["isSuggestActivity"] = this.isSuggestActivity;
+        data["endorsementsCount"] = this.endorsementsCount;
+        data["taskPerformed"] = this.taskPerformed;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUserActivityInput {
+    userId: number;
+    endorsementUserId: number;
+    activityId: number;
+    activity: ActivityDto;
+    title: string;
+    description: string;
+    price: number;
+    listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
+    listGalleryActivity: ListResultDtoOfGalleryActivityDto;
+    evaluation: EvaluationAverageDto;
+    tenantId: number;
+    unitMeasure: UserActivityInputUnitMeasure;
+    cancellationPolicy: UserActivityInputCancellationPolicy;
+    activityState: UserActivityInputActivityState;
+    isSuggestActivity: boolean;
+    endorsementsCount: number;
+    taskPerformed: number;
+    id: number;
+}
+
+export class AddressDto implements IAddressDto {
+    userId: number;
+    tenantId: number;
+    worbbyTaskId: number;
+    name: string;
+    country: string;
+    administrativeArea: string;
+    subAdministrativeArea: string;
+    locality: string;
+    subLocality: string;
+    postalCode: string;
+    thoroughfare: string;
+    thoroughfareNumber: string;
+    premise: string;
+    latitude: string;
+    longitude: string;
+    id: number;
+
+    constructor(data?: IAddressDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.tenantId = data["tenantId"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.name = data["name"];
+            this.country = data["country"];
+            this.administrativeArea = data["administrativeArea"];
+            this.subAdministrativeArea = data["subAdministrativeArea"];
+            this.locality = data["locality"];
+            this.subLocality = data["subLocality"];
+            this.postalCode = data["postalCode"];
+            this.thoroughfare = data["thoroughfare"];
+            this.thoroughfareNumber = data["thoroughfareNumber"];
+            this.premise = data["premise"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): AddressDto {
+        let result = new AddressDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["tenantId"] = this.tenantId;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["name"] = this.name;
+        data["country"] = this.country;
+        data["administrativeArea"] = this.administrativeArea;
+        data["subAdministrativeArea"] = this.subAdministrativeArea;
+        data["locality"] = this.locality;
+        data["subLocality"] = this.subLocality;
+        data["postalCode"] = this.postalCode;
+        data["thoroughfare"] = this.thoroughfare;
+        data["thoroughfareNumber"] = this.thoroughfareNumber;
+        data["premise"] = this.premise;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IAddressDto {
+    userId: number;
+    tenantId: number;
+    worbbyTaskId: number;
+    name: string;
+    country: string;
+    administrativeArea: string;
+    subAdministrativeArea: string;
+    locality: string;
+    subLocality: string;
+    postalCode: string;
+    thoroughfare: string;
+    thoroughfareNumber: string;
+    premise: string;
+    latitude: string;
+    longitude: string;
+    id: number;
+}
+
+export class ListResultDtoOfGalleryActivityDto implements IListResultDtoOfGalleryActivityDto {
+    items: GalleryActivityDto[];
+
+    constructor(data?: IListResultDtoOfGalleryActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(GalleryActivityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfGalleryActivityDto {
+        let result = new ListResultDtoOfGalleryActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfGalleryActivityDto {
+    items: GalleryActivityDto[];
+}
+
+export class EvaluationAverageDto implements IEvaluationAverageDto {
+    evaluations: ListResultDtoOfEvaluationDto;
+    averageEvaluations: number;
+
+    constructor(data?: IEvaluationAverageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.evaluations = data["evaluations"] ? ListResultDtoOfEvaluationDto.fromJS(data["evaluations"]) : <any>undefined;
+            this.averageEvaluations = data["averageEvaluations"];
+        }
+    }
+
+    static fromJS(data: any): EvaluationAverageDto {
+        let result = new EvaluationAverageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["evaluations"] = this.evaluations ? this.evaluations.toJSON() : <any>undefined;
+        data["averageEvaluations"] = this.averageEvaluations;
+        return data; 
+    }
+}
+
+export interface IEvaluationAverageDto {
+    evaluations: ListResultDtoOfEvaluationDto;
+    averageEvaluations: number;
+}
+
+export class GalleryActivityDto implements IGalleryActivityDto {
+    activityUserId: number;
+    galleryPictureId: string;
+    fileName: string;
+    fileBase64: string;
+    image: string;
+    thumbnail: string;
+    id: number;
+
+    constructor(data?: IGalleryActivityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.activityUserId = data["activityUserId"];
+            this.galleryPictureId = data["galleryPictureId"];
+            this.fileName = data["fileName"];
+            this.fileBase64 = data["fileBase64"];
+            this.image = data["image"];
+            this.thumbnail = data["thumbnail"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): GalleryActivityDto {
+        let result = new GalleryActivityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["activityUserId"] = this.activityUserId;
+        data["galleryPictureId"] = this.galleryPictureId;
+        data["fileName"] = this.fileName;
+        data["fileBase64"] = this.fileBase64;
+        data["image"] = this.image;
+        data["thumbnail"] = this.thumbnail;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IGalleryActivityDto {
+    activityUserId: number;
+    galleryPictureId: string;
+    fileName: string;
+    fileBase64: string;
+    image: string;
+    thumbnail: string;
+    id: number;
+}
+
+export class ListResultDtoOfEvaluationDto implements IListResultDtoOfEvaluationDto {
+    items: EvaluationDto[];
+
+    constructor(data?: IListResultDtoOfEvaluationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(EvaluationDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfEvaluationDto {
+        let result = new ListResultDtoOfEvaluationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfEvaluationDto {
+    items: EvaluationDto[];
+}
+
+export class EvaluationDto implements IEvaluationDto {
+    userId: number;
+    profilePictureId: string;
+    userPicture: string;
+    userActivityId: number;
+    toUserId: number;
+    tenantId: number;
+    worbbyTaskId: number;
+    comments: string;
+    evaluationValues: ListResultDtoOfEvaluationValueDto;
+    averageEvaluation: number;
+    id: number;
+
+    constructor(data?: IEvaluationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.profilePictureId = data["profilePictureId"];
+            this.userPicture = data["userPicture"];
+            this.userActivityId = data["userActivityId"];
+            this.toUserId = data["toUserId"];
+            this.tenantId = data["tenantId"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.comments = data["comments"];
+            this.evaluationValues = data["evaluationValues"] ? ListResultDtoOfEvaluationValueDto.fromJS(data["evaluationValues"]) : <any>undefined;
+            this.averageEvaluation = data["averageEvaluation"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EvaluationDto {
+        let result = new EvaluationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["profilePictureId"] = this.profilePictureId;
+        data["userPicture"] = this.userPicture;
+        data["userActivityId"] = this.userActivityId;
+        data["toUserId"] = this.toUserId;
+        data["tenantId"] = this.tenantId;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["comments"] = this.comments;
+        data["evaluationValues"] = this.evaluationValues ? this.evaluationValues.toJSON() : <any>undefined;
+        data["averageEvaluation"] = this.averageEvaluation;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEvaluationDto {
+    userId: number;
+    profilePictureId: string;
+    userPicture: string;
+    userActivityId: number;
+    toUserId: number;
+    tenantId: number;
+    worbbyTaskId: number;
+    comments: string;
+    evaluationValues: ListResultDtoOfEvaluationValueDto;
+    averageEvaluation: number;
+    id: number;
+}
+
+export class ListResultDtoOfEvaluationValueDto implements IListResultDtoOfEvaluationValueDto {
+    items: EvaluationValueDto[];
+
+    constructor(data?: IListResultDtoOfEvaluationValueDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(EvaluationValueDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfEvaluationValueDto {
+        let result = new ListResultDtoOfEvaluationValueDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfEvaluationValueDto {
+    items: EvaluationValueDto[];
+}
+
+export class EvaluationValueDto implements IEvaluationValueDto {
+    evaluationId: number;
+    evaluationTypeId: number;
+    evaluationType: EvaluationTypeDto;
+    value: number;
+    id: number;
+
+    constructor(data?: IEvaluationValueDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.evaluationId = data["evaluationId"];
+            this.evaluationTypeId = data["evaluationTypeId"];
+            this.evaluationType = data["evaluationType"] ? EvaluationTypeDto.fromJS(data["evaluationType"]) : <any>undefined;
+            this.value = data["value"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EvaluationValueDto {
+        let result = new EvaluationValueDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["evaluationId"] = this.evaluationId;
+        data["evaluationTypeId"] = this.evaluationTypeId;
+        data["evaluationType"] = this.evaluationType ? this.evaluationType.toJSON() : <any>undefined;
+        data["value"] = this.value;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEvaluationValueDto {
+    evaluationId: number;
+    evaluationTypeId: number;
+    evaluationType: EvaluationTypeDto;
+    value: number;
+    id: number;
+}
+
+export class EvaluationTypeDto implements IEvaluationTypeDto {
+    name: string;
+    description: string;
+    id: number;
+
+    constructor(data?: IEvaluationTypeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.description = data["description"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EvaluationTypeDto {
+        let result = new EvaluationTypeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEvaluationTypeDto {
+    name: string;
+    description: string;
+    id: number;
+}
+
+export class ListResultDtoOfUserActivityInput implements IListResultDtoOfUserActivityInput {
+    items: UserActivityInput[];
+
+    constructor(data?: IListResultDtoOfUserActivityInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(UserActivityInput.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfUserActivityInput {
+        let result = new ListResultDtoOfUserActivityInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfUserActivityInput {
+    items: UserActivityInput[];
+}
+
+export class ListResultDtoOfUserActivityAdminInput implements IListResultDtoOfUserActivityAdminInput {
+    items: UserActivityAdminInput[];
+
+    constructor(data?: IListResultDtoOfUserActivityAdminInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(UserActivityAdminInput.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfUserActivityAdminInput {
+        let result = new ListResultDtoOfUserActivityAdminInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfUserActivityAdminInput {
+    items: UserActivityAdminInput[];
+}
+
+export class UserActivityAdminInput implements IUserActivityAdminInput {
+    userId: number;
+    endorsementUserId: number;
+    activityId: number;
+    activity: ActivityDto;
+    title: string;
+    description: string;
+    price: number;
+    listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
+    evaluation: EvaluationAverageDto;
+    tenantId: number;
+    unitMeasure: UserActivityAdminInputUnitMeasure;
+    cancellationPolicy: UserActivityAdminInputCancellationPolicy;
+    activityState: UserActivityAdminInputActivityState;
+    isSuggestActivity: boolean;
+    endorsementsCountTotal: number;
+    endorsementsCountEndorsed: number;
+    endorsementsCountTotalAwaiting: number;
+    endorsementsCountTotalRefused: number;
+    taskPerformed: number;
+    id: number;
+
+    constructor(data?: IUserActivityAdminInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.endorsementUserId = data["endorsementUserId"];
+            this.activityId = data["activityId"];
+            this.activity = data["activity"] ? ActivityDto.fromJS(data["activity"]) : <any>undefined;
+            this.title = data["title"];
+            this.description = data["description"];
+            this.price = data["price"];
+            this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
+            this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.unitMeasure = data["unitMeasure"];
+            this.cancellationPolicy = data["cancellationPolicy"];
+            this.activityState = data["activityState"];
+            this.isSuggestActivity = data["isSuggestActivity"];
+            this.endorsementsCountTotal = data["endorsementsCountTotal"];
+            this.endorsementsCountEndorsed = data["endorsementsCountEndorsed"];
+            this.endorsementsCountTotalAwaiting = data["endorsementsCountTotalAwaiting"];
+            this.endorsementsCountTotalRefused = data["endorsementsCountTotalRefused"];
+            this.taskPerformed = data["taskPerformed"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UserActivityAdminInput {
+        let result = new UserActivityAdminInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["endorsementUserId"] = this.endorsementUserId;
+        data["activityId"] = this.activityId;
+        data["activity"] = this.activity ? this.activity.toJSON() : <any>undefined;
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["price"] = this.price;
+        data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
+        data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["unitMeasure"] = this.unitMeasure;
+        data["cancellationPolicy"] = this.cancellationPolicy;
+        data["activityState"] = this.activityState;
+        data["isSuggestActivity"] = this.isSuggestActivity;
+        data["endorsementsCountTotal"] = this.endorsementsCountTotal;
+        data["endorsementsCountEndorsed"] = this.endorsementsCountEndorsed;
+        data["endorsementsCountTotalAwaiting"] = this.endorsementsCountTotalAwaiting;
+        data["endorsementsCountTotalRefused"] = this.endorsementsCountTotalRefused;
+        data["taskPerformed"] = this.taskPerformed;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUserActivityAdminInput {
+    userId: number;
+    endorsementUserId: number;
+    activityId: number;
+    activity: ActivityDto;
+    title: string;
+    description: string;
+    price: number;
+    listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
+    evaluation: EvaluationAverageDto;
+    tenantId: number;
+    unitMeasure: UserActivityAdminInputUnitMeasure;
+    cancellationPolicy: UserActivityAdminInputCancellationPolicy;
+    activityState: UserActivityAdminInputActivityState;
+    isSuggestActivity: boolean;
+    endorsementsCountTotal: number;
+    endorsementsCountEndorsed: number;
+    endorsementsCountTotalAwaiting: number;
+    endorsementsCountTotalRefused: number;
+    taskPerformed: number;
+    id: number;
+}
+
+export class ListResultDtoOfActivityEndorsementDto implements IListResultDtoOfActivityEndorsementDto {
+    items: ActivityEndorsementDto[];
+
+    constructor(data?: IListResultDtoOfActivityEndorsementDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(ActivityEndorsementDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfActivityEndorsementDto {
+        let result = new ListResultDtoOfActivityEndorsementDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfActivityEndorsementDto {
+    items: ActivityEndorsementDto[];
+}
+
+export class ActivityEndorsementDto implements IActivityEndorsementDto {
+    activityId: number;
+    activity: ActivityDto;
+    endorsementId: number;
+    description: string;
+    userActivityId: number;
+    userActivity: UserActivityInput;
+    selected: boolean;
+
+    constructor(data?: IActivityEndorsementDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.activityId = data["activityId"];
+            this.activity = data["activity"] ? ActivityDto.fromJS(data["activity"]) : <any>undefined;
+            this.endorsementId = data["endorsementId"];
+            this.description = data["description"];
+            this.userActivityId = data["userActivityId"];
+            this.userActivity = data["userActivity"] ? UserActivityInput.fromJS(data["userActivity"]) : <any>undefined;
+            this.selected = data["selected"];
+        }
+    }
+
+    static fromJS(data: any): ActivityEndorsementDto {
+        let result = new ActivityEndorsementDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["activityId"] = this.activityId;
+        data["activity"] = this.activity ? this.activity.toJSON() : <any>undefined;
+        data["endorsementId"] = this.endorsementId;
+        data["description"] = this.description;
+        data["userActivityId"] = this.userActivityId;
+        data["userActivity"] = this.userActivity ? this.userActivity.toJSON() : <any>undefined;
+        data["selected"] = this.selected;
+        return data; 
+    }
+}
+
+export interface IActivityEndorsementDto {
+    activityId: number;
+    activity: ActivityDto;
+    endorsementId: number;
+    description: string;
+    userActivityId: number;
+    userActivity: UserActivityInput;
+    selected: boolean;
+}
+
+export class ListAddressDto implements IListAddressDto {
+    adresses: AddressDto[];
+
+    constructor(data?: IListAddressDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["adresses"] && data["adresses"].constructor === Array) {
+                this.adresses = [];
+                for (let item of data["adresses"])
+                    this.adresses.push(AddressDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListAddressDto {
+        let result = new ListAddressDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.adresses && this.adresses.constructor === Array) {
+            data["adresses"] = [];
+            for (let item of this.adresses)
+                data["adresses"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListAddressDto {
+    adresses: AddressDto[];
+}
+
 export class PagedResultDtoOfAuditLogListDto implements IPagedResultDtoOfAuditLogListDto {
     totalCount: number;
     items: AuditLogListDto[];
@@ -7046,12 +15867,14 @@ export interface IAuditLogListDto {
     id: number;
 }
 
-export class FileDto implements IFileDto {
-    fileName: string;
-    fileType: string;
-    fileToken: string;
+export class AvailabilityDto implements IAvailabilityDto {
+    userId: number;
+    dayOfWeek: AvailabilityDtoDayOfWeek;
+    startTime: string;
+    endTime: string;
+    id: number;
 
-    constructor(data?: IFileDto) {
+    constructor(data?: IAvailabilityDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -7062,31 +15885,295 @@ export class FileDto implements IFileDto {
 
     init(data?: any) {
         if (data) {
-            this.fileName = data["fileName"];
-            this.fileType = data["fileType"];
-            this.fileToken = data["fileToken"];
+            this.userId = data["userId"];
+            this.dayOfWeek = data["dayOfWeek"];
+            this.startTime = data["startTime"];
+            this.endTime = data["endTime"];
+            this.id = data["id"];
         }
     }
 
-    static fromJS(data: any): FileDto {
-        let result = new FileDto();
+    static fromJS(data: any): AvailabilityDto {
+        let result = new AvailabilityDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["fileName"] = this.fileName;
-        data["fileType"] = this.fileType;
-        data["fileToken"] = this.fileToken;
+        data["userId"] = this.userId;
+        data["dayOfWeek"] = this.dayOfWeek;
+        data["startTime"] = this.startTime;
+        data["endTime"] = this.endTime;
+        data["id"] = this.id;
         return data; 
     }
 }
 
-export interface IFileDto {
-    fileName: string;
-    fileType: string;
-    fileToken: string;
+export interface IAvailabilityDto {
+    userId: number;
+    dayOfWeek: AvailabilityDtoDayOfWeek;
+    startTime: string;
+    endTime: string;
+    id: number;
+}
+
+export class ListResultDtoOfAvailabilityDto implements IListResultDtoOfAvailabilityDto {
+    items: AvailabilityDto[];
+
+    constructor(data?: IListResultDtoOfAvailabilityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(AvailabilityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfAvailabilityDto {
+        let result = new ListResultDtoOfAvailabilityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfAvailabilityDto {
+    items: AvailabilityDto[];
+}
+
+export class RequestBalanceTransferInput implements IRequestBalanceTransferInput {
+    userId: number;
+    bankAccountId: number;
+    amount: number;
+
+    constructor(data?: IRequestBalanceTransferInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.bankAccountId = data["bankAccountId"];
+            this.amount = data["amount"];
+        }
+    }
+
+    static fromJS(data: any): RequestBalanceTransferInput {
+        let result = new RequestBalanceTransferInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["bankAccountId"] = this.bankAccountId;
+        data["amount"] = this.amount;
+        return data; 
+    }
+}
+
+export interface IRequestBalanceTransferInput {
+    userId: number;
+    bankAccountId: number;
+    amount: number;
+}
+
+export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
+    id: number;
+
+    constructor(data?: IEntityDtoOfInt64) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EntityDtoOfInt64 {
+        let result = new EntityDtoOfInt64();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEntityDtoOfInt64 {
+    id: number;
+}
+
+export class CreateBankAccountInput implements ICreateBankAccountInput {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+
+    constructor(data?: ICreateBankAccountInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.bank = data["bank"];
+            this.agency = data["agency"];
+            this.currentAccount = data["currentAccount"];
+            this.holderName = data["holderName"];
+            this.holderCpf = data["holderCpf"];
+            this.tenantId = data["tenantId"];
+        }
+    }
+
+    static fromJS(data: any): CreateBankAccountInput {
+        let result = new CreateBankAccountInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["bank"] = this.bank;
+        data["agency"] = this.agency;
+        data["currentAccount"] = this.currentAccount;
+        data["holderName"] = this.holderName;
+        data["holderCpf"] = this.holderCpf;
+        data["tenantId"] = this.tenantId;
+        return data; 
+    }
+}
+
+export interface ICreateBankAccountInput {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+}
+
+export class BinaryObjectDto implements IBinaryObjectDto {
+    bytes: string;
+    extension: string;
+
+    constructor(data?: IBinaryObjectDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.bytes = data["bytes"];
+            this.extension = data["extension"];
+        }
+    }
+
+    static fromJS(data: any): BinaryObjectDto {
+        let result = new BinaryObjectDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bytes"] = this.bytes;
+        data["extension"] = this.extension;
+        return data; 
+    }
+}
+
+export interface IBinaryObjectDto {
+    bytes: string;
+    extension: string;
+}
+
+export class Base64Dto implements IBase64Dto {
+    base64String: string;
+    extension: string;
+
+    constructor(data?: IBase64Dto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.base64String = data["base64String"];
+            this.extension = data["extension"];
+        }
+    }
+
+    static fromJS(data: any): Base64Dto {
+        let result = new Base64Dto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["base64String"] = this.base64String;
+        data["extension"] = this.extension;
+        return data; 
+    }
+}
+
+export interface IBase64Dto {
+    base64String: string;
+    extension: string;
 }
 
 export class ListResultDtoOfCacheDto implements IListResultDtoOfCacheDto {
@@ -7459,6 +16546,427 @@ export class MarkAllUnreadMessagesOfUserAsReadInput implements IMarkAllUnreadMes
 export interface IMarkAllUnreadMessagesOfUserAsReadInput {
     tenantId: number;
     userId: number;
+}
+
+export class CieloSaleInput implements ICieloSaleInput {
+    merchantOrderId: string;
+    worbbyTaskId: number;
+    customer: CustomerDto;
+    payment: PaymentDto;
+
+    constructor(data?: ICieloSaleInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.merchantOrderId = data["merchantOrderId"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.customer = data["customer"] ? CustomerDto.fromJS(data["customer"]) : <any>undefined;
+            this.payment = data["payment"] ? PaymentDto.fromJS(data["payment"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CieloSaleInput {
+        let result = new CieloSaleInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["merchantOrderId"] = this.merchantOrderId;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["customer"] = this.customer ? this.customer.toJSON() : <any>undefined;
+        data["payment"] = this.payment ? this.payment.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICieloSaleInput {
+    merchantOrderId: string;
+    worbbyTaskId: number;
+    customer: CustomerDto;
+    payment: PaymentDto;
+}
+
+export class CustomerDto implements ICustomerDto {
+    name: string;
+    status: string;
+    identity: string;
+    identityType: string;
+    email: string;
+    birthdate: string;
+
+    constructor(data?: ICustomerDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.status = data["status"];
+            this.identity = data["identity"];
+            this.identityType = data["identityType"];
+            this.email = data["email"];
+            this.birthdate = data["birthdate"];
+        }
+    }
+
+    static fromJS(data: any): CustomerDto {
+        let result = new CustomerDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["status"] = this.status;
+        data["identity"] = this.identity;
+        data["identityType"] = this.identityType;
+        data["email"] = this.email;
+        data["birthdate"] = this.birthdate;
+        return data; 
+    }
+}
+
+export interface ICustomerDto {
+    name: string;
+    status: string;
+    identity: string;
+    identityType: string;
+    email: string;
+    birthdate: string;
+}
+
+export class PaymentDto implements IPaymentDto {
+    type: string;
+    amount: number;
+    currency: string;
+    country: string;
+    serviceTaxAmount: string;
+    installments: number;
+    interest: string;
+    capture: boolean;
+    authenticate: boolean;
+    creditCard: CreditCardDto;
+    proofOfSale: string;
+    tid: string;
+    authorizationCode: string;
+    softDescriptor: string;
+    paymentId: string;
+    capturedAmount: string;
+    status: PaymentDtoStatus;
+    returnCode: string;
+    returnMessage: string;
+
+    constructor(data?: IPaymentDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.currency = data["currency"];
+            this.country = data["country"];
+            this.serviceTaxAmount = data["serviceTaxAmount"];
+            this.installments = data["installments"];
+            this.interest = data["interest"];
+            this.capture = data["capture"];
+            this.authenticate = data["authenticate"];
+            this.creditCard = data["creditCard"] ? CreditCardDto.fromJS(data["creditCard"]) : <any>undefined;
+            this.proofOfSale = data["proofOfSale"];
+            this.tid = data["tid"];
+            this.authorizationCode = data["authorizationCode"];
+            this.softDescriptor = data["softDescriptor"];
+            this.paymentId = data["paymentId"];
+            this.capturedAmount = data["capturedAmount"];
+            this.status = data["status"];
+            this.returnCode = data["returnCode"];
+            this.returnMessage = data["returnMessage"];
+        }
+    }
+
+    static fromJS(data: any): PaymentDto {
+        let result = new PaymentDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["currency"] = this.currency;
+        data["country"] = this.country;
+        data["serviceTaxAmount"] = this.serviceTaxAmount;
+        data["installments"] = this.installments;
+        data["interest"] = this.interest;
+        data["capture"] = this.capture;
+        data["authenticate"] = this.authenticate;
+        data["creditCard"] = this.creditCard ? this.creditCard.toJSON() : <any>undefined;
+        data["proofOfSale"] = this.proofOfSale;
+        data["tid"] = this.tid;
+        data["authorizationCode"] = this.authorizationCode;
+        data["softDescriptor"] = this.softDescriptor;
+        data["paymentId"] = this.paymentId;
+        data["capturedAmount"] = this.capturedAmount;
+        data["status"] = this.status;
+        data["returnCode"] = this.returnCode;
+        data["returnMessage"] = this.returnMessage;
+        return data; 
+    }
+}
+
+export interface IPaymentDto {
+    type: string;
+    amount: number;
+    currency: string;
+    country: string;
+    serviceTaxAmount: string;
+    installments: number;
+    interest: string;
+    capture: boolean;
+    authenticate: boolean;
+    creditCard: CreditCardDto;
+    proofOfSale: string;
+    tid: string;
+    authorizationCode: string;
+    softDescriptor: string;
+    paymentId: string;
+    capturedAmount: string;
+    status: PaymentDtoStatus;
+    returnCode: string;
+    returnMessage: string;
+}
+
+export class CreditCardDto implements ICreditCardDto {
+    cardNumber: string;
+    holder: string;
+    expirationDate: string;
+    securityCode: string;
+    saveCard: string;
+    brand: string;
+    cardToken: string;
+
+    constructor(data?: ICreditCardDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.cardNumber = data["cardNumber"];
+            this.holder = data["holder"];
+            this.expirationDate = data["expirationDate"];
+            this.securityCode = data["securityCode"];
+            this.saveCard = data["saveCard"];
+            this.brand = data["brand"];
+            this.cardToken = data["cardToken"];
+        }
+    }
+
+    static fromJS(data: any): CreditCardDto {
+        let result = new CreditCardDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["cardNumber"] = this.cardNumber;
+        data["holder"] = this.holder;
+        data["expirationDate"] = this.expirationDate;
+        data["securityCode"] = this.securityCode;
+        data["saveCard"] = this.saveCard;
+        data["brand"] = this.brand;
+        data["cardToken"] = this.cardToken;
+        return data; 
+    }
+}
+
+export interface ICreditCardDto {
+    cardNumber: string;
+    holder: string;
+    expirationDate: string;
+    securityCode: string;
+    saveCard: string;
+    brand: string;
+    cardToken: string;
+}
+
+export class CieloSaleOutput implements ICieloSaleOutput {
+    merchantOrderId: string;
+    customer: CustomerDto;
+    payment: PaymentDto;
+
+    constructor(data?: ICieloSaleOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.merchantOrderId = data["merchantOrderId"];
+            this.customer = data["customer"] ? CustomerDto.fromJS(data["customer"]) : <any>undefined;
+            this.payment = data["payment"] ? PaymentDto.fromJS(data["payment"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CieloSaleOutput {
+        let result = new CieloSaleOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["merchantOrderId"] = this.merchantOrderId;
+        data["customer"] = this.customer ? this.customer.toJSON() : <any>undefined;
+        data["payment"] = this.payment ? this.payment.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICieloSaleOutput {
+    merchantOrderId: string;
+    customer: CustomerDto;
+    payment: PaymentDto;
+}
+
+export class SaleOutput implements ISaleOutput {
+    worbbyTaskId: number;
+    paymentId: string;
+    type: string;
+    amount: number;
+    capturedAmount: number;
+    saleStatus: SaleOutputSaleStatus;
+    creationTime: moment.Moment;
+    lastModificationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: ISaleOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.paymentId = data["paymentId"];
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.capturedAmount = data["capturedAmount"];
+            this.saleStatus = data["saleStatus"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): SaleOutput {
+        let result = new SaleOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["paymentId"] = this.paymentId;
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["capturedAmount"] = this.capturedAmount;
+        data["saleStatus"] = this.saleStatus;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ISaleOutput {
+    worbbyTaskId: number;
+    paymentId: string;
+    type: string;
+    amount: number;
+    capturedAmount: number;
+    saleStatus: SaleOutputSaleStatus;
+    creationTime: moment.Moment;
+    lastModificationTime: moment.Moment;
+    id: number;
+}
+
+export class CieloCaptureSaleOutput implements ICieloCaptureSaleOutput {
+    status: number;
+    returnCode: string;
+    returnMessage: string;
+
+    constructor(data?: ICieloCaptureSaleOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.status = data["status"];
+            this.returnCode = data["returnCode"];
+            this.returnMessage = data["returnMessage"];
+        }
+    }
+
+    static fromJS(data: any): CieloCaptureSaleOutput {
+        let result = new CieloCaptureSaleOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["status"] = this.status;
+        data["returnCode"] = this.returnCode;
+        data["returnMessage"] = this.returnMessage;
+        return data; 
+    }
+}
+
+export interface ICieloCaptureSaleOutput {
+    status: number;
+    returnCode: string;
+    returnMessage: string;
 }
 
 export class ListResultDtoOfSubscribableEditionComboboxItemDto implements IListResultDtoOfSubscribableEditionComboboxItemDto {
@@ -8219,6 +17727,450 @@ export class CreateOrUpdateEditionDto implements ICreateOrUpdateEditionDto {
 export interface ICreateOrUpdateEditionDto {
     edition: EditionEditDto;
     featureValues: NameValueDto[];
+}
+
+export class EndorsementDto implements IEndorsementDto {
+    userId: number;
+    fromUserId: number;
+    email: string;
+    questionnaire: string;
+    suggestionActivities: string;
+    endorsementState: EndorsementDtoEndorsementState;
+    activitiesEndorsement: ListResultDtoOfActivityEndorsementDto;
+    id: number;
+
+    constructor(data?: IEndorsementDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.fromUserId = data["fromUserId"];
+            this.email = data["email"];
+            this.questionnaire = data["questionnaire"];
+            this.suggestionActivities = data["suggestionActivities"];
+            this.endorsementState = data["endorsementState"];
+            this.activitiesEndorsement = data["activitiesEndorsement"] ? ListResultDtoOfActivityEndorsementDto.fromJS(data["activitiesEndorsement"]) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EndorsementDto {
+        let result = new EndorsementDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["fromUserId"] = this.fromUserId;
+        data["email"] = this.email;
+        data["questionnaire"] = this.questionnaire;
+        data["suggestionActivities"] = this.suggestionActivities;
+        data["endorsementState"] = this.endorsementState;
+        data["activitiesEndorsement"] = this.activitiesEndorsement ? this.activitiesEndorsement.toJSON() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEndorsementDto {
+    userId: number;
+    fromUserId: number;
+    email: string;
+    questionnaire: string;
+    suggestionActivities: string;
+    endorsementState: EndorsementDtoEndorsementState;
+    activitiesEndorsement: ListResultDtoOfActivityEndorsementDto;
+    id: number;
+}
+
+export class PagedResultDtoOfEndorsementDto implements IPagedResultDtoOfEndorsementDto {
+    totalCount: number;
+    items: EndorsementDto[];
+
+    constructor(data?: IPagedResultDtoOfEndorsementDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(EndorsementDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfEndorsementDto {
+        let result = new PagedResultDtoOfEndorsementDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfEndorsementDto {
+    totalCount: number;
+    items: EndorsementDto[];
+}
+
+export class EndorsementAlterStatusDto implements IEndorsementAlterStatusDto {
+    endorsementId: number;
+    endorsementState: EndorsementAlterStatusDtoEndorsementState;
+
+    constructor(data?: IEndorsementAlterStatusDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.endorsementId = data["endorsementId"];
+            this.endorsementState = data["endorsementState"];
+        }
+    }
+
+    static fromJS(data: any): EndorsementAlterStatusDto {
+        let result = new EndorsementAlterStatusDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["endorsementId"] = this.endorsementId;
+        data["endorsementState"] = this.endorsementState;
+        return data; 
+    }
+}
+
+export interface IEndorsementAlterStatusDto {
+    endorsementId: number;
+    endorsementState: EndorsementAlterStatusDtoEndorsementState;
+}
+
+export class ActivityEndorsementForCreateUpdate implements IActivityEndorsementForCreateUpdate {
+    questionOne: string;
+    questionTwo: string;
+    questionFour: string;
+    endorsementDto: EndorsementDto;
+    activityEndorsementList: ListResultDtoOfActivityEndorsementDto;
+    textQuestioneOne: string;
+    isSendEmailEndorsement: boolean;
+    subject: string;
+    message: string;
+    webAppUrl: string;
+
+    constructor(data?: IActivityEndorsementForCreateUpdate) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.questionOne = data["questionOne"];
+            this.questionTwo = data["questionTwo"];
+            this.questionFour = data["questionFour"];
+            this.endorsementDto = data["endorsementDto"] ? EndorsementDto.fromJS(data["endorsementDto"]) : <any>undefined;
+            this.activityEndorsementList = data["activityEndorsementList"] ? ListResultDtoOfActivityEndorsementDto.fromJS(data["activityEndorsementList"]) : <any>undefined;
+            this.textQuestioneOne = data["textQuestioneOne"];
+            this.isSendEmailEndorsement = data["isSendEmailEndorsement"];
+            this.subject = data["subject"];
+            this.message = data["message"];
+            this.webAppUrl = data["webAppUrl"];
+        }
+    }
+
+    static fromJS(data: any): ActivityEndorsementForCreateUpdate {
+        let result = new ActivityEndorsementForCreateUpdate();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["questionOne"] = this.questionOne;
+        data["questionTwo"] = this.questionTwo;
+        data["questionFour"] = this.questionFour;
+        data["endorsementDto"] = this.endorsementDto ? this.endorsementDto.toJSON() : <any>undefined;
+        data["activityEndorsementList"] = this.activityEndorsementList ? this.activityEndorsementList.toJSON() : <any>undefined;
+        data["textQuestioneOne"] = this.textQuestioneOne;
+        data["isSendEmailEndorsement"] = this.isSendEmailEndorsement;
+        data["subject"] = this.subject;
+        data["message"] = this.message;
+        data["webAppUrl"] = this.webAppUrl;
+        return data; 
+    }
+}
+
+export interface IActivityEndorsementForCreateUpdate {
+    questionOne: string;
+    questionTwo: string;
+    questionFour: string;
+    endorsementDto: EndorsementDto;
+    activityEndorsementList: ListResultDtoOfActivityEndorsementDto;
+    textQuestioneOne: string;
+    isSendEmailEndorsement: boolean;
+    subject: string;
+    message: string;
+    webAppUrl: string;
+}
+
+export class ListResultDtoOfGetEndorsementsByActivitIdDto implements IListResultDtoOfGetEndorsementsByActivitIdDto {
+    items: GetEndorsementsByActivitIdDto[];
+
+    constructor(data?: IListResultDtoOfGetEndorsementsByActivitIdDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(GetEndorsementsByActivitIdDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfGetEndorsementsByActivitIdDto {
+        let result = new ListResultDtoOfGetEndorsementsByActivitIdDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfGetEndorsementsByActivitIdDto {
+    items: GetEndorsementsByActivitIdDto[];
+}
+
+export class GetEndorsementsByActivitIdDto implements IGetEndorsementsByActivitIdDto {
+    nameWhoEndorsed: string;
+    emailWhoEndorsed: string;
+    questionnaire: string;
+    suggestionActivities: string;
+    endorsementState: GetEndorsementsByActivitIdDtoEndorsementState;
+    dateCreation: moment.Moment;
+    guidPictureId: string;
+    endorsementId: number;
+
+    constructor(data?: IGetEndorsementsByActivitIdDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nameWhoEndorsed = data["nameWhoEndorsed"];
+            this.emailWhoEndorsed = data["emailWhoEndorsed"];
+            this.questionnaire = data["questionnaire"];
+            this.suggestionActivities = data["suggestionActivities"];
+            this.endorsementState = data["endorsementState"];
+            this.dateCreation = data["dateCreation"] ? moment(data["dateCreation"].toString()) : <any>undefined;
+            this.guidPictureId = data["guidPictureId"];
+            this.endorsementId = data["endorsementId"];
+        }
+    }
+
+    static fromJS(data: any): GetEndorsementsByActivitIdDto {
+        let result = new GetEndorsementsByActivitIdDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nameWhoEndorsed"] = this.nameWhoEndorsed;
+        data["emailWhoEndorsed"] = this.emailWhoEndorsed;
+        data["questionnaire"] = this.questionnaire;
+        data["suggestionActivities"] = this.suggestionActivities;
+        data["endorsementState"] = this.endorsementState;
+        data["dateCreation"] = this.dateCreation ? this.dateCreation.toISOString() : <any>undefined;
+        data["guidPictureId"] = this.guidPictureId;
+        data["endorsementId"] = this.endorsementId;
+        return data; 
+    }
+}
+
+export interface IGetEndorsementsByActivitIdDto {
+    nameWhoEndorsed: string;
+    emailWhoEndorsed: string;
+    questionnaire: string;
+    suggestionActivities: string;
+    endorsementState: GetEndorsementsByActivitIdDtoEndorsementState;
+    dateCreation: moment.Moment;
+    guidPictureId: string;
+    endorsementId: number;
+}
+
+export class EvaluationInput implements IEvaluationInput {
+    userId: number;
+    toUserId: number;
+    tenantId: number;
+    userActivityId: number;
+    worbbyTaskId: number;
+    comments: string;
+    listEvaluationValues: ListResultDtoOfEvaluationValueDto;
+    averageEvaluation: number;
+    id: number;
+
+    constructor(data?: IEvaluationInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.toUserId = data["toUserId"];
+            this.tenantId = data["tenantId"];
+            this.userActivityId = data["userActivityId"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.comments = data["comments"];
+            this.listEvaluationValues = data["listEvaluationValues"] ? ListResultDtoOfEvaluationValueDto.fromJS(data["listEvaluationValues"]) : <any>undefined;
+            this.averageEvaluation = data["averageEvaluation"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EvaluationInput {
+        let result = new EvaluationInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["toUserId"] = this.toUserId;
+        data["tenantId"] = this.tenantId;
+        data["userActivityId"] = this.userActivityId;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["comments"] = this.comments;
+        data["listEvaluationValues"] = this.listEvaluationValues ? this.listEvaluationValues.toJSON() : <any>undefined;
+        data["averageEvaluation"] = this.averageEvaluation;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEvaluationInput {
+    userId: number;
+    toUserId: number;
+    tenantId: number;
+    userActivityId: number;
+    worbbyTaskId: number;
+    comments: string;
+    listEvaluationValues: ListResultDtoOfEvaluationValueDto;
+    averageEvaluation: number;
+    id: number;
+}
+
+export class EvaluationValueInput implements IEvaluationValueInput {
+    evaluationId: number;
+    evaluationTypeName: string;
+    evaluationTypeId: number;
+    value: number;
+    id: number;
+
+    constructor(data?: IEvaluationValueInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.evaluationId = data["evaluationId"];
+            this.evaluationTypeName = data["evaluationTypeName"];
+            this.evaluationTypeId = data["evaluationTypeId"];
+            this.value = data["value"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EvaluationValueInput {
+        let result = new EvaluationValueInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["evaluationId"] = this.evaluationId;
+        data["evaluationTypeName"] = this.evaluationTypeName;
+        data["evaluationTypeId"] = this.evaluationTypeId;
+        data["value"] = this.value;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEvaluationValueInput {
+    evaluationId: number;
+    evaluationTypeName: string;
+    evaluationTypeId: number;
+    value: number;
+    id: number;
 }
 
 export class CreateFriendshipRequestInput implements ICreateFriendshipRequestInput {
@@ -9257,6 +19209,500 @@ export class SendTestEmailInput implements ISendTestEmailInput {
 
 export interface ISendTestEmailInput {
     emailAddress: string;
+}
+
+export class ListResultDtoOfInterestCenterDto implements IListResultDtoOfInterestCenterDto {
+    items: InterestCenterDto[];
+
+    constructor(data?: IListResultDtoOfInterestCenterDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(InterestCenterDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfInterestCenterDto {
+        let result = new ListResultDtoOfInterestCenterDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfInterestCenterDto {
+    items: InterestCenterDto[];
+}
+
+export class InterestCenterDto implements IInterestCenterDto {
+    parentId: number;
+    code: string;
+    displayName: string;
+    description: string;
+    keyWords: string;
+    slugName: string;
+    interestCenterPictureId: string;
+    interestCenterPicture: string;
+    activityCount: number;
+    lastModificationTime: moment.Moment;
+    lastModifierUserId: number;
+    creationTime: moment.Moment;
+    creatorUserId: number;
+    id: number;
+
+    constructor(data?: IInterestCenterDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parentId = data["parentId"];
+            this.code = data["code"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.keyWords = data["keyWords"];
+            this.slugName = data["slugName"];
+            this.interestCenterPictureId = data["interestCenterPictureId"];
+            this.interestCenterPicture = data["interestCenterPicture"];
+            this.activityCount = data["activityCount"];
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = data["lastModifierUserId"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = data["creatorUserId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InterestCenterDto {
+        let result = new InterestCenterDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parentId"] = this.parentId;
+        data["code"] = this.code;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["keyWords"] = this.keyWords;
+        data["slugName"] = this.slugName;
+        data["interestCenterPictureId"] = this.interestCenterPictureId;
+        data["interestCenterPicture"] = this.interestCenterPicture;
+        data["activityCount"] = this.activityCount;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInterestCenterDto {
+    parentId: number;
+    code: string;
+    displayName: string;
+    description: string;
+    keyWords: string;
+    slugName: string;
+    interestCenterPictureId: string;
+    interestCenterPicture: string;
+    activityCount: number;
+    lastModificationTime: moment.Moment;
+    lastModifierUserId: number;
+    creationTime: moment.Moment;
+    creatorUserId: number;
+    id: number;
+}
+
+export class PagedResultDtoOfInterestCenterActivityListDto implements IPagedResultDtoOfInterestCenterActivityListDto {
+    totalCount: number;
+    items: InterestCenterActivityListDto[];
+
+    constructor(data?: IPagedResultDtoOfInterestCenterActivityListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(InterestCenterActivityListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfInterestCenterActivityListDto {
+        let result = new PagedResultDtoOfInterestCenterActivityListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfInterestCenterActivityListDto {
+    totalCount: number;
+    items: InterestCenterActivityListDto[];
+}
+
+export class InterestCenterActivityListDto implements IInterestCenterActivityListDto {
+    title: string;
+    description: string;
+    profilePictureId: string;
+    isFeatured: boolean;
+    addedTime: moment.Moment;
+    id: number;
+
+    constructor(data?: IInterestCenterActivityListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.title = data["title"];
+            this.description = data["description"];
+            this.profilePictureId = data["profilePictureId"];
+            this.isFeatured = data["isFeatured"];
+            this.addedTime = data["addedTime"] ? moment(data["addedTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InterestCenterActivityListDto {
+        let result = new InterestCenterActivityListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["profilePictureId"] = this.profilePictureId;
+        data["isFeatured"] = this.isFeatured;
+        data["addedTime"] = this.addedTime ? this.addedTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInterestCenterActivityListDto {
+    title: string;
+    description: string;
+    profilePictureId: string;
+    isFeatured: boolean;
+    addedTime: moment.Moment;
+    id: number;
+}
+
+export class CreateInterestCenterInput implements ICreateInterestCenterInput {
+    parentId: number;
+    displayName: string;
+    description: string;
+    keyWords: string;
+
+    constructor(data?: ICreateInterestCenterInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parentId = data["parentId"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.keyWords = data["keyWords"];
+        }
+    }
+
+    static fromJS(data: any): CreateInterestCenterInput {
+        let result = new CreateInterestCenterInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parentId"] = this.parentId;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["keyWords"] = this.keyWords;
+        return data; 
+    }
+}
+
+export interface ICreateInterestCenterInput {
+    parentId: number;
+    displayName: string;
+    description: string;
+    keyWords: string;
+}
+
+export class UpdateInterestCenterInput implements IUpdateInterestCenterInput {
+    id: number;
+    displayName: string;
+    description: string;
+    keyWords: string;
+
+    constructor(data?: IUpdateInterestCenterInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.keyWords = data["keyWords"];
+        }
+    }
+
+    static fromJS(data: any): UpdateInterestCenterInput {
+        let result = new UpdateInterestCenterInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["keyWords"] = this.keyWords;
+        return data; 
+    }
+}
+
+export interface IUpdateInterestCenterInput {
+    id: number;
+    displayName: string;
+    description: string;
+    keyWords: string;
+}
+
+export class MoveInterestCenterInput implements IMoveInterestCenterInput {
+    id: number;
+    newParentId: number;
+
+    constructor(data?: IMoveInterestCenterInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.newParentId = data["newParentId"];
+        }
+    }
+
+    static fromJS(data: any): MoveInterestCenterInput {
+        let result = new MoveInterestCenterInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["newParentId"] = this.newParentId;
+        return data; 
+    }
+}
+
+export interface IMoveInterestCenterInput {
+    id: number;
+    newParentId: number;
+}
+
+export class ActivityToInterestCenterInput implements IActivityToInterestCenterInput {
+    activityId: number;
+    interestCenterId: number;
+
+    constructor(data?: IActivityToInterestCenterInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.activityId = data["activityId"];
+            this.interestCenterId = data["interestCenterId"];
+        }
+    }
+
+    static fromJS(data: any): ActivityToInterestCenterInput {
+        let result = new ActivityToInterestCenterInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["activityId"] = this.activityId;
+        data["interestCenterId"] = this.interestCenterId;
+        return data; 
+    }
+}
+
+export interface IActivityToInterestCenterInput {
+    activityId: number;
+    interestCenterId: number;
+}
+
+export class UpdateInterestCenterPictureInput implements IUpdateInterestCenterPictureInput {
+    fileName: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    id: number;
+
+    constructor(data?: IUpdateInterestCenterPictureInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fileName = data["fileName"];
+            this.x = data["x"];
+            this.y = data["y"];
+            this.width = data["width"];
+            this.height = data["height"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UpdateInterestCenterPictureInput {
+        let result = new UpdateInterestCenterPictureInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileName"] = this.fileName;
+        data["x"] = this.x;
+        data["y"] = this.y;
+        data["width"] = this.width;
+        data["height"] = this.height;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUpdateInterestCenterPictureInput {
+    fileName: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    id: number;
+}
+
+export class GetPictureOutput implements IGetPictureOutput {
+    picture: string;
+
+    constructor(data?: IGetPictureOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.picture = data["picture"];
+        }
+    }
+
+    static fromJS(data: any): GetPictureOutput {
+        let result = new GetPictureOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["picture"] = this.picture;
+        return data; 
+    }
+}
+
+export interface IGetPictureOutput {
+    picture: string;
 }
 
 export class GetLanguagesOutput implements IGetLanguagesOutput {
@@ -11430,10 +21876,78 @@ export interface ICreateOrUpdateRoleInput {
     grantedPermissionNames: string[];
 }
 
+export class SaleInput implements ISaleInput {
+    worbbyTaskId: number;
+    paymentId: string;
+    type: string;
+    amount: number;
+    capturedAmount: number;
+    saleStatus: SaleInputSaleStatus;
+    returnCode: string;
+    returnMessage: string;
+    id: number;
+
+    constructor(data?: ISaleInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.paymentId = data["paymentId"];
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.capturedAmount = data["capturedAmount"];
+            this.saleStatus = data["saleStatus"];
+            this.returnCode = data["returnCode"];
+            this.returnMessage = data["returnMessage"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): SaleInput {
+        let result = new SaleInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["paymentId"] = this.paymentId;
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["capturedAmount"] = this.capturedAmount;
+        data["saleStatus"] = this.saleStatus;
+        data["returnCode"] = this.returnCode;
+        data["returnMessage"] = this.returnMessage;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ISaleInput {
+    worbbyTaskId: number;
+    paymentId: string;
+    type: string;
+    amount: number;
+    capturedAmount: number;
+    saleStatus: SaleInputSaleStatus;
+    returnCode: string;
+    returnMessage: string;
+    id: number;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
     application: ApplicationInfoDto;
+    defaultRoleName: string;
 
     constructor(data?: IGetCurrentLoginInformationsOutput) {
         if (data) {
@@ -11449,6 +21963,7 @@ export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInform
             this.user = data["user"] ? UserLoginInfoDto.fromJS(data["user"]) : <any>undefined;
             this.tenant = data["tenant"] ? TenantLoginInfoDto.fromJS(data["tenant"]) : <any>undefined;
             this.application = data["application"] ? ApplicationInfoDto.fromJS(data["application"]) : <any>undefined;
+            this.defaultRoleName = data["defaultRoleName"];
         }
     }
 
@@ -11463,6 +21978,7 @@ export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInform
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         data["tenant"] = this.tenant ? this.tenant.toJSON() : <any>undefined;
         data["application"] = this.application ? this.application.toJSON() : <any>undefined;
+        data["defaultRoleName"] = this.defaultRoleName;
         return data; 
     }
 }
@@ -11471,6 +21987,7 @@ export interface IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
     application: ApplicationInfoDto;
+    defaultRoleName: string;
 }
 
 export class UserLoginInfoDto implements IUserLoginInfoDto {
@@ -13569,6 +24086,9 @@ export class ExternalAuthenticateModel implements IExternalAuthenticateModel {
     providerAccessCode: string;
     returnUrl: string;
     singleSignIn: boolean;
+    roleName: string;
+    administrativeArea: string;
+    worbbiorRegisterCode: string;
 
     constructor(data?: IExternalAuthenticateModel) {
         if (data) {
@@ -13586,6 +24106,9 @@ export class ExternalAuthenticateModel implements IExternalAuthenticateModel {
             this.providerAccessCode = data["providerAccessCode"];
             this.returnUrl = data["returnUrl"];
             this.singleSignIn = data["singleSignIn"];
+            this.roleName = data["roleName"];
+            this.administrativeArea = data["administrativeArea"];
+            this.worbbiorRegisterCode = data["worbbiorRegisterCode"];
         }
     }
 
@@ -13602,6 +24125,9 @@ export class ExternalAuthenticateModel implements IExternalAuthenticateModel {
         data["providerAccessCode"] = this.providerAccessCode;
         data["returnUrl"] = this.returnUrl;
         data["singleSignIn"] = this.singleSignIn;
+        data["roleName"] = this.roleName;
+        data["administrativeArea"] = this.administrativeArea;
+        data["worbbiorRegisterCode"] = this.worbbiorRegisterCode;
         return data; 
     }
 }
@@ -13612,6 +24138,9 @@ export interface IExternalAuthenticateModel {
     providerAccessCode: string;
     returnUrl: string;
     singleSignIn: boolean;
+    roleName: string;
+    administrativeArea: string;
+    worbbiorRegisterCode: string;
 }
 
 export class ExternalAuthenticateResultModel implements IExternalAuthenticateResultModel {
@@ -14066,41 +24595,6 @@ export interface IGetUserPermissionsForEditOutput {
     grantedPermissionNames: string[];
 }
 
-export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
-    id: number;
-
-    constructor(data?: IEntityDtoOfInt64) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): EntityDtoOfInt64 {
-        let result = new EntityDtoOfInt64();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IEntityDtoOfInt64 {
-    id: number;
-}
-
 export class UpdateUserPermissionsInput implements IUpdateUserPermissionsInput {
     id: number;
     grantedPermissionNames: string[] = [];
@@ -14201,6 +24695,239 @@ export interface ICreateOrUpdateUserInput {
     assignedRoleNames: string[];
     sendActivationEmail: boolean;
     setRandomPassword: boolean;
+}
+
+export class CreateUserDocumentsInfoInput implements ICreateUserDocumentsInfoInput {
+    userId: number;
+    rgNumber: string;
+    rg: string;
+    rgFileName: string;
+    rgFileBase64: FileDtoBase64;
+    rgExtension: FileDtoBase64;
+    cpfNumber: string;
+    cpf: string;
+    cpfFileName: string;
+    cpfFileBase64: FileDtoBase64;
+    cpfExtension: FileDtoBase64;
+    criminalRecordsCertificate: string;
+    criminalRecordsCertificateFileName: string;
+    criminalRecordsCertificateFileBase64: FileDtoBase64;
+    criminalRecordsCertificateExtension: FileDtoBase64;
+    proofOfAddress: string;
+    proofOfAddressFileName: string;
+    proofofaddressFileBase64: FileDtoBase64;
+    proofofaddressExtension: FileDtoBase64;
+    isCompany: boolean;
+    cnpj: string;
+    municipalRegistration: string;
+    fantasyName: string;
+    companyRegistration: string;
+    companyRegistrationFileName: string;
+    companyRegistrationBase64: FileDtoBase64;
+    companyRegistrationExtension: FileDtoBase64;
+    tenantId: number;
+    worbbiorState: CreateUserDocumentsInfoInputWorbbiorState;
+    id: number;
+
+    constructor(data?: ICreateUserDocumentsInfoInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.rgNumber = data["rgNumber"];
+            this.rg = data["rg"];
+            this.rgFileName = data["rgFileName"];
+            this.rgFileBase64 = data["rgFileBase64"] ? FileDtoBase64.fromJS(data["rgFileBase64"]) : <any>undefined;
+            this.rgExtension = data["rgExtension"] ? FileDtoBase64.fromJS(data["rgExtension"]) : <any>undefined;
+            this.cpfNumber = data["cpfNumber"];
+            this.cpf = data["cpf"];
+            this.cpfFileName = data["cpfFileName"];
+            this.cpfFileBase64 = data["cpfFileBase64"] ? FileDtoBase64.fromJS(data["cpfFileBase64"]) : <any>undefined;
+            this.cpfExtension = data["cpfExtension"] ? FileDtoBase64.fromJS(data["cpfExtension"]) : <any>undefined;
+            this.criminalRecordsCertificate = data["criminalRecordsCertificate"];
+            this.criminalRecordsCertificateFileName = data["criminalRecordsCertificateFileName"];
+            this.criminalRecordsCertificateFileBase64 = data["criminalRecordsCertificateFileBase64"] ? FileDtoBase64.fromJS(data["criminalRecordsCertificateFileBase64"]) : <any>undefined;
+            this.criminalRecordsCertificateExtension = data["criminalRecordsCertificateExtension"] ? FileDtoBase64.fromJS(data["criminalRecordsCertificateExtension"]) : <any>undefined;
+            this.proofOfAddress = data["proofOfAddress"];
+            this.proofOfAddressFileName = data["proofOfAddressFileName"];
+            this.proofofaddressFileBase64 = data["proofofaddressFileBase64"] ? FileDtoBase64.fromJS(data["proofofaddressFileBase64"]) : <any>undefined;
+            this.proofofaddressExtension = data["proofofaddressExtension"] ? FileDtoBase64.fromJS(data["proofofaddressExtension"]) : <any>undefined;
+            this.isCompany = data["isCompany"];
+            this.cnpj = data["cnpj"];
+            this.municipalRegistration = data["municipalRegistration"];
+            this.fantasyName = data["fantasyName"];
+            this.companyRegistration = data["companyRegistration"];
+            this.companyRegistrationFileName = data["companyRegistrationFileName"];
+            this.companyRegistrationBase64 = data["companyRegistrationBase64"] ? FileDtoBase64.fromJS(data["companyRegistrationBase64"]) : <any>undefined;
+            this.companyRegistrationExtension = data["companyRegistrationExtension"] ? FileDtoBase64.fromJS(data["companyRegistrationExtension"]) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.worbbiorState = data["worbbiorState"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateUserDocumentsInfoInput {
+        let result = new CreateUserDocumentsInfoInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["rgNumber"] = this.rgNumber;
+        data["rg"] = this.rg;
+        data["rgFileName"] = this.rgFileName;
+        data["rgFileBase64"] = this.rgFileBase64 ? this.rgFileBase64.toJSON() : <any>undefined;
+        data["rgExtension"] = this.rgExtension ? this.rgExtension.toJSON() : <any>undefined;
+        data["cpfNumber"] = this.cpfNumber;
+        data["cpf"] = this.cpf;
+        data["cpfFileName"] = this.cpfFileName;
+        data["cpfFileBase64"] = this.cpfFileBase64 ? this.cpfFileBase64.toJSON() : <any>undefined;
+        data["cpfExtension"] = this.cpfExtension ? this.cpfExtension.toJSON() : <any>undefined;
+        data["criminalRecordsCertificate"] = this.criminalRecordsCertificate;
+        data["criminalRecordsCertificateFileName"] = this.criminalRecordsCertificateFileName;
+        data["criminalRecordsCertificateFileBase64"] = this.criminalRecordsCertificateFileBase64 ? this.criminalRecordsCertificateFileBase64.toJSON() : <any>undefined;
+        data["criminalRecordsCertificateExtension"] = this.criminalRecordsCertificateExtension ? this.criminalRecordsCertificateExtension.toJSON() : <any>undefined;
+        data["proofOfAddress"] = this.proofOfAddress;
+        data["proofOfAddressFileName"] = this.proofOfAddressFileName;
+        data["proofofaddressFileBase64"] = this.proofofaddressFileBase64 ? this.proofofaddressFileBase64.toJSON() : <any>undefined;
+        data["proofofaddressExtension"] = this.proofofaddressExtension ? this.proofofaddressExtension.toJSON() : <any>undefined;
+        data["isCompany"] = this.isCompany;
+        data["cnpj"] = this.cnpj;
+        data["municipalRegistration"] = this.municipalRegistration;
+        data["fantasyName"] = this.fantasyName;
+        data["companyRegistration"] = this.companyRegistration;
+        data["companyRegistrationFileName"] = this.companyRegistrationFileName;
+        data["companyRegistrationBase64"] = this.companyRegistrationBase64 ? this.companyRegistrationBase64.toJSON() : <any>undefined;
+        data["companyRegistrationExtension"] = this.companyRegistrationExtension ? this.companyRegistrationExtension.toJSON() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["worbbiorState"] = this.worbbiorState;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateUserDocumentsInfoInput {
+    userId: number;
+    rgNumber: string;
+    rg: string;
+    rgFileName: string;
+    rgFileBase64: FileDtoBase64;
+    rgExtension: FileDtoBase64;
+    cpfNumber: string;
+    cpf: string;
+    cpfFileName: string;
+    cpfFileBase64: FileDtoBase64;
+    cpfExtension: FileDtoBase64;
+    criminalRecordsCertificate: string;
+    criminalRecordsCertificateFileName: string;
+    criminalRecordsCertificateFileBase64: FileDtoBase64;
+    criminalRecordsCertificateExtension: FileDtoBase64;
+    proofOfAddress: string;
+    proofOfAddressFileName: string;
+    proofofaddressFileBase64: FileDtoBase64;
+    proofofaddressExtension: FileDtoBase64;
+    isCompany: boolean;
+    cnpj: string;
+    municipalRegistration: string;
+    fantasyName: string;
+    companyRegistration: string;
+    companyRegistrationFileName: string;
+    companyRegistrationBase64: FileDtoBase64;
+    companyRegistrationExtension: FileDtoBase64;
+    tenantId: number;
+    worbbiorState: CreateUserDocumentsInfoInputWorbbiorState;
+    id: number;
+}
+
+export class FileDtoBase64 implements IFileDtoBase64 {
+    fileBase64: string;
+    fileExtension: string;
+    fileGuid: string;
+
+    constructor(data?: IFileDtoBase64) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fileBase64 = data["fileBase64"];
+            this.fileExtension = data["fileExtension"];
+            this.fileGuid = data["fileGuid"];
+        }
+    }
+
+    static fromJS(data: any): FileDtoBase64 {
+        let result = new FileDtoBase64();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileBase64"] = this.fileBase64;
+        data["fileExtension"] = this.fileExtension;
+        data["fileGuid"] = this.fileGuid;
+        return data; 
+    }
+}
+
+export interface IFileDtoBase64 {
+    fileBase64: string;
+    fileExtension: string;
+    fileGuid: string;
+}
+
+export class FileDownloadDto implements IFileDownloadDto {
+    id: string;
+    fileName: string;
+
+    constructor(data?: IFileDownloadDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.fileName = data["fileName"];
+        }
+    }
+
+    static fromJS(data: any): FileDownloadDto {
+        let result = new FileDownloadDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["fileName"] = this.fileName;
+        return data; 
+    }
+}
+
+export interface IFileDownloadDto {
+    id: string;
+    fileName: string;
 }
 
 export class LinkToUserInput implements ILinkToUserInput {
@@ -14571,6 +25298,1234 @@ export interface IGetLatestWebLogsOutput {
     latestWebLogLines: string[];
 }
 
+export class PagedResultDtoOfWorbbiorForEditDto implements IPagedResultDtoOfWorbbiorForEditDto {
+    totalCount: number;
+    items: WorbbiorForEditDto[];
+
+    constructor(data?: IPagedResultDtoOfWorbbiorForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbiorForEditDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfWorbbiorForEditDto {
+        let result = new PagedResultDtoOfWorbbiorForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfWorbbiorForEditDto {
+    totalCount: number;
+    items: WorbbiorForEditDto[];
+}
+
+export class WorbbiorForEditDto implements IWorbbiorForEditDto {
+    description: string;
+    displayName: string;
+    worbbiorState: WorbbiorForEditDtoWorbbiorState;
+    premium: boolean;
+    radius: number;
+    worbbiorId: number;
+    name: string;
+    surname: string;
+    userName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    timezone: string;
+    saveRadius: boolean;
+    creationTime: moment.Moment;
+    lastModificationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: IWorbbiorForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.description = data["description"];
+            this.displayName = data["displayName"];
+            this.worbbiorState = data["worbbiorState"];
+            this.premium = data["premium"];
+            this.radius = data["radius"];
+            this.worbbiorId = data["worbbiorId"];
+            this.name = data["name"];
+            this.surname = data["surname"];
+            this.userName = data["userName"];
+            this.emailAddress = data["emailAddress"];
+            this.phoneNumber = data["phoneNumber"];
+            this.timezone = data["timezone"];
+            this.saveRadius = data["saveRadius"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbiorForEditDto {
+        let result = new WorbbiorForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["description"] = this.description;
+        data["displayName"] = this.displayName;
+        data["worbbiorState"] = this.worbbiorState;
+        data["premium"] = this.premium;
+        data["radius"] = this.radius;
+        data["worbbiorId"] = this.worbbiorId;
+        data["name"] = this.name;
+        data["surname"] = this.surname;
+        data["userName"] = this.userName;
+        data["emailAddress"] = this.emailAddress;
+        data["phoneNumber"] = this.phoneNumber;
+        data["timezone"] = this.timezone;
+        data["saveRadius"] = this.saveRadius;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbiorForEditDto {
+    description: string;
+    displayName: string;
+    worbbiorState: WorbbiorForEditDtoWorbbiorState;
+    premium: boolean;
+    radius: number;
+    worbbiorId: number;
+    name: string;
+    surname: string;
+    userName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    timezone: string;
+    saveRadius: boolean;
+    creationTime: moment.Moment;
+    lastModificationTime: moment.Moment;
+    id: number;
+}
+
+export class RequestEditWorbbiorDto implements IRequestEditWorbbiorDto {
+    worbbiorId: number;
+    message: string;
+    subject: string;
+    worbbiorState: RequestEditWorbbiorDtoWorbbiorState;
+    url: string;
+
+    constructor(data?: IRequestEditWorbbiorDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbiorId = data["worbbiorId"];
+            this.message = data["message"];
+            this.subject = data["subject"];
+            this.worbbiorState = data["worbbiorState"];
+            this.url = data["url"];
+        }
+    }
+
+    static fromJS(data: any): RequestEditWorbbiorDto {
+        let result = new RequestEditWorbbiorDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbiorId"] = this.worbbiorId;
+        data["message"] = this.message;
+        data["subject"] = this.subject;
+        data["worbbiorState"] = this.worbbiorState;
+        data["url"] = this.url;
+        return data; 
+    }
+}
+
+export interface IRequestEditWorbbiorDto {
+    worbbiorId: number;
+    message: string;
+    subject: string;
+    worbbiorState: RequestEditWorbbiorDtoWorbbiorState;
+    url: string;
+}
+
+export class SendEmailWorbbiorDto implements ISendEmailWorbbiorDto {
+    userId: number;
+    message: string;
+    subject: string;
+    name: string;
+    surname: string;
+    email: string;
+    url: string;
+    validation: boolean;
+
+    constructor(data?: ISendEmailWorbbiorDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.message = data["message"];
+            this.subject = data["subject"];
+            this.name = data["name"];
+            this.surname = data["surname"];
+            this.email = data["email"];
+            this.url = data["url"];
+            this.validation = data["validation"];
+        }
+    }
+
+    static fromJS(data: any): SendEmailWorbbiorDto {
+        let result = new SendEmailWorbbiorDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["message"] = this.message;
+        data["subject"] = this.subject;
+        data["name"] = this.name;
+        data["surname"] = this.surname;
+        data["email"] = this.email;
+        data["url"] = this.url;
+        data["validation"] = this.validation;
+        return data; 
+    }
+}
+
+export interface ISendEmailWorbbiorDto {
+    userId: number;
+    message: string;
+    subject: string;
+    name: string;
+    surname: string;
+    email: string;
+    url: string;
+    validation: boolean;
+}
+
+export class WorbbiorProfileDto implements IWorbbiorProfileDto {
+    worbbior: WorbbiorDto;
+    availabilities: ListResultDtoOfAvailabilityDto;
+    evaluation: EvaluationAverageDto;
+    userActivities: ListResultDtoOfUserActivityInput;
+    address: AddressDto;
+
+    constructor(data?: IWorbbiorProfileDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
+            this.availabilities = data["availabilities"] ? ListResultDtoOfAvailabilityDto.fromJS(data["availabilities"]) : <any>undefined;
+            this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
+            this.userActivities = data["userActivities"] ? ListResultDtoOfUserActivityInput.fromJS(data["userActivities"]) : <any>undefined;
+            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): WorbbiorProfileDto {
+        let result = new WorbbiorProfileDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
+        data["availabilities"] = this.availabilities ? this.availabilities.toJSON() : <any>undefined;
+        data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
+        data["userActivities"] = this.userActivities ? this.userActivities.toJSON() : <any>undefined;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IWorbbiorProfileDto {
+    worbbior: WorbbiorDto;
+    availabilities: ListResultDtoOfAvailabilityDto;
+    evaluation: EvaluationAverageDto;
+    userActivities: ListResultDtoOfUserActivityInput;
+    address: AddressDto;
+}
+
+export class ReportEmailDto implements IReportEmailDto {
+    worbbiorID: number;
+    name: string;
+    emailAddress: string;
+    reason: string;
+    emailNotification: string;
+
+    constructor(data?: IReportEmailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbiorID = data["worbbiorID"];
+            this.name = data["name"];
+            this.emailAddress = data["emailAddress"];
+            this.reason = data["reason"];
+            this.emailNotification = data["emailNotification"];
+        }
+    }
+
+    static fromJS(data: any): ReportEmailDto {
+        let result = new ReportEmailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbiorID"] = this.worbbiorID;
+        data["name"] = this.name;
+        data["emailAddress"] = this.emailAddress;
+        data["reason"] = this.reason;
+        data["emailNotification"] = this.emailNotification;
+        return data; 
+    }
+}
+
+export interface IReportEmailDto {
+    worbbiorID: number;
+    name: string;
+    emailAddress: string;
+    reason: string;
+    emailNotification: string;
+}
+
+export class ReportWorbbintEmailDto implements IReportWorbbintEmailDto {
+    reportedWorbbientID: number;
+    worbbiorID: number;
+    taskId: number;
+    reason: string;
+    emailNotification: string;
+
+    constructor(data?: IReportWorbbintEmailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.reportedWorbbientID = data["reportedWorbbientID"];
+            this.worbbiorID = data["worbbiorID"];
+            this.taskId = data["taskId"];
+            this.reason = data["reason"];
+            this.emailNotification = data["emailNotification"];
+        }
+    }
+
+    static fromJS(data: any): ReportWorbbintEmailDto {
+        let result = new ReportWorbbintEmailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["reportedWorbbientID"] = this.reportedWorbbientID;
+        data["worbbiorID"] = this.worbbiorID;
+        data["taskId"] = this.taskId;
+        data["reason"] = this.reason;
+        data["emailNotification"] = this.emailNotification;
+        return data; 
+    }
+}
+
+export interface IReportWorbbintEmailDto {
+    reportedWorbbientID: number;
+    worbbiorID: number;
+    taskId: number;
+    reason: string;
+    emailNotification: string;
+}
+
+export class RequestWorbbiorRegisterCodeEmailDto implements IRequestWorbbiorRegisterCodeEmailDto {
+    name: string;
+    emailAddress: string;
+
+    constructor(data?: IRequestWorbbiorRegisterCodeEmailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.emailAddress = data["emailAddress"];
+        }
+    }
+
+    static fromJS(data: any): RequestWorbbiorRegisterCodeEmailDto {
+        let result = new RequestWorbbiorRegisterCodeEmailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["emailAddress"] = this.emailAddress;
+        return data; 
+    }
+}
+
+export interface IRequestWorbbiorRegisterCodeEmailDto {
+    name: string;
+    emailAddress: string;
+}
+
+export class WorbbyTaskDto implements IWorbbyTaskDto {
+    title: string;
+    description: string;
+    interestCenterId: number;
+    interestCenter: InterestCenterForWorbbyTaskDto;
+    userId: number;
+    worbbient: WorbbientDto;
+    offerId: number;
+    offersList: ListResultDtoOfWorbbyOfferDto;
+    countOffers: number;
+    countWorbbyTaskMessagesUnread: number;
+    tenantId: number;
+    targetUserId: number;
+    worbbior: WorbbiorDto;
+    activityUserId: number;
+    userActivity: UserActivityInput;
+    addressId: number;
+    address: AddressDto;
+    distance: number;
+    unitMeasure: WorbbyTaskDtoUnitMeasure;
+    cancellationPolicy: WorbbyTaskDtoCancellationPolicy;
+    amount: number;
+    unitPrice: number;
+    isUnitPrice: boolean;
+    totalPrice: number;
+    time: string;
+    scheduledDate: moment.Moment;
+    scheduleDateType: WorbbyTaskDtoScheduleDateType;
+    status: WorbbyTaskDtoStatus;
+    hiredDate: moment.Moment;
+    startDate: moment.Moment;
+    deliveredDate: moment.Moment;
+    canceledDate: moment.Moment;
+    paymentDate: moment.Moment;
+    creationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: IWorbbyTaskDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.title = data["title"];
+            this.description = data["description"];
+            this.interestCenterId = data["interestCenterId"];
+            this.interestCenter = data["interestCenter"] ? InterestCenterForWorbbyTaskDto.fromJS(data["interestCenter"]) : <any>undefined;
+            this.userId = data["userId"];
+            this.worbbient = data["worbbient"] ? WorbbientDto.fromJS(data["worbbient"]) : <any>undefined;
+            this.offerId = data["offerId"];
+            this.offersList = data["offersList"] ? ListResultDtoOfWorbbyOfferDto.fromJS(data["offersList"]) : <any>undefined;
+            this.countOffers = data["countOffers"];
+            this.countWorbbyTaskMessagesUnread = data["countWorbbyTaskMessagesUnread"];
+            this.tenantId = data["tenantId"];
+            this.targetUserId = data["targetUserId"];
+            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
+            this.activityUserId = data["activityUserId"];
+            this.userActivity = data["userActivity"] ? UserActivityInput.fromJS(data["userActivity"]) : <any>undefined;
+            this.addressId = data["addressId"];
+            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
+            this.distance = data["distance"];
+            this.unitMeasure = data["unitMeasure"];
+            this.cancellationPolicy = data["cancellationPolicy"];
+            this.amount = data["amount"];
+            this.unitPrice = data["unitPrice"];
+            this.isUnitPrice = data["isUnitPrice"];
+            this.totalPrice = data["totalPrice"];
+            this.time = data["time"];
+            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
+            this.scheduleDateType = data["scheduleDateType"];
+            this.status = data["status"];
+            this.hiredDate = data["hiredDate"] ? moment(data["hiredDate"].toString()) : <any>undefined;
+            this.startDate = data["startDate"] ? moment(data["startDate"].toString()) : <any>undefined;
+            this.deliveredDate = data["deliveredDate"] ? moment(data["deliveredDate"].toString()) : <any>undefined;
+            this.canceledDate = data["canceledDate"] ? moment(data["canceledDate"].toString()) : <any>undefined;
+            this.paymentDate = data["paymentDate"] ? moment(data["paymentDate"].toString()) : <any>undefined;
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyTaskDto {
+        let result = new WorbbyTaskDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["interestCenterId"] = this.interestCenterId;
+        data["interestCenter"] = this.interestCenter ? this.interestCenter.toJSON() : <any>undefined;
+        data["userId"] = this.userId;
+        data["worbbient"] = this.worbbient ? this.worbbient.toJSON() : <any>undefined;
+        data["offerId"] = this.offerId;
+        data["offersList"] = this.offersList ? this.offersList.toJSON() : <any>undefined;
+        data["countOffers"] = this.countOffers;
+        data["countWorbbyTaskMessagesUnread"] = this.countWorbbyTaskMessagesUnread;
+        data["tenantId"] = this.tenantId;
+        data["targetUserId"] = this.targetUserId;
+        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
+        data["activityUserId"] = this.activityUserId;
+        data["userActivity"] = this.userActivity ? this.userActivity.toJSON() : <any>undefined;
+        data["addressId"] = this.addressId;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["distance"] = this.distance;
+        data["unitMeasure"] = this.unitMeasure;
+        data["cancellationPolicy"] = this.cancellationPolicy;
+        data["amount"] = this.amount;
+        data["unitPrice"] = this.unitPrice;
+        data["isUnitPrice"] = this.isUnitPrice;
+        data["totalPrice"] = this.totalPrice;
+        data["time"] = this.time;
+        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
+        data["scheduleDateType"] = this.scheduleDateType;
+        data["status"] = this.status;
+        data["hiredDate"] = this.hiredDate ? this.hiredDate.toISOString() : <any>undefined;
+        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
+        data["deliveredDate"] = this.deliveredDate ? this.deliveredDate.toISOString() : <any>undefined;
+        data["canceledDate"] = this.canceledDate ? this.canceledDate.toISOString() : <any>undefined;
+        data["paymentDate"] = this.paymentDate ? this.paymentDate.toISOString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbyTaskDto {
+    title: string;
+    description: string;
+    interestCenterId: number;
+    interestCenter: InterestCenterForWorbbyTaskDto;
+    userId: number;
+    worbbient: WorbbientDto;
+    offerId: number;
+    offersList: ListResultDtoOfWorbbyOfferDto;
+    countOffers: number;
+    countWorbbyTaskMessagesUnread: number;
+    tenantId: number;
+    targetUserId: number;
+    worbbior: WorbbiorDto;
+    activityUserId: number;
+    userActivity: UserActivityInput;
+    addressId: number;
+    address: AddressDto;
+    distance: number;
+    unitMeasure: WorbbyTaskDtoUnitMeasure;
+    cancellationPolicy: WorbbyTaskDtoCancellationPolicy;
+    amount: number;
+    unitPrice: number;
+    isUnitPrice: boolean;
+    totalPrice: number;
+    time: string;
+    scheduledDate: moment.Moment;
+    scheduleDateType: WorbbyTaskDtoScheduleDateType;
+    status: WorbbyTaskDtoStatus;
+    hiredDate: moment.Moment;
+    startDate: moment.Moment;
+    deliveredDate: moment.Moment;
+    canceledDate: moment.Moment;
+    paymentDate: moment.Moment;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class InterestCenterForWorbbyTaskDto implements IInterestCenterForWorbbyTaskDto {
+    parentId: number;
+    parentDisplayName: string;
+    parentPictureId: string;
+    parentPicture: string;
+    displayName: string;
+    description: string;
+    interestCenterPictureId: string;
+    interestCenterPicture: string;
+    id: number;
+
+    constructor(data?: IInterestCenterForWorbbyTaskDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parentId = data["parentId"];
+            this.parentDisplayName = data["parentDisplayName"];
+            this.parentPictureId = data["parentPictureId"];
+            this.parentPicture = data["parentPicture"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.interestCenterPictureId = data["interestCenterPictureId"];
+            this.interestCenterPicture = data["interestCenterPicture"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InterestCenterForWorbbyTaskDto {
+        let result = new InterestCenterForWorbbyTaskDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parentId"] = this.parentId;
+        data["parentDisplayName"] = this.parentDisplayName;
+        data["parentPictureId"] = this.parentPictureId;
+        data["parentPicture"] = this.parentPicture;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["interestCenterPictureId"] = this.interestCenterPictureId;
+        data["interestCenterPicture"] = this.interestCenterPicture;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInterestCenterForWorbbyTaskDto {
+    parentId: number;
+    parentDisplayName: string;
+    parentPictureId: string;
+    parentPicture: string;
+    displayName: string;
+    description: string;
+    interestCenterPictureId: string;
+    interestCenterPicture: string;
+    id: number;
+}
+
+export class WorbbientDto implements IWorbbientDto {
+    name: string;
+    surname: string;
+    userPictureId: string;
+    emailAddress: string;
+    userPicture: string;
+    id: number;
+
+    constructor(data?: IWorbbientDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.surname = data["surname"];
+            this.userPictureId = data["userPictureId"];
+            this.emailAddress = data["emailAddress"];
+            this.userPicture = data["userPicture"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbientDto {
+        let result = new WorbbientDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["surname"] = this.surname;
+        data["userPictureId"] = this.userPictureId;
+        data["emailAddress"] = this.emailAddress;
+        data["userPicture"] = this.userPicture;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbientDto {
+    name: string;
+    surname: string;
+    userPictureId: string;
+    emailAddress: string;
+    userPicture: string;
+    id: number;
+}
+
+export class ListResultDtoOfWorbbyOfferDto implements IListResultDtoOfWorbbyOfferDto {
+    items: WorbbyOfferDto[];
+
+    constructor(data?: IListResultDtoOfWorbbyOfferDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbyOfferDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfWorbbyOfferDto {
+        let result = new ListResultDtoOfWorbbyOfferDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfWorbbyOfferDto {
+    items: WorbbyOfferDto[];
+}
+
+export class WorbbyOfferDto implements IWorbbyOfferDto {
+    userId: number;
+    worbbior: WorbbiorDto;
+    tenantId: number;
+    worbbyTaskId: number;
+    worbbyTask: WorbbyTaskDto;
+    description: string;
+    cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    id: number;
+
+    constructor(data?: IWorbbyOfferDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.worbbyTask = data["worbbyTask"] ? WorbbyTaskDto.fromJS(data["worbbyTask"]) : <any>undefined;
+            this.description = data["description"];
+            this.cancellationPolicy = data["cancellationPolicy"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyOfferDto {
+        let result = new WorbbyOfferDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["worbbyTask"] = this.worbbyTask ? this.worbbyTask.toJSON() : <any>undefined;
+        data["description"] = this.description;
+        data["cancellationPolicy"] = this.cancellationPolicy;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbyOfferDto {
+    userId: number;
+    worbbior: WorbbiorDto;
+    tenantId: number;
+    worbbyTaskId: number;
+    worbbyTask: WorbbyTaskDto;
+    description: string;
+    cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    id: number;
+}
+
+export class FindWorbbyTaskInput implements IFindWorbbyTaskInput {
+    filter: string;
+    interestCenterTopLevelId: number;
+    interestCenterChildId: number;
+    address: string;
+    orderBy: string;
+    latitude: string;
+    longitude: string;
+    page: number;
+
+    constructor(data?: IFindWorbbyTaskInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.filter = data["filter"];
+            this.interestCenterTopLevelId = data["interestCenterTopLevelId"];
+            this.interestCenterChildId = data["interestCenterChildId"];
+            this.address = data["address"];
+            this.orderBy = data["orderBy"];
+            this.latitude = data["latitude"];
+            this.longitude = data["longitude"];
+            this.page = data["page"];
+        }
+    }
+
+    static fromJS(data: any): FindWorbbyTaskInput {
+        let result = new FindWorbbyTaskInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filter"] = this.filter;
+        data["interestCenterTopLevelId"] = this.interestCenterTopLevelId;
+        data["interestCenterChildId"] = this.interestCenterChildId;
+        data["address"] = this.address;
+        data["orderBy"] = this.orderBy;
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        data["page"] = this.page;
+        return data; 
+    }
+}
+
+export interface IFindWorbbyTaskInput {
+    filter: string;
+    interestCenterTopLevelId: number;
+    interestCenterChildId: number;
+    address: string;
+    orderBy: string;
+    latitude: string;
+    longitude: string;
+    page: number;
+}
+
+export class ListResultDtoOfWorbbyTaskDto implements IListResultDtoOfWorbbyTaskDto {
+    items: WorbbyTaskDto[];
+
+    constructor(data?: IListResultDtoOfWorbbyTaskDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbyTaskDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfWorbbyTaskDto {
+        let result = new ListResultDtoOfWorbbyTaskDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfWorbbyTaskDto {
+    items: WorbbyTaskDto[];
+}
+
+export class PagedResultDtoOfWorbbyTaskDto implements IPagedResultDtoOfWorbbyTaskDto {
+    totalCount: number;
+    items: WorbbyTaskDto[];
+
+    constructor(data?: IPagedResultDtoOfWorbbyTaskDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbyTaskDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfWorbbyTaskDto {
+        let result = new PagedResultDtoOfWorbbyTaskDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfWorbbyTaskDto {
+    totalCount: number;
+    items: WorbbyTaskDto[];
+}
+
+export class WorbbyTaskMessageListDto implements IWorbbyTaskMessageListDto {
+    worbbyTaskMessages: WorbbyPagedResultDtoOfWorbbyTaskMessageDto;
+    countUnreadMessages: number;
+
+    constructor(data?: IWorbbyTaskMessageListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbyTaskMessages = data["worbbyTaskMessages"] ? WorbbyPagedResultDtoOfWorbbyTaskMessageDto.fromJS(data["worbbyTaskMessages"]) : <any>undefined;
+            this.countUnreadMessages = data["countUnreadMessages"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyTaskMessageListDto {
+        let result = new WorbbyTaskMessageListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbyTaskMessages"] = this.worbbyTaskMessages ? this.worbbyTaskMessages.toJSON() : <any>undefined;
+        data["countUnreadMessages"] = this.countUnreadMessages;
+        return data; 
+    }
+}
+
+export interface IWorbbyTaskMessageListDto {
+    worbbyTaskMessages: WorbbyPagedResultDtoOfWorbbyTaskMessageDto;
+    countUnreadMessages: number;
+}
+
+export class WorbbyPagedResultDtoOfWorbbyTaskMessageDto implements IWorbbyPagedResultDtoOfWorbbyTaskMessageDto {
+    parcialCount: number;
+    totalCount: number;
+    items: WorbbyTaskMessageDto[];
+
+    constructor(data?: IWorbbyPagedResultDtoOfWorbbyTaskMessageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parcialCount = data["parcialCount"];
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbyTaskMessageDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): WorbbyPagedResultDtoOfWorbbyTaskMessageDto {
+        let result = new WorbbyPagedResultDtoOfWorbbyTaskMessageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parcialCount"] = this.parcialCount;
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IWorbbyPagedResultDtoOfWorbbyTaskMessageDto {
+    parcialCount: number;
+    totalCount: number;
+    items: WorbbyTaskMessageDto[];
+}
+
+export class WorbbyTaskMessageDto implements IWorbbyTaskMessageDto {
+    userId: number;
+    userDisplayName: string;
+    userPictureId: string;
+    userPicture: string;
+    targetUserId: number;
+    targetUserDisplayName: string;
+    targetUserPictureId: string;
+    targetUserPicture: string;
+    worbbyTaskId: number;
+    worbbyOfferId: number;
+    message: string;
+    fileId: string;
+    fileName: string;
+    side: WorbbyTaskMessageDtoSide;
+    readState: WorbbyTaskMessageDtoReadState;
+    creationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: IWorbbyTaskMessageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.userDisplayName = data["userDisplayName"];
+            this.userPictureId = data["userPictureId"];
+            this.userPicture = data["userPicture"];
+            this.targetUserId = data["targetUserId"];
+            this.targetUserDisplayName = data["targetUserDisplayName"];
+            this.targetUserPictureId = data["targetUserPictureId"];
+            this.targetUserPicture = data["targetUserPicture"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.worbbyOfferId = data["worbbyOfferId"];
+            this.message = data["message"];
+            this.fileId = data["fileId"];
+            this.fileName = data["fileName"];
+            this.side = data["side"];
+            this.readState = data["readState"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyTaskMessageDto {
+        let result = new WorbbyTaskMessageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["userDisplayName"] = this.userDisplayName;
+        data["userPictureId"] = this.userPictureId;
+        data["userPicture"] = this.userPicture;
+        data["targetUserId"] = this.targetUserId;
+        data["targetUserDisplayName"] = this.targetUserDisplayName;
+        data["targetUserPictureId"] = this.targetUserPictureId;
+        data["targetUserPicture"] = this.targetUserPicture;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["worbbyOfferId"] = this.worbbyOfferId;
+        data["message"] = this.message;
+        data["fileId"] = this.fileId;
+        data["fileName"] = this.fileName;
+        data["side"] = this.side;
+        data["readState"] = this.readState;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbyTaskMessageDto {
+    userId: number;
+    userDisplayName: string;
+    userPictureId: string;
+    userPicture: string;
+    targetUserId: number;
+    targetUserDisplayName: string;
+    targetUserPictureId: string;
+    targetUserPicture: string;
+    worbbyTaskId: number;
+    worbbyOfferId: number;
+    message: string;
+    fileId: string;
+    fileName: string;
+    side: WorbbyTaskMessageDtoSide;
+    readState: WorbbyTaskMessageDtoReadState;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class WorbbyTaskInput implements IWorbbyTaskInput {
+    worbbyTask: WorbbyTaskDto;
+    address: AddressDto;
+
+    constructor(data?: IWorbbyTaskInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbyTask = data["worbbyTask"] ? WorbbyTaskDto.fromJS(data["worbbyTask"]) : <any>undefined;
+            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): WorbbyTaskInput {
+        let result = new WorbbyTaskInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbyTask"] = this.worbbyTask ? this.worbbyTask.toJSON() : <any>undefined;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IWorbbyTaskInput {
+    worbbyTask: WorbbyTaskDto;
+    address: AddressDto;
+}
+
 export enum IncomeStatisticsDateInterval {
     _1 = 1, 
     _2 = 2, 
@@ -14613,6 +26568,67 @@ export enum IsTenantAvailableOutputState {
     _3 = 3, 
 }
 
+export enum CreateOrEditActivityDtoActivityState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum WorbbiorDtoWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+}
+
+export enum UserActivityInputUnitMeasure {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum UserActivityInputCancellationPolicy {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+}
+
+export enum UserActivityInputActivityState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum UserActivityAdminInputUnitMeasure {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum UserActivityAdminInputCancellationPolicy {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+}
+
+export enum UserActivityAdminInputActivityState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum AvailabilityDtoDayOfWeek {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+    _6 = 6, 
+}
+
 export enum FriendDtoState {
     _1 = 1, 
     _2 = 2, 
@@ -14624,6 +26640,48 @@ export enum ChatMessageDtoSide {
 }
 
 export enum ChatMessageDtoReadState {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum PaymentDtoStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
+}
+
+export enum SaleOutputSaleStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
+}
+
+export enum EndorsementDtoEndorsementState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum EndorsementAlterStatusDtoEndorsementState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum GetEndorsementsByActivitIdDtoEndorsementState {
+    _0 = 0, 
     _1 = 1, 
     _2 = 2, 
 }
@@ -14720,6 +26778,18 @@ export enum ExecutePaymentDtoPaymentPeriodType {
     _365 = 365, 
 }
 
+export enum SaleInputSaleStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
+}
+
 export enum TenantLoginInfoDtoPaymentPeriodType {
     _30 = 30, 
     _365 = 365, 
@@ -14733,6 +26803,82 @@ export enum RegisterTenantInputSubscriptionStartType {
 
 export enum RegisterTenantInputGateway {
     _1 = 1, 
+}
+
+export enum CreateUserDocumentsInfoInputWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+}
+
+export enum WorbbiorForEditDtoWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+}
+
+export enum RequestEditWorbbiorDtoWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+}
+
+export enum WorbbyTaskDtoUnitMeasure {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum WorbbyTaskDtoCancellationPolicy {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+}
+
+export enum WorbbyTaskDtoScheduleDateType {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum WorbbyTaskDtoStatus {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+    _6 = 6, 
+    _7 = 7, 
+    _8 = 8, 
+    _9 = 9, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+}
+
+export enum WorbbyOfferDtoCancellationPolicy {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+}
+
+export enum WorbbyTaskMessageDtoSide {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum WorbbyTaskMessageDtoReadState {
+    _1 = 1, 
+    _2 = 2, 
 }
 
 export class SwaggerException extends Error {

@@ -1,0 +1,149 @@
+<div class="panel panel-default panel-worbby borda-Denim borda-top-2 hidden-xs m-b-sm">
+    <div class="panel-body cor-Denim">
+        <strong>Você é seu próprio chefe e pode sempre atualizar sua disponibilidade no sistema.</strong>
+    </div>
+</div>
+
+<h3 class="cor-Cinder profile-xs">{{l("MyAvailability")}}</h3>
+
+<div *ngIf="active">
+    <div class="row">        
+        <div class="col-xs-12">
+            <p>{{l("TextSelectedAvalibility")}}</p>
+            <div *ngFor="let availability of myAvailabilities" class="card-default m-y-xxs">
+                <a class="card-talents" (click)="updateavAilability(availability)">
+                    <h4>{{l(DayOfWeek[availability.dayOfWeek.toString()])}}</h4>
+                    <span> De {{availability.startTime}} às {{availability.endTime}}</span>
+                    <span> </span>
+                </a>
+                <button *ngIf="myAvailabilities.length > 1 &&  worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit" (click)="removeAvailability(availability)"
+                    title="{{l('Remove')}}" class="btn btn-remove delete-activity-user" href="javascript:;">
+                    <img src="" src="/assets/metronic/worbby/global/img/icon-trash.svg" alt="remove" />
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="card-talents-new">
+                <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" (click)="addAvailability()" title="{{l('SelectedAvalibility')}}"
+                    class="btn btn-prime btn-around btn-block" href="javascript:;">
+                    <span>{{l("Availabilities")}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="cor-Cinder profile-xs">Endereço</h3>
+    <div class="m-t-xxs cor-Botticelli txt-small">
+        <i class="fa fa-asterisk"></i>
+        <span>
+            Campos obrigatórios para a ativação do cadastro.
+        </span>
+    </div>  
+    <form #myAdresslDataForm="ngForm" (ngSubmit)="createOrUpdateAddress()" class="form-type-label m-t-xs">        
+        <div class="panel panel-clean m-b-xs">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <p class="m-t-xxs m-b-xss cor-Botticelli txt-small">
+                            <i class="fa fa-asterisk"></i>
+                            <span>Campos obrigatórios para a ativação do cadastro.</span>
+                        </p>  
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("ChooseAdministrativeArea")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                            <div class="dropdown">
+                                <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="button" class="dropdown-toggle btn btn-prime-inverted"
+                                    data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    {{currentAdministrativeArea.text}}
+                                    <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let item of administrativeAreas.items">
+                                        <a href="javascript:;" (click)="changeAdministativeArea(item)">
+                                            {{item.text}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                                    
+                </div> 
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">                
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("Locality")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Locality" [(ngModel)]="address.locality">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-8">
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("SubLocality")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="SubLocality"
+                                [(ngModel)]="address.subLocality">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("PostalCode")}}</label>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control edited" type="tel" name="PostalCode" [textMask]="{mask: AppConsts.cepMask}"
+                                [(ngModel)]="address.postalCode">
+                        </div>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">   
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("Address")}} (Avenida, rua, etc.)</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Thoroughfare"
+                                [(ngModel)]="address.thoroughfare">
+                        </div>
+                    </div>
+                </div>        
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("ThoroughfareNumber")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="number" name="ThoroughfareNumber"
+                                [(ngModel)]="address.thoroughfareNumber">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-8">
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("Premise")}}</label>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Premise" [(ngModel)]="address.premise">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group no-hint">
+                            <label class="control-label">{{l("Radius")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i> 
+                            <template #popTemplateRaio><div class="text-left" [innerHtml]="tooltipRaio"></div></template>
+                            <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateRaio"></i>
+                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="number" name="Radius" [(ngModel)]="worbbior.radius">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 btn-align-map">
+                        <button type="button" class="btn btn-prime" (click)="showOnMap()">Mostrar no mapa</button>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <sebm-google-map *ngIf="mapActive && abaActive" [latitude]="toNumber(address.latitude)" [longitude]="toNumber(address.longitude)">
+                            <sebm-google-map-circle [latitude]="toNumber(address.latitude)" [longitude]="toNumber(address.longitude)" 
+                                [radius]="worbbior.radius * 1000"
+                                [fillColor]="'red'"
+                                [circleDraggable]="true"
+                                [editable]="true"
+                                (dragEnd)="updateGeolocalization($event)"
+                                (radiusChange)="updateRadius($event)">                                
+                            </sebm-google-map-circle>                                
+                        </sebm-google-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<createOrEditAvailabilityModal #createOrEditAvailabilityModal (modalSave)="getMyAvailabilities()"></createOrEditAvailabilityModal>

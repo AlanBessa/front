@@ -1,0 +1,195 @@
+﻿<div [@routerTransition]> 
+    <!-- Become a Worbbior : Inicio -->
+    <section class="container-fluid become-a-worbbior-home bg-WhiteLilac">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center m-t-lg">
+                        <h2 class="cor-Tangerine">Seja um worbbior</h2>
+                        <h3>Faça parte da nossa comunidade de talentos e ganhe dinheiro fazendo o que você ama.</h3>
+                    </div>
+                    <!-- Destaques : inicio -->
+                    <div class="col-xs-12 m-t-md m-b-lg">
+                        <div class="row">
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-benefits1.svg" alt="Escolha ou poste uma tarefa" />
+                                    <h4>Mostre seu talento</h4>
+                                    <p>Descubra e divulgue seus talentos. Conecte-se com pessoas que precisam das suas habilidades.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-benefits2.svg" alt="Selecione um talento" />
+                                    <h4>Ganhe dinheiro</h4>
+                                    <p>Tenha uma renda extra fazendo o que você ama. É você quem decide o quanto quer ganhar por hora.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-benefits3.svg" alt="Confirme os detalhes" />
+                                    <h4>Seja um patrão</h4>
+                                    <p>Escolha as tarefas de acordo com suas habilidades e com total flexibilidade. Faça a sua própria programação.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-benefits4.svg" alt="Pronto!" />
+                                    <h4>Grátis e seguro</h4>
+                                    <p>Use a plataforma gratuitamente e receba diretamente em sua conta. As tarefas contratadas têm fundo garantido.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 text-center">
+                                <a class="btn btn-prime btn-around btn-block m-t-sm" (click)="becomeWorbbior()">
+                                    {{l("BecomeWorbbior")}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Destaques : Fim -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Become a Worbbior : Fim -->
+
+    <!-- Find a talent : inicio -->
+    <section class="container find-talent-interest-home m-t-md">
+        <div class="row m-b-md">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-12 col-lg-offset-0">
+                <h4>
+                    <span class="hidden-xs text-uppercase">Encontre atividades por centro de interesse</span>
+                    <span class="visible-xs">Talento por área</span>
+                    <a class="small pull-right cor-Denim" routerLink="/talentos">
+                        {{l("ViewAll")}} <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </a>
+                </h4>
+                <slick-slider *ngIf="interestCenters.length" class="row text-center">
+                    <!-- card-talent : inicio -->
+                    <div class="" *ngFor="let interestCenter of interestCenters" class="card-shadow card-talent hovereffect">
+                        <a [routerLink]="['/centro-interesse', interestCenter.slugName]">
+                            <img class="ico-btn" [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
+                            <h5>{{interestCenter.displayName}}</h5>
+                            <div class="overlay">
+                                <p>{{interestCenter.description}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- card-talent : Fim -->
+                </slick-slider>
+            </div>
+            <div class="col-xs-12 visible-xs">
+                <a class="btn btn-block btn-prime btn-around cor-Cinder" routerLink="/post-a-task">
+                    {{l("PostATask")}}
+                    <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Find a talent : Fim -->    
+
+    <!-- How does it work? : Inicio -->
+    <section class="container-fluid how-does-it-work-home bg-WhiteLilac">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center m-t-lg">
+                        <h2 class="cor-Tangerine">{{l("HowDoesItWork")}}?</h2>
+                        <h3>{{l("ItsSimplReally")}}</h3>
+                    </div>
+                    <!-- Destaques : inicio -->
+                    <div class="col-xs-12 m-t-md m-b-lg">
+                        <div class="row">
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-1.svg" alt="Escolha ou poste uma tarefa" />
+                                    <h4>Cadastre suas habilidades</h4>
+                                    <p>Indique a atividade que você faz com excelência e ofereça-a para a nossa comunidade.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-2.svg" alt="Selecione um talento" />
+                                    <h4>Procure ou receba tarefas</h4>
+                                    <p>Ache tarefas filtrando-as por localização, distância, área de interesse e preço ou receba ofertas.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-3.svg" alt="Confirme os detalhes" />
+                                    <h4>Confirme os detalhes</h4>
+                                    <p>Entre em contato com o cliente pelo chat privado para acertar os detalhes da tarefa.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                            <!-- item destaque : inicio -->
+                            <div class="col-xs-6 col-sm-3 text-center">
+                                <div class="destaque col-item">
+                                    <img class="" src="/assets/metronic/worbby/global/img/icon-done.svg" alt="Pronto!" />
+                                    <h4>Pronto!</h4>
+                                    <p>A realização da tarefa deve ser confirmada pelas duas partes para que o pagamento seja liberado.</p>
+                                </div>
+                            </div>
+                            <!-- item destaque : Fim -->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 text-center">
+                                <a class="btn btn-prime btn-around btn-block m-t-sm" (click)="becomeWorbbior()">
+                                    {{l("BecomeWorbbior")}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Destaques : Fim -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How does it work? : Fim -->
+
+    <!-- 10 mandamentos: Inicio -->
+    <section class="container-fluid community-home">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+                    <div id="dezmandamento" name="dezmandamento" class="card card-brightness p-x-md p-y-sm xs-p-x-xs m-y-sm">
+                        <h2 class="cor-Tangerine">Quer fazer parte da nossa comunidade de talentos? Então se liga nos</h2>
+                        <h1>10 mandamentos do worbbior:</h1>
+                        <img class="m-y-xs" src="/assets/metronic/worbby/global/img/icon-heart-small-o.svg" alt="Icon heart" />
+                        <p>Ter talento para desenvolver as tarefas</p>
+                        <p>Ter paixão no que faz</p>
+                        <p>Fazer as tarefas com alegria</p>
+                        <p>Procurar a excelência sempre</p>
+                        <p>Cumprir o que foi acordado</p>
+                        <p>Ser cordial</p>
+                        <p>Saber se comunicar bem </p>
+                        <p>Ser pontual</p>
+                        <p>Sentir prazer em atender às pessoas</p>
+                        <p>Entregar satisfação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 10 mandamentos: Fim -->
+
+    <!-- Ir ao Topo -->
+    <button class="btn btn-anchor-para-topo visible-xs" (click)="goTo('topo')">
+        <i class="fa fa-angle-double-up no-m-x"></i>
+    </button>
+</div>

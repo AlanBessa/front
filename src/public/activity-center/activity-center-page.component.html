@@ -1,0 +1,486 @@
+<div [@routerTransition] *ngIf="active" class="activity-center-page" id="topo" name="topo">
+    <section class="container-fluid activity-center">
+        <div class="activity-center-banner" [style.background]="'url(' + imagemBanner + ')'"></div>
+        <div class="container m-t-sm">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 m-b-xs">
+                    <div class="icone-box pull-left m-t-xs">
+                        <img [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
+                    </div>
+                    <div class="describe-box">
+                        <h1>{{interestCenter.displayName}}</h1>
+                        <p>{{interestCenter.description}}</p>
+                        <a (click)="goTo('torneWorbbior')" class="cursor-pointer">
+                            Junte à nossa comunidade de {{interestCenter.displayName}}
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="sub-activities-box" [ngClass]="{'open': isOpenedSubActivities}">
+                        <h5>Nossos talentos de {{interestCenter.displayName}} podem ajudar você com:</h5>
+                        <ul class="list-inline">
+                            <li class="list-inline-item" *ngFor="let subActivities of subActivitiesList">
+                                <a (click)="navigateToFindATalent(interestCenter.id, subActivities.id)" class="cursor-pointer">{{subActivities.displayName}}</a>
+                            </li>
+                        </ul>                        
+                    </div>
+                    <button class="btn btn-block btn-accordion visible-xs visible-sm" (click)="toogleSubActivity(isOpenedSubActivities)">
+                        <i class="fa" [ngClass]="{'fa-angle-double-down': !isOpenedSubActivities, 'fa-angle-double-up': isOpenedSubActivities}"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP TALENTS : Inicio -->
+    <article class="container-fluid bg-Solititude p-y-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" [ngClass]="{'col-md-8': hasSpecialPartner, 'col-md-12': !hasSpecialPartner}"> 
+                    <h3 class="m-b-20px display-inline-block">Conheça nossos melhores talentos de {{interestCenter.displayName}}</h3>                   
+                    <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregado">                        
+                        <div *ngFor="let worbbiorActivity of worbbiorTopTalentList; let i = index" [attr.data-index]="i">                        
+                            <div *ngIf="i % 3 == 0 && (i < 6 || !hasSpecialPartner)" class="col-xs-12" [ngClass]="{'col-md-6': hasSpecialPartner, 'col-md-4': !hasSpecialPartner}">
+                                <a [routerLink]="['/worbbior/pagina', worbbiorTopTalentList[i].worbbior.slug]" fragment="{{worbbiorTopTalentList[i].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i]">
+                                    <!-- card -->
+                                    <div class="card-simple p-xxs">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                <div class="divProfile">
+                                                    <!--<span class="profile-online"></span>-->
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorTopTalentList[i].worbbior.userPicture" />
+                                                    <span *ngIf="worbbiorTopTalentList[i].worbbior.premium" class="profile-pro"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 card-simple-info block-with-text">
+                                                <p class="no-m-y p-l-xs">"{{worbbiorTopTalentList[i].userActivity.description}}"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </a>
+                                <a [routerLink]="['/worbbior/pagina', worbbiorTopTalentList[i + 1].worbbior.slug]" fragment="{{worbbiorTopTalentList[i + 1].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i + 1]">
+                                    <!-- card -->
+                                    <div class="card-simple p-xxs">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                <div class="divProfile">
+                                                    <!--<span class="profile-online"></span>-->
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorTopTalentList[i + 1].worbbior.userPicture" />
+                                                     <span *ngIf="worbbiorTopTalentList[i + 1].worbbior.premium" class="profile-pro"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 card-simple-info block-with-text">
+                                                <p class="no-m-y p-l-xs">"{{worbbiorTopTalentList[i + 1].userActivity.description}}"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </a>
+                                <a [routerLink]="['/worbbior/pagina', worbbiorTopTalentList[i + 2].worbbior.slug]" fragment="{{worbbiorTopTalentList[i + 2].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i + 2]">
+                                    <!-- card -->
+                                    <div class="card-simple p-xxs">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                <div class="divProfile">
+                                                    <!--<span class="profile-online"></span>-->
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorTopTalentList[i + 2].worbbior.userPicture" />
+                                                    <span *ngIf="worbbiorTopTalentList[i + 2].worbbior.premium" class="profile-pro"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 card-simple-info block-with-text">
+                                                <p class="no-m-y p-l-xs">"{{worbbiorTopTalentList[i + 2].userActivity.description}}"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </a>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="well well-lg" *ngIf="worbbiorTopTalentList.length == 0 && carregado">
+                        Não foi encontrado nenhum resultado para esta pesquisa
+                    </div>
+                    <div class="well text-center" *ngIf="!carregado">
+                        <img src="assets/metronic/worbby/global/img/loading2.gif" width="50px" />
+                        Carregando
+                    </div>
+                    <div class="text-center m-t-20px m-b-xss">
+                        <a [routerLink]="['/find-a-talents', interestCenter.id]" class="btn btn-prime-lg btn-around">Veja todos os talentos de {{interestCenter.displayName | lowercase}}</a>
+                    </div>                    
+                </div>
+                <div class="col-md-4 col-xs-12" *ngIf="hasSpecialPartner">
+                    <h3 class="m-b-xss display-block">Parceiro especial</h3>
+                    <div class="display-block text-center bg-fluid-hidden m-b-xss">
+                        <img src="/assets/common/images/partner_example.png" />
+                    </div>
+                    <div class="text-center m-b-xss">
+                        <a href="" class="btn btn-prime-inverted-lg btn-around">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- TOP TALENTS : Fim -->
+
+    <!-- SUGGESTED ACTIVITIES : Inicio -->
+    <article class="container-fluid bg-Tangerine p-y-md">
+        <div class="container">
+            <h2 class="text-center m-b-sm sizelg-xs">Atividades sugeridas</h2>
+            <div class="row" *ngIf="suggestedActivitiesList.length > 0 && carregado">                        
+                <div *ngFor="let suggestedActivity of suggestedActivitiesList; let i = index" [attr.data-index]="i">                        
+                    <div *ngIf="i % 3 == 0 && i < 9" class="col-xs-12 col-md-4">
+                        <a (click)="navigateToFindATalent(suggestedActivitiesList[i].listInterestCenter.items[0].parentId, suggestedActivitiesList[i].listInterestCenter.items[0].id, suggestedActivitiesList[i].title)" 
+                            class="card-talents m-y-10px w-100 cursor-pointer" *ngIf="suggestedActivitiesList[i]">
+                            <!-- card -->
+                            <div class="card-simple p-xxs sa-box">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 card-simple-info m-b-xxxs">
+                                        <p class="no-m-y block-with-text">"{{suggestedActivitiesList[i].title}}"</p>                                        
+                                    </div>
+                                    <p class="col-xs-12 text-right no-m-b small cor-Botticelli">{{suggestedActivitiesList[i].listInterestCenter.items[0].displayName}}</p>
+                                </div>
+                            </div>
+                            <!-- card : fim -->
+                        </a>
+                        <a (click)="navigateToFindATalent(suggestedActivitiesList[i + 1].listInterestCenter.items[0].parentId, suggestedActivitiesList[i + 1].listInterestCenter.items[0].id, suggestedActivitiesList[i + 1].title)" 
+                            class="card-talents m-y-10px w-100" *ngIf="suggestedActivitiesList[i + 1]">
+                            <!-- card -->
+                            <div class="card-simple p-xxs sa-box">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 card-simple-info m-b-xxxs">
+                                        <p class="no-m-y block-with-text">"{{suggestedActivitiesList[i + 1].title}}"</p>                                        
+                                    </div>
+                                    <p class="col-xs-12 text-right no-m-b small cor-Botticelli">{{suggestedActivitiesList[i + 1].listInterestCenter.items[0].displayName}}</p>
+                                </div>
+                            </div>
+                            <!-- card : fim -->
+                        </a>
+                        <a (click)="navigateToFindATalent(suggestedActivitiesList[i + 2].listInterestCenter.items[0].parentId, suggestedActivitiesList[i + 2].listInterestCenter.items[0].id, suggestedActivitiesList[i + 2].title)" 
+                            class="card-talents m-y-10px w-100" *ngIf="suggestedActivitiesList[i + 2]">
+                            <!-- card -->
+                            <div class="card-simple p-xxs sa-box">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 card-simple-info m-b-xxxs">
+                                        <p class="no-m-y block-with-text">"{{suggestedActivitiesList[i + 2].title}}"</p>                                        
+                                    </div>
+                                    <p class="col-xs-12 text-right no-m-b small cor-Botticelli">{{suggestedActivitiesList[i + 2].listInterestCenter.items[0].displayName}}</p>
+                                </div>
+                            </div>
+                            <!-- card : fim -->
+                        </a>
+                    </div>                        
+                </div>
+            </div>
+            <div class="well well-lg" *ngIf="suggestedActivitiesList.length == 0 && carregado">
+                Não foi encontrado nenhum resultado para esta pesquisa
+            </div>
+            <div class="well text-center" *ngIf="!carregado">
+                <img src="assets/metronic/worbby/global/img/loading2.gif" width="50px" />
+                Carregando
+            </div>
+        </div>
+    </article>
+    <!-- SUGGESTED ACTIVITIES : Fim -->
+
+    <!-- RECENTLY COMPLETED TASKS : Inicio -->
+    <article class="container-fluid bg-Solititude p-y-sm" *ngIf="false">
+        <div class="container">
+            <div class="row">                
+                <div class="col-xs-12 col-md-12">
+                    <h3 class="m-b-xss">Exemplos de tarefas concluidas recentementes</h3>
+                    <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregado">                        
+                        <div *ngFor="let completedTask of completedTasksList; let i = index" [attr.data-index]="i">                        
+                            <div *ngIf="i % 3 == 0 && i < 6" class="col-xs-12 col-md-6">
+                                <a [routerLink]="['/worbbior/pagina', completedTasksList[i].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i]">
+                                    <!-- card -->
+                                    <div class="card-simple p-xxs">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-2 no-p-r-xs">
+                                                <div class="divProfile">
+                                                    <!--<span class="profile-online"></span>-->
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="completedTasksList[i].interestCenter.parentPicture" />
+                                                    <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-10 col-md-10 card-simple-info block-with-text">
+                                                <h4 class="no-m-t m-b-10px xs-p-l-xs">{{completedTasksList[i].title}}</h4>
+                                                <p class="cor-Botticelli small hidden-xs">"{{completedTasksList[i].description}}"</p>
+                                            </div>
+                                        </div>
+                                        <div class="row col-divider-top p-t-xxs m-t-xxs">
+                                            <div class="col-xs-6">
+                                                <div class="text-left">
+                                                    Completado: 12 Jul 2017
+                                                    <span *ngIf="completedTasksList[i].deliveredDate">{{completedTasksList[i].deliveredDate}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="text-right">R$ <span class="cor-Denim text-medium">{{completedTasksList[i].totalPrice}}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </a>
+                                <a [routerLink]="['/worbbior/pagina', completedTasksList[i + 1].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i + 1]">
+                                    <!-- card -->
+                                    <div class="card-simple p-xxs">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-2 no-p-r-xs">
+                                                <div class="divProfile">
+                                                    <!--<span class="profile-online"></span>-->
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="completedTasksList[i + 1].interestCenter.parentPicture" />
+                                                    <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-10 col-md-10 card-simple-info block-with-text">
+                                                <h4 class="no-m-t m-b-10px xs-p-l-xs">{{completedTasksList[i + 1].title}}</h4>
+                                                <p class="cor-Botticelli small hidden-xs">"{{completedTasksList[i + 1].description}}"</p>
+                                            </div>
+                                        </div>
+                                        <div class="row col-divider-top p-t-xxs m-t-xxs">
+                                            <div class="col-xs-6">
+                                                <div class="text-left">
+                                                    Completado: 12 Jul 2017
+                                                    <span *ngIf="completedTasksList[i + 1].deliveredDate">{{completedTasksList[i + 1].deliveredDate}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="text-right">R$ <span class="cor-Denim text-medium">{{completedTasksList[i + 1].totalPrice}}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </a>
+                                <a [routerLink]="['/worbbior/pagina', completedTasksList[i + 2].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i + 2]">
+                                    <!-- card -->
+                                    <div class="card-simple p-xxs">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-2 col-md-2 no-p-r-xs">
+                                                <div class="divProfile">
+                                                    <!--<span class="profile-online"></span>-->
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="completedTasksList[i + 2].interestCenter.parentPicture" />
+                                                    <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9 col-sm-10 col-md-10 card-simple-info block-with-text">
+                                                <h4 class="no-m-t m-b-10px xs-p-l-xs">{{completedTasksList[i + 2].title}}</h4>
+                                                <p class="cor-Botticelli small hidden-xs">"{{completedTasksList[i + 2].description}}"</p>
+                                            </div>
+                                        </div>
+                                        <div class="row col-divider-top p-t-xxs m-t-xxs">
+                                            <div class="col-xs-6">
+                                                <div class="text-left">
+                                                    Completado: 12 Jul 2017
+                                                    <span *ngIf="completedTasksList[i + 2].deliveredDate">{{completedTasksList[i + 2].deliveredDate}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="text-right">R$ <span class="cor-Denim text-medium">{{completedTasksList[i + 2].totalPrice}}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- card : fim -->
+                                </a>
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- RECENTLY COMPLETED TASKS : Fim -->
+
+    <!-- SEARCH : Inicio -->
+    <section class="container-fluid activity-center" style="height: 500px">
+        <div class="activity-center-banner" style="height: 500px" [style.background]="'url(' + searchBanner + ')'"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+                    <h2 class="m-t-lg">Conte-nos o que precisa, e apresentaremos você para alguns dos nossos melhores e apaixonados talentos</h2>
+                    <div class="search-box">
+                        <div>
+                            <h2>{{l("SearchWorbby")}}</h2>
+                            <div class="input-group stylish-input-group">
+                                <input type="text" class="form-control" name="Filter" [(ngModel)]="filter" placeholder="O que você precisa?">
+                                <span class="input-group-addon">
+                                    <button type="button" (click)="findByTerm()">
+                                        <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                                            <title>icon-search-inactive</title>
+                                            <desc>Created with Sketch.</desc>
+                                            <defs></defs>
+                                            <g id="Worbby-Needor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Categories-List" transform="translate(-315.000000, -161.000000)">
+                                                    <g id="Search-bar" transform="translate(20.000000, 151.000000)">
+                                                        <g id="Inactive">
+                                                            <g id="Group-5">
+                                                                <g id="icon-search-inactive" transform="translate(295.000000, 10.000000)">
+                                                                    <ellipse id="Oval" fill="#F3F3F5" cx="10" cy="20" rx="10" ry="10"></ellipse>
+                                                                    <path d="M29.8089167,25.4501801 C29.7669154,25.3841537 29.7189139,25.3181273 29.6649123,25.2641056 C25.9567982,21.5546218 21.6006643,17.7190876 19.9446133,16.2845138 C21.168651,14.4117647 21.4266589,12.7791116 21.4266589,10.7142857 C21.4266589,4.80792317 16.6205111,0 10.7103294,0 C4.8061478,0 0,4.80792317 0,10.7142857 C0,13.577431 1.11603432,16.2665066 3.1380965,18.2893157 C5.16015869,20.3121248 7.85424153,21.4285714 10.7163295,21.4285714 C12.780393,21.4285714 14.4124432,21.1704682 16.2845008,19.9459784 C17.7125447,21.5966387 21.5226619,25.9363745 25.2607768,29.6698679 C25.3147785,29.7238896 25.3807805,29.7719088 25.4467825,29.8139256 C25.560786,29.8859544 25.8127938,30 26.1848052,30 C26.9288281,30 27.7568536,29.5438175 28.6508811,28.6554622 C30.3849344,26.9147659 30.0369237,25.8343337 29.8089167,25.4501801 L29.8089167,25.4501801 Z M27.2708386,27.27491 C26.8208248,27.72509 26.5148154,27.9171669 26.34081,27.9951981 C21.8706726,23.4933974 17.3765344,18.2352941 17.1845285,18.0072029 C17.1845285,18.0072029 17.1845285,18.0072029 17.1845285,18.0012005 C17.136527,17.9471789 17.0825253,17.8931573 17.0285237,17.8511405 C16.650512,17.5690276 16.1344962,17.5990396 15.7924857,17.9111645 C14.0344316,19.2316927 12.6963904,19.4777911 10.7163295,19.4777911 C8.37625759,19.4777911 6.17418987,18.5654262 4.51813894,16.9087635 C2.86208801,15.2521008 1.95005997,13.0492197 1.95005997,10.7082833 C1.95005997,5.88235294 5.88018083,1.94477791 10.7163295,1.94477791 C15.5524783,1.94477791 19.4825991,5.87635054 19.4825991,10.7142857 C19.4825991,12.6890756 19.2365916,14.0216086 17.9345515,15.7683073 C17.8925502,15.8103241 17.8565491,15.8583433 17.8265482,15.9063625 C17.5565399,16.3145258 17.6345423,16.8667467 18.0065537,17.1848739 C18.0605554,17.2328932 23.4487211,21.8307323 27.996861,26.3505402 C27.9068582,26.5186074 27.7208525,26.8247299 27.2708386,27.27491 Z M6.8582109,6.8607443 C7.23622253,6.48259304 7.23622253,5.86434574 6.8582109,5.48019208 C6.48019928,5.09603842 5.86218027,5.10204082 5.47816846,5.48019208 C2.59207971,8.36734694 2.59207971,13.0612245 5.47816846,15.9483794 C5.67017437,16.1404562 5.91618193,16.2364946 6.16818968,16.2364946 C6.42019743,16.2364946 6.666205,16.1404562 6.8582109,15.9483794 C7.23622253,15.5702281 7.23622253,14.9519808 6.8582109,14.5678271 C4.73414558,12.4429772 4.73414558,8.98559424 6.8582109,6.8607443 Z" id="Combined-Shape" fill="#90A3B1"></path>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SEARCH : Fim -->
+
+    <!-- SLIDE ENCONTRE TALENTO : Inicio -->
+    <section class="container find-talent-interest-home m-t-md">
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-12 col-lg-offset-0">
+                <h4>
+                    <span class="hidden-xs text-uppercase" id="nextStep">Encontre um talento por área</span>
+                    <span class="visible-xs">Talento por área</span>
+                    <a class="small pull-right cor-Denim" routerLink="/talentos">
+                        {{l("ViewAll")}} <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </a>
+                </h4>
+                <slick-slider *ngIf="interestCenters.length" class="row text-center">
+                    <!-- card-talent : inicio -->
+                    <div class="" *ngFor="let interestCenter of interestCenters" class="card-shadow card-talent hovereffect">
+                        <a (click)="clickRouterInterestCenter(interestCenter)">
+                            <img class="ico-btn" [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
+                            <h5>{{interestCenter.displayName}}</h5>
+                            <div class="overlay">
+                                <p>{{interestCenter.description}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- card-talent : Fim -->
+                </slick-slider>
+            </div>
+            <div class="col-xs-12 visible-xs">
+                <a class="btn btn-block btn-prime btn-around cor-Cinder" routerLink="/post-a-task">
+                    {{l("PostATask")}}
+                    <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- SLIDE ENCONTRE TALENTO : Fim -->
+
+    <!-- become-a-worbbior : Inicio -->
+    <section class="container-fluid become-a-worbbior-home bg-WhiteLilac m-t-md" id="torneWorbbior">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center m-t-lg">
+                        <h2 class="cor-Tangerine">{{l("BecomeWorbbior")}}</h2>
+                        <h3>Descubra seus talentos e tenha uma renda extra fazendo o que ama.</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- card chat 1 : inicio -->
+                    <div class="col-xs-10 col-sm-3 no-pad-right-lg">
+                        <div class="card-chat arrow-right">
+                            <div class="arrow-chat"></div>
+                            <div class="card-chat-content">
+                                <strong>{{l("FindYourSkills")}}</strong> Nós ajudamos você a identificar e aplicar suas habilidades
+                                a serviço de quem precisa.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card chat 1 : Fim -->
+                    <!-- card chat 2 : inicio -->
+                    <div class="col-xs-10 col-xs-offset-2 col-sm-3 col-sm-offset-6 no-pad-left-lg">
+                        <div class="card-chat arrow-left">
+                            <div class="arrow-chat"></div>
+                            <div class="card-chat-content">
+                                <strong>{{l("FreeToJoin")}}</strong> Você não paga nada para receber tarefas . Se quiser
+                                ter mais vantagens e visibilidade, seja um worbbior premium.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card chat 2 : Fim -->
+                    <!-- card chat 3: inicio -->
+                    <div class="col-xs-10 col-sm-3 col-sm-offset-1 no-pad-right-lg">
+                        <div class="card-chat arrow-right">
+                            <div class="arrow-chat"></div>
+                            <div class="card-chat-content">
+                                <strong>{{l("GetConnected")}}</strong> Tenha uma página personalizada para divulgar seus
+                                talentos, mas antes você precisa da recomendação de duas pessoas para poder ser ativo na plataforma.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card chat 3 : Fim -->
+                    <!-- card chat 4 : inicio -->
+                    <div class="col-xs-10 col-xs-offset-2 col-sm-3 col-sm-offset-0 col-sm-push-4 no-pad-left-lg">
+                        <div class="card-chat arrow-left">
+                            <div class="arrow-chat"></div>
+                            <div class="card-chat-content">
+                                <strong>{{l("BeTheBoss")}}</strong> Escolha tarefas prazerosas de acordo com suas habilidades
+                                e disponibilidade.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card chat 4 : Fim -->
+                    <div class="col-xs-6 col-xs-offset-3 col-sm-offset-0 col-sm-4 col-sm-pull-3">
+                        <!-- IMAGEM CENTRAL : inicio -->
+                        <div class="central-image">
+                            <div class="row">
+                                <!-- Worbbior icon 1 : inicio -->
+                                <div class="col-xs-3 col-xs-offset-1 no-pad-right-lg text-right">
+                                    <img class="img-responsive full-width worbbior-icons" src="/assets/metronic/worbby/global/img/icon-music.svg" alt="musica icon"
+                                    />
+                                </div>
+                                <!-- card chat 1 : Fim -->
+                                <!-- card chat 2 : inicio -->
+                                <div class="col-xs-3 col-xs-offset-4 no-pad-left-lg">
+                                    <img class="img-responsive full-width worbbior-icons" src="/assets/metronic/worbby/global/img/icon-cook.svg" alt="cozinhar icon"
+                                    />
+                                </div>
+                                <!-- card chat 2 : Fim -->
+                                <!-- card chat 3: inicio -->
+                                <div class="col-xs-3 no-pad-right-lg text-right  worbbior-icons-m-t">
+                                    <img class="img-responsive full-width worbbior-icons" src="/assets/metronic/worbby/global/img/icon-diy.svg" alt="faça você mesmo icon"
+                                    />
+                                </div>
+                                <!-- card chat 3 : Fim -->
+                                <!-- card chat 4 : inicio -->
+                                <div class="col-xs-3 col-xs-push-6 no-pad-left-lg worbbior-icons-m-t">
+                                    <img class="img-responsive full-width worbbior-icons" src="/assets/metronic/worbby/global/img/icon-creative.svg" alt="criativo icon"
+                                    />
+                                </div>
+                                <!-- card chat 4 : Fim -->
+                                <div class="col-xs-6 col-xs-pull-3">
+                                    <div class="central-image-worbbior">
+                                        <img class="img-responsive full-width" src="/assets/metronic/worbby/global/img/icon-worbbior.svg" alt="worbbior icon" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- IMAGEM CENTRAL : Fim -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 text-center m-b-md">
+                        <a class="btn btn-prime btn-around btn-block m-t-xs m-b-20px" (click)="becomeWorbbior()">
+                            {{l("BecomeWorbbior")}}
+                        </a>
+                        <a routerLink="/become-a-worbbior" class="cor-Denim"> Saiba mais como funciona »</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- become-a-worbbior : Fim -->
+
+    <!-- Ir ao Topo -->
+    <button class="btn btn-anchor-para-topo visible-xs" (click)="goTo('topo')">
+        <i class="fa fa-angle-double-up no-m-x"></i>
+    </button>
+</div>

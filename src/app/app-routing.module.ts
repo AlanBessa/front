@@ -24,6 +24,11 @@ import { AppRouteGuard } from './shared/common/auth/auth-route-guard';
                         path: 'main',
                         loadChildren: 'app/main/main.module#MainModule', //Lazy load main module
                         data: { preload: true }
+                    },
+                    {
+                        path: 'worbbior',
+                        loadChildren: 'app/worbbior/worbbior.module#WorbbiorModule', //Lazy load worbbior module
+                        data: { preload: true }
                     }
                 ]
             }

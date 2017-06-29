@@ -3268,6 +3268,54 @@ export class CommonLookupServiceProxy {
         }
         return Observable.of<GetDefaultEditionNameOutput>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    findActivities(input: FindActivitiesInput): Observable<PagedResultDtoOfNameValueDto> {
+        let url_ = this.baseUrl + "/api/services/app/CommonLookup/FindActivities";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processFindActivities(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processFindActivities(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfNameValueDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfNameValueDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processFindActivities(response: Response): Observable<PagedResultDtoOfNameValueDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfNameValueDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfNameValueDto.fromJS(resultData200) : new PagedResultDtoOfNameValueDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfNameValueDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -3527,6 +3575,63 @@ export class EditionServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<SubscribableEditionComboboxItemDto[]>(<any>null);
+    }
+}
+
+@Injectable()
+export class EmailingServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    sendContactEmail(input: ContactEmailDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Emailing/SendContactEmail";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendContactEmail(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendContactEmail(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendContactEmail(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
     }
 }
 
@@ -13835,6 +13940,7 @@ export interface IRegisterInput {
 
 export class RegisterOutput implements IRegisterOutput {
     canLogin: boolean;
+    isEmailConfirmationRequiredSend: boolean;
 
     constructor(data?: IRegisterOutput) {
         if (data) {
@@ -13848,6 +13954,7 @@ export class RegisterOutput implements IRegisterOutput {
     init(data?: any) {
         if (data) {
             this.canLogin = data["canLogin"];
+            this.isEmailConfirmationRequiredSend = data["isEmailConfirmationRequiredSend"];
         }
     }
 
@@ -13860,12 +13967,14 @@ export class RegisterOutput implements IRegisterOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["canLogin"] = this.canLogin;
+        data["isEmailConfirmationRequiredSend"] = this.isEmailConfirmationRequiredSend;
         return data; 
     }
 }
 
 export interface IRegisterOutput {
     canLogin: boolean;
+    isEmailConfirmationRequiredSend: boolean;
 }
 
 export class SendPasswordResetCodeInput implements ISendPasswordResetCodeInput {
@@ -17227,6 +17336,53 @@ export interface IGetDefaultEditionNameOutput {
     name: string;
 }
 
+export class FindActivitiesInput implements IFindActivitiesInput {
+    tenantId: number;
+    maxResultCount: number;
+    skipCount: number;
+    filter: string;
+
+    constructor(data?: IFindActivitiesInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.tenantId = data["tenantId"];
+            this.maxResultCount = data["maxResultCount"];
+            this.skipCount = data["skipCount"];
+            this.filter = data["filter"];
+        }
+    }
+
+    static fromJS(data: any): FindActivitiesInput {
+        let result = new FindActivitiesInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        data["filter"] = this.filter;
+        return data; 
+    }
+}
+
+export interface IFindActivitiesInput {
+    tenantId: number;
+    maxResultCount: number;
+    skipCount: number;
+    filter: string;
+}
+
 export class ListResultDtoOfEditionListDto implements IListResultDtoOfEditionListDto {
     items: EditionListDto[];
 
@@ -17727,6 +17883,57 @@ export class CreateOrUpdateEditionDto implements ICreateOrUpdateEditionDto {
 export interface ICreateOrUpdateEditionDto {
     edition: EditionEditDto;
     featureValues: NameValueDto[];
+}
+
+export class ContactEmailDto implements IContactEmailDto {
+    name: string;
+    subject: string;
+    email: string;
+    emailNotification: string;
+    message: string;
+
+    constructor(data?: IContactEmailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.subject = data["subject"];
+            this.email = data["email"];
+            this.emailNotification = data["emailNotification"];
+            this.message = data["message"];
+        }
+    }
+
+    static fromJS(data: any): ContactEmailDto {
+        let result = new ContactEmailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["subject"] = this.subject;
+        data["email"] = this.email;
+        data["emailNotification"] = this.emailNotification;
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IContactEmailDto {
+    name: string;
+    subject: string;
+    email: string;
+    emailNotification: string;
+    message: string;
 }
 
 export class EndorsementDto implements IEndorsementDto {

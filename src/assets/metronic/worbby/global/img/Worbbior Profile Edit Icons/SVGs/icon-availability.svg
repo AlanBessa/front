@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="24px" viewBox="0 0 50 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-availability</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M7.99767779,0 C3.58548621,0 0,3.7056 0,8.2656 C0,15.9504 7.14775036,23.4528 7.44963716,23.7648 C7.59361393,23.9136 7.78867925,24 7.99767779,24 C8.20667634,24 8.39709724,23.9136 8.54571843,23.7648 C8.84760522,23.448 16,15.9504 16,8.2656 C15.9953556,3.7056 12.405225,0 7.99767779,0 L7.99767779,0 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="24" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <circle id="path-3" cx="12" cy="12" r="12"></circle>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="24" height="24" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-availability">
+            <g>
+                <g id="Group" transform="translate(34.000000, 0.000000)">
+                    <use id="icon-location" stroke="#FFCB33" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                    <circle id="Oval-4" fill="#FFCB33" cx="8" cy="8" r="3"></circle>
+                </g>
+                <use id="Oval-4-Copy" stroke="#FFCB33" mask="url(#mask-4)" stroke-width="4" xlink:href="#path-3"></use>
+                <path d="M3.22301642,14 C4.13247475,18.0079774 7.71682521,21 12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.71682521 18.0079774,4.13247475 14,3.22301642 L14,14 L3.22301642,14 Z" id="Combined-Shape" fill="#FFCB33"></path>
+                <rect id="Rectangle-3" fill="#FFCB33" x="4" y="11" width="9" height="2" rx="1"></rect>
+                <rect id="Rectangle-3-Copy-2" fill="#FFCB33" x="25" y="11" width="8" height="2" rx="1"></rect>
+                <rect id="Rectangle-3-Copy-2" fill="#FFCB33" transform="translate(29.000000, 12.000000) rotate(-90.000000) translate(-29.000000, -12.000000) " x="25" y="11" width="8" height="2" rx="1"></rect>
+                <rect id="Rectangle-3-Copy" fill="#FFCB33" transform="translate(12.000000, 8.000000) rotate(-270.000000) translate(-12.000000, -8.000000) " x="7" y="7" width="10" height="2" rx="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

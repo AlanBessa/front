@@ -11,6 +11,8 @@ import { LocalStorageService } from './local-storage.service';
 import { FriendProfilePictureComponent } from './friend-profile-picture.component';
 import { MomentFormatPipe } from './moment-format.pipe';
 import { CurrencyInputDirective } from './currency-input.directive';
+import { GroupByPipe } from './group-by.pipe';
+import { ReversePipe } from './reverse.pipe';
 
 @NgModule({
     providers: [
@@ -26,7 +28,9 @@ import { CurrencyInputDirective } from './currency-input.directive';
         BusyIfDirective,
         FriendProfilePictureComponent,
         MomentFormatPipe,
-        CurrencyInputDirective
+        CurrencyInputDirective,
+        GroupByPipe,
+        ReversePipe
     ],
     exports: [
         EqualValidator,
@@ -37,7 +41,9 @@ import { CurrencyInputDirective } from './currency-input.directive';
         BusyIfDirective,
         FriendProfilePictureComponent,
         MomentFormatPipe,
-        CurrencyInputDirective
+        CurrencyInputDirective,
+        GroupByPipe,
+        ReversePipe
     ]
 })
 export class UtilsModule { }

@@ -11,8 +11,8 @@ import {
 } from '@shared/service-proxies/service-proxies'
 import { AbpMultiTenancyService } from '@abp/multi-tenancy/abp-multi-tenancy.service'
 import { WorbbiorState } from '@shared/AppEnums';
-import { CookieService, CookieOptionsArgs } from 'angular2-cookie/core';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
+import { UtilsService } from '@abp/utils/utils.service';
 
 @Injectable()
 export class AppSessionService {
@@ -33,7 +33,7 @@ export class AppSessionService {
     constructor(
         private _sessionService: SessionServiceProxy,
         private _abpMultiTenancyService: AbpMultiTenancyService,
-        private _cookieService: CookieService,
+        private _utilsService: UtilsService,
         private _authService: AppAuthService,
         private _userLoginService: UserLoginServiceProxy,
         private _worbbiorService: WorbbiorServiceProxy) {
@@ -75,11 +75,8 @@ export class AppSessionService {
         this._firstAccess = value;
         var today = new Date();
         today.setHours(today.getHours() + 24);
-        var options:CookieOptionsArgs = {
-            expires: today
-        };
-        
-        this.setCookie("firstAccess", value.toString(), options);
+
+        this._utilsService.setCookieValue("firstAccess", value.toString(),today)
     }
 
     get worbbiorPremium(): boolean{
@@ -126,33 +123,18 @@ export class AppSessionService {
     get userRoleName(): string {
         return this._currentRoleName;
     }
-
+ 
     set userRoleName(value: string) {
         this._currentRoleName = value;
-        this.setCookie("userRoleName", value);
-    }
-
-    getCookie(key: string){
-        return this._cookieService.get(key);
-    }
-
-    setCookie(key: string, value: string, options?: CookieOptionsArgs){
-        if(this._cookieService.get(key)){
-            this._cookieService.remove(key, options);
-        }
-        this._cookieService.put(key, value, options);
-    }
-
-    clearCookies(): void {
-        this._cookieService.removeAll();
+        this._utilsService.setCookieValue("userRoleName", value);
     }
 
     set firstLoginUser(value:string) {
-        this.setCookie("firstLoginUser", value);
+        this._utilsService.setCookieValue("firstLoginUser", value);
     }
 
     get firstLoginUser(): string{
-        return this.getCookie("firstLoginUser")
+        return this._utilsService.getCookieValue("firstLoginUser")
     }
 
     getShownLoginName(): string {
@@ -174,12 +156,12 @@ export class AppSessionService {
                 this._currentRoleName = result.defaultRoleName;
                 this._defaultRoleName = result.defaultRoleName;
 
-                if (this.getCookie("userRoleName")) {
-                    this._currentRoleName = this.getCookie("userRoleName");
+                if (this._utilsService.getCookieValue("userRoleName")) {
+                    this._currentRoleName = this._utilsService.getCookieValue("userRoleName");
                 }
 
-                if(this.getCookie("firstAccess")){
-                    this.firstAccess = (this.getCookie("firstAccess") == "true");
+                if(this._utilsService.getCookieValue("firstAccess")){
+                    this.firstAccess = (this._utilsService.getCookieValue("firstAccess") == "true");
                 }
                 
                 if (abp.session.userId && this._currentRoleName == "Worbbior") {

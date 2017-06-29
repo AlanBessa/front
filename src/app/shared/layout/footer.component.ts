@@ -1,5 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
+import { AppSessionService } from '@shared/common/session/app-session.service';
+import * as moment from "moment";
 
 @Component({
     templateUrl: './footer.component.html',
@@ -7,15 +9,16 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 })
 export class FooterComponent extends AppComponentBase implements OnInit {
 
-    releaseDate: string;
+    public anoDeCopyright: number;
 
     constructor(
-        injector: Injector
+        injector: Injector,
+        public appSessionService: AppSessionService,
     ) {
         super(injector);
     }
 
     ngOnInit(): void {
-        this.releaseDate = this.appSession.application.releaseDate.format('YYYYMMDD');
+        this.anoDeCopyright = moment().year();
     }
 }

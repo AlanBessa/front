@@ -1,0 +1,31 @@
+<div [@routerTransition]>
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+                    <h1 class="cor-Tangerine m-t-lg">{{l("EmailActivation")}}</h1>
+                </div>
+            </div>
+            <div class="row m-b-lg">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    <p>
+                        {{l("SendEmailActivationLink_Information")}}
+                    </p>
+
+                    <form #emailActivationForm="ngForm" class="login-form" method="post" novalidate (ngSubmit)="save()">
+                        <div class="form-group">
+                            <label class="control-label visible-ie8 visible-ie9">{{l("EmailAddress")}}</label>
+                            <input [(ngModel)]="model.emailAddress" class="form-control form-control-solid placeholder-no-fix input-ltr" type="text" autocomplete="off" placeholder="{{l('EmailAddress')}}" name="emailAddress" required maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$" />
+                        </div>
+
+                        <div class="form-actions">
+                            <button [disabled]="saving" routerLink="/login" type="button" class="btn btn-default"><i class="fa fa-arrow-left"></i> {{l("Back")}}</button>
+                            <button type="submit" class="btn btn-success uppercase" [disabled]="!emailActivationForm.form.valid" [buttonBusy]="saving" [busyText]="l('SendWithThreeDot')"><i class="fa fa-check"></i> <span>{{l("Submit")}}</span></button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<section id="feedback" class="box-feedback" [ngClass]="{'open': feedbackAberto}">
+    <a class="btn-feedback cursor-pointer" (click)="toogleForm(feedbackAberto)">
+        <i class="fa fa-commenting"></i>
+    </a>
+    <form class="content-feedback" #feedbackBetaForm="ngForm" (ngSubmit)="save()">
+        <div class="form-group">
+            <input type="email" class="form-control" id="emailRemetente" name="emailRemetente" [(ngModel)]="contactEmail.email" placeholder="{{l('EmailAddress')}}" maxlength="256" required />
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" 
+                rows="5" 
+                id="emailMensagem" 
+                name="emailMensagem" 
+                [(ngModel)]="contactEmail.message" 
+                placeholder="Ajude a melhorar a Worbby. Envie seus comentários, sugestões, elogios e críticas." 
+                required>
+            </textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-block" [disabled]="!feedbackBetaForm.form.valid || saving" [buttonBusy]="saving" [busyText]="l('SendWithThreeDot')">
+            <span>{{l("Send")}}</span>
+        </button>
+    </form>
+</section>

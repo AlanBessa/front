@@ -119,7 +119,7 @@
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group no-hint">
                             <label class="control-label">{{l("Radius")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i> 
-                            <template #popTemplateRaio><div class="text-left" [innerHtml]="tooltipRaio"></div></template>
+                            <ng-template #popTemplateRaio><div class="text-left" [innerHtml]="tooltipRaio"></div></ng-template>
                             <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateRaio"></i>
                             <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="number" name="Radius" [(ngModel)]="worbbior.radius">
                         </div>

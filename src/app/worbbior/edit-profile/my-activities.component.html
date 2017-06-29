@@ -12,7 +12,7 @@
     <div class="col-xs-12">
         <div *ngFor="let activityUser of myActivities" class="card-default m-y-xxs">
             <div class="card-actions">
-                <template #popTemplateStatusText><div class="text-left" [innerHtml]="tooltipStatusText"></div></template>
+                <ng-template #popTemplateStatusText><div class="text-left" [innerHtml]="tooltipStatusText"></div></ng-template>
                 <span [ngClass]="{'cor-Flamingo': activityUser.endorsementsCount < 2, 'cor-CaribbeanGreen': activityUser.endorsementsCount > 1}">
                     {{activityUser.endorsementsCount}} Recomendações /  
                 </span>                    
@@ -31,7 +31,7 @@
                     <li *ngIf="activityUser.activityState != ActivityState.Inactive">
                         <a (click)="toogleUserActivityState(activityUser)" class="cursor-pointer" placement="left" container="body" [tooltip]="popTemplateStatus">
                             <span class="title" >{{activityUser.activityState == ActivityState.InactiveByWorbbior ? 'Ativar' : 'Desativar'}}</span>
-                            <template #popTemplateStatus><div class="text-left" [innerHtml]="tooltipStatus"></div></template>
+                            <ng-template #popTemplateStatus><div class="text-left" [innerHtml]="tooltipStatus"></div></ng-template>
                             <i class="fa fa-question-circle tooltip-icone"></i>
                         </a>
                     </li>

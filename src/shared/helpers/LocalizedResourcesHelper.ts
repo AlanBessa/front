@@ -19,13 +19,13 @@ export class LocalizedResourcesHelper {
     }
 
     //Bootstrap css
-    $('head').prepend($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/libs/bootstrap/css/bootstrap' + cssPostfix + '.css'));
+    //$('head').prepend($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/libs/bootstrap/css/bootstrap' + cssPostfix + '.css'));
 
     //Metronic css fils
-    $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/global/css/components-md' + cssPostfix + '.css'));
-    $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/global/css/plugins-md' + cssPostfix + '.css'));
-    $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/admin/layout4/css/layout' + cssPostfix + '.css'));
-    $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/admin/layout4/css/themes/light' + cssPostfix + '.css'));
+    // $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/global/css/components-md' + cssPostfix + '.css'));
+    // $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/global/css/plugins-md' + cssPostfix + '.css'));
+    // $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/admin/layout4/css/layout' + cssPostfix + '.css'));
+    // $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/assets/metronic/admin/layout4/css/themes/light' + cssPostfix + '.css'));
 
     return $.Deferred().resolve();
   }

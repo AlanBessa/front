@@ -8,14 +8,14 @@
         
     <ul class="dropdown-menu dropdown-menu-default box-user-menu">
         <li class="arrow-up"></li>
-        <template ngFor let-menuItem [ngForOf]="menu.items" let-mainMenuItemIndex="index">
+        <ng-template ngFor let-menuItem [ngForOf]="menu.items" let-mainMenuItemIndex="index">
             <li class="close-nav" *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': mainMenuItemIndex == 0}">
                 <a [routerLink]="menuItem.parameter != '' ? [menuItem.route + '/' + menuItem.parameter] : [menuItem.route]" *ngIf="!menuItem.items.length">
                     <i class="{{menuItem.icon}}"></i>
                     <span class="title">{{l(menuItem.name)}}</span>
                 </a>
             </li>
-        </template>
+        </ng-template>
         <li>
             <a id="UserProfileChangePasswordLink" (click)="changePassword()">
                 {{l("ChangePassword")}}            

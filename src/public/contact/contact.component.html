@@ -1,0 +1,70 @@
+﻿<div [@routerTransition]>
+    <section class="contact">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="container">
+                <div class="row">
+                    <!-- Sidebar nav : inicio -->
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid">
+                        <div class="row">
+                            <side-menu></side-menu>
+                        </div>
+                    </div>
+                    <!-- Sidebar nav : Fim -->
+                    <!-- Conteudo central : inicio -->
+                    <div class="central-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-11">
+                                <h1 class="cor-Tangerine">Como podemos ajudar?</h1>
+                                    <div class="row"></div>
+                                    <h4 class="m-t-xs">Dúvidas, reclamações, elogios, sugestões....<br /> 
+                                    Entre em contato conosco preenchendo o formulário abaixo.<br /> 
+                                    Retornaremos o mais rápido possível.<br /> 
+                                    No menu ao lado, você encontra tudo sobre a Worbby.</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 m-t-sm">
+                                <form *ngIf="active" #myContactForm="ngForm" (ngSubmit)="save()" class="form-type-label">
+
+                                    <div class="form-group no-hint">
+                                        <label class="control-label">{{l("Name")}}</label>
+                                        <input #nameInput class="form-control edited" type="text" name="Name" [(ngModel)]="contactEmail.name" required maxlength="50">
+                                    </div>
+                                    <div class="form-group no-hint">
+                                        <label class="control-label">{{l("EmailAddress")}}</label>
+                                        <input type="email" name="email" class="form-control edited" [(ngModel)]="contactEmail.email" required maxlength="256">
+                                    </div>
+                                    <div class="form-group no-hint">
+                                        <label class="control-label">{{l("Subject")}}</label>
+                                        <div class="dropdown">
+                                            <button type="button" class="dropdown-toggle btn-select btn-block" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                {{currentcontactSubject.value}}
+                                                    <i class="fa fa-angle-down"></i>
+                                                </button>
+                                            <ul class="dropdown-menu">
+                                                <li *ngFor="let item of contactSubjects.items">
+                                                    <a href="javascript:;" (click)="changeContactSubject(item)">
+                                                        {{item.value}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group no-hint">
+                                        <label class="control-label">{{l("Message")}}</label>
+                                        <textarea rows="6" class="form-control edited" name="Message" [(ngModel)]="contactEmail.message" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-round bg-Sunglow cor-White m-b-lg" [disabled]="!myContactForm.form.valid || saving"
+                                        [buttonBusy]="saving">
+                                        <span>{{l("Send")}}</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conteudo central : Fim -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

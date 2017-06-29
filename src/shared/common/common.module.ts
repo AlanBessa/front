@@ -4,7 +4,6 @@ import { AbpModule } from '@abp/abp.module';
 
 import { AppSessionService } from './session/app-session.service';
 import { AppUrlService } from './nav/app-url.service';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 @NgModule({
     imports: [

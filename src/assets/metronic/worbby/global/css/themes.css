@@ -1,0 +1,201 @@
+﻿/* FOLHA DE ESTILO PARA IMPLEMENTAÇÃO DOS TEMAS */
+
+/* WORBBIENT THEME */
+
+body.worbbient .header .navbar.navbar-default{border-bottom: 2px solid #FFCB33;}
+body.worbbient .navbar-default .navbar-toggle .icon-bar {background-color: #1E2225;}
+
+body.worbbient {
+    color:#1E2225;
+}
+
+body.worbbient .header ul.dropdown-menu>li, body.worbbient .header ul.dropdown-menu>li a{
+    color:#1E2225;
+}
+
+body.worbbient .icon-bell{
+    color: #000;
+}
+
+/*body.worbbient h1 {
+    color: #FFB247;
+}*/
+
+body.worbbient .btn-default {
+    background-color: #FFCB33;
+}
+
+body.worbbient datepicker .btn-default {
+    background-color: #FFFFFF;
+}
+
+body.worbbient .footer {
+    color: #fff;
+    background-color: #FFCB33;
+}
+
+body.worbbient .footer .menu-footer a {
+    color:#000;
+}
+
+body.worbbient .find-talent-home,
+body.worbbient .activity-center {
+    color: #fff;
+    background-color: #000;
+}
+
+body.worbbient .find-talent-interest-home {
+    color: #000;
+}
+
+body.worbbient .what-is-worbby-home{
+    color: #000;
+}
+
+body.worbbient .how-doew-it-work-home{
+    color: #000;
+}
+
+body.worbbient .security-home{
+    color: #fff;
+    background-color: #FFCB33;
+}
+
+body.worbbient .become-a-worbbior-home {
+    color:#000;
+}
+
+body.worbbient header {
+    background-color: #fff;
+}
+
+
+/* WORBBIOR THEME */
+body.worbbior {
+    color:#000;
+}
+
+body.worbbior header {
+    background-color: #000;
+}
+
+body.worbbior .pre-header, body.worbbior .header {
+    background-color: #1E2225;
+    color: #fff;
+}
+
+body.worbbior .icon-bell{
+    color: #fff;
+}
+
+body.worbbior .header .navbar.navbar-default{border-bottom: 2px solid #1E2225;}
+body.worbbior .navbar-default .navbar-toggle .icon-bar {background: linear-gradient(90deg, #FFB247 0%, #FFCB33 100%);}
+
+body.worbbior .pre-header a, body.worbbior .header a {
+    color: #fff;
+}
+
+body.worbbior .pre-header a.btn,
+body.worbbior .header a.btn,
+body.worbbior .pre-header ul>li.dropdown>a,
+body.worbbior .header ul>li.dropdown>a,
+body.worbbior .pre-header ul.dropdown-menu>li,
+body.worbbior .header ul.dropdown-menu>li,
+body.worbbior .pre-header ul.dropdown-menu>li>a,
+body.worbbior .header ul.dropdown-menu>li>a {
+    color: #000;
+}
+
+/*body.worbbior h1 {
+    color: #000;
+}*/
+
+body.worbbior .btn-default {
+    background-color: #fff;
+}
+
+body.worbbior .find-talent-home,
+body.worbbior .activity-center {
+    color: #fff;
+    background-color: #FFB247;
+}
+
+body.worbbior .footer {
+    color: #fff;
+    background-color: #1E2225;
+}
+
+.worbbior .social-borda {
+    stroke: transparent;
+}
+
+.worbbior .social-footer a:hover .social-borda {
+    stroke: #FFB247;
+}
+
+.worbbior .social-footer a:hover .social-item{
+    fill: #FFB247;
+}
+
+body.worbbior .footer .menu-footer a, body.worbbior .footer .menu-footer li {
+    color:#fff;
+}
+
+body.worbbior .security-home {
+    color: #fff;
+    background-color: #000;
+}
+
+
+
+/*Worbbior community - 10 mandamentos*/
+.community-home-banner {
+    height: 500px;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.6;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+    position: absolute;
+    width: 100%;
+    left: 0;
+    background: url(/assets/metronic/worbby/global/img/banner-1.jpg);
+}
+
+
+/* ADMIN THEME */
+body.admin {
+}
+
+
+
+
+
+@media (max-width: 767px){
+    /*cor de fundo do menu aberto*/
+    .worbbient .header .navbar-default .navbar-collapse {background-color: #FFCB33;}
+    .worbbior .header .navbar-default .navbar-collapse {background-color: #1E2225;}
+
+    /*.worbient .header .collapse .additional-nav{ display: none;}*/
+
+    /*foto do perfil menu aberto*/
+    .worbbior .user-menu .img-profile{
+            width: 30px;
+            height: 30px;
+            border: 2px inset #FFCB33;
+        }
+
+    body.worbbior .sub-nav-worbby li a {
+        padding: 10px 5px 0;
+    }
+}
+
+@media (max-width: 320px) {
+    body.worbbior .tab-menu-worbby {
+        margin: 0 -15px;
+    }   
+
+    body.worbbior .sub-nav-worbby li a {
+        padding: 10px 3px 0;
+    }
+}

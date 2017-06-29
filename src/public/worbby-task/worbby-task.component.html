@@ -1,0 +1,95 @@
+﻿<div [@routerTransition]>
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+                    <h3 class="m-t-sm m-b-xss">Detalhes da tarefa</h3>
+                </div>
+            </div>
+            <div *ngIf="active" class="row card-profile bg-White wizard-container">
+                <div class="profile-details">
+                    <div class="col-xs-12 p-xss">
+                        <h3 class="task-title-detail no-m-y">
+                            {{worbbyTask.title}}                            
+                            <img class="img-icon-list-40" [src]="worbbyTask.interestCenter.parentPicture" title="{{worbbyTask.interestCenter.parentDisplayName}} - {{worbbyTask.interestCenter.displayName}}" />
+                        </h3>                     
+                    </div>
+                    <div class="col-xs-12 divider p-xss">
+                        <p class="cor-Botticelli no-m-b">{{worbbyTask.description}}</p>
+                    </div>
+                    <div class="col-xs-12 divider p-y-xss">
+                        <div class="display-table">
+                            <div class="display-cell">
+                                <p class="small cor-Botticelli text-right no-m-b">Data</p>
+                            </div>
+                            <div class="display-cell">
+                                <p class="inline no-m-b">{{worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible ? "Quando possível" : scheduleDateDisplay}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 divider p-y-xss">
+                        <div class="display-table">
+                            <div class="display-cell">
+                                <p class="small cor-Botticelli text-right no-m-b">Horário</p>
+                            </div>
+                            <div class="display-cell">
+                                <p class="inline no-m-b">{{worbbyTask.time}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 divider p-y-xss">
+                        <div class="display-table">
+                            <div class="display-cell">
+                                <p class="small cor-Botticelli text-right no-m-b">Localização</p>
+                            </div>
+                            <div class="display-cell">
+                                <p class="inline no-m-b">{{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 divider p-y-xss">
+                        <div class="display-table">
+                            <div class="display-cell">
+                                <p class="small cor-Botticelli text-right no-m-b">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Duração" : "Quantidade"}}</p>
+                            </div>
+                            <div class="display-cell">
+                                <p class="inline no-m-b">{{worbbyTask.amount}} {{worbbyTask.unitMeasure == UnitMeasure.Hour ? "hora(s)" : "unidade(s)"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 divider p-y-xss">
+                        <div class="display-table">
+                            <div class="display-cell">
+                                <p class="small cor-Botticelli text-right no-m-b">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}}</p>
+                            </div>
+                            <div class="display-cell">
+                                <p class="inline no-m-b">{{worbbyTask.unitPrice}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 divider p-y-xss">
+                        <div class="display-table">
+                            <div class="display-cell">
+                                <p class="small cor-Botticelli text-right no-m-b">Valor total</p>
+                            </div>
+                            <div class="display-cell">
+                                <p class="inline no-m-b">{{worbbyTask.totalPrice}}</p>
+                            </div>
+                        </div>
+                    </div>                     
+                </div>                                  
+            </div>
+            <div class="row wizard-container m-t-xs m-b-xss">
+                <div class="col-xs-12 col-md-4"> 
+                    <a routerLink="/tarefas" class="btn btn-prime-inverted btn-block btn-around m-b-10px">Voltar</a>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <button *ngIf="isLogged" (click)="openOfferModal()" type="button" class="btn btn-prime btn-block btn-around m-b-10px">Fazer um oferta</button>
+                    <button *ngIf="!isLogged" routerLink="/login" type="button" class="btn btn-prime btn-block btn-around white-space m-b-10px">Cadastre-se ou faça o login para realizar uma oferta</button>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<sendOfferModal #sendOfferModal (modalSave)="modalOfferSuccess()"></sendOfferModal>

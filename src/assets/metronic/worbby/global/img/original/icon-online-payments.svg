@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 76 36" style="enable-background:new 0 0 76 36;" xml:space="preserve">
+<style type="text/css">
+	.st0{filter:url(#Adobe_OpacityMaskFilter);}
+	.st1{fill:#FFFFFF;}
+	.st2{mask:url(#mask-2);}
+	.st3{fill:#FFFFFF;stroke:#FFB247;stroke-miterlimit:10;}
+</style>
+<title>icon-online-payments</title>
+<desc>Created with Sketch.</desc>
+<g id="Desktop">
+	<g id="Endorse-a-Talent" transform="translate(-985.000000, -848.000000)">
+		<g id="Group-2" transform="translate(985.000000, 408.000000)">
+			<g id="icon-endorsement-copy-2" transform="translate(0.000000, 440.000000)">
+				<defs>
+					<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="-0.5" y="-0.5" width="76" height="37">
+						<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+					</filter>
+				</defs>
+				<mask maskUnits="userSpaceOnUse" x="-0.5" y="-0.5" width="76" height="37" id="mask-2">
+					<g class="st0">
+						<path id="path-1" class="st1" d="M4,0h67c2.2,0,4,1.8,4,4v28c0,2.2-1.8,4-4,4H4c-2.2,0-4-1.8-4-4V4C0,1.8,1.8,0,4,0z"/>
+					</g>
+				</mask>
+				<g id="icon-online-payments" class="st2">
+					<g id="Rectangle">
+						<path id="path-1_1_" class="st3" d="M4,0h67c2.2,0,4,1.8,4,4v28c0,2.2-1.8,4-4,4H4c-2.2,0-4-1.8-4-4V4C0,1.8,1.8,0,4,0z"/>
+					</g>
+					<path id="Path-2" class="st3" d="M0,12h75"/>
+					<path id="Path-2_1_" class="st3" d="M9,24c0,0,6,3,12,0s12,0,12,0"/>
+					<path id="Path-2_2_" class="st3" d="M57,24h9"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

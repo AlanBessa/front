@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Home-Worbbior" transform="translate(-250.000000, -2911.000000)">
+            <g id="icon-1" transform="translate(250.000000, 2911.000000)">
+                <circle id="Oval-Copy" fill="#FFCB33" cx="26.5" cy="53.5" r="26.5"></circle>
+                <path d="M40.828,51 L43.924,51 C45.328,51 46.084,50.244 46.084,48.84 L46.084,27.96 C46.084,26.556 45.328,25.8 43.924,25.8 C42.268,25.8 41.548,25.872 40.468,26.34 L33.772,29.22 C32.548,29.76 32.08,30.732 32.512,32.028 L33.016,33.468 C33.448,34.8 34.42,35.304 35.752,34.764 L38.668,33.612 L38.668,48.84 C38.668,50.244 39.424,51 40.828,51 Z" id="1" fill="#1E2225"></path>
+                <path d="M40,0 C17.952,0 0,17.936 0,40 C0,62.064 17.952,80 40,80 C62.048,80 80,62.048 80,40 C80,17.952 62.064,0 40,0 Z M40,74.352 C21.056,74.352 5.648,58.944 5.648,40 C5.648,21.056 21.056,5.648 40,5.648 C58.944,5.648 74.336,21.056 74.336,40 C74.352,58.944 58.944,74.352 40,74.352 Z" id="Combined-Shape-Copy" fill="#1E2225"></path>
+            </g>
+        </g>
+    </g>
+</svg>

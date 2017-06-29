@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="24px" viewBox="0 0 50 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <circle id="path-1" cx="12" cy="12" r="12"></circle>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="payment-icons" transform="translate(-1170.000000, -115.000000)">
+            <g id="icon-paid2-selected" transform="translate(1170.000000, 115.000000)">
+                <rect id="Rectangle" fill="#FFB247" x="0" y="0" width="50" height="24"></rect>
+                <g id="Oval">
+                    <use fill="#FFB247" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <circle stroke="#FFFFFF" stroke-width="2" cx="12" cy="12" r="11"></circle>
+                </g>
+                <g id="icon-received" transform="translate(4.000000, 1.000000)">
+                    <text id="R$" font-family="FilsonSoftBlack, Filson Soft" font-size="12" font-weight="700" fill="#FFFFFF">
+                        <tspan x="0.044" y="15">R$</tspan>
+                    </text>
+                    <path d="M20.5,19.5 L38,19.5 L38,19.5 C40.209139,19.5 42,17.709139 42,15.5 L42,0" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path id="Line-decoration-1" d="M45,10.8 L42,0 L39,10.8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

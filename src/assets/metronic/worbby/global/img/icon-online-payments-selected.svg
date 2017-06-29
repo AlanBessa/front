@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="76px" height="36px" viewBox="0 0 76 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-online-payments</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="75" height="36" rx="4"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="75" height="36" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Home" transform="translate(-735.000000, -3122.000000)" stroke="#FFFFFF">
+            <g id="icon-endorsement-copy-2" transform="translate(735.000000, 3122.000000)">
+                <g id="icon-online-payments">
+                    <use id="Rectangle" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                    <path d="M0,12 L75.0163024,12" id="Path-2" stroke-width="2"></path>
+                    <path d="M9,24 C9,24 15,27 21,24 C27,21 33,24 33,24" id="Path-2" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M57,24 L66,24" id="Path-2" stroke-width="2" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

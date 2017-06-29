@@ -6,9 +6,7 @@ import { ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { FileUploadModule } from '@node_modules/ng2-file-upload';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/layout/header.component';
 import { HeaderNotificationsComponent } from './shared/layout/notifications/header-notifications.component';
-import { FooterComponent } from './shared/layout/footer.component';
 import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
 import { MySettingsModalComponent } from '@app/shared/layout/profile/my-settings-modal.component';
@@ -23,9 +21,7 @@ import { UserNotificationHelper } from './shared/layout/notifications/UserNotifi
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
         HeaderNotificationsComponent,
-        FooterComponent,
         ChangePasswordModalComponent,
         ChangeProfilePictureModalComponent,
         MySettingsModalComponent,

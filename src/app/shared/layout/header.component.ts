@@ -7,21 +7,11 @@ import {
     UserLinkServiceProxy,
     UserServiceProxy,
     LinkedUserDto,
-    ChangeUserLanguageDto,
     TenantLoginInfoDto,
-    GetCurrentLoginInformationsOutput,
-    SessionServiceProxy
+    GetCurrentLoginInformationsOutput
 } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
-
-import { ChangePasswordModalComponent } from './profile/change-password-modal.component';
-import { ChangeProfilePictureModalComponent } from './profile/change-profile-picture-modal.component';
-import { MySettingsModalComponent } from './profile/my-settings-modal.component'
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
-import { NotificationSettingsModalCompoent } from '@app/shared/layout/notifications/notification-settings-modal.component';
-import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNotificationHelper';
-import { AppConsts } from '@shared/AppConsts';
-import { SubscriptionStartType, EditionPaymentType } from "@shared/AppEnums";
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -33,15 +23,12 @@ import * as moment from 'moment';
 })
 export class HeaderComponent extends AppComponentBase implements OnInit {
 
-    @ViewChild('notificationSettingsModal') notificationSettingsModal: NotificationSettingsModalCompoent;
-
-    @ViewChild('changePasswordModal') changePasswordModal: ChangePasswordModalComponent;
-    @ViewChild('changeProfilePictureModal') changeProfilePictureModal: ChangeProfilePictureModalComponent;
-    @ViewChild('mySettingsModal') mySettingsModal: MySettingsModalComponent;
-
     languages: abp.localization.ILanguageInfo[];
     currentLanguage: abp.localization.ILanguageInfo;
     isImpersonatedLogin: boolean = false;
+    currentRoleName:string = "";
+
+    isAuthenticated:boolean = false;
 
     shownLoginNameTitle: string = "";
     shownLoginName: string = "";
@@ -49,46 +36,59 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
     recentlyLinkedUsers: LinkedUserDto[];
     unreadChatMessageCount = 0;
 
-    remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
-
     chatConnected = false;
-
-    tenant: TenantLoginInfoDto = new TenantLoginInfoDto();
-    subscriptionStartType = SubscriptionStartType;
-    editionPaymentType: typeof EditionPaymentType = EditionPaymentType;
 
     constructor(
         injector: Injector,
-        private _abpSessionService: AbpSessionService,
-        private _abpMultiTenancyService: AbpMultiTenancyService,
-        private _profileServiceProxy: ProfileServiceProxy,
-        private _userLinkServiceProxy: UserLinkServiceProxy,
-        private _userServiceProxy: UserServiceProxy,
-        private _authService: AppAuthService,
-        private _userNotificationHelper: UserNotificationHelper,
-        private _sessionService: SessionServiceProxy,
-        private _appSessionService: AppSessionService
+        public appSessionService: AppSessionService,
+        private sessionService: AbpSessionService,
+        private abpMultiTenancyService: AbpMultiTenancyService,
+        private profileServiceProxy: ProfileServiceProxy,
+        private userLinkServiceProxy: UserLinkServiceProxy,
+        private userServiceProxy: UserServiceProxy,
+        private _authService: AppAuthService
     ) {
         super(injector);
     }
 
-    get multiTenancySideIsTenant(): boolean {
-        return this._abpSessionService.tenantId > 0;
-    }
 
     ngOnInit() {
-        this._userNotificationHelper.settingsModal = this.notificationSettingsModal;
-
-        this.languages = _.filter(this.localization.languages, l => (<any>l).isDisabled == false);
+        if (abp.session.userId){
+            this.isAuthenticated = true;
+        }
+        this.currentRoleName = this.appSessionService.userRoleName;
+        this.languages = this.localization.languages;
         this.currentLanguage = this.localization.currentLanguage;
-        this.isImpersonatedLogin = this._abpSessionService.impersonatorUserId > 0;
 
-        this.shownLoginNameTitle = this.isImpersonatedLogin ? this.l("YouCanBackToYourAccount") : "";
         this.getCurrentLoginInformations();
         this.getProfilePicture();
-        this.getRecentlyLinkedUsers();
 
         this.registerToEvents();
+    }
+
+    changeLanguage(languageName: string): void {
+        abp.utils.setCookieValue("Abp.Localization.CultureName", languageName);
+        location.reload();
+    }
+
+    getProfilePicture(): void {
+        this.profileServiceProxy.getProfilePicture().subscribe(result => {
+            if (result && result.profilePicture) {
+                this.profilePicture = 'data:image/jpeg;base64,' + result.profilePicture;
+            }
+        });
+    }
+
+    getShownUserName(linkedUser: LinkedUserDto): string {
+        if (!this.abpMultiTenancyService.isEnabled) {
+            return linkedUser.username;
+        }
+
+        return (linkedUser.tenantId ? linkedUser.tenancyName : ".") + "\\" + linkedUser.username;
+    }
+
+    getCurrentLoginInformations(): void {
+        this.shownLoginName = this.appSessionService.getShownLoginName();
     }
 
     registerToEvents() {
@@ -103,105 +103,5 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
         abp.event.on('app.chat.connected', () => {
             this.chatConnected = true;
         });
-    }
-
-    changeLanguage(languageName: string): void {
-        let input = new ChangeUserLanguageDto();
-        input.languageName = languageName;
-
-        this._profileServiceProxy.changeLanguage(input).subscribe(() => {
-            abp.utils.setCookieValue(
-                "Abp.Localization.CultureName",
-                languageName,
-                new Date(new Date().getTime() + 5 * 365 * 86400000), //5 year
-                abp.appPath
-            );
-
-            window.location.reload();
-        });
-    }
-
-    getCurrentLoginInformations(): void {
-        this.shownLoginName = this.appSession.getShownLoginName();
-        this._sessionService.getCurrentLoginInformations()
-            .subscribe((result: GetCurrentLoginInformationsOutput) => {
-                this.tenant = result.tenant;
-            });
-    }
-
-    getShownUserName(linkedUser: LinkedUserDto): string {
-        if (!this._abpMultiTenancyService.isEnabled) {
-            return linkedUser.username;
-        }
-
-        return (linkedUser.tenantId ? linkedUser.tenancyName : ".") + "\\" + linkedUser.username;
-    }
-
-    getProfilePicture(): void {
-        this._profileServiceProxy.getProfilePicture().subscribe(result => {
-            if (result && result.profilePicture) {
-                this.profilePicture = 'data:image/jpeg;base64,' + result.profilePicture;
-            }
-        });
-    }
-
-    getRecentlyLinkedUsers(): void {
-        this._userLinkServiceProxy.getRecentlyUsedLinkedUsers().subscribe(result => {
-            this.recentlyLinkedUsers = result.items;
-        });
-    }
-
-    changePassword(): void {
-        this.changePasswordModal.show();
-    }
-
-    changeProfilePicture(): void {
-        this.changeProfilePictureModal.show();
-    }
-
-    changeMySettings(): void {
-        this.mySettingsModal.show();
-    }
-
-    logout(): void {
-        this._authService.logout();
-    }
-
-    onMySettingsModalSaved(): void {
-        this.shownLoginName = this.appSession.getShownLoginName();
-    }
-
-    get chatEnabled(): boolean {
-        return this.appSession.application.features['SignalR'] && (!this._abpSessionService.tenantId || this.feature.isEnabled("App.ChatFeature"));
-    }
-
-    subscriptionStatusBarVisible(): boolean {
-        return this._appSessionService.tenantId > 0 && (this._appSessionService.tenant.isInTrialPeriod || this.subscriptionIsExpiringSoon());
-    }
-
-    subscriptionIsExpiringSoon(): boolean {
-        if (this._appSessionService.tenant.subscriptionEndDateUtc) {
-            return moment().utc().add(AppConsts.subscriptionExpireNootifyDayCount, 'days') >= moment(this._appSessionService.tenant.subscriptionEndDateUtc);
-        }
-
-        return false;
-    }
-
-    getSubscriptionExpiringDayCount(): number {
-        if (!this._appSessionService.tenant.subscriptionEndDateUtc) {
-            return 0;
-        }
-
-        return Math.round(moment(this._appSessionService.tenant.subscriptionEndDateUtc).diff(moment().utc(), 'days', true));
-    }
-
-    getTrialSubscriptionNotification(): string {
-        return abp.utils.formatString(this.l("TrialSubscriptionNotification"),
-            "<strong>" + this._appSessionService.tenant.edition.displayName + "</strong>",
-            "<a href='/account/buy?editionId=" + this._appSessionService.tenant.edition.id + "&editionPaymentType=" + this.editionPaymentType.BuyNow + "'>" + this.l("ClickHere") + "</a>");
-    }
-
-    getExpireNotification(localizationKey: string): string {
-        return abp.utils.formatString(this.l(localizationKey), this.getSubscriptionExpiringDayCount());
     }
 }

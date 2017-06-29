@@ -1,0 +1,314 @@
+﻿<div [@routerTransition]>
+    <div *ngIf="active" class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="row">
+            <div class="container">
+                <div class="row find-task-content m-b-lg m-t-lg">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="input-group stylish-input-group">
+                                    <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="findWorbbyTaskInput.filter" (keyup)="onKeyUp($event)" (blur)="getWorbbyTasks()"  placeholder="Encontre uma tarefa que você possa fazer...">
+                                    <span class="input-group-addon">
+                                        <button class="close-nav" type="button" (click)="findByTerm()">
+                                            <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                                                <title>icon-search-inactive</title>
+                                                <desc>Created with Sketch.</desc>
+                                                <defs></defs>
+                                                <g id="Worbby-Needor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <g id="Categories-List" transform="translate(-315.000000, -161.000000)">
+                                                        <g id="Search-bar" transform="translate(20.000000, 151.000000)">
+                                                            <g id="Inactive">
+                                                                <g id="Group-5">
+                                                                    <g id="icon-search-inactive" transform="translate(295.000000, 10.000000)">
+                                                                        <ellipse id="Oval" fill="#F3F3F5" cx="10" cy="20" rx="10" ry="10"></ellipse>
+                                                                        <path d="M29.8089167,25.4501801 C29.7669154,25.3841537 29.7189139,25.3181273 29.6649123,25.2641056 C25.9567982,21.5546218 21.6006643,17.7190876 19.9446133,16.2845138 C21.168651,14.4117647 21.4266589,12.7791116 21.4266589,10.7142857 C21.4266589,4.80792317 16.6205111,0 10.7103294,0 C4.8061478,0 0,4.80792317 0,10.7142857 C0,13.577431 1.11603432,16.2665066 3.1380965,18.2893157 C5.16015869,20.3121248 7.85424153,21.4285714 10.7163295,21.4285714 C12.780393,21.4285714 14.4124432,21.1704682 16.2845008,19.9459784 C17.7125447,21.5966387 21.5226619,25.9363745 25.2607768,29.6698679 C25.3147785,29.7238896 25.3807805,29.7719088 25.4467825,29.8139256 C25.560786,29.8859544 25.8127938,30 26.1848052,30 C26.9288281,30 27.7568536,29.5438175 28.6508811,28.6554622 C30.3849344,26.9147659 30.0369237,25.8343337 29.8089167,25.4501801 L29.8089167,25.4501801 Z M27.2708386,27.27491 C26.8208248,27.72509 26.5148154,27.9171669 26.34081,27.9951981 C21.8706726,23.4933974 17.3765344,18.2352941 17.1845285,18.0072029 C17.1845285,18.0072029 17.1845285,18.0072029 17.1845285,18.0012005 C17.136527,17.9471789 17.0825253,17.8931573 17.0285237,17.8511405 C16.650512,17.5690276 16.1344962,17.5990396 15.7924857,17.9111645 C14.0344316,19.2316927 12.6963904,19.4777911 10.7163295,19.4777911 C8.37625759,19.4777911 6.17418987,18.5654262 4.51813894,16.9087635 C2.86208801,15.2521008 1.95005997,13.0492197 1.95005997,10.7082833 C1.95005997,5.88235294 5.88018083,1.94477791 10.7163295,1.94477791 C15.5524783,1.94477791 19.4825991,5.87635054 19.4825991,10.7142857 C19.4825991,12.6890756 19.2365916,14.0216086 17.9345515,15.7683073 C17.8925502,15.8103241 17.8565491,15.8583433 17.8265482,15.9063625 C17.5565399,16.3145258 17.6345423,16.8667467 18.0065537,17.1848739 C18.0605554,17.2328932 23.4487211,21.8307323 27.996861,26.3505402 C27.9068582,26.5186074 27.7208525,26.8247299 27.2708386,27.27491 Z M6.8582109,6.8607443 C7.23622253,6.48259304 7.23622253,5.86434574 6.8582109,5.48019208 C6.48019928,5.09603842 5.86218027,5.10204082 5.47816846,5.48019208 C2.59207971,8.36734694 2.59207971,13.0612245 5.47816846,15.9483794 C5.67017437,16.1404562 5.91618193,16.2364946 6.16818968,16.2364946 C6.42019743,16.2364946 6.666205,16.1404562 6.8582109,15.9483794 C7.23622253,15.5702281 7.23622253,14.9519808 6.8582109,14.5678271 C4.73414558,12.4429772 4.73414558,8.98559424 6.8582109,6.8607443 Z" id="Combined-Shape" fill="#90A3B1"></path>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div *ngIf="!filtersActive" class="col-xs-12">
+                                        <!--<h3>Todas as tarefas</h3>
+                                        <p>Filtrar por Centro de Interesse, localização e mais</p>-->
+                                        <h3>Em breve!</h3>
+                                        <p>Quando a plataforma for lançada, você verá aqui as últimas tarefas postadas pelos worbbients (clientes). Você poderá filtrá-las por palavra-chave e/ou centro de interesse e ordená-las por preço. Ao encontrar uma tarefa que você queira realizar, é só fazer uma oferta para a pessoa que a solicitou.</p>
+
+                                    </div>
+                                    <div *ngIf="filtersActive">
+                                        <div *ngIf="currentInterestCenterTopLevel.id" class="col-xs-12">                                               
+                                            <h3 class="no-m-b"><img class="img-icon-list pull-left m-r-xxs" [src]="currentInterestCenterTopLevel.interestCenterPicture" />  {{currentInterestCenterTopLevel.displayName}}</h3>
+                                        </div>
+                                        <div class="col-xs-12 m-t-xs">
+                                            <button (click)="cleanTermFilter()" type="button" class="btn btn-filtered" *ngIf="findWorbbyTaskInput.filter && findWorbbyTaskInput.filter != ''">
+                                                {{findWorbbyTaskInput.filter}}
+                                            </button>
+                                            <button (click)="cleanInterestCenterTopLevelFilter()" type="button" class="btn btn-filtered" *ngIf="currentInterestCenterTopLevel.id">
+                                                {{currentInterestCenterTopLevel.displayName}}
+                                            </button>
+                                            <button (click)="cleanInterestCenterChildFilter()" type="button" class="btn btn-filtered" *ngIf="currentInterestCenterChild.id">
+                                                {{currentInterestCenterChild.displayName}}
+                                            </button>
+                                            <button (click)="cleanAddresFilter()" type="button" class="btn btn-filtered" *ngIf="findWorbbyTaskInput.address && findWorbbyTaskInput.address != ''">
+                                                {{findWorbbyTaskInput.address}}
+                                            </button>
+                                            <button (click)="cleanOrderFilter()" type="button" class="btn btn-filtered" *ngIf="findWorbbyTaskInput.orderBy && findWorbbyTaskInput.orderBy != ''">
+                                                {{l(findWorbbyTaskInput.orderBy)}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 visible-xs">
+                                        <button (click)="showMobileFilter()" type="button" class="btn btn-filter btn-small pull-right">Filtro</button>
+                                    </div>
+                                    <div class="col-xs-12 m-t-xxs m-b-xxs">
+                                        <div class="row m-b-xss card-find-tasks" *ngIf="worbbyTasks.length > 0 && carregado">
+                                            <div *ngFor="let worbbyTask of worbbyTasks">
+                                                <a [routerLink]="['/worbby-task', worbbyTask.id]" class="card-talents w-100">
+                                                    <div class="col-xs-12">
+                                                        <!-- card -->
+                                                        <div class="card-simple m-b-20px">
+                                                            <div class="row">
+                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                    <div class="divProfile">
+                                                                        <img alt="Photo Profile" class="img-responsive pro w-80" [src]="worbbyTask.interestCenter.parentPicture"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-9 col-md-7 card-simple-info m-b-xxs">
+                                                                    <p class="no-m-t m-b-xxxs">{{worbbyTask.title}}</p>
+                                                                    <p class="m-b-xxs small txt-small-tablet txt-small-only-mobile">Publicado: {{worbbyTask.creationTime | amDateFormat:'L'}}</p>
+                                                                    <p class="no-m-y cor-Botticelli small txt-small-tablet txt-small-only-mobile block-with-text">{{worbbyTask.description}}</p>
+                                                                </div>
+                                                                <div class="col-xs-12 col-md-3">
+                                                                    <div class="col-xs-6 col-md-12 text-right">
+                                                                        <p class="cor-Denim txt-small-tablet">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</p>
+                                                                    </div>
+                                                                    <div class="text-right col-xs-6 col-md-12">
+                                                                        <p class="txt-small-tablet" [ngClass]="{'cor-CaribbeanGreen': worbbyTask.countOffers > 0, 'cor-Botticelli': worbbyTask.countOffers == 0}">{{worbbyTask.countOffers}} oferta(s)</p>  
+                                                                        <div *ngIf="worbbyTask.distance" class="txt-small-tablet">   
+                                                                            {{worbbyTask.distance}} 
+                                                                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                                                        </div>                                                                        
+                                                                    </div>   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- card : fim -->
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!--<div class="well well-lg" *ngIf="worbbyTasks.length == 0 && carregado">
+                                            Não foi encontrado nenhum resultado para esta pesquisa
+                                        </div>-->
+                                        <div class="well text-center" *ngIf="!carregado">
+                                            <img src="assets/metronic/worbby/global/img/loading2.gif" width="50px" />
+                                            Carregando
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 hidden-xs p-l-md">
+                        <div class="sidebar-filter bg-fluid bg-White "></div>
+                        <div *ngIf="active" class="sidebar">
+                            <p>Filtro</p>
+                            <div class="form-group no-hint">
+                                <label class="control-label">{{l("ChooseMainInterest")}}</label>
+                                <div *ngIf="interestCentersTopLevel.length" class="dropdown">
+                                    <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                        data-close-others="true">
+                                        {{currentInterestCenterTopLevel.displayName}}
+                                        <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="javascript:;" (click)="changeInterestCenterTopLevel()">
+                                                {{l('Select')}}
+                                            </a>
+                                        </li>
+                                        <li *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                                            <a href="javascript:;" (click)="changeInterestCenterTopLevel(interestCenterTopLevel)">
+                                                {{interestCenterTopLevel.displayName}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group no-hint">
+                                <label class="control-label">{{l("Subcategory")}}</label>
+                                <div class="dropdown">
+                                    <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                        data-close-others="true">
+                                        {{currentInterestCenterChild.displayName}}
+                                        <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="javascript:;" (click)="changeInterestCenterChildren()">
+                                                {{l('Select')}}
+                                            </a>
+                                        </li>
+                                        <li *ngFor="let interestCenterChild of interestCentersChidren">
+                                            <a href="javascript:;" (click)="changeInterestCenterChildren(interestCenterChild)">
+                                                {{interestCenterChild.displayName}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="input-group stylish-input-group">
+                                <input type="text" class="form-control" name="Address" [(ngModel)]="findWorbbyTaskInput.address" (keyup)="onKeyUp($event)" (blur)="getWorbbyTasks()" placeholder="Localização...">
+                                <span class="input-group-addon">
+                                    <button type="button" (click)="getWorbbyTasks()">
+                                        <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                                            <title>icon-search-inactive</title>
+                                            <desc>Created with Sketch.</desc>
+                                            <defs></defs>
+                                            <g id="Worbby-Needor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Categories-List" transform="translate(-315.000000, -161.000000)">
+                                                    <g id="Search-bar" transform="translate(20.000000, 151.000000)">
+                                                        <g id="Inactive">
+                                                            <g id="Group-5">
+                                                                <g id="icon-search-inactive" transform="translate(295.000000, 10.000000)">
+                                                                    <ellipse id="Oval" fill="#F3F3F5" cx="10" cy="20" rx="10" ry="10"></ellipse>
+                                                                    <path d="M29.8089167,25.4501801 C29.7669154,25.3841537 29.7189139,25.3181273 29.6649123,25.2641056 C25.9567982,21.5546218 21.6006643,17.7190876 19.9446133,16.2845138 C21.168651,14.4117647 21.4266589,12.7791116 21.4266589,10.7142857 C21.4266589,4.80792317 16.6205111,0 10.7103294,0 C4.8061478,0 0,4.80792317 0,10.7142857 C0,13.577431 1.11603432,16.2665066 3.1380965,18.2893157 C5.16015869,20.3121248 7.85424153,21.4285714 10.7163295,21.4285714 C12.780393,21.4285714 14.4124432,21.1704682 16.2845008,19.9459784 C17.7125447,21.5966387 21.5226619,25.9363745 25.2607768,29.6698679 C25.3147785,29.7238896 25.3807805,29.7719088 25.4467825,29.8139256 C25.560786,29.8859544 25.8127938,30 26.1848052,30 C26.9288281,30 27.7568536,29.5438175 28.6508811,28.6554622 C30.3849344,26.9147659 30.0369237,25.8343337 29.8089167,25.4501801 L29.8089167,25.4501801 Z M27.2708386,27.27491 C26.8208248,27.72509 26.5148154,27.9171669 26.34081,27.9951981 C21.8706726,23.4933974 17.3765344,18.2352941 17.1845285,18.0072029 C17.1845285,18.0072029 17.1845285,18.0072029 17.1845285,18.0012005 C17.136527,17.9471789 17.0825253,17.8931573 17.0285237,17.8511405 C16.650512,17.5690276 16.1344962,17.5990396 15.7924857,17.9111645 C14.0344316,19.2316927 12.6963904,19.4777911 10.7163295,19.4777911 C8.37625759,19.4777911 6.17418987,18.5654262 4.51813894,16.9087635 C2.86208801,15.2521008 1.95005997,13.0492197 1.95005997,10.7082833 C1.95005997,5.88235294 5.88018083,1.94477791 10.7163295,1.94477791 C15.5524783,1.94477791 19.4825991,5.87635054 19.4825991,10.7142857 C19.4825991,12.6890756 19.2365916,14.0216086 17.9345515,15.7683073 C17.8925502,15.8103241 17.8565491,15.8583433 17.8265482,15.9063625 C17.5565399,16.3145258 17.6345423,16.8667467 18.0065537,17.1848739 C18.0605554,17.2328932 23.4487211,21.8307323 27.996861,26.3505402 C27.9068582,26.5186074 27.7208525,26.8247299 27.2708386,27.27491 Z M6.8582109,6.8607443 C7.23622253,6.48259304 7.23622253,5.86434574 6.8582109,5.48019208 C6.48019928,5.09603842 5.86218027,5.10204082 5.47816846,5.48019208 C2.59207971,8.36734694 2.59207971,13.0612245 5.47816846,15.9483794 C5.67017437,16.1404562 5.91618193,16.2364946 6.16818968,16.2364946 C6.42019743,16.2364946 6.666205,16.1404562 6.8582109,15.9483794 C7.23622253,15.5702281 7.23622253,14.9519808 6.8582109,14.5678271 C4.73414558,12.4429772 4.73414558,8.98559424 6.8582109,6.8607443 Z" id="Combined-Shape" fill="#90A3B1"></path>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="form-group no-hint">
+                                Ordenar por:
+                            </div>
+                            <div class="form-group no-hint">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <button type="button" class="btn btn-block btn-secondary m-b-xxs txt-md-only-mobile" [(ngModel)]="orderByPrice" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" (ngModelChange)="orderbyPrice()">Preço</button>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <button *ngIf="findWorbbyTaskInput.latitude" type="button" class="btn btn-block btn-secondary m-b-xxs txt-md-only-mobile" [(ngModel)]="orderByDistance" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0"
+                                        (ngModelChange)="orderbyDistance()">
+                                            Distância
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="filter-tasks-mobile">
+        <div class="filter-container" *ngIf="active">
+            <button type="button" class="close" (click)="showMobileFilter()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p>Filtro</p>
+            <div class="form-group no-hint">
+                <label class="control-label">{{l("ChooseMainInterest")}}</label>
+                <div *ngIf="interestCentersTopLevel.length" class="dropdown">
+                    <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                        data-close-others="true">
+                        {{currentInterestCenterTopLevel.displayName}}
+                        <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:;" (click)="changeInterestCenterTopLevel()">
+                                {{l('Select')}}
+                            </a>
+                        </li>
+                        <li *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                            <a href="javascript:;" (click)="changeInterestCenterTopLevel(interestCenterTopLevel)">
+                                {{interestCenterTopLevel.displayName}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group no-hint">
+                <label class="control-label">{{l("Subcategory")}}</label>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-prime-inverted btn-block dropdown-toggle select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                        data-close-others="true">
+                        {{currentInterestCenterChild.displayName}} 
+                        <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:;" (click)="changeInterestCenterChildren()">
+                                {{l('Select')}}
+                            </a>
+                        </li>
+                        <li *ngFor="let interestCenterChild of interestCentersChidren">
+                            <a href="javascript:;" (click)="changeInterestCenterChildren(interestCenterChild)">
+                                {{interestCenterChild.displayName}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control" name="Address" [(ngModel)]="findWorbbyTaskInput.address" placeholder="Localização...">
+                <span class="input-group-addon">
+                    <button type="button" (click)="getWorbbyTasks()">
+                        <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                            <title>icon-search-inactive</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Worbby-Needor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Categories-List" transform="translate(-315.000000, -161.000000)">
+                                    <g id="Search-bar" transform="translate(20.000000, 151.000000)">
+                                        <g id="Inactive">
+                                            <g id="Group-5">
+                                                <g id="icon-search-inactive" transform="translate(295.000000, 10.000000)">
+                                                    <ellipse id="Oval" fill="#F3F3F5" cx="10" cy="20" rx="10" ry="10"></ellipse>
+                                                    <path d="M29.8089167,25.4501801 C29.7669154,25.3841537 29.7189139,25.3181273 29.6649123,25.2641056 C25.9567982,21.5546218 21.6006643,17.7190876 19.9446133,16.2845138 C21.168651,14.4117647 21.4266589,12.7791116 21.4266589,10.7142857 C21.4266589,4.80792317 16.6205111,0 10.7103294,0 C4.8061478,0 0,4.80792317 0,10.7142857 C0,13.577431 1.11603432,16.2665066 3.1380965,18.2893157 C5.16015869,20.3121248 7.85424153,21.4285714 10.7163295,21.4285714 C12.780393,21.4285714 14.4124432,21.1704682 16.2845008,19.9459784 C17.7125447,21.5966387 21.5226619,25.9363745 25.2607768,29.6698679 C25.3147785,29.7238896 25.3807805,29.7719088 25.4467825,29.8139256 C25.560786,29.8859544 25.8127938,30 26.1848052,30 C26.9288281,30 27.7568536,29.5438175 28.6508811,28.6554622 C30.3849344,26.9147659 30.0369237,25.8343337 29.8089167,25.4501801 L29.8089167,25.4501801 Z M27.2708386,27.27491 C26.8208248,27.72509 26.5148154,27.9171669 26.34081,27.9951981 C21.8706726,23.4933974 17.3765344,18.2352941 17.1845285,18.0072029 C17.1845285,18.0072029 17.1845285,18.0072029 17.1845285,18.0012005 C17.136527,17.9471789 17.0825253,17.8931573 17.0285237,17.8511405 C16.650512,17.5690276 16.1344962,17.5990396 15.7924857,17.9111645 C14.0344316,19.2316927 12.6963904,19.4777911 10.7163295,19.4777911 C8.37625759,19.4777911 6.17418987,18.5654262 4.51813894,16.9087635 C2.86208801,15.2521008 1.95005997,13.0492197 1.95005997,10.7082833 C1.95005997,5.88235294 5.88018083,1.94477791 10.7163295,1.94477791 C15.5524783,1.94477791 19.4825991,5.87635054 19.4825991,10.7142857 C19.4825991,12.6890756 19.2365916,14.0216086 17.9345515,15.7683073 C17.8925502,15.8103241 17.8565491,15.8583433 17.8265482,15.9063625 C17.5565399,16.3145258 17.6345423,16.8667467 18.0065537,17.1848739 C18.0605554,17.2328932 23.4487211,21.8307323 27.996861,26.3505402 C27.9068582,26.5186074 27.7208525,26.8247299 27.2708386,27.27491 Z M6.8582109,6.8607443 C7.23622253,6.48259304 7.23622253,5.86434574 6.8582109,5.48019208 C6.48019928,5.09603842 5.86218027,5.10204082 5.47816846,5.48019208 C2.59207971,8.36734694 2.59207971,13.0612245 5.47816846,15.9483794 C5.67017437,16.1404562 5.91618193,16.2364946 6.16818968,16.2364946 C6.42019743,16.2364946 6.666205,16.1404562 6.8582109,15.9483794 C7.23622253,15.5702281 7.23622253,14.9519808 6.8582109,14.5678271 C4.73414558,12.4429772 4.73414558,8.98559424 6.8582109,6.8607443 Z" id="Combined-Shape" fill="#90A3B1"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                </span>
+            </div>
+            <div class="form-group no-hint">
+                Ordenar por:
+            </div>
+            <div class="form-group no-hint">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-secondary btn-block" [(ngModel)]="orderByPrice" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0"
+                    (ngModelChange)="orderbyPrice()">Preço</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button *ngIf="findWorbbyTaskInput.latitude" type="button" class="btn btn-secondary btn-block" [(ngModel)]="orderByDistance" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0"
+                    (ngModelChange)="orderbyDistance()">Distância</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group no-hint">
+                <button (click)="showMobileFilter()" type="button" class="btn btn-prime btn-around btn-block">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>

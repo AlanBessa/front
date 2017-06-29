@@ -1,9 +1,12 @@
-﻿import { Component, ViewContainerRef, OnInit, AfterViewInit, Injector } from '@angular/core';
+﻿import { Component, ViewContainerRef, OnInit, AfterViewInit, Injector, ViewChild } from '@angular/core';
 import { SignalRHelper } from 'shared/helpers/SignalRHelper';
 import { AppComponentBase } from 'shared/common/app-component-base';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { SubscriptionStartType } from "@shared/AppEnums";
 import { AppConsts } from '@shared/AppConsts';
+import { ChangePasswordModalComponent } from './shared/layout/profile/change-password-modal.component';
+import { NotificationSettingsModalCompoent } from '@app/shared/layout/notifications/notification-settings-modal.component';
+import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNotificationHelper';
 import * as moment from 'moment';
 
 @Component({
@@ -12,18 +15,23 @@ import * as moment from 'moment';
 })
 export class AppComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
+    @ViewChild('changePasswordModal') changePasswordModal: ChangePasswordModalComponent;
+    @ViewChild('notificationSettingsModal') notificationSettingsModal: NotificationSettingsModalCompoent;
+
     private viewContainerRef: ViewContainerRef;
     subscriptionStartType = SubscriptionStartType;
 
     public constructor(
         injector: Injector,
         viewContainerRef: ViewContainerRef,
-        private _appSessionService: AppSessionService) {
+        private _appSessionService: AppSessionService,
+        private _userNotificationHelper: UserNotificationHelper) {
         super(injector);
         this.viewContainerRef = viewContainerRef; // You need this small hack in order to catch application root view container ref (required by ng2 bootstrap modal)
     }
 
     ngOnInit(): void {
+        this._userNotificationHelper.settingsModal = this.notificationSettingsModal;
     }
 
     subscriptionStatusBarVisible(): boolean {
@@ -41,8 +49,12 @@ export class AppComponent extends AppComponentBase implements OnInit, AfterViewI
     }
 
     ngAfterViewInit(): void {
-        App.init();
-        App.initComponents();
-        Layout.init();
+        // App.init();
+        // App.initComponents();
+        // Layout.init();
+    }
+
+    changePassword(): void {
+        this.changePasswordModal.show();
     }
 }

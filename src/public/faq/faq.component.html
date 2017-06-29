@@ -1,0 +1,581 @@
+﻿<div [@routerTransition]>
+    <section class="faq">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="container">
+                <div class="row">
+                    <!-- Sidebar nav : inicio -->
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid">
+                        <div class="row">
+                            <side-menu></side-menu>
+                        </div>
+                    </div> 
+                    <!-- Sidebar nav : Fim -->
+                    <!-- Conteudo central : inicio -->
+                    <div class="central-content col-xs-12 col-sm-8 col-sm-pull-4 m-y-sm no-m-t-xs">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-11">
+                                <h1 class="cor-Tangerine">{{l("Faq")}}</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-11 m-t-sm">
+                                <!-- Steps : inicio -->
+                                <accordion class="card-panel">
+                                    <accordion-group id="question1" class="position-arrow-right-faq" #group1>
+                                        <div accordion-heading (click)="callAnalytics('O que é worbbior?')">
+                                            O que é worbbior?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group1?.isOpen, 'glyphicon-chevron-right': !group1?.isOpen}"></i>
+                                        </div>
+                                        <p>Worbbior é como chamamos os nossos talentos. São pessoas que têm habilidades em uma
+                                            ou mais áreas e que as oferece para outros usuários da plataforma, mediante remuneração
+                                            pré-estabelecida.
+                                        </p>
+                                    </accordion-group>
+                                  <accordion-group id="question2" class="position-arrow-right-faq" #group2>
+                                        <div accordion-heading (click)="callAnalytics('O que é preciso para ser aprovado como worbbior?')">
+                                          O que é preciso para ser aprovado como worbbior?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group2?.isOpen, 'glyphicon-chevron-right': !group2?.isOpen}"></i>
+                                        </div>
+                                            <p>Para ter o seu cadastrado de worbbior (talento) ativado, você deve:</p>
+                                            <p>1) Realizar cadastro, preenchendo com seus dados corretamente todos os campos com *, que são obrigatórios;</p>
+                                            <p>2) Escolher a(s) atividade(s) que quer oferecer;</p>
+                                            <p>3) Solicitar recomendações a duas pessoas, no mínimo, na atividade escolhida;</p>
+                                            <p>4) Anexar as cópias dos documentos que são obrigatórios (RG, CPF e comprovante de residência);</p>
+                                            <p>5) Solicitar ativação.</p>
+                                            <p>A equipe Worbby vai analisar os dados enviados. Se o cadastro estiver correto e completo, 
+                                                o perfil de worbbior será ativado. Caso contrário, 
+                                                você receberá uma notificação ao se logar na plataforma e e-mail informado o que falta fazer para ter o seu cadastro ativado.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question3" class="position-arrow-right-faq" #group3>
+                                        <div accordion-heading (click)="callAnalytics('O que é worbbient?')">
+                                            O que é worbbient?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group3?.isOpen, 'glyphicon-chevron-right': !group3?.isOpen}"></i>
+                                        </div>
+                                        <p>Worbbient é como chamamos nossos clientes. Worbbient = Worbby + Client (cliente).
+                                            O worbbient é aquele que demanda algum tipo de serviço e que tem interesse em
+                                            contratar um worbbior para realizá-lo.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question4" class="position-arrow-right-faq" #group4>
+                                        <div accordion-heading (click)="callAnalytics('Posso ter dois tipos de contas (worbbior e worbbient) com o mesmo e-mail?')">
+                                            Posso ter dois tipos de contas (worbbior e worbbient) com o mesmo e-mail?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group4?.isOpen, 'glyphicon-chevron-right': !group4?.isOpen}"></i>
+                                         </div>
+                                            <p>Sim e você também pode alternar de perfil (worbbior ou worbbient) sempre que desejar.</p>
+                                            <p>Todos os cadastrados com o perfil de worbbior (talento), automaticamente, 
+                                                já possuem um cadastro com o perfil de worbbient (cliente). Para alternar o tipo de perfil, 
+                                                é só se logar e clicar em seu nome no canto direito superior da página. Clique então na opção “Alternar para o perfil worbbient”.</p>
+                                            <p>Caso você tenha feito o cadastro com o perfil de worbbient (cliente) e deseja também oferecer os seus talentos na plataforma, 
+                                                terá que preencher um cadastro mais completo, mas usando o mesmo e-mail. 
+                                                Basta se logar e clicar em seu nome no canto direito superior da página. 
+                                                Clique na opção “Alternar para o perfil worbbior”. 
+                                                Preencha então os campos obrigatórios que faltam nas abas de cadastro de worbbior e solicite a sua ativação com o perfil de worbbior.</p>
+
+                                    </accordion-group>
+                                    <accordion-group id="question5" class="position-arrow-right-faq" #group5>
+                                        <div accordion-heading (click)="callAnalytics('Como contratar um talento?')">
+                                            Como contratar um talento?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group5?.isOpen, 'glyphicon-chevron-right': !group5?.isOpen}"></i>
+                                        </div>
+                                        <p>Há duas formas de buscar por um talento na plataforma: </p>
+                                        <p>1) Você posta detalhes da tarefa que você precisa e espera pelas ofertas dos talentos
+                                            (worbbiors) disponíveis;
+                                        </p>
+                                        <p>2) Você seleciona o centro de interesse em que a sua tarefa se encaixa. Por exemplo:
+                                            se você precisa de uma pessoa para acompanhar um parente idoso em uma consulta
+                                            médica, selecione o centro de interesse “Focados na família” e a subcategoria
+                                            “Terceira idade”. Vão aparecer todas as atividades oferecidas até o momento para
+                                            pessoas idosas. Você escolhe uma das opções e depois seleciona o worbbior que
+                                            quer contratar, filtrando por preço localização e avaliação para ajudar você
+                                            na sua busca do melhor talento.</p>
+                                        <p>Clique em “Oferece uma tarefa” e descreve a tarefa que você precisa. Você pode entrar
+                                            em contato com o worbbior escolhido pelo chat privado para acertar os detalhes.
+                                            Uma contratação é efetiva quando as duas partes confirmam a tarefa.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question6" class="position-arrow-right-faq" #group6>
+                                        <div accordion-heading (click)="callAnalytics('Existe cobrança ao contatar talentos através da plataforma Worbby?')">
+                                            Existe cobrança ao contatar talentos através da plataforma Worbby?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group6?.isOpen, 'glyphicon-chevron-right': !group6?.isOpen}"></i>
+                                        </div>
+                                        <p>O uso da plataforma é gratuito. A única cobrança para contratar talentos é relativa
+                                            ao valor da tarefa a ser realizada por um determinado talento (worbbior).</p>
+                                        <p>As tarefas têm seus respectivos preços transparentes e pré-estabelecidos por cada
+                                            worbbior.
+                                        </p>
+
+                                    </accordion-group>
+                                    <accordion-group id="question7" class="position-arrow-right-faq" #group7>
+                                        <div accordion-heading (click)="callAnalytics('Como posso pagar por uma tarefa?')">
+                                            Como posso pagar por uma tarefa?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group7?.isOpen, 'glyphicon-chevron-right': !group7?.isOpen}"></i>
+                                        </div>
+                                        <p>Na hora de contratar um talento, o cliente tem que dar os dados do cartão de crédito (emitido no Brasil). Para mais segurança, 
+                                            o valor da tarefa fica reservado e pré-autorizado assim que a contratação é feita, mas o débito no cartão só é efetivado após a entrega da tarefa/serviço. 
+                                            A Worbby utiliza o sistema Cielo para os pagamentos. Todos os dados financeiros são protegidos em ambiente seguro.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question8" class="position-arrow-right-faq" #group8>
+                                        <div accordion-heading (click)="callAnalytics('Como é estabelecido o preço de cada tarefa?')">
+                                            Como é estabelecido o preço de cada tarefa?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group8?.isOpen, 'glyphicon-chevron-right': !group8?.isOpen}"></i>
+                                        </div>
+                                        <p>As tarefas têm seus respectivos preços pré-estabelecidos por cada pessoa talentosa (worbbior) que se dispõe a realizar um determinado tipo de tarefa/ atividade. 
+                                        </p>
+                                        <p>A partir do momento que houver um volume de tarefas postadas, a Worbby vai fornecer apenas a média de preço por 
+                                            região de cada atividade para ajudar o cliente (worbbient) a tomar uma decisão antes da contratação e o worbbior na hora de estabelecer o seu preço.</p>
+                                        <p> Dependendo do tipo de atividade/ tarefa, ela terá seu preço estabelecido por hora ou unidade. Quando for uma atividade/ tarefa em que não é possível estabelecer o preço por hora ou unidade ou nos casos em que o cliente posta uma tarefa que não está entre as atividades oferecidas e/ou já cadastradas na plataforma e que, portanto, não tem um preço e média de preço pré-definidos, o cliente é quem vai ter que informar até quanto quer pagar por aquela tarefa. </p>
+                                        <p> A quantidade de horas ou unidades e consequentemente os valores das tarefas podem ser alterados durante a negociação de uma tarefa, 
+                                            ou seja, antes de uma tarefa ser contratada. Para fazer qualquer tipo de alteração que reflita no valor final, 
+                                            é preciso que as duas partes estejam de acordo.</p>
+
+                                    </accordion-group>
+                                    <accordion-group id="question9" class="position-arrow-right-faq" #group9>
+                                        <div accordion-heading (click)="callAnalytics('Como cancelar uma tarefa já contratada?')">
+                                            Como cancelar uma tarefa já contratada?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group9?.isOpen, 'glyphicon-chevron-right': !group9?.isOpen}"></i>
+                                        </div>
+                                        <p>Caso seja necessário cancelar uma tarefa, o cliente que a solicitou deve tomar conhecimento
+                                            de qual política de desistência foi estabelecida pelo talento (worbbior) contratado.
+                                            A política de desistência está bem visível no perfil do talento e na tela de
+                                            contratação. </p>
+                                        <p> O talento (worbbior) poderá sempre acordar com o cliente (worbbient) o não pagamento
+                                            da cobertura de desistência, de acordo com os motivos apresentados pelo worbbient.</p>
+                                        <p>
+                                            Caso o usuário contratante cancele uma tarefa, será cobrado uma taxa de R$ 10 (dez reais) em favorecimento da Worbby. Essa
+                                            taxa é independente da cobertura de desistência escolhida pelo worbbior e é necessária
+                                            para manter a qualidade da plataforma e os custos com o cancelamento perante
+                                            terceiros, tais como operadoras de cartões de crédito.</p>
+                                        <p> A Worbby enviará uma mensagem para os interessados informando o cancelamento da tarefa.
+                                            Saiba mais sobre a política de cancelamento.</p>
+
+                                    </accordion-group>
+                                    <accordion-group id="question10" class="position-arrow-right-faq" #group10>
+                                        <div accordion-heading (click)="callAnalytics('Como cancelar uma solicitação de tarefa que ainda não foi contratada?')">
+                                            Como cancelar uma solicitação de tarefa que ainda não foi contratada?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group10?.isOpen, 'glyphicon-chevron-right': !group10?.isOpen}"></i>
+                                        </div>
+                                        <p>Se o usuário (worbbient) solicitou uma tarefa e ela ainda não gerou um contrato com
+                                            o worbbior, ele pode cancelar e/ou excluir a tarefa do sistema, sem nenhum custo.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question11" class="position-arrow-right-faq" #group11>
+                                        <div accordion-heading (click)="callAnalytics('Como faço para cancelar a oferta de uma atividade?')">
+                                            Como faço para cancelar a oferta de uma atividade?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group11?.isOpen, 'glyphicon-chevron-right': !group11?.isOpen}"></i>
+                                        </div>
+                                        <p>Caso o worbbior decida não mais ofertar uma determinada atividade, ele poderá excluí-la
+                                            do sistema desde que ele não tenha em andamento nenhuma tarefa contratada relativa
+                                            a essa atividade.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question12" class="position-arrow-right-faq" #group12>
+                                        <div accordion-heading (click)="callAnalytics('Posso alterar a data ou local da realização de uma tarefa já contratada?')">
+                                            Posso alterar a data ou local da realização de uma tarefa já contratada?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group12?.isOpen, 'glyphicon-chevron-right': !group12?.isOpen}"></i>
+                                        </div>
+                                        <p>A data e o local da realização de uma tarefa já contratada podem ser alterados pelo
+                                            cliente (worbbient) até no máximo 24h antes da data de cumprimento da tarefa
+                                            e observando as seguintes situações:</p>
+                                        <p>1) Se a nova data indicada estiver compreendida no período de reserva de crédito,
+                                            que é de até 20 dias a partir da data de contratação, a Worbby informará ao worbbior
+                                            contratado sobre a mudança, a fim de que ele confirme a realização da tarefa
+                                            com a nova data ou cancele a tarefa.</p>
+                                        <p>2) Caso a nova data ultrapasse ao período da reserva de crédito (20 dias), a Worbby
+                                            informará ao worbbior contratado sobre a nova data da tarefa. O worbbient (cliente)
+                                            terá que a criar uma nova postagem da tarefa com a nova data e o worbbior vai
+                                            decidir se vai aceita-la ou não. A tarefa anterior será automaticamente cancelada,
+                                            mas nesse caso o worbbient deverá pagar uma taxa de cancelamento no valor de
+                                            R$ 10 (dez reais) em favorecimento da Worbby. Essa taxa é independente da cobertura
+                                            de desistência escolhida pelo worbbior e é necessária para manter a qualidade
+                                            da plataforma e os custos com o cancelamento perante terceiros, tais como operadoras
+                                            de cartões de crédito. </p>
+                                        <p>3) O local da tarefa só poderá ser alterado em um prazo de até 20 dias após a contratação
+                                            da tarefa e se o novo local estiver dentro do raio de atuação do worbbior contratado.
+                                            Se não estiver, a tarefa deverá ser cancelada pelo worbbient que solicitou a
+                                            tarefa. Nesse caso será cobrada as taxas relativas ao cancelamento.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question13" class="position-arrow-right-faq" #group13>
+                                        <div accordion-heading (click)="callAnalytics('A tarefa foi realizada, mas não gostei do resultado. Posso pedir um reembolso?')">
+                                            A tarefa foi realizada, mas não gostei do resultado. Posso pedir um reembolso?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group13?.isOpen, 'glyphicon-chevron-right': !group13?.isOpen}"></i>
+                                        </div>
+                                        <p>O worbbient deve enviar, para o e-mail contato@worbby.com, um relato detalhado do
+                                            motivo de estar solicitando reembolso, com o número da tarefa (disponível no
+                                            histórico das suas tarefas). O prazo de envio da solicitação de reembolso deve
+                                            ser feito até cinco dias depois da data de realização ou entrega da tarefa. O
+                                            pedido será analisado pela equipe da Worbby e dependendo do caso e das provas
+                                            apresentadas, o reembolso poderá ser realizado.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question14" class="position-arrow-right-faq" #group14>
+                                        <div accordion-heading (click)="callAnalytics('Preciso pagar para oferecer meus talentos?')">
+                                            Preciso pagar para oferecer meus talentos?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group14?.isOpen, 'glyphicon-chevron-right': !group14?.isOpen}"></i>
+                                        </div>
+                                        <p>O cadastro na plataforma e o uso de seus recursos são totalmente gratuitos, mas a
+                                            Worbby reserva o direito de cobrar do worbbior uma comissão de 20% sobre qualquer
+                                            transação financeira realizada por meio da plataforma em que o worbbior seja
+                                            o favorecido (tarefas contratadas e cobertura de desistência). </p>
+                                        <p>A comissão é reduzida para 15% nos seguintes casos:</p>
+                                        <p>1) A partir da segunda contratação de tarefa entre os mesmos worbbior e worbbient.
+                                        </p>
+                                        <p>2) Quando o worbbior for muito ativo na plataforma, tendo atingindo, no mínimo, 10
+                                            (dez) tarefas contratadas dentro do sistema, com avaliações superiores ou igual
+                                            a 4 (quatro) corações dentro de um período de 3 (três) meses consecutivos; ou</p>
+                                        <p>3) Quando o worbbior atinge o valor líquido de R$ 3.000 (três mil reais) de volume
+                                            total recebido por tarefas contratadas pela plataforma dentro de um período de
+                                            3 (três) meses consecutivos; ou</p>
+                                        <p>4) Quando houver campanhas ou ações isoladas promocionais promovidas pela Worbby
+                                            concedendo tal redução da taxa de comissão para o worbbior, respeitando as condições
+                                            expostas no material de divulgação das campanhas ou ações isoladas promocionais.</p>
+                                        <p>A comissão de 15% terá validade de 1 (um) mês, podendo ser renovada sucessivamente
+                                            desde que se cumpra a cada 30 dias um dos itens acima citados.</p>
+                                        <p>Esse sistema de redução de taxa de comissão, assim como as demais cobranças e gratuidades
+                                            podem ser alterados a qualquer momento pela Worbby.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question15" class="position-arrow-right-faq" #group15>
+                                        <div accordion-heading (click)="callAnalytics('Qual é a política de cancelamento?')">
+                                            Qual é a política de cancelamento?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group15?.isOpen, 'glyphicon-chevron-right': !group15?.isOpen}"></i>
+                                        </div>
+                                        <p>Caso seja necessário realizar o cancelamento de uma tarefa, observe os procedimentos,
+                                            direitos e obrigações listados a seguir:</p>
+                                        <p>1) Cancelamento de uma tarefa antes dela gerar um contrato</p>
+                                        <p>Se o worbbior decidir não mais ofertar uma determinada atividade, ele pode encerrar
+                                            a postagem, e ela será retirada do sistema sem nenhum custo ou taxa de cancelamento.
+                                            O mesmo se aplica ao worbbient que decide não mais manter disponível uma demanda/
+                                            tarefa postada: como ainda não houve aceite de worbbiors interessados, não haverá
+                                            custo para cancelamento.</p>
+                                        <p>2) Cancelamento de uma tarefa após aceitação de um usuário interessado</p>
+                                        <p>Caso o usuário que já tenha aceitado a proposta (leia-se: um worbbior que tenha aceitado
+                                            uma demanda de um worbbient ou um worbbient que tenha aceitado a proposta de
+                                            um worbbior para fazer uma tarefa) desista da realização da tarefa e cancele-a,
+                                            será cobrado do usuário que a cancelou a taxa de cancelamento de R$ 10 (dez reais)
+                                            em favorecimento da Worbby. Essa taxa é independente da cobertura de desistência
+                                            escolhida pelo worbbior e é necessária para manter a qualidade da plataforma
+                                            e os custos com o cancelamento perante terceiros, tais como operadoras de cartões
+                                            de crédito. </p>
+                                    </accordion-group> 
+                                    <accordion-group id="question16" name="question16" class="position-arrow-right-faq" #group16>
+                                        <div accordion-heading (click)="callAnalytics('Quais são os tipos de cobertura de desistência que podem se aplicados quando uma tarefa é cancelada?')">
+                                            Quais são os tipos de cobertura de desistência que podem se aplicados quando uma tarefa é cancelada?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group16?.isOpen, 'glyphicon-chevron-right': !group16?.isOpen}"></i>
+                                        </div>
+                                        <p>O tipo de cobertura de desistência em caso de cancelamento de tarefa feito pelo worbbient
+                                            (cliente) é estabelecido pelo worbbior e é exposta ao worbbient antes da contratação
+                                            da tarefa. Esta são as modalidades de cobertura de desistência:</p>
+                                        <p> <strong>Superflexível:</strong> 100% de reembolso até 4 horas antes da hora prevista
+                                        </p>
+                                        <p><strong>Flexível:</strong> 100% de reembolso até 24 horas antes da data fixa prevista
+                                        </p>
+                                        <p><strong>Moderada:</strong> 50% de reembolso até 48 horas da data prevista</p>
+                                        <p><strong>Rígida:</strong> 50% de reembolso até 5 dias (120 horas) antes da data prevista</p>
+                                        <p>Em casos de tarefas em que só tenha data estipulada para a realização ou entrega,
+                                            sem um horário especificado, os prazos para aplicação das tarifas de coberturas
+                                            de desistência são contados, retroativamente, a partir de 0 hora (zero hora)
+                                            da data agendada para a realização da tarefa que se deseja cancelar. Exemplo:
+                                            Uma tarefa está marcada para ser realizada no dia 10 do mês corrente, mas o worbbient
+                                            decidiu cancela-la na véspera, às 8h do dia 9 do mesmo mês. O worbbior contratado
+                                            optou por cobrar a tarifa flexível de cobertura de desistência, que é cobrada
+                                            para cancelamentos feito a menos de 24 horas da data marcada para a tarefa. Nesse
+                                            caso, o worbbient não terá direito ao reembolso, a não ser que o worbbior aceite
+                                            abrir mão do pagamento de acordo com os motivos apresentados pelo worbbient.
+                                        </p>
+                                        <p>O worbbior poderá sempre acordar com o worbbient o não pagamento da cobertura de
+                                            desistência, de acordo com os motivos apresentados pelo worbbient.</p>
+                                        <p>Em casos de cancelamentos de tarefas, a comissão de 20% ou de 15% (veja nossa política
+                                            de Taxas e Comissão) será cobrada do worbbior sobre o valor da tarifa de cobertura
+                                            de desistência que se aplica à tarefa cancelada, caso haja. </p>
+                                        <p>O cancelamento de tarefas deve ser evitado ao máximo. Além do custo incorrido, reiterados
+                                            cancelamentos podem ter repercussões negativas e ocasionar na supsensão ou exclusão
+                                            do usuário da plataforma.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question17" class="position-arrow-right-faq" #group17>
+                                        <div accordion-heading (click)="callAnalytics('Como funciona o sistema de avaliação?')">
+                                            Como funciona o sistema de avaliação?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group17?.isOpen, 'glyphicon-chevron-right': !group17?.isOpen}"></i>
+                                        </div>
+                                        <p>Após cada finalização de tarefa, o cliente (worbbient) deve obrigatoriamente avaliar
+                                            o talento (worbbior) contratado numa escala de classificação 1 (um) a 5 (cinco)
+                                            corações nos seguintes quesitos: competência; comunicação; pontualidade; cordialidade
+                                            e finalização.</p>
+                                        <p>Cada avaliação é contabilizada para fazer a avaliação geral do worbbior e avaliação
+                                            da atividade/ tarefa realizada pelo worbbior.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question18" class="position-arrow-right-faq" #group18>
+                                        <div accordion-heading (click)="callAnalytics('Como é estabelecida a avaliação geral do worbbior?')">
+                                            Como é estabelecida a avaliação geral do worbbior?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group18?.isOpen, 'glyphicon-chevron-right': !group18?.isOpen}"></i>
+                                        </div>
+                                        <p>A avaliação geral do worbbior é a média das avaliações das tarefas contradas relacionadas
+                                            a todas as atividades que ele oferece na plataforma.</p>
+                                        <p>As avaliações servem como filtro e fator de ordenação na busca por worbbiors. Um
+                                            worbbior que tem uma avaliação média abaixo de 3 (três) corações pode ser excluído
+                                            da plataforma.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question19" class="position-arrow-right-faq" #group19>
+                                        <div accordion-heading (click)="callAnalytics('Quando e como vou receber o pagamento de uma tarefa realizada?')">
+                                            Quando e como vou receber o pagamento de uma tarefa realizada?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group19?.isOpen, 'glyphicon-chevron-right': !group19?.isOpen}"></i>
+                                        </div>
+                                        <p>Os pagamentos pelas tarefas são creditados na conta corrente fornecida pelo worbbior
+                                            no prazo de até 15 (quinze) dias após a data de confirmação/entrega da tarefa.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question20" class="position-arrow-right-faq" #group20>
+                                        <div accordion-heading (click)="callAnalytics('O cliente precisa confirmar a entrega da tarefa na plataforma?')">
+                                            O cliente precisa confirmar a entrega da tarefa na plataforma?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group20?.isOpen, 'glyphicon-chevron-right': !group20?.isOpen}"></i>
+                                        </div>
+                                        <p>Se o cliente não confirmar a finalização da tarefa na plataforma depois que o talento
+                                            (worbbior) já tiver confirmado a entrega, será considerada fechada automaticamente
+                                            após 5 dias da data em que a tarefa foi entregue.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question21" class="position-arrow-right-faq" #group21>
+                                        <div accordion-heading (click)="callAnalytics('Por que meu cadastro não foi aceito?')">
+                                            Por que meu cadastro não foi aceito?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group21?.isOpen, 'glyphicon-chevron-right': !group21?.isOpen}"></i>
+                                        </div>
+                                        <p>Se você tentou se cadastrar para ser um worbbior, ou seja, a pessoa que vai oferecer
+                                            seus talentos aos usuários da plataforma, verifique se completou todas as etapas
+                                            de cadastro e se recebeu, no mínimo, duas recomendações. </p>
+                                        <p>Após o preenchimento completo do cadastro, você tem que clicar no botão “Solicitar
+                                            ativação”, que aparece ao fim do processo.</p>
+                                        <p>Seu pedido de ativação de cadastro como worbbior será analisado pela nossa equipe.
+                                            Caso seja constatado que falta preencher corretamente alguma informação requerida
+                                            no cadastro, alguma irregularidade ou inconsistência nas informações fornecidas,
+                                            o cadastro como worbbior não poderá ser ativado.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question22" class="position-arrow-right-faq" #group22>
+                                        <div accordion-heading (click)="callAnalytics('Fiz o cadastro como worbbior, mas não consigo oferecer meus talentos.')">
+                                            Fiz o cadastro como worbbior, mas não consigo oferecer meus talentos.
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group22?.isOpen, 'glyphicon-chevron-right': !group22?.isOpen}"></i>
+                                        </div>
+                                        <p>Primeiro, verifique se preencheu corretamente todas as etapas do cadastro e se clicou
+                                            no botão “Solicitar ativação” que aparece ao fim. Após solicitar a ativação,
+                                            você deve aguardar o envio de um e-mail da equipe Worbby e/ou uma notificação
+                                            que aparecerá quando você voltar a se logar na plataforma. Caso você já tenha
+                                            preenchido corretamente todas as abas do cadastro e recebido a mensagem de ativação
+                                            da conta e ainda estiver com problemas no acesso, envie um e-mail com o seu relato
+                                            para <a routerLink="/contact">contato@worbby.com</a> para que possamos verificar
+                                            o que está ocorrendo com o seu cadastro.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question23" class="position-arrow-right-faq" #group23>
+                                        <div accordion-heading (click)="callAnalytics('É preciso ser profissional para se cadastrar como worbbior?')">
+                                            É preciso ser profissional para se cadastrar como worbbior?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group23?.isOpen, 'glyphicon-chevron-right': !group23?.isOpen}"></i>
+                                        </div>
+                                        <p>Não. O importante é ter talento e habilidade para realizar a atividade/ tarefa proposta.
+                                            Se a pessoa não for boa na atividade que se propõe a fazer, será excluída da
+                                            plataforma sem aviso prévio.</p>
+                                    </accordion-group>
+                                     <accordion-group id="question24" class="position-arrow-right-faq" #group24>
+                                        <div accordion-heading (click)="callAnalytics('O que é certidão de antecedentes criminais e como obtê-la?')">
+                                            O que é certidão de antecedentes criminais e como obtê-la?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group24?.isOpen, 'glyphicon-chevron-right': !group24?.isOpen}"></i>
+                                        </div>
+                                        <p>Não é obrigatório fornecer a certidão de antecedentes criminais no processo de cadastro de worbbior (talento), mas, quem fornecê-la, poderá ter um diferencial quando um worbbient (cliente) estiver escolhendo um worbbior para realizar uma tarefa. O worbbient (cliente) não terá acesso à certidão, mas saberá se um worbbior a forneceu ou não à Worbby. </p>
+                                        <p>A certidão de antecedentes criminais é um documento que informa se uma pessoa possui ou não registros criminais. 
+                                            Ela tem validade de 90 dias, a partir da data de emissão. Depois desse prazo, é necessário emitir uma nova certidão.</p>
+                                        <p>Onde obtê-la?</p>
+                                        <p>Pela internet, no site da Polícia Federal (http://www.pf.gov.br/servicos-pf/antecedentes-criminais) ou no site do Detran-RJ (http://atestadodic.detran.rj.gov.br/). 
+                                            Também pode ser solicitada em um posto de atendimento do instituto de identificação do estado.</p>
+                                        <p>Quanto custa?</p>
+                                        <p>A emissão pela internet é gratuita. Quando solicitada em um posto de atendimento do instituto de identificação, pode haver cobrança de taxas.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question25" class="position-arrow-right-faq" #group25>
+                                        <div accordion-heading (click)="callAnalytics('O que é recomendação?')">
+                                            O que é recomendação?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group25?.isOpen, 'glyphicon-chevron-right': !group25?.isOpen}"></i>
+                                        </div>
+                                        <p>Recomendação é um pedido que deve ser feito a pessoas que conhecem suas habilidades para
+                                            que elas atestem os talentos que você quer oferecer na plataforma. É necessário
+                                            ter no mínimo duas recomendações para que a sua conta como worbbior seja ativada.
+                                            As respostas das pessoas que recomendam são visíveis somente para os administradores da
+                                            plataforma. </p>
+                                    </accordion-group>
+                                    <accordion-group id="question26" class="position-arrow-right-faq" #group26>
+                                        <div accordion-heading (click)="callAnalytics('Por que é necessário ter recomendações para atuar na plataforma?')">
+                                            Por que é necessário ter recomendações para atuar na plataforma?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group26?.isOpen, 'glyphicon-chevron-right': !group26?.isOpen}"></i>
+                                        </div>
+                                        <p>A recomendação de terceiros, juntamente com a avaliação dos usuários, é uma forma de dar
+                                            segurança ao cliente (worbbient) que vai contratar um talento por meio da plataforma.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question27" class="position-arrow-right-faq" #group27>
+                                        <div accordion-heading (click)="callAnalytics('Posso fazer o cadastro com o nome da minha empresa?')">
+                                            Posso fazer o cadastro com o nome da minha empresa?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group27?.isOpen, 'glyphicon-chevron-right': !group27?.isOpen}"></i>
+                                        </div>
+                                        <p>Você deve preencher o cadastro com o seu nome, não com o da empresa, e os dados solicitados
+                                            da sua empresa nos respectivos campos durante o cadastro como worbbior. Os dados
+                                            serão verificados e validados antes de você ser ativado na plataforma. Ao realizar
+                                            tarefas, você deverá emitir a nota fiscal para o cliente referente ao serviço
+                                            prestado.
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question28" class="position-arrow-right-faq" #group28>
+                                        <div accordion-heading (click)="callAnalytics('Como é realizada a verificação dos talentos (worbbiors)?')">
+                                            Como é realizada a verificação dos talentos (worbbiors)?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group28?.isOpen, 'glyphicon-chevron-right': !group28?.isOpen}"></i>
+                                        </div>
+                                        <p>A Worbby conta com um sistema de verificação e qualificação dos worbbiors segundo
+                                            critérios específicos de avaliação antes do worbbior se tornar ativo na plataforma
+                                            e durante o uso da plataforma. A avaliação realizada pela Worbby inclui: recomendações
+                                            de outras pessoas atestando as qualidades e talentos do worbbior; verificação
+                                            dos dados fornecidos pelo worbbior; eficiência e cumprimento das tarefas contratadas
+                                            e avaliação da tarefa conforme talento, pontualidade, cordialidade, comunicação
+                                            e finalização.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question29" class="position-arrow-right-faq" #group29>
+                                        <div accordion-heading (click)="callAnalytics('Como reportar um usuário/atividade?')">
+                                            Como reportar um usuário/atividade?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group29?.isOpen, 'glyphicon-chevron-right': !group29?.isOpen}"></i>
+                                        </div>
+                                        <p>O usuário deve reportar para a Worbby imediatamente qualquer eventual problema em
+                                            uma tarefa ou na relação com um worbbior e ao notar comportamento e conteúdos
+                                            impróprios na plataforma, não condizentes com nossos Termos de serviço e condições
+                                            de uso. </p>
+                                        <p>O usuário pode reportar um worbbior (talento) acessando o perfil dele e clicando
+                                            em “Reportar usuário” ou preechendo o formulário na página Conato. </p>
+                                    </accordion-group>
+                                    <accordion-group id="question30" class="position-arrow-right-faq" #group30>
+                                        <div accordion-heading (click)="callAnalytics('Em quais cidades eu posso contratar uma tarefa?')">
+                                            Em quais cidades eu posso contratar uma tarefa?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group30?.isOpen, 'glyphicon-chevron-right': !group30?.isOpen}"></i>
+                                        </div>
+                                        <p>A Worbby, inicialmente, só está disponível no estado do Rio de Janeiro. A abrangência
+                                            de seus serviços dentro dessa região está diretamente ligada à localização dos
+                                            worbbiors e dos worbbients cadastrados na plataforma. </p>
+                                        <p>Temos planos de expandir para outros estados. Se você não é do estado do Rio de Janeiro,
+                                            pode fazer o cadastro, mas não poderá oferecer seus talentos ou contratar tarefas
+                                            por enquanto. Nesse caso, o cadastro serve apena para nós podermos avisá-lo quando
+                                            a plataforma chegar ao seu estado.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question31" class="position-arrow-right-faq" #group31>
+                                        <div accordion-heading (click)="callAnalytics('Como excluir uma conta cadastrada?')">
+                                            Como excluir uma conta cadastrada?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group31?.isOpen, 'glyphicon-chevron-right': !group31?.isOpen}"></i>
+                                        </div>
+                                        <p>Você deve enviar um e-mail para contato@worbby.com solicitando a exclusão de sua conta.</p>
+                                    </accordion-group>
+                                    <accordion-group id="question32" class="position-arrow-right-faq" #group32>
+                                        <div accordion-heading (click)="callAnalytics('O que é seguro Worbby?')">
+                                            O que é seguro Worbby?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group32?.isOpen, 'glyphicon-chevron-right': !group32?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            O seguro Worbby é um seguro de Reponsabilidade Civil Geral, que cobre até 100 mil reais (R$ 100.000) em gastos para reparar 
+                                            danos corporais ou danos materiais ocorridos durante a as atividades/ tarefas contratadas, garantindo mais segurança aos 
+                                            worbbiors (talentos) e worbbients (clientes).                                    
+                                        </p>
+                                        <p class="small">
+                                            Vejas as <a href="/assets/metronic/worbby/global/file/Atividades_cobertas_pelo_seguro.pdf" target="blank" class="btn-link no-m-t">atividades que são cobertas</a>.
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question33" class="position-arrow-right-faq" #group33>
+                                        <div accordion-heading (click)="callAnalytics('Qual é o limite máximo de indenização por danos materiais causados por um worbbior (talento) a um worbbient (cliente)?')">
+                                            Qual é o limite máximo de indenização por danos materiais causados por um worbbior (talento) a um worbbient (cliente)?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group33?.isOpen, 'glyphicon-chevron-right': !group33?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            O limite máximo de indenização é de 100 mil reais.                                   
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question34" class="position-arrow-right-faq" #group34>
+                                        <div accordion-heading (click)="callAnalytics('Todas as tarefas ou atividades são cobertas pelo seguro Worbby?')">
+                                            Todas as tarefas ou atividades são cobertas pelo seguro Worbby? 
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group34?.isOpen, 'glyphicon-chevron-right': !group34?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            O seguro Worbby não se aplica a todas as tarefas/atividades. 
+                                            Veja quais estão cobertas pelo seguro <a href="/assets/metronic/worbby/global/file/Atividades_cobertas_pelo_seguro.pdf" target="blank" class="btn-link no-m-t">aqui</a>.                                 
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question35" class="position-arrow-right-faq" #group35>
+                                        <div accordion-heading (click)="callAnalytics('Quais atividades o seguro Worbby não cobre?')">
+                                            Quais atividades o seguro Worbby não cobre?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group35?.isOpen, 'glyphicon-chevron-right': !group35?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            O seguro Worbby não cobre todas as tarefas/atividades. As atividades esportivas e aquelas relacionadas a cuidados de animais não são cobertas, por exemplo. 
+                                            Veja quais atividades/tarefas são cobertas pelo seguro <a href="/assets/metronic/worbby/global/file/Atividades_cobertas_pelo_seguro.pdf" target="blank" class="btn-link no-m-t">aqui</a>.                                  
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question36" class="position-arrow-right-faq" #group36>
+                                        <div accordion-heading (click)="callAnalytics('Quais são os riscos quer não são cobertos pelo seguro?')">
+                                            Quais são os riscos quer não são cobertos pelo seguro?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group36?.isOpen, 'glyphicon-chevron-right': !group36?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            O seguro Worbby não se aplica à responsabilidade civil decorrente de atos ilícitos dolosos; de acusações de calúnia, injúria e/ou difamação; de atos de hostilidade, entre outros.                                     
+                                        </p>
+                                        <p class="small">
+                                            Veja quais são os <a href="#" class="btn-link no-m-t" [ngClass]="{'disabled': true}">riscos excluídos</a> 
+                                            e a lista das <a href="/assets/metronic/worbby/global/file/Atividades_cobertas_pelo_seguro.pdf" target="blank" class="btn-link no-m-t">atividades cobertas</a>.
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question37" class="position-arrow-right-faq" #group37>
+                                        <div accordion-heading (click)="callAnalytics('Como o seguro Worbby funciona para os worbbiors (talentos)?')">
+                                            Como o seguro Worbby funciona para os worbbiors (talentos)?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group37?.isOpen, 'glyphicon-chevron-right': !group37?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            Se o worbbior (talento) causa, por vontade alheia a ele, danos corporais ou danos materiais ao worbbient (cliente) enquanto realiza tarefas/atividades asseguradas, 
+                                            pode acionar o seguro, enviando um relato detalhado do ocorrido. 
+                                            Para enviar uma reivindicação, clique <a href="contato" class="btn-link no-m-t">aqui</a>.                                  
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question38" class="position-arrow-right-faq" #group38>
+                                        <div accordion-heading (click)="callAnalytics('Como o seguro Worbby funciona para os worbbients (clientes)?')">
+                                            Como o seguro Worbby funciona para os worbbients (clientes)?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group38?.isOpen, 'glyphicon-chevron-right': !group38?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            O worbbient (cliente) ao contratar um worbbior (talento) para realizar uma determinada tarefa/ atividade deve estar ciente de que a pessoa contratada não possui vínculo 
+                                            empregatício com a Worbby, sendo o worbbior o principal responsável pelo trabalho que realiza e pelas consequências decorrentes da tarefa para o qual foi contratado por meio 
+                                            da plataforma.                                 
+                                        </p>
+                                        <p class="small">
+                                            Se o worbbior causar ferimentos ou danos materiais para o worbbient (cliente contratante) enquanto executa uma das atividades/tarefas asseguradas, o seguro Worbby ajudará a 
+                                            cobrir os gastos para reparar os danos de acordo com 
+                                            <a href="/assets/metronic/worbby/global/file/Atividades_cobertas_pelo_seguro.pdf" target="blank" class="btn-link no-m-t">os termos e condições do seguro</a>.
+                                        </p>
+                                        <p class="small">
+                                            Para acionar o seguro, o usuário deve, inicialmente, enviar para a Worbby um relato com o máximo de detalhes e, quando possível, fotos e/ou vídeos que comprovem o ocorrido. 
+                                            A seguradora então vai avaliar a documentação enviada para dar um parecer.
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question39" class="position-arrow-right-faq" #group39>
+                                        <div accordion-heading (click)="callAnalytics('Como acionar o seguro Worbby?')">
+                                            Como acionar o seguro Worbby?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group39?.isOpen, 'glyphicon-chevron-right': !group39?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            Worbbior e worbbient podem acionar o seguro. Quando for o worbbient, o nome do worbbior deve ser informado junto ao relato. Todas as queixas relativas à realização de uma 
+                                            tarefa devem ser apresentadas logo após a ação que deu origem à reclamação. O usuário deve relatar o ocorrido, com o máximo de detalhes e, quando possível, enviar fotos 
+                                            e/ou vídeos que comprovem o fato. A seguradora então vai avaliar a documentação enviada para dar um parecer. Para enviar uma reivindicação, 
+                                            clique <a href="contato" class="btn-link no-m-t">aqui</a>.                                   
+                                        </p>
+                                    </accordion-group>
+                                    <accordion-group id="question40" class="position-arrow-right-faq" #group40>
+                                        <div accordion-heading (click)="callAnalytics('O que eu devo fazer antes de notificar a Worbby sobre uma reclamação?')">
+                                            O que eu devo fazer antes de notificar a Worbby sobre uma reclamação?
+                                            <i class="glyphicon" [ngClass]="{'glyphicon-chevron-down': group40?.isOpen, 'glyphicon-chevron-right': !group40?.isOpen}"></i>
+                                        </div>
+                                        <p class="small">
+                                            Deve, primeiramente, ler atentamente os termos e condições do seguro e a lista das atividades/tarefas cobertas. Se o fato ocorrido estiver previsto nesses documentos, você 
+                                            pode enviar um relato do ocorrido, com o máximo de detalhes. A seguradora então vai avaliar a documentação enviada para dar um parecer. 
+                                            Para enviar uma reivindicação, clique <a href="contato" class="btn-link no-m-t">aqui</a>.
+                                        </p>
+                                    </accordion-group>
+                                </accordion>
+                                <!-- Steps : Fim -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conteudo central : Fim -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ir ao Topo -->
+    <button class="btn btn-anchor-para-topo visible-xs" (click)="goTo('topo')">
+        <i class="fa fa-angle-double-up no-m-x"></i>
+    </button>
+</div>

@@ -1,0 +1,44 @@
+<div class="card xs-p-x-xs">
+    <!-- Login Social : inicio -->
+    <div class="social-login margin-bottom-15" *ngIf="multiTenancySideIsTeanant && loginService.externalLoginProviders.length > 0">
+        <h3 class="text-center no-m-t">Já tem cadastro?</h3>
+        <p class="text-center small m-b-xss">Faça o seu login</p>
+        <div class="clearfix"></div>
+        <div class="social-icons">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 m-t-xss" *ngFor="let provider of loginService.externalLoginProviders">
+                    <a class="btn btn-block btn-around btn-social btn-{{provider.icon | lowercase}}"
+                    (click)="externalLogin(provider)"
+                    title="{{provider.name}}">
+                    <span>{{provider.name}}</span>
+                        <i class="fa fa-{{provider.name | lowercase}}"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Social : Fim -->
+    <!-- Login Worbby : Inicio -->
+    <div class="simple-login">
+        <h6 class="text-center">{{l("OrUseYourWorbbyAccount")}}</h6>
+        <div class="clearfix"></div>
+        <form #loginForm="ngForm" class="login-form" method="post" novalidate (ngSubmit)="login()">
+            <div class="form-group">
+                <input [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus class="form-control form-control-solid placeholder-no-fix input-ltr" type="text" autocomplete="off" placeholder="{{l('UserNameOrEmail')}}" name="userNameOrEmailAddress" required />
+            </div>
+            <div class="form-group">
+                <input [(ngModel)]="loginService.authenticateModel.password" class="form-control form-control-solid placeholder-no-fix input-ltr" type="password" autocomplete="off" placeholder="{{l('Password')}}" name="password" required maxlength="32" />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-block btn-prime btn-around" [disabled]="!loginForm.form.valid">{{l("Login")}}</button>
+            </div>
+        </form>
+    </div>
+    <div class="options-login text-center">
+        <a routerLink="/forgot-password" id="forget-password" class="forget-password btn-link">{{l("ForgotPassword")}}</a>
+        <span class="pipe-divider hidden-xs">&nbsp; | &nbsp;</span>
+        <a class="btn-link" routerLink="/email-activation" id="email-activation-btn">{{l("EmailActivation")}}</a>
+    </div>
+    <!-- Login Worbby : Inicio -->
+</div> 

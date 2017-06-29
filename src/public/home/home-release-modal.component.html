@@ -1,0 +1,30 @@
+<div bsModal #homeReleaseModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="homeReleaseModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+    <div class="modal-content home-release">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="close()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <img src="/assets/common/images/icon-rocket@2x.png" />
+                    </div>
+                    <h2 class="text-center cor-White">Cadastre seus talentos agora</h2>
+                    <h4 class="text-center cor-White">Falta pouco para o lançamento da versão completa</h4>
+                    <h3 class="text-center cor-White">em 17/07/2017</h3>
+                    <p class="text-center cor-White">
+                        Vantagens para os primeiros
+                    </p>
+                </div>
+            </div>            
+        </div>
+        <div class="modal-footer text-center">
+            <button type="button" class="btn btn-prime btn-block" (click)="close()">Continue</button>
+        </div>
+    </div>
+  </div>
+</div>

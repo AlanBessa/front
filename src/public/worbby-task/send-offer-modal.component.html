@@ -1,0 +1,38 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <form *ngIf="active" #sendOfferForm="ngForm" (ngSubmit)="save()">
+            <div class="modal-header">
+              <button type="button" class="close" (click)="close()" aria-label="Close">
+                <i class="fa fa-remove"></i>
+              </button>
+              <h3 class="modal-title m-t-xs m-b-xxs text-center">Faça uma oferta</h3>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group no-hint">
+                    <label>Descrição da oferta <small>(Máximo de 450 caracteres)</small></label>
+                    <textarea rows="6" 
+                      class="form-control edited m-b-xxxs" 
+                      name="Message" 
+                      [(ngModel)]="worbbyOffer.description" 
+                      placeholder="Conte para o Worbbient por que ele deveria te contratar para esta tarefa." 
+                      required maxlength="450" #description>
+                    </textarea>
+                    <p class="small">{{description.value.length}} / 450 caracteres usados.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around pull-left" (click)="close()">{{l("Cancel")}}</button>
+              <button type="submit" class="btn btn-prime btn-around" [disabled]="!sendOfferForm.form.valid" [buttonBusy]="sending" [busyText]="l('SendWithThreeDot')">
+                <span>Enviar oferta</span>
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>

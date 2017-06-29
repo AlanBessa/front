@@ -2,10 +2,10 @@
 import { Routes, RouterModule, Router, NavigationEnd } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/app/main/dashboard', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/app/main/dashboard', pathMatch: 'full' },
     {
-        path: 'account',
-        loadChildren: 'account/account.module#AccountModule', //Lazy load account module
+        path: '',
+        loadChildren: 'public/public.module#PublicModule', //Lazy load account module
         data: { preload: true }
     }
 ];
@@ -19,7 +19,7 @@ export class RootRoutingModule {
     constructor(private router: Router) {
         router.events.subscribe((event: NavigationEnd) => {
             setTimeout(() => {
-                this.toggleBodyCssClass(event.url);
+                //this.toggleBodyCssClass(event.url);
             }, 0);
         });
     }

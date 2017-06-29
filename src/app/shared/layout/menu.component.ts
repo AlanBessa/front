@@ -16,6 +16,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
+import { UtilsService } from '@abp/utils/utils.service';
 
 @Component({
     templateUrl: './menu.component.html',
@@ -38,7 +39,8 @@ export class MenuComponent extends AppComponentBase implements OnInit {
         private profileServiceProxy: ProfileServiceProxy,
         private _authService: AppAuthService,
         private abpMultiTenancyService: AbpMultiTenancyService,
-        private _worbbiorService: WorbbiorServiceProxy) {
+        private _worbbiorService: WorbbiorServiceProxy,
+        private _utilsService: UtilsService) {
         super(injector);
     }
     
@@ -126,7 +128,8 @@ export class MenuComponent extends AppComponentBase implements OnInit {
     }
 
     logout(): void {
-        this.appSessionService.clearCookies();
+        this._utilsService.deleteCookie("userRoleName");
+        this._utilsService.deleteCookie("firstLoginUser");
         this._authService.logout();        
     }
 

@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label class="control-label">
                             {{l("CriminalRecordsCertificate")}}
-                            <template #popTemplateAntecendenteCriminal><div class="text-left" [innerHtml]="tooltipAntecendenteCriminal"></div></template>
+                            <ng-template #popTemplateAntecendenteCriminal><div class="text-left" [innerHtml]="tooltipAntecendenteCriminal"></div></ng-template>
                             <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateAntecendenteCriminal"></i>
                         </label>
                         <div *ngIf="worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit" class="input-group">

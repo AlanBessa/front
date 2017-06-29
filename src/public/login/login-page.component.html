@@ -1,0 +1,34 @@
+<div class="login" [@routerTransition]>
+    <div class="container p-b-xxs">
+        <div class="row m-b-md m-t-xs">
+            <!-- Card Login : inicio -->
+            <div class="col-xs-12 col-sm-12 col-md-6 login-box m-b-xs">
+                <loginComponent #loginComponent></loginComponent>
+            </div>
+            <!-- Card Login : Fim -->
+            <!-- Card Cadastro : inicio -->
+            <div class="col-xs-12 col-sm-12 col-md-6 choose-register-box m-b-xs">
+                <div class="card card-o">
+                    <h3 class="text-center no-m-t">{{l("DontHaveAnAccount")}}</h3>
+                    <p class="text-center small m-b-xss">{{l("ChooseYourAccountType")}}</p>
+                    <a [routerLink]="['/register', 'Worbbient']" id="register-btn" class="btn btn-block card-shadow white-space">
+                        <img src="/assets/metronic/worbby/global/img/icon-general-account.svg" alt="" class="m-b-xxxs" />
+                        <p>{{l("FindGreatTalents")}}</p>
+                        <p class="small cor-Botticelli">{{l("Worbbient")}}</p>
+                    </a>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span class="divider-or">{{l("Or")}}</span>
+                        </div>
+                    </div>
+                    <a [routerLink]="['/register', 'Worbbior']" id="register-btn" class="btn btn-block card-shadow white-space">
+                        <p>{{l("OfferYourTalents")}}</p>
+                        <p class="small cor-Botticelli">{{l("Worbbior")}}</p>
+                        <img src="/assets/metronic/worbby/global/img/icon-worbbior.png" alt="" class="m-b-xxs" />
+                    </a>
+                </div>
+            </div>
+            <!-- Card Cadastro : Fim -->    
+        </div>
+    </div>
+</div>

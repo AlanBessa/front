@@ -9,6 +9,7 @@ import { MessageService } from '@abp/message/message.service';
 import { AbpMultiTenancyService } from '@abp/multi-tenancy/abp-multi-tenancy.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { BinaryObjectServiceProxy } from '@shared/service-proxies/service-proxies';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export abstract class AppComponentBase {
 
@@ -23,6 +24,7 @@ export abstract class AppComponentBase {
     multiTenancy: AbpMultiTenancyService;
     appSession: AppSessionService;
     storageService: BinaryObjectServiceProxy;
+    activatedRoute:ActivatedRoute;
 
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
@@ -33,6 +35,8 @@ export abstract class AppComponentBase {
         this.message = injector.get(MessageService);
         this.multiTenancy = injector.get(AbpMultiTenancyService);
         this.appSession = injector.get(AppSessionService);
+        this.storageService = injector.get(BinaryObjectServiceProxy);
+        this.activatedRoute = injector.get(ActivatedRoute);
     }
 
     l(key: string, ...args: any[]): string {
@@ -169,4 +173,14 @@ export abstract class AppComponentBase {
     megByteToBytes(value:number):number{
         return value * 1048576;
     }   
+
+    setTheme():void{
+        if(this.appSession.userRoleName == "Worbbior"){
+            $('body').attr('class', 'worbbior');
+            $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbior-beta.svg');
+        }else{
+            $('body').attr('class', 'worbbient');
+            $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbient-beta.svg');
+        }
+    }
 }

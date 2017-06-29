@@ -30,7 +30,18 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.TokenAuthServiceProxy,
         ApiServiceProxies.TenantRegistrationServiceProxy,
         ApiServiceProxies.HostDashboardServiceProxy,
-        ApiServiceProxies.PaymentServiceProxy
+        ApiServiceProxies.PaymentServiceProxy,
+        ApiServiceProxies.AddressServiceProxy,
+        ApiServiceProxies.EndorsementServiceProxy,
+        ApiServiceProxies.WorbbyTaskServiceProxy,
+        ApiServiceProxies.GalleryActivityServiceProxy,
+        ApiServiceProxies.CieloServiceProxy,
+        ApiServiceProxies.EvaluationTypeServiceProxy,
+        ApiServiceProxies.EvaluationServiceProxy,
+        ApiServiceProxies.WorbbiorServiceProxy,
+        ApiServiceProxies.EvaluationValueServiceProxy,
+        ApiServiceProxies.EmailingServiceProxy,
+        ApiServiceProxies.InterestCenterServiceProxy
     ]
 })
 export class ServiceProxyModule { }

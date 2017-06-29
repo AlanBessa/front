@@ -16,6 +16,8 @@ import { DatePickerComponent } from './timing/date-picker.component';
 import { AppRouteGuard } from './auth/auth-route-guard';
 import { DateTimeService } from './timing/date-time.service';
 import { AppLocalizationService } from '@app/shared/common/localization/app-localization.service';
+import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
+
 
 @NgModule({
     imports: [
@@ -31,14 +33,16 @@ import { AppLocalizationService } from '@app/shared/common/localization/app-loca
         JqPluginDirective,
         CommonLookupModalComponent,
         DateRangePickerComponent,
-        DatePickerComponent
+        DatePickerComponent,
+        ChangeProfilePictureModalComponent
     ],
     exports: [
         TimeZoneComboComponent,
         JqPluginDirective,
         CommonLookupModalComponent,
         DateRangePickerComponent,
-        DatePickerComponent
+        DatePickerComponent,
+        ChangeProfilePictureModalComponent
     ],
     providers: [
         DateTimeService,

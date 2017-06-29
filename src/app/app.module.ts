@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderNotificationsComponent } from './shared/layout/notifications/header-notifications.component';
 import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
-import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
 import { MySettingsModalComponent } from '@app/shared/layout/profile/my-settings-modal.component';
 import { AbpModule } from '@abp/abp.module';
 import { UtilsModule } from '@shared/utils/utils.module';
@@ -23,7 +22,6 @@ import { UserNotificationHelper } from './shared/layout/notifications/UserNotifi
         AppComponent,
         HeaderNotificationsComponent,
         ChangePasswordModalComponent,
-        ChangeProfilePictureModalComponent,
         MySettingsModalComponent,
         NotificationsComponent,
         NotificationSettingsModalCompoent

@@ -9,6 +9,7 @@
       "assets": [
         "assets",
         "favicon.ico",
+        "service-worker.js",
         {
           "glob": "abp.signalr.js",
           "input": "../node_modules/abp-web-resources/Abp/Framework/scripts/libs/",

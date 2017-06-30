@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbiorServiceProxy, EntityDtoOfInt64, ContactEmailDto, EmailingServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -31,9 +31,11 @@ export class ContactComponent extends AppComponentBase implements AfterViewInit 
         super(injector);
     }
 
-    ngAfterViewInit(): void {
-        this.active = true;
+    ngOnInit(): void {
         this.getContactDefault();
+    }
+
+    ngAfterViewInit(): void {        
         $("body").scrollTop(0);
     }
 

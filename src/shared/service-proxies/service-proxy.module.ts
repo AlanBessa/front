@@ -41,7 +41,8 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.WorbbiorServiceProxy,
         ApiServiceProxies.EvaluationValueServiceProxy,
         ApiServiceProxies.EmailingServiceProxy,
-        ApiServiceProxies.InterestCenterServiceProxy
+        ApiServiceProxies.InterestCenterServiceProxy,
+        ApiServiceProxies.ActivityServiceProxy
     ]
 })
 export class ServiceProxyModule { }

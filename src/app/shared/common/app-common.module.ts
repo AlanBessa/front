@@ -1,7 +1,7 @@
 ﻿import * as ngCommon from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, TooltipModule } from 'ngx-bootstrap';
 
 import { UtilsModule } from '@shared/utils/utils.module';
 import { AbpModule } from '@abp/abp.module';
@@ -17,6 +17,7 @@ import { AppRouteGuard } from './auth/auth-route-guard';
 import { DateTimeService } from './timing/date-time.service';
 import { AppLocalizationService } from '@app/shared/common/localization/app-localization.service';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
+import { ImageCropperComponent} from 'ng2-img-cropper';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/c
         ngCommon.CommonModule,
         FormsModule,
         ModalModule.forRoot(),
+        TooltipModule.forRoot(),
         UtilsModule,
         AbpModule,
         CommonModule
@@ -34,7 +36,8 @@ import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/c
         CommonLookupModalComponent,
         DateRangePickerComponent,
         DatePickerComponent,
-        ChangeProfilePictureModalComponent
+        ChangeProfilePictureModalComponent,
+        ImageCropperComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -42,7 +45,8 @@ import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/c
         CommonLookupModalComponent,
         DateRangePickerComponent,
         DatePickerComponent,
-        ChangeProfilePictureModalComponent
+        ChangeProfilePictureModalComponent,
+        ImageCropperComponent
     ],
     providers: [
         DateTimeService,

@@ -2,7 +2,7 @@
 import * as ngCommon from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
-import { ModalModule, TooltipModule } from 'ngx-bootstrap';
+import { ModalModule, TooltipModule, AccordionModule, ButtonsModule, RatingModule } from 'ngx-bootstrap';
 import { FileUploadModule } from '@node_modules/ng2-file-upload';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +33,8 @@ import { UserNotificationHelper } from './shared/layout/notifications/UserNotifi
         JsonpModule,
         ModalModule.forRoot(),
         TooltipModule.forRoot(),
+        AccordionModule.forRoot(),
+        ButtonsModule.forRoot(), 
         FileUploadModule,
         AbpModule,
         AppRoutingModule,

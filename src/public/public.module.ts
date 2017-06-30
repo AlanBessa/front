@@ -70,7 +70,6 @@ import { SelectModule } from 'ng2-select';
 import { MomentModule } from 'angular2-moment';
 import { FeedbackComponent } from "shared/feedback/feedback.component";
 import { ActivityCenterComponent } from "public/activity-center/activity-center-page.component";
-import { ImageCropperComponent} from 'ng2-img-cropper';
 import { MetaModule } from '@nglibs/meta';
 import { HomeReleaseModalComponent } from './home/home-release-modal.component';
 import { SideMenuComponent } from "public/shared/layout/side-menu.component";
@@ -158,7 +157,6 @@ export function apiBaseUrlFactory(): string {
         FeedbackComponent,
         ActivityCenterComponent,
         RequestWorbbiorRegisterCodeModalComponent,
-        ImageCropperComponent,
         HomeReleaseModalComponent,
         SideMenuComponent,
         HeaderComponent,

@@ -1,11 +1,10 @@
-﻿import { Component, OnInit, ViewChild, AfterViewInit, Injector, Inject, OpaqueToken } from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Injector, Inject } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { AppConsts } from '@shared/AppConsts';
-import { FileUploader, FileUploaderOptions, Headers } from '@node_modules/ng2-file-upload';
-import { ProfileServiceProxy, UpdateProfilePictureInput } from "@shared/service-proxies/service-proxies";
-import { IAjaxResponse } from '@abp/abpHttp';
-import { TokenService } from '@abp/auth/token.service';
+import { ProfileServiceProxy, UpdateProfilePictureCropperInput } from "@shared/service-proxies/service-proxies";
+import { ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+import { Angulartics2 } from 'angulartics2';
+
 
 @Component({
     selector: 'changeProfilePictureModal',
@@ -14,26 +13,31 @@ import { TokenService } from '@abp/auth/token.service';
 export class ChangeProfilePictureModalComponent extends AppComponentBase {
 
     @ViewChild('changeProfilePictureModal') modal: ModalDirective;
+    @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
 
     public active: boolean = false;
-    public uploader: FileUploader;
+    public saving:boolean = false;
+    public uploading: boolean = false;
     public temporaryPictureUrl: string;
-    public saving: boolean = false;
 
     private temporaryPictureFileName: string;
-    private _uploaderOptions: FileUploaderOptions = {};
     private _$profilePictureResize: JQuery;
     private _$jcropApi: any;
 
+    public fileCropper: UpdateProfilePictureCropperInput = new UpdateProfilePictureCropperInput();
+
+    cropperSettings: CropperSettings;
+    data: any;
+
+    public tooltipFoto: string = "Para facilitar a identificação, sua foto deve ser atual, apenas do rosto e frontal, tipo foto 3x4.";
 
     constructor(
         injector: Injector,
         private _profileService: ProfileServiceProxy,
-        private _tokenService: TokenService
+        private angulartics2: Angulartics2
     ) {
         super(injector);
     }
-
 
     initializeModal(): void {
         this.active = true;
@@ -41,58 +45,51 @@ export class ChangeProfilePictureModalComponent extends AppComponentBase {
         this.temporaryPictureFileName = '';
         this._$profilePictureResize = null;
         this._$jcropApi = null;
-        this.initFileUploader();
-    }
-
-    initFileUploader(): void {
-        let self = this;
-        self.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/Profile/UploadProfilePicture" });
-        self._uploaderOptions.autoUpload = true;
-        self._uploaderOptions.authToken = 'Bearer ' + self._tokenService.getToken();
-        self._uploaderOptions.removeAfterUpload = true;
-        self.uploader.onAfterAddingFile = (file) => {
-            file.withCredentials = false;
-        };
-
-        self.uploader.onSuccessItem = (item, response, status) => {
-            let resp = <IAjaxResponse>JSON.parse(response);
-            if (resp.success) {
-                self.temporaryPictureFileName = resp.result.fileName;
-                self.temporaryPictureUrl = AppConsts.remoteServiceBaseUrl + '/Temp/Downloads/' + resp.result.fileName + '?v=' + new Date().valueOf();
-
-                var newCanvasHeight = resp.result.height * self._$profilePictureResize.width() / resp.result.width;
-                self._$profilePictureResize.height(newCanvasHeight + 'px');
-
-                if (self._$jcropApi) {
-                    self._$jcropApi.destroy();
-                }
-
-                self._$profilePictureResize.attr('src', self.temporaryPictureUrl);
-                self._$profilePictureResize.attr('originalWidth', resp.result.width);
-                self._$profilePictureResize.attr('originalHeight', resp.result.height);
-
-                self._$profilePictureResize.Jcrop({
-                    setSelect: [0, 0, 100, 100],
-                    aspectRatio: 1,
-                    boxWidth: 400,
-                    boxHeight: 400
-                }, function () {
-                    self._$jcropApi = this;
-                });
-
-            } else {
-                this.message.error(resp.error.message);
-            }
-        };
-
-        self.uploader.setOptions(self._uploaderOptions);
     }
 
     onModalShown() {
         this._$profilePictureResize = $("#ProfilePictureResize");
     }
 
+    uploadAvatarChangeListener($event):void{
+        var image:any = new Image();
+        var file:File = $event.target.files[0];
+        var myReader:FileReader = new FileReader();
+        var that = this;
+        this.angulartics2.eventTrack.next({ action: "Imagem do perfil", properties: { category: 'Upload', label: file.size}});
+        myReader.onloadend = function (loadEvent:any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
+
+        };
+
+        myReader.readAsDataURL(file);
+    }
+
     show(): void {
+        this.cropperSettings = new CropperSettings();
+        this.cropperSettings.width = 200;
+        this.cropperSettings.height = 200;
+        this.cropperSettings.keepAspect = false;
+
+        this.cropperSettings.croppedWidth = 100;
+        this.cropperSettings.croppedHeight = 100;
+
+        this.cropperSettings.canvasWidth = this.mediaQuery == "xs" ? 265 : 500;
+        this.cropperSettings.canvasHeight = this.mediaQuery == "xs" ? 200 : 300;
+
+        // this.cropperSettings.minWidth = 100;
+        // this.cropperSettings.minHeight = 100;
+
+        this.cropperSettings.rounded = true;
+        this.cropperSettings.minWithRelativeToResolution = false;
+
+        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
+        this.cropperSettings.noFileInput = true;
+
+        this.data = {};
+
         this.initializeModal();
         this.modal.show();
     }
@@ -103,46 +100,20 @@ export class ChangeProfilePictureModalComponent extends AppComponentBase {
     }
 
     save(): void {
-        let self = this;
-        if (!self.temporaryPictureFileName) {
-            return;
-        }
-
-        let resizeParams = { x: 0, y: 0, w: 0, h: 0 };
-        if (self._$jcropApi) {
-            resizeParams = self._$jcropApi.getSelection();
-        }
-
-        let containerWidth = parseInt(self._$jcropApi.getContainerSize()[0]);
-        let containerHeight = self._$jcropApi.getContainerSize()[1];
-
-        let originalWidth = containerWidth;
-        let originalHeight = containerHeight;
-
-        if (self._$profilePictureResize) {
-            originalWidth = parseInt(self._$profilePictureResize.attr("originalWidth"));
-            originalHeight = parseInt(self._$profilePictureResize.attr("originalHeight"));
-        }
-
-        let widthRatio = originalWidth / containerWidth;
-        let heightRatio = originalHeight / containerHeight;
-
-        let input = new UpdateProfilePictureInput();
-        input.fileName = self.temporaryPictureFileName;
-        input.x = Math.floor(resizeParams.x * widthRatio);
-        input.y = Math.floor(resizeParams.y * heightRatio);
-        input.width = Math.floor(resizeParams.w * widthRatio);
-        input.height = Math.floor(resizeParams.h * heightRatio);
-
         this.saving = true;
-        self._profileService.updateProfilePicture(input)
+        let self = this;
+
+        if(!this.data.image){
+            this.message.error("A nova imagem não foi selecionada!", "Erro ao salver nova imagem de perfil!");
+        }else{
+            this.fileCropper.base64 = /,(.+)/.exec(this.data.image)[1];
+
+            self._profileService.profilePictureCropper(this.fileCropper)
             .finally(() => { this.saving = false; })
             .subscribe(() => {
-                let self = this;
-                self._$jcropApi.destroy();
-                self._$jcropApi = null;
                 abp.event.trigger("profilePictureChanged");
                 self.close();
             });
+        }
     }
 }

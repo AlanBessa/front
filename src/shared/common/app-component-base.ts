@@ -1,4 +1,4 @@
-﻿import { Injector } from '@angular/core';
+﻿import { Injector, OnInit } from '@angular/core';
 import { AppConsts } from '@shared/AppConsts';
 import { LocalizationService } from '@abp/localization/localization.service';
 import { PermissionCheckerService } from '@abp/auth/permission-checker.service';
@@ -25,6 +25,7 @@ export abstract class AppComponentBase {
     appSession: AppSessionService;
     storageService: BinaryObjectServiceProxy;
     activatedRoute:ActivatedRoute;
+    mediaQuery: string;
 
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
@@ -37,6 +38,27 @@ export abstract class AppComponentBase {
         this.appSession = injector.get(AppSessionService);
         this.storageService = injector.get(BinaryObjectServiceProxy);
         this.activatedRoute = injector.get(ActivatedRoute);
+    }
+
+    ngOnInit() {
+        let self = this;
+        self.setMediaQueries();
+        window.onresize = () =>{
+            self.setMediaQueries();
+        }
+        
+        if(this.activatedRoute.snapshot.url.join('') == "seja-um-worbbior" || this.activatedRoute.snapshot.url.join('') == "become-a-worbbior"){
+            $('body').attr('class', 'worbbior');
+            $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbior-beta.svg');
+        }else{
+            if(this.appSession.userRoleName == "Worbbior"){
+                $('body').attr('class', 'worbbior');
+                $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbior-beta.svg');
+            }else{
+                $('body').attr('class', 'worbbient');
+                $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbient-beta.svg');
+            }
+        }        
     }
 
     l(key: string, ...args: any[]): string {
@@ -181,6 +203,18 @@ export abstract class AppComponentBase {
         }else{
             $('body').attr('class', 'worbbient');
             $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbient-beta.svg');
+        }
+    }
+
+    setMediaQueries(){
+        if(window.innerWidth < 768){
+            this.mediaQuery = "xs";
+        }else if(window.innerWidth >= 768 && window.screen.width < 992){
+            this.mediaQuery = "sm";
+        }else if(window.innerWidth >= 992 && window.screen.width < 1200){
+            this.mediaQuery = "md";
+        }else if(window.innerWidth >= 1200){
+            this.mediaQuery = "lg";
         }
     }
 }

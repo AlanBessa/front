@@ -15,7 +15,7 @@ import { EasyPieChartModule } from 'ng2modules-easypiechart';
         FormsModule,
         ModalModule,
         TabsModule,
-        TooltipModule,
+        TooltipModule.forRoot(),
         AppCommonModule,
         UtilsModule,
         MainRoutingModule,

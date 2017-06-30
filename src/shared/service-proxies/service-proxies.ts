@@ -7473,6 +7473,51 @@ export class ProfileServiceProxy {
     /**
      * @return Success
      */
+    profilePictureCropper(input: UpdateProfilePictureCropperInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Profile/ProfilePictureCropper";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processProfilePictureCropper(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processProfilePictureCropper(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processProfilePictureCropper(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     changePassword(input: ChangePasswordInput): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/Profile/ChangePassword";
         url_ = url_.replace(/[?&]$/, "");
@@ -21588,6 +21633,41 @@ export interface ICurrentUserProfileEditDto {
     emailAddress: string;
     phoneNumber: string;
     timezone: string;
+}
+
+export class UpdateProfilePictureCropperInput implements IUpdateProfilePictureCropperInput {
+    base64: string;
+
+    constructor(data?: IUpdateProfilePictureCropperInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.base64 = data["base64"];
+        }
+    }
+
+    static fromJS(data: any): UpdateProfilePictureCropperInput {
+        let result = new UpdateProfilePictureCropperInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["base64"] = this.base64;
+        return data; 
+    }
+}
+
+export interface IUpdateProfilePictureCropperInput {
+    base64: string;
 }
 
 export class ChangePasswordInput implements IChangePasswordInput {

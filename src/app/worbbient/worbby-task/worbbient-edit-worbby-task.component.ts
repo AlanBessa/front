@@ -108,25 +108,15 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
                 this.isOffer = true;
 
                 this.userActivity = result.userActivity;
-                this.userActivity.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
-                });
             }
             else {
                 this._interestCenterService.getInterestCenter(this.worbbyTask.interestCenter.parentId).subscribe(result => {
                     this.currentInterestCenterTopLevel = result;
 
-                    this.getPictureByGuid(result.interestCenterPictureId).then((picResult) => {
-                        this.currentInterestCenterTopLevel.interestCenterPicture = picResult;
-                    });  
-
                     this._interestCenterService.getInterestCentersChildrenById(this.currentInterestCenterTopLevel.id).subscribe((result: ListResultDtoOfInterestCenterDto) => {
                         this.interestCentersChidren = result.items;
                         this.currentInterestCenterChild.id = this.worbbyTask.interestCenter.id;
                         this.currentInterestCenterChild.displayName = this.worbbyTask.interestCenter.displayName;
-                        this.currentInterestCenterChild.interestCenterPictureId = this.worbbyTask.interestCenter.interestCenterPictureId; 
                         this.currentInterestCenterChild.interestCenterPicture = this.worbbyTask.interestCenter.interestCenterPicture; 
                         
                         this.active = true;
@@ -143,12 +133,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
             this.interestCentersTopLevel = result.items;
             this.currentInterestCenterTopLevel.displayName = "Selecione";
             this.currentInterestCenterChild.displayName = "Selecione";
-            this.active = true;
-            this.interestCentersTopLevel.forEach(element => {
-                this.getPictureByGuid(element.interestCenterPictureId).then((result) => {
-                    element.interestCenterPicture = result;
-                });                
-            });    
+            this.active = true; 
         });
     }
 

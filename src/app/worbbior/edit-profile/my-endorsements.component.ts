@@ -76,14 +76,7 @@ export class MyEndorsementsWorbbiorComponent extends AppComponentBase implements
 
     private getSuggestedActivities():void {
         this._activitiesService.getSuggestActivitiesByUserId(abp.session.userId).subscribe((result: ListResultDtoOfUserActivityInput) => {
-            this.suggestedActivities = result.items;
-            this.suggestedActivities.forEach(element => {
-                element.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });                
-                });               
-            });  
+            this.suggestedActivities = result.items;  
             this.active = true; 
         });
     }

@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { InterestCenterServiceProxy, GetPictureOutput, GalleryActivityServiceProxy, GalleryActivityDto, ListResultDtoOfGalleryActivityDto, InterestCenterForActivityDto, ActivityDto, UserActivityInput, ActivityServiceProxy, UserActivityInputUnitMeasure } from '@shared/service-proxies/service-proxies';
+import { InterestCenterServiceProxy, GalleryActivityServiceProxy, GalleryActivityDto, ListResultDtoOfGalleryActivityDto, InterestCenterForActivityDto, ActivityDto, UserActivityInput, ActivityServiceProxy, UserActivityInputUnitMeasure } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { UnitMeasure, CancellationPolicy, WorbbiorState } from '@shared/AppEnums';
@@ -74,11 +74,6 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
             this.activity = result;
             this._activityService.getInterestCentersByActivityId(activityUser.activityId).subscribe((result) => {
                 this.interestCenters = result.items;
-                this.interestCenters.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
-                });
                 this._galleryActivityService.getGalleriesByActivityUserId(activityUser.id == null ? undefined : activityUser.id).subscribe((result: ListResultDtoOfGalleryActivityDto) => {
                     this.galleryImages = result.items;
 

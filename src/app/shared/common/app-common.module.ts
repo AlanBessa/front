@@ -18,6 +18,10 @@ import { DateTimeService } from './timing/date-time.service';
 import { AppLocalizationService } from '@app/shared/common/localization/app-localization.service';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
 import { ImageCropperComponent} from 'ng2-img-cropper';
+import { LoginComponent } from '@app/account/login/login.component';
+import { RegisterComponent } from '@app/account/register/register.component';
+import { SelectModule } from 'ng2-select';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 
 @NgModule({
@@ -28,7 +32,9 @@ import { ImageCropperComponent} from 'ng2-img-cropper';
         TooltipModule.forRoot(),
         UtilsModule,
         AbpModule,
-        CommonModule
+        CommonModule,
+        SelectModule,
+        RecaptchaModule.forRoot(),
     ],
     declarations: [
         TimeZoneComboComponent,
@@ -37,7 +43,9 @@ import { ImageCropperComponent} from 'ng2-img-cropper';
         DateRangePickerComponent,
         DatePickerComponent,
         ChangeProfilePictureModalComponent,
-        ImageCropperComponent
+        ImageCropperComponent,
+        LoginComponent,
+        RegisterComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -46,7 +54,9 @@ import { ImageCropperComponent} from 'ng2-img-cropper';
         DateRangePickerComponent,
         DatePickerComponent,
         ChangeProfilePictureModalComponent,
-        ImageCropperComponent
+        ImageCropperComponent,
+        LoginComponent,
+        RegisterComponent
     ],
     providers: [
         DateTimeService,

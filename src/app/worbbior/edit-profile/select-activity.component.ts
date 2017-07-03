@@ -73,11 +73,6 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
             this.currentInterestCenterChild.displayName = "Selecione";
             this.getActivities();
             this.active = true;
-            this.interestCentersTopLevel.forEach(element => {
-                this.getPictureByGuid(element.interestCenterPictureId).then((result) => {
-                    element.interestCenterPicture = result;
-                });
-            });
         });
     }
 
@@ -105,13 +100,6 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
         this.carregado = false;
         this._activitiesService.getActivities(this.filter, this.currentInterestCenterTopLevel.id, this.currentInterestCenterChild.id, undefined, undefined, undefined, undefined, undefined, this.page).subscribe((result: WorbbyPagedResultDtoOfActivityDto) => {
             this.carregado = true;
-            result.items.forEach(element => {
-                element.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
-                });
-            });
             this.activities.push.apply(this.activities, result.items);
             result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
             this.totalActivities = result.totalCount;

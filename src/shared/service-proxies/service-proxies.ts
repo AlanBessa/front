@@ -5841,101 +5841,6 @@ export class InterestCenterServiceProxy {
     /**
      * @return Success
      */
-    updateInterestCenterPicture(input: UpdateInterestCenterPictureInput): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/InterestCenter/UpdateInterestCenterPicture";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input ? input.toJSON() : null);
-        
-        let options_ = {
-            body: content_,
-            method: "put",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processUpdateInterestCenterPicture(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processUpdateInterestCenterPicture(response_);
-                } catch (e) {
-                    return <Observable<void>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<void>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processUpdateInterestCenterPicture(response: Response): Observable<void> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            return Observable.of<void>(<any>null);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getInterestCenterPicture(id: number): Observable<GetPictureOutput> {
-        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCenterPicture?";
-        if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetInterestCenterPicture(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetInterestCenterPicture(response_);
-                } catch (e) {
-                    return <Observable<GetPictureOutput>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<GetPictureOutput>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetInterestCenterPicture(response: Response): Observable<GetPictureOutput> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: GetPictureOutput = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? GetPictureOutput.fromJS(resultData200) : new GetPictureOutput();
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<GetPictureOutput>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
     getInterestCenter(id: number): Observable<InterestCenterDto> {
         let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetInterestCenter?";
         if (id !== undefined)
@@ -14686,7 +14591,6 @@ export interface IListResultDtoOfInterestCenterForActivityDto {
 export class InterestCenterForActivityDto implements IInterestCenterForActivityDto {
     parentId: number;
     parentDisplayName: string;
-    parentPictureId: string;
     parentPicture: string;
     code: string;
     displayName: string;
@@ -14694,7 +14598,6 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
     titleSuggestionActivity: string;
     descriptionSuggestionActivity: string;
     keyWords: string;
-    interestCenterPictureId: string;
     interestCenterPicture: string;
     activityCount: number;
     id: number;
@@ -14712,7 +14615,6 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
         if (data) {
             this.parentId = data["parentId"];
             this.parentDisplayName = data["parentDisplayName"];
-            this.parentPictureId = data["parentPictureId"];
             this.parentPicture = data["parentPicture"];
             this.code = data["code"];
             this.displayName = data["displayName"];
@@ -14720,7 +14622,6 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
             this.titleSuggestionActivity = data["titleSuggestionActivity"];
             this.descriptionSuggestionActivity = data["descriptionSuggestionActivity"];
             this.keyWords = data["keyWords"];
-            this.interestCenterPictureId = data["interestCenterPictureId"];
             this.interestCenterPicture = data["interestCenterPicture"];
             this.activityCount = data["activityCount"];
             this.id = data["id"];
@@ -14737,7 +14638,6 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
         data = typeof data === 'object' ? data : {};
         data["parentId"] = this.parentId;
         data["parentDisplayName"] = this.parentDisplayName;
-        data["parentPictureId"] = this.parentPictureId;
         data["parentPicture"] = this.parentPicture;
         data["code"] = this.code;
         data["displayName"] = this.displayName;
@@ -14745,7 +14645,6 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
         data["titleSuggestionActivity"] = this.titleSuggestionActivity;
         data["descriptionSuggestionActivity"] = this.descriptionSuggestionActivity;
         data["keyWords"] = this.keyWords;
-        data["interestCenterPictureId"] = this.interestCenterPictureId;
         data["interestCenterPicture"] = this.interestCenterPicture;
         data["activityCount"] = this.activityCount;
         data["id"] = this.id;
@@ -14756,7 +14655,6 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
 export interface IInterestCenterForActivityDto {
     parentId: number;
     parentDisplayName: string;
-    parentPictureId: string;
     parentPicture: string;
     code: string;
     displayName: string;
@@ -14764,7 +14662,6 @@ export interface IInterestCenterForActivityDto {
     titleSuggestionActivity: string;
     descriptionSuggestionActivity: string;
     keyWords: string;
-    interestCenterPictureId: string;
     interestCenterPicture: string;
     activityCount: number;
     id: number;
@@ -19513,7 +19410,6 @@ export class InterestCenterDto implements IInterestCenterDto {
     description: string;
     keyWords: string;
     slugName: string;
-    interestCenterPictureId: string;
     interestCenterPicture: string;
     activityCount: number;
     lastModificationTime: moment.Moment;
@@ -19539,7 +19435,6 @@ export class InterestCenterDto implements IInterestCenterDto {
             this.description = data["description"];
             this.keyWords = data["keyWords"];
             this.slugName = data["slugName"];
-            this.interestCenterPictureId = data["interestCenterPictureId"];
             this.interestCenterPicture = data["interestCenterPicture"];
             this.activityCount = data["activityCount"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
@@ -19564,7 +19459,6 @@ export class InterestCenterDto implements IInterestCenterDto {
         data["description"] = this.description;
         data["keyWords"] = this.keyWords;
         data["slugName"] = this.slugName;
-        data["interestCenterPictureId"] = this.interestCenterPictureId;
         data["interestCenterPicture"] = this.interestCenterPicture;
         data["activityCount"] = this.activityCount;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
@@ -19583,7 +19477,6 @@ export interface IInterestCenterDto {
     description: string;
     keyWords: string;
     slugName: string;
-    interestCenterPictureId: string;
     interestCenterPicture: string;
     activityCount: number;
     lastModificationTime: moment.Moment;
@@ -19747,6 +19640,7 @@ export class UpdateInterestCenterInput implements IUpdateInterestCenterInput {
     displayName: string;
     description: string;
     keyWords: string;
+    interestCenterPicture: string;
 
     constructor(data?: IUpdateInterestCenterInput) {
         if (data) {
@@ -19763,6 +19657,7 @@ export class UpdateInterestCenterInput implements IUpdateInterestCenterInput {
             this.displayName = data["displayName"];
             this.description = data["description"];
             this.keyWords = data["keyWords"];
+            this.interestCenterPicture = data["interestCenterPicture"];
         }
     }
 
@@ -19778,6 +19673,7 @@ export class UpdateInterestCenterInput implements IUpdateInterestCenterInput {
         data["displayName"] = this.displayName;
         data["description"] = this.description;
         data["keyWords"] = this.keyWords;
+        data["interestCenterPicture"] = this.interestCenterPicture;
         return data; 
     }
 }
@@ -19787,6 +19683,7 @@ export interface IUpdateInterestCenterInput {
     displayName: string;
     description: string;
     keyWords: string;
+    interestCenterPicture: string;
 }
 
 export class MoveInterestCenterInput implements IMoveInterestCenterInput {
@@ -19865,96 +19762,6 @@ export class ActivityToInterestCenterInput implements IActivityToInterestCenterI
 export interface IActivityToInterestCenterInput {
     activityId: number;
     interestCenterId: number;
-}
-
-export class UpdateInterestCenterPictureInput implements IUpdateInterestCenterPictureInput {
-    fileName: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    id: number;
-
-    constructor(data?: IUpdateInterestCenterPictureInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.fileName = data["fileName"];
-            this.x = data["x"];
-            this.y = data["y"];
-            this.width = data["width"];
-            this.height = data["height"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): UpdateInterestCenterPictureInput {
-        let result = new UpdateInterestCenterPictureInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fileName"] = this.fileName;
-        data["x"] = this.x;
-        data["y"] = this.y;
-        data["width"] = this.width;
-        data["height"] = this.height;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IUpdateInterestCenterPictureInput {
-    fileName: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    id: number;
-}
-
-export class GetPictureOutput implements IGetPictureOutput {
-    picture: string;
-
-    constructor(data?: IGetPictureOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.picture = data["picture"];
-        }
-    }
-
-    static fromJS(data: any): GetPictureOutput {
-        let result = new GetPictureOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["picture"] = this.picture;
-        return data; 
-    }
-}
-
-export interface IGetPictureOutput {
-    picture: string;
 }
 
 export class GetLanguagesOutput implements IGetLanguagesOutput {
@@ -26211,7 +26018,6 @@ export class InterestCenterForWorbbyTaskDto implements IInterestCenterForWorbbyT
     parentPicture: string;
     displayName: string;
     description: string;
-    interestCenterPictureId: string;
     interestCenterPicture: string;
     id: number;
 
@@ -26232,7 +26038,6 @@ export class InterestCenterForWorbbyTaskDto implements IInterestCenterForWorbbyT
             this.parentPicture = data["parentPicture"];
             this.displayName = data["displayName"];
             this.description = data["description"];
-            this.interestCenterPictureId = data["interestCenterPictureId"];
             this.interestCenterPicture = data["interestCenterPicture"];
             this.id = data["id"];
         }
@@ -26252,7 +26057,6 @@ export class InterestCenterForWorbbyTaskDto implements IInterestCenterForWorbbyT
         data["parentPicture"] = this.parentPicture;
         data["displayName"] = this.displayName;
         data["description"] = this.description;
-        data["interestCenterPictureId"] = this.interestCenterPictureId;
         data["interestCenterPicture"] = this.interestCenterPicture;
         data["id"] = this.id;
         return data; 
@@ -26266,7 +26070,6 @@ export interface IInterestCenterForWorbbyTaskDto {
     parentPicture: string;
     displayName: string;
     description: string;
-    interestCenterPictureId: string;
     interestCenterPicture: string;
     id: number;
 }

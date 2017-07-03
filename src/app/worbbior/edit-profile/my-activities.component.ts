@@ -51,13 +51,6 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
     public getMyAcitivities(): void {
         this._activitiesService.getActivitiesByUserId(abp.session.userId).subscribe((result: ListResultDtoOfUserActivityInput) => {
             this.myActivities = result.items;
-            this.myActivities.forEach(element => {
-                element.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
-                });
-            });
             this.active = true;
         });
     }

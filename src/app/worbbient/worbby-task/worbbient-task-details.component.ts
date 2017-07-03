@@ -83,14 +83,6 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
                     this.worbbyTask.interestCenter.parentPicture = res;
                 });
             }
-            
-            if(this.worbbyTask.userActivity){
-                this.worbbyTask.userActivity.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
-                });
-            }
 
             this.getPictureByGuid(this.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;

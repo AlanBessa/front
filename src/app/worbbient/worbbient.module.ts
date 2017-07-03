@@ -17,7 +17,6 @@ import { PaymentsHistoryWorbbientComponent } from './payments-history/payments-h
 import { TasksHistoryWorbbientComponent } from './tasks-history/tasks-history.component';
 import { WorbbientTaskOffersComponent } from './worbby-task/worbbient-task-offers.component';
 import { WorbbientTaskOfferComponent } from './worbby-task/worbbient-task-offer.component';
-import { MainModule } from '@app/main/main.module';
 import { WorbbientTaskDetailsComponent } from './worbby-task/worbbient-task-details.component';
 import { EvaluateWorbbiorComponent } from './worbby-task/worbbient-evaluate-worbbior.component';
 import { WorbbientTaskSubmitPaymentComponent } from './worbby-task/worbbient-task-submit-payment.component';
@@ -40,8 +39,7 @@ import { MomentModule } from "angular2-moment";
         WorbbientRoutingModule,
         UtilsModule,
         AppCommonModule,
-        MomentModule,
-        MainModule
+        MomentModule
     ],
     declarations: [
         WorbbientComponent,

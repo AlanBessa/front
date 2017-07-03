@@ -20,7 +20,6 @@ import { MessagesWorbbiorComponent } from './messages/messages.component';
 import { MyWorbbyWorbbiorComponent } from './my-worbby/my-worbby.component';
 import { PaymentsHistoryWorbbiorComponent } from './payments-history/payments-history.component';
 import { TasksHistoryWorbbiorComponent } from './tasks-history/tasks-history.component';
-import { MainModule } from '@app/main/main.module';
 import { TalentQuestionnaireComponent } from './edit-profile/talent-questionnaire.component';
 import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.component';
 import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
@@ -40,7 +39,6 @@ import { MomentModule } from "angular2-moment";
         WorbbiorRoutingModule,
         UtilsModule,
         AppCommonModule,
-        MainModule,
         MomentModule,
         FileUploadModule
     ],

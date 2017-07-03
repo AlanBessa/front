@@ -1,0 +1,21 @@
+<header *ngIf="!isAuthenticated" class="navbar-fixed-top"></header>
+<app-header *ngIf="isAuthenticated" class="navbar-fixed-top"></app-header>
+
+<div class="clearfix">
+</div>
+
+<div class="page-container">
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback Beta : Inicio -->
+<feedbackComponent #feedbackComponent></feedbackComponent>
+<!-- Feedback Beta : Fim -->
+<changePasswordModal *ngIf="isAuthenticated" #changePasswordModal></changePasswordModal>
+<!--<notificationSettingsModal *ngIf="isAuthenticated" #notificationSettingsModal></notificationSettingsModal>-->
+
+<footer class="footer"></footer>

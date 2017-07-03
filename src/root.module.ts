@@ -4,10 +4,17 @@ import { NgModule, Injector, APP_INITIALIZER } from '@angular/core';
 
 import { AbpModule, ABP_HTTP_PROVIDER } from '@abp/abp.module';
 
-import { AppModule } from './app/app.module';
+import { ModalModule, TooltipModule, AccordionModule, ButtonsModule, RatingModule } from 'ngx-bootstrap';
+
+import { AccoutModule } from './app/account/account.module';
+import { PublicModule } from '@app/public/public.module';
 import { CommonModule } from '@shared/common/common.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { RootRoutingModule } from './root-routing.module';
+
+import { FormsModule } from '@angular/forms';
+
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppConsts } from '@shared/AppConsts';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -18,6 +25,18 @@ import { AppPreBootstrap } from './AppPreBootstrap';
 
 import { UrlHelper } from '@shared/helpers/UrlHelper';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
+
+import { FooterComponent } from '@app/shared/layout/footer.component';
+import { HeaderComponent } from '@app/shared/layout/header.component';
+import { AppHeaderComponent } from '@app/shared/layout/app-header.component';
+import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
+import { FeedbackComponent } from "shared/feedback/feedback.component";
+import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
+import { Angulartics2Module, Angulartics2GoogleAnalytics, Angulartics2Facebook } from 'angulartics2';
+import { MetaModule } from '@nglibs/meta';
+
+
+import { UtilsModule } from '@shared/utils/utils.module';
 
 export function appInitializerFactory(injector: Injector) {
     return () => {
@@ -72,15 +91,30 @@ function handleLogoutRequest(authService: AppAuthService) {
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        AppModule,
         CommonModule.forRoot(),
+        PublicModule,
         AbpModule,
         ServiceProxyModule,
-
-        RootRoutingModule
+        RootRoutingModule,
+        ModalModule.forRoot(),
+        TooltipModule.forRoot(),
+        AccordionModule.forRoot(),
+        ButtonsModule.forRoot(), 
+        FormsModule,
+        HttpModule,
+        JsonpModule,
+        UtilsModule,
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics, Angulartics2Facebook ]),
+        MetaModule.forRoot()
     ],
     declarations: [
-        RootComponent
+        RootComponent,
+        FooterComponent,
+        HeaderComponent,
+        AppHeaderComponent,
+        SendReportModalComponent,
+        FeedbackComponent,
+        ChangePasswordModalComponent
     ],
     providers: [
         ABP_HTTP_PROVIDER,

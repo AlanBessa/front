@@ -1,4 +1,4 @@
-<div class="pre-header hidden-xs">
+﻿<div class="pre-header hidden-xs">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 additional-nav user-menu">
@@ -6,27 +6,9 @@
                     <img class="logo-topo" src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Logo Worbby">
                 </a>
                 <ul class="list-unstyled list-inline pull-right">
-                    <li>
+                    <li *ngIf="!isAuthenticated">
                         <a routerLink="/login" class="btnLoginRegisterModal">Entrar | Cadastre-se</a>
                     </li>
-<!--                    <li *ngIf="languages.length">
-                        <div class="btn-group dropdown">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i [class]="currentLanguage.icon"></i>
-                                <span class="langname">
-                                    {{currentLanguage.displayName}}
-                                </span>
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let language of languages">
-                                    <a href="javascript:;" (click)="changeLanguage(language.name)">
-                                        <i [class]="language.icon"></i> {{language.displayName}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>-->
                 </ul>
             </div>
         </div>
@@ -42,25 +24,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <div headerNotifications class="pull-right hidden-sm hidden-lg hidden-md dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></div>
                 <a class="site-logo hidden-sm" routerLink="/home">
-                    <img class="logo-topo" src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Logo Worbby">
+                    <img class="logo-topo" *ngIf="currentRoleName == 'Worbbient'" src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Logo Worbby">
+                    <img class="logo-topo" *ngIf="currentRoleName == 'Worbbior'" src="/assets/metronic/worbby/global/img/logo-worbbior-beta.svg" alt="Logo Worbby">
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-top">
                 <div class="navbar-collapse-container">
-                    <div class="col-xs-12 header-menu-aberto visible-xs">
+                    <div class="col-xs-12 header-menu-aberto visible-xs"> 
                         <button type="button" class="close close-nav">
-                            <img src="/assets/metronic/worbby/global/img/icon-close-white.svg" alt="Close" class="hidden-xs" />
+                            <img src="/assets/metronic/worbby/global/img/icon-close-white.svg" alt="Close" class="hidden-xs">
                         </button>
                     </div>
                     <div class="col-xs-12 additional-nav user-menu hidden-sm hidden-md hidden-lg">
 
                         <ul class="list-unstyled list-inline pull-left">
-                            <li>
-                                <a routerLink="/login" class="close-nav btnLoginRegisterModal">Entrar | Cadastre-se</a>
-                            </li>
-                            <!-- <li *ngIf="languages.length">
-                                <div class="btn-group dropdown idioma">
+                            <li *ngIf="isAuthenticated" type="user-menu"></li>
+                            <li *ngIf="!isAuthenticated">
+                                <a class="close-nav" routerLink="/login" class="btnLoginRegisterModal">Entrar | Cadastre-se</a>
+                            </li>     
+<!--                            <li *ngIf="languages.length">
+                                <div class="btn-group dropdown">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <i [class]="currentLanguage.icon"></i>
                                         <span class="langname">
@@ -84,7 +69,7 @@
                             <h2>{{l("SearchWorbby")}}</h2>
                             <form action="/WorbbyTask" method="post"><input name="__RequestVerificationToken" type="hidden" value="CHVWMRS59kKduGK5RwtTJcQ2Kqf8Rsc6mncaTqYQNASfXqqy17vYS4UBlgLaKyXy8OWxbFU0PKjmp3e4T2VhySEbnb0tq0LLj0gU4cmXjjU1">        
                                 <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control" name="Term" placeholder="O que você precisa?">
+                                    <input type="text" class="form-control" name="Term" placeholder="o que você precisa?" />
                                     <span class="input-group-addon">
                                         <button class="close-nav" type="submit">
                                             <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -121,8 +106,9 @@
                             <li class="nav-item">
                                 <a class="close-nav" routerLink="/find-a-tasks">Tarefas postadas</a>
                             </li>
+                            <li headerNotifications class="hidden-xs dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></li>
                             <li class="nav-btn">
-                                <a id="PostTaskMobile" class="close-nav btn btn-prime btn-around m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" routerLink="/post-a-task">
+                                <a id="PostTaskMobile" class="close-nav btn btn-prime btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" routerLink="/post-a-task">
                                     {{l("PostATask")}}
                                     <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
                                     <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">

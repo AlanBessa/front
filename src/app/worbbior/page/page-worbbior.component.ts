@@ -82,11 +82,6 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                         });
                     } 
                 });
-                element.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
-                });
             });
             this.active = true;
             this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName); 
@@ -119,11 +114,6 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                             element.thumbnail = result;
                         });
                     } 
-                });
-                element.listInterestCenter.items.forEach(element => {
-                    this.getPictureByGuid(element.parentPictureId).then((result) => {
-                        element.parentPicture = result;
-                    });
                 });
             });
             this.active = true;

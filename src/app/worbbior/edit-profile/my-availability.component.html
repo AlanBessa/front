@@ -130,16 +130,16 @@
                 </div> 
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
-                        <sebm-google-map *ngIf="mapActive && abaActive" [latitude]="toNumber(address.latitude)" [longitude]="toNumber(address.longitude)">
-                            <sebm-google-map-circle [latitude]="toNumber(address.latitude)" [longitude]="toNumber(address.longitude)" 
+                        <agm-map *ngIf="mapActive && abaActive" [latitude]="toNumber(address.latitude)" [longitude]="toNumber(address.longitude)">
+                            <agm-circle [latitude]="toNumber(address.latitude)" [longitude]="toNumber(address.longitude)" 
                                 [radius]="worbbior.radius * 1000"
                                 [fillColor]="'red'"
                                 [circleDraggable]="true"
                                 [editable]="true"
                                 (dragEnd)="updateGeolocalization($event)"
                                 (radiusChange)="updateRadius($event)">                                
-                            </sebm-google-map-circle>                                
-                        </sebm-google-map>
+                            </agm-circle>                                
+                        </agm-map>
                     </div>
                 </div>
             </div>

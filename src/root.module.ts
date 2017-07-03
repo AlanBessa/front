@@ -28,6 +28,7 @@ import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 
 import { FooterComponent } from '@app/shared/layout/footer.component';
 import { HeaderComponent } from '@app/shared/layout/header.component';
+import { MenuComponent } from '@app/shared/layout/menu.component';
 import { AppHeaderComponent } from '@app/shared/layout/app-header.component';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 import { FeedbackComponent } from "shared/feedback/feedback.component";
@@ -100,6 +101,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         TooltipModule.forRoot(),
         AccordionModule.forRoot(),
         ButtonsModule.forRoot(), 
+        RatingModule.forRoot(),
         FormsModule,
         HttpModule,
         JsonpModule,
@@ -114,6 +116,11 @@ function handleLogoutRequest(authService: AppAuthService) {
         AppHeaderComponent,
         SendReportModalComponent,
         FeedbackComponent,
+        ChangePasswordModalComponent,
+        MenuComponent
+    ],
+    exports: [
+        MenuComponent,
         ChangePasswordModalComponent
     ],
     providers: [

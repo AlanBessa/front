@@ -23,7 +23,6 @@ import { RegisterComponent } from '@app/account/register/register.component';
 import { SelectModule } from 'ng2-select';
 import { RecaptchaModule } from 'ng-recaptcha';
 
-
 @NgModule({
     imports: [
         ngCommon.CommonModule,

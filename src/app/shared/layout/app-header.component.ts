@@ -12,13 +12,15 @@ import {
 } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
+import { MenuComponent } from '@app/shared/layout/menu.component';
+import { ChangePasswordModalComponent } from './profile/change-password-modal.component';
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
     templateUrl: './app-header.component.html',
-    selector: 'app-header',
+    selector: '[app-header]',
     encapsulation: ViewEncapsulation.None
 })
 export class AppHeaderComponent extends AppComponentBase implements OnInit {

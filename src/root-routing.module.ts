@@ -26,11 +26,11 @@ const routes: Routes = [
     { path: 'ativacao-de-email', redirectTo: '/conta/ativacao-de-email', pathMatch: 'full' },
     { path: 'confirm-email', redirectTo: '/conta/confirmar-email', pathMatch: 'full' },
     { path: 'confirmar-email', redirectTo: '/conta/confirmar-email', pathMatch: 'full' },
-    // {
-    //     path: 'worbbior',
-    //     loadChildren: 'app/worbbior/worbbior.module#WorbbiorModule', //Lazy load worbbior module
-    //     data: { preload: true }
-    // },
+    {
+        path: 'worbbior',
+        loadChildren: 'app/worbbior/worbbior.module#WorbbiorModule', //Lazy load worbbior module
+        data: { preload: true }
+    },
     // {
     //     path: 'worbbient',
     //     loadChildren: 'app/worbbient/worbbient.module#WorbbientModule', //Lazy load worbbient module

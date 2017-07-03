@@ -42,7 +42,11 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.EvaluationValueServiceProxy,
         ApiServiceProxies.EmailingServiceProxy,
         ApiServiceProxies.InterestCenterServiceProxy,
-        ApiServiceProxies.ActivityServiceProxy
+        ApiServiceProxies.ActivityServiceProxy,
+        ApiServiceProxies.AvailabilityServiceProxy,
+        ApiServiceProxies.UserDocumentsInfoServiceProxy,
+        ApiServiceProxies.BankAccountServiceProxy
+
     ]
 })
 export class ServiceProxyModule { }

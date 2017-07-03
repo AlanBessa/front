@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FileUploadModule } from '@node_modules/ng2-file-upload';
-import { ModalModule, TabsModule, TooltipModule, AccordionModule, ButtonsModule, DatepickerModule } from 'ngx-bootstrap';
+import { ModalModule, TabsModule, TooltipModule, AccordionModule, ButtonsModule, DatepickerModule, RatingModule } from 'ngx-bootstrap';
 import { WorbbiorRoutingModule } from './worbbior-routing.module';
 import { UtilsModule } from '@shared/utils/utils.module';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
@@ -25,6 +25,16 @@ import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.co
 import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
 import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-details.component';
 import { MomentModule } from "angular2-moment";
+import { TextMaskModule } from 'angular2-text-mask';
+import { InfoTutorialCadastroModalComponent } from "app/worbbior/edit-profile/info-tutorial-cadastro-modal.component";
+import { SendEndorsementModalComponent } from 'app/worbbior/edit-profile/send-endorsement-modal.component';
+import { AgmCoreModule } from '@agm/core';
+
+import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
+import { ReceivedPaymentWorbbiorComponent } from "app/worbbior/payments-history/received-payment.component";
+import { PaidPaymentWorbbiorComponent } from "app/worbbior/payments-history/paid-payment.component";
+import { ViewDocumentModalComponent } from '@app/worbbior/edit-profile/view-document-modal.component';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 @NgModule({
     imports: [
@@ -36,11 +46,16 @@ import { MomentModule } from "angular2-moment";
         AccordionModule.forRoot(),
         ButtonsModule.forRoot(),
         DatepickerModule.forRoot(),
+        RatingModule.forRoot(),
         WorbbiorRoutingModule,
         UtilsModule,
         AppCommonModule,
         MomentModule,
-        FileUploadModule
+        FileUploadModule,
+        TextMaskModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDmAf99svQmS-Oi0BDl2Zpn0YtMGccRZRM'
+        }),
     ],
     declarations: [
         WorbbiorComponent,
@@ -59,7 +74,15 @@ import { MomentModule } from "angular2-moment";
         TalentQuestionnaireComponent,
         WorbbiorTaskOfferComponent,
         WorbbiorTaskOffersComponent,
-        WorbbiorTaskDetailsComponent
+        WorbbiorTaskDetailsComponent,
+        InfoTutorialCadastroModalComponent,
+        CreateOrEditUserActivityModalComponent,
+        SendEndorsementModalComponent,
+        GeneralPaymentWorbbiorComponent,
+        ReceivedPaymentWorbbiorComponent,
+        PaidPaymentWorbbiorComponent,
+        ViewDocumentModalComponent,
+        PdfViewerComponent
     ],
     providers: [
     ]

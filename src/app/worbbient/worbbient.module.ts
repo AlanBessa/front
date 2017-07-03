@@ -23,6 +23,7 @@ import { WorbbientTaskSubmitPaymentComponent } from './worbby-task/worbbient-tas
 import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-payment.component';
 import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-worbby-task.component';
 import { MomentModule } from "angular2-moment";
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { MomentModule } from "angular2-moment";
         WorbbientRoutingModule,
         UtilsModule,
         AppCommonModule,
-        MomentModule
+        MomentModule,
+        TextMaskModule
     ],
     declarations: [
         WorbbientComponent,

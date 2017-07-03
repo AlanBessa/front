@@ -14,7 +14,7 @@ import { AppSessionService } from '@shared/common/session/app-session.service';
 
 @Component({
     templateUrl: './header.component.html',
-    selector: 'header',
+    selector: '[public-header]',
     encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent extends AppComponentBase implements OnInit {

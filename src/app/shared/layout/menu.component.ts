@@ -20,7 +20,7 @@ import { UtilsService } from '@abp/utils/utils.service';
 
 @Component({
     templateUrl: './menu.component.html',
-    selector: '[type=user-menu]'
+    selector: '[user-menu]'
 })
 export class MenuComponent extends AppComponentBase implements OnInit {
 

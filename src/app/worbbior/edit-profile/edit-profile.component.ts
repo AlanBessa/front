@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, ViewChild, Inject, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, Injector, AfterViewInit, AfterContentInit, ViewChild, Inject, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
@@ -137,12 +137,16 @@ export class EditProfileWorbbiorComponent extends AppComponentBase implements Af
             this.active = true;
             this.getProfilePicture();
         });
-        this.checkTabs();
+        
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             self.angulartics2.pageTrack.next({ path: '/worbbior/edit-profile/' + e.target.getAttribute('href'), location: location });
             self.checkTabs();
         });
+    }
+
+    ngAfterContentInit() {
+        this.checkTabs();
     }
 
     checkTabs(): void {

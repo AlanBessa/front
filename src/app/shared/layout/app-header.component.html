@@ -6,6 +6,7 @@
                     <img class="logo-topo" src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Logo Worbby">
                 </a>
                 <ul class="list-unstyled list-inline pull-right">
+                    <li *ngIf="isAuthenticated" [changePasswordModal]="changePasswordModal" user-menu class="display-block"></li>
                     <li *ngIf="!isAuthenticated">
                         <a routerLink="/login" class="btnLoginRegisterModal">Entrar | Cadastre-se</a>
                     </li>
@@ -40,7 +41,7 @@
                     <div class="col-xs-12 additional-nav user-menu hidden-sm hidden-md hidden-lg">
 
                         <ul class="list-unstyled list-inline pull-left">
-                            <li *ngIf="isAuthenticated" type="user-menu"></li>
+                            <li *ngIf="isAuthenticated" user-menu></li>
                             <li *ngIf="!isAuthenticated">
                                 <a class="close-nav" routerLink="/login" class="btnLoginRegisterModal">Entrar | Cadastre-se</a>
                             </li>     

@@ -22,13 +22,9 @@ import { Ng2ImageGalleryModule } from 'ng2-image-gallery';
 
 import { MomentModule } from 'angular2-moment';
 
-import { AgmCoreModule } from '@agm/core';
-
 import { PublicComponent } from './public.component';
 
 import { BinaryObjectServiceProxy }  from '@shared/service-proxies/service-proxies';
-
-import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 //PUBLIC CONTENT
 import { HomeComponent } from './home/home.component';
@@ -57,6 +53,7 @@ import { SlickSliderComponent } from 'shared/slick-slider.component';
 import { ActivityCenterComponent } from "./activity-center/activity-center-page.component";
 import { SideMenuComponent } from '@app/shared/layout/side-menu.component';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
     imports: [
@@ -79,12 +76,12 @@ import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
         PublicRoutingModule,
         RatingModule,
         ShareButtonsModule.forRoot(),
+        TextMaskModule,
+        MomentModule,
+        AppCommonModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDmAf99svQmS-Oi0BDl2Zpn0YtMGccRZRM'
         }),
-        TextMaskModule,
-        MomentModule,
-        AppCommonModule
     ],
     declarations: [
         PublicComponent,
@@ -107,7 +104,6 @@ import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
         SendOfferModalComponent,
         EndorsementSelectActivityComponent,
         EndorsementSuccessComponent,
-        PdfViewerComponent,
         WorbbyTaskComponent,
         ComingSoonComponent,
         ActivityCenterComponent,

@@ -1,8 +1,9 @@
+import * as ngCommon from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from '@node_modules/ng2-file-upload';
-import { ModalModule, TabsModule, TooltipModule, AccordionModule, ButtonsModule, DatepickerModule } from 'ngx-bootstrap';
+import { ModalModule, TabsModule, TooltipModule, AccordionModule, ButtonsModule, DatepickerModule, RatingModule } from 'ngx-bootstrap';
 import { WorbbientRoutingModule } from './worbbient-routing.module'
 import { UtilsModule } from '@shared/utils/utils.module'
 import { AppCommonModule } from '@app/shared/common/app-common.module'
@@ -24,11 +25,14 @@ import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-paym
 import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-worbby-task.component';
 import { MomentModule } from "angular2-moment";
 import { TextMaskModule } from 'angular2-text-mask';
+import { SelectModule } from 'ng2-select';
+
 
 @NgModule({
     imports: [
         FormsModule,
         ReactiveFormsModule,
+        ngCommon.CommonModule,
         CommonModule,
         FileUploadModule,
         ModalModule.forRoot(),
@@ -37,11 +41,13 @@ import { TextMaskModule } from 'angular2-text-mask';
         AccordionModule.forRoot(),
         ButtonsModule.forRoot(),
         DatepickerModule.forRoot(),
+        RatingModule.forRoot(),
         WorbbientRoutingModule,
         UtilsModule,
         AppCommonModule,
         MomentModule,
-        TextMaskModule
+        TextMaskModule,
+        SelectModule
     ],
     declarations: [
         WorbbientComponent,

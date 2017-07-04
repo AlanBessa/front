@@ -11,6 +11,8 @@ export class FooterComponent extends AppComponentBase implements OnInit {
 
     public anoDeCopyright: number;
 
+    public currentRoleName:string = "";
+
     constructor(
         injector: Injector,
         public appSessionService: AppSessionService,
@@ -20,5 +22,6 @@ export class FooterComponent extends AppComponentBase implements OnInit {
 
     ngOnInit(): void {
         this.anoDeCopyright = moment().year();
+        this.currentRoleName = this.appSessionService.userRoleName;
     }
 }

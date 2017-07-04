@@ -23,7 +23,7 @@ import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-detail
                     { path: 'edit-profile', component: EditProfileWorbbiorComponent, data: { permission: 'Pages.Worbbior.EditProfile' } },
                     { path: 'edit-profile/:hash', component: EditProfileWorbbiorComponent, data: { permission: 'Pages.Worbbior.EditProfile' } },
                     { path: 'select-activity', component: SelectActivityComponent, data: { permission: 'Pages.Worbbior.EditProfile' } },
-                    { path: 'messages', component: MessagesWorbbiorComponent, data: { permission: 'Pages.Worbbior.Messages' } },
+                    // { path: 'messages', component: MessagesWorbbiorComponent, data: { permission: 'Pages.Worbbior.Messages' } },
                     { path: 'my-worbby', component: MyWorbbyWorbbiorComponent, data: { permission: 'Pages.Worbbior.MyWorbby' } },
                     { path: 'payments-history', component: PaymentsHistoryWorbbiorComponent, data: { permission: 'Pages.Worbbior.PaymentsHistory' } },
                     { path: 'tasks-history', component: TasksHistoryWorbbiorComponent, data: { permission: 'Pages.Worbbior.TasksHistory' } },

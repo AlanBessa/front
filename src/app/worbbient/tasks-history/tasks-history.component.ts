@@ -7,7 +7,10 @@ import { UserMenu } from '@app/shared/layout/user-menu';
 import { UserMenuItem } from '@app/shared/layout/user-menu-item';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { WorbbyTaskStatus } from '@shared/AppEnums';
+import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { PagedResultDtoOfWorbbyTaskDto, AddressDto, AddressServiceProxy, WorbbyTaskServiceProxy, WorbbyTaskDto, CurrentUserProfileEditDto, ProfileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { UtilsService } from '@abp/utils/utils.service';
+
 
 @Component({
     templateUrl: './tasks-history.component.html',
@@ -28,6 +31,7 @@ export class TasksHistoryWorbbientComponent extends AppComponentBase implements 
     profilePicture: string = "/assets/common/images/default-profile-picture.png";
     public status: string = "";
     public urlImg: string = "/assets/common/images/default-profile-picture.png";
+    public switchRole:boolean = false;
 
     constructor(
         injector: Injector,
@@ -35,14 +39,16 @@ export class TasksHistoryWorbbientComponent extends AppComponentBase implements 
         private _worbbyTaskService: WorbbyTaskServiceProxy,
         private _appSessionService: AppSessionService,
         private _profileService: ProfileServiceProxy,
-        private _addressService: AddressServiceProxy
+        private _addressService: AddressServiceProxy,
+        private _utilsService: UtilsService,
+        private _authService: AppAuthService
     ) {
         super(injector);
     }
 
     ngOnInit() {
         this.currentRoleName = this._appSessionService.userRoleName;
-        //this.switchRole = this.permission.isGranted("Pages.Worbbior.SwitchToWorbbientProfile");        
+        this.switchRole = this.permission.isGranted("Pages.Worbbior.SwitchToWorbbientProfile");        
     }
 
     ngAfterViewInit(): void {
@@ -140,5 +146,11 @@ export class TasksHistoryWorbbientComponent extends AppComponentBase implements 
 
     findByTerm(): void {
         this.router.navigate(['/find-a-talents-t', this.filter]);
+    }
+
+    logout(): void {
+        this._utilsService.deleteCookie("userRoleName");
+        this._utilsService.deleteCookie("firstLoginUser");
+        this._authService.logout();        
     }
 }

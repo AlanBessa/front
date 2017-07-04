@@ -13883,6 +13883,7 @@ export class RegisterInput implements IRegisterInput {
     userName: string;
     emailAddress: string;
     password: string;
+    passwordRepeat: string;
     captchaResponse: string;
     roleName: string;
     endorsementId: number;
@@ -13906,6 +13907,7 @@ export class RegisterInput implements IRegisterInput {
             this.userName = data["userName"];
             this.emailAddress = data["emailAddress"];
             this.password = data["password"];
+            this.passwordRepeat = data["passwordRepeat"];
             this.captchaResponse = data["captchaResponse"];
             this.roleName = data["roleName"];
             this.endorsementId = data["endorsementId"];
@@ -13928,6 +13930,7 @@ export class RegisterInput implements IRegisterInput {
         data["userName"] = this.userName;
         data["emailAddress"] = this.emailAddress;
         data["password"] = this.password;
+        data["passwordRepeat"] = this.passwordRepeat;
         data["captchaResponse"] = this.captchaResponse;
         data["roleName"] = this.roleName;
         data["endorsementId"] = this.endorsementId;
@@ -13944,6 +13947,7 @@ export interface IRegisterInput {
     userName: string;
     emailAddress: string;
     password: string;
+    passwordRepeat: string;
     captchaResponse: string;
     roleName: string;
     endorsementId: number;
@@ -14030,6 +14034,7 @@ export class ResetPasswordInput implements IResetPasswordInput {
     userId: number;
     resetCode: string;
     password: string;
+    passwordRepeat: string;
     returnUrl: string;
     singleSignIn: string;
 
@@ -14047,6 +14052,7 @@ export class ResetPasswordInput implements IResetPasswordInput {
             this.userId = data["userId"];
             this.resetCode = data["resetCode"];
             this.password = data["password"];
+            this.passwordRepeat = data["passwordRepeat"];
             this.returnUrl = data["returnUrl"];
             this.singleSignIn = data["singleSignIn"];
         }
@@ -14063,6 +14069,7 @@ export class ResetPasswordInput implements IResetPasswordInput {
         data["userId"] = this.userId;
         data["resetCode"] = this.resetCode;
         data["password"] = this.password;
+        data["passwordRepeat"] = this.passwordRepeat;
         data["returnUrl"] = this.returnUrl;
         data["singleSignIn"] = this.singleSignIn;
         return data; 
@@ -14073,6 +14080,7 @@ export interface IResetPasswordInput {
     userId: number;
     resetCode: string;
     password: string;
+    passwordRepeat: string;
     returnUrl: string;
     singleSignIn: string;
 }

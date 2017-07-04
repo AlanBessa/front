@@ -23,7 +23,7 @@ import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-paym
                 children: [
                     //Versão Completa
                     { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },
-                    { path: 'messages', component: MessagesWorbbientComponent, data: { permission: 'Pages.Worbbient.Messages' } },
+                    //{ path: 'messages', component: MessagesWorbbientComponent, data: { permission: 'Pages.Worbbient.Messages' } },
                     { path: 'my-worbby', component: MyWorbbyWorbbientComponent, data: { permission: 'Pages.Worbbient.MyWorbby' } },
                     { path: 'payments-history', component: PaymentsHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
                     { path: 'tasks-history', component: TasksHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.TasksHistory' } },

@@ -31,18 +31,18 @@ const routes: Routes = [
         loadChildren: 'app/worbbior/worbbior.module#WorbbiorModule', //Lazy load worbbior module
         data: { preload: true }
     },
-    // {
-    //     path: 'worbbient',
-    //     loadChildren: 'app/worbbient/worbbient.module#WorbbientModule', //Lazy load worbbient module
-    //     data: { preload: true }
-    // }
+    {
+        path: 'worbbient',
+        loadChildren: 'app/worbbient/worbbient.module#WorbbientModule', //Lazy load worbbient module
+        data: { preload: true }
+    }
 ];
 
 @NgModule({
     imports: [
         RouterModule.forRoot(
             routes,
-            { enableTracing: true } // <-- debugging purposes only
+            { enableTracing: false } // <-- debugging purposes only
         )
     ],
     exports: [RouterModule],

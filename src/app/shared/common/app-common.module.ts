@@ -17,7 +17,7 @@ import { AppRouteGuard } from './auth/auth-route-guard';
 import { DateTimeService } from './timing/date-time.service';
 import { AppLocalizationService } from '@app/shared/common/localization/app-localization.service';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
-import { ImageCropperComponent} from 'ng2-img-cropper';
+import { ImageCropperModule} from 'ng2-img-cropper';
 import { LoginComponent } from '@app/account/login/login.component';
 import { RegisterComponent } from '@app/account/register/register.component';
 import { SelectModule } from 'ng2-select';
@@ -34,6 +34,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
         CommonModule,
         SelectModule,
         RecaptchaModule.forRoot(),
+        ImageCropperModule
     ],
     declarations: [
         TimeZoneComboComponent,
@@ -42,7 +43,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
         DateRangePickerComponent,
         DatePickerComponent,
         ChangeProfilePictureModalComponent,
-        ImageCropperComponent,
         LoginComponent,
         RegisterComponent
     ],
@@ -53,7 +53,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
         DateRangePickerComponent,
         DatePickerComponent,
         ChangeProfilePictureModalComponent,
-        ImageCropperComponent,
         LoginComponent,
         RegisterComponent
     ],

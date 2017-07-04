@@ -34,8 +34,8 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
     public user: CurrentUserProfileEditDto;
     public defaultAddress: AddressDto;
     public userDisplayName: string;
-    private _initialTimezone: string = undefined;
-    private profilePicture: string = "/assets/common/images/default-profile-picture.png";
+    public _initialTimezone: string = undefined;
+    public profilePicture: string = "/assets/common/images/default-profile-picture.png";
     public canChangeUserName: boolean;
     public WorbbiorState: typeof WorbbiorState = WorbbiorState;
     public switchRole: boolean = false;

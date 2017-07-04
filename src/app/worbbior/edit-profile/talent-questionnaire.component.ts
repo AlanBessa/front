@@ -27,6 +27,10 @@ export class TalentQuestionnaireComponent extends AppComponentBase implements Af
         
     }
 
+    save(){
+
+    }
+    
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
     }

@@ -245,8 +245,8 @@ export class KeyValueAddress {
 }
 
 export class DateFilter {
-    private de: moment.Moment;
-    private ate: moment.Moment;
+    public de: moment.Moment;
+    public ate: moment.Moment;
 
     constructor(pDe: moment.Moment, pAte: moment.Moment) {
         this.de = pDe;

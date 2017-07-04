@@ -35,6 +35,10 @@ import { FeedbackComponent } from "shared/feedback/feedback.component";
 import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics, Angulartics2Facebook } from 'angulartics2';
 import { MetaModule } from '@nglibs/meta';
+import { NotificationSettingsModalCompoent } from '@app/shared/layout/notifications/notification-settings-modal.component';
+import { HeaderNotificationsComponent } from '@app/shared/layout/notifications/header-notifications.component';
+import { NotificationsComponent } from '@app/shared/layout/notifications/notifications.component';
+import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNotificationHelper';
 
 
 import { UtilsModule } from '@shared/utils/utils.module';
@@ -117,13 +121,20 @@ function handleLogoutRequest(authService: AppAuthService) {
         SendReportModalComponent,
         FeedbackComponent,
         ChangePasswordModalComponent,
-        MenuComponent
+        MenuComponent,
+        NotificationSettingsModalCompoent,
+        HeaderNotificationsComponent,
+        NotificationsComponent
     ],
     exports: [
         MenuComponent,
-        ChangePasswordModalComponent
+        ChangePasswordModalComponent,
+        NotificationSettingsModalCompoent,
+        HeaderNotificationsComponent,
+        NotificationsComponent
     ],
     providers: [
+        UserNotificationHelper,
         ABP_HTTP_PROVIDER,
         { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
         {

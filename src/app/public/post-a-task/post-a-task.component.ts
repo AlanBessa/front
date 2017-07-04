@@ -111,6 +111,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
                 this.isOffer = true;
                 this._worbbiorService.getWorbbiorProfileByUserId(result.userId).subscribe(result => {
                     this.worbbiorProfile = result;
+                    this.active = true; 
                     this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
                         if(!this.isEmpty(result)){
                             this.worbbiorProfile.worbbior.userPicture = result;
@@ -140,7 +141,6 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
             this.interestCentersTopLevel = result.items;
             this.currentInterestCenterTopLevel.displayName = "Selecione";
             this.currentInterestCenterChild.displayName = "Selecione";
-            this.active = true; 
         });
     }
 
@@ -150,7 +150,6 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
             this.interestCentersChidren = result.items;
             this.currentInterestCenterChild = new InterestCenterDto();
             this.currentInterestCenterChild.displayName = "Selecione";
-            this.active = true;
         });
     }
 

@@ -30,4 +30,8 @@ export class PaidPaymentWorbbiorComponent extends AppComponentBase implements Af
     ngAfterViewInit(): void {
 
     }    
+
+    changePaymentType():void {
+        
+    }
 }

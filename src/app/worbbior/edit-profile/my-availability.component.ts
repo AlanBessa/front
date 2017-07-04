@@ -94,7 +94,7 @@ export class MyAvailabilityWorbbiorComponent extends AppComponentBase implements
     }
 
 
-    private getMyAvailabilities(): void {
+    getMyAvailabilities(): void {
         this._availabilityService.getAvailabilitiesByUserId(abp.session.userId).subscribe((result: ListResultDtoOfAvailabilityDto) => {
             this.myAvailabilities = result.items;
             this.getAddresDefault();

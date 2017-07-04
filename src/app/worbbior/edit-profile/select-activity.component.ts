@@ -138,7 +138,8 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
         this.activityUser.activityId = activityId;
         this.activityUser.activityState = ActivityState[ActivityState.Active.toString()];
         this.activityUser.isSuggestActivity = false;
-        this.createOrEditUserActivityModal.show(new UserActivityInput(JSON.parse(this.activityUser.toJSON())));
+        
+        this.createOrEditUserActivityModal.show(new UserActivityInput(this.activityUser.toJSON()));
     }
 
     addActivity():void {

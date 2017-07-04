@@ -82,7 +82,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                         imageItem.activityUserId = activityUser.id;
 
                         for (var i = this.galleryImages.length; i < 3; i++) {
-                            this.galleryImages[i] = new GalleryActivityDto(JSON.parse.apply(imageItem.toJSON));
+                            this.galleryImages[i] = new GalleryActivityDto(imageItem.toJSON());
                         }
                     }
 

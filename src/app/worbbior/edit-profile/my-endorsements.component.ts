@@ -55,7 +55,7 @@ export class MyEndorsementsWorbbiorComponent extends AppComponentBase implements
         this.worbbiorState = this._appSessionService.worbbiorState;
     }
 
-    private getSendEndorsements(page):void{
+    getSendEndorsements(page):void{
 
         var skipCount = AppConsts.maxResultCount * (page-1);
 
@@ -93,7 +93,7 @@ export class MyEndorsementsWorbbiorComponent extends AppComponentBase implements
         this.createOrEditUserActivityModal.show(activityUser);
     }
 
-    sendEndorsement(endorsement:EndorsementDto):void {
+    sendEndorsement():void {
         if(this.myActivitiesWorbbiorComponent.myActivities.length == 0){
             this.message.error('Para solicitar uma recomendação é necessário ter pelo menos uma atividade cadastrada!', 'Solicitação de Recomendação!').done(() => {});
         }

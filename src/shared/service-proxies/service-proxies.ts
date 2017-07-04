@@ -12101,6 +12101,70 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
+    getTasksAdmin(filter: string, permission: string, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbyTaskDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetTasksAdmin?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetTasksAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetTasksAdmin(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfWorbbyTaskDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfWorbbyTaskDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetTasksAdmin(response: Response): Observable<PagedResultDtoOfWorbbyTaskDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfWorbbyTaskDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfWorbbyTaskDto.fromJS(resultData200) : new PagedResultDtoOfWorbbyTaskDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfWorbbyTaskDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     createOrUpdateWorbbyOffer(input: WorbbyOfferDto): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CreateOrUpdateWorbbyOffer";
         url_ = url_.replace(/[?&]$/, "");

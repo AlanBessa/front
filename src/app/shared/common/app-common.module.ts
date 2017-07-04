@@ -22,6 +22,7 @@ import { LoginComponent } from '@app/account/login/login.component';
 import { RegisterComponent } from '@app/account/register/register.component';
 import { SelectModule } from 'ng2-select';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
         CommonModule,
         SelectModule,
         RecaptchaModule.forRoot(),
-        ImageCropperModule
+        ImageCropperModule,
+        RouterModule
     ],
     declarations: [
         TimeZoneComboComponent,

@@ -215,7 +215,7 @@
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/@types/morris.js/-/morris.js-0.5.6.tgz#c9cdfde069a425f6bb3b28b115c51c2f96a04744"
 
-"@types/node@^6.0.42", "@types/node@^6.0.46":
+"@types/node@^6.0.46", "@types/node@^6.0.69":
   version "6.0.78"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.78.tgz#5d4a3f579c1524e01ee21bf474e6fba09198f470"
 

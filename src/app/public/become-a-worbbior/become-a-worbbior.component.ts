@@ -8,7 +8,6 @@ import { InterestCenterServiceProxy, InterestCenterDto, ListResultDtoOfInterestC
 
 @Component({
     templateUrl: './become-a-worbbior.component.html',
-    styles: ['.find-talent-home-banner{ background: url(/assets/metronic/worbby/global/img/banner-' + (Math.floor(Math.random() * (11 - 1 + 1)) + 1) + '.jpg);}'],
     animations: [appModuleAnimation()]
 })
 export class BecomeWorbbiorComponent extends AppComponentBase implements AfterViewInit {
@@ -37,8 +36,7 @@ export class BecomeWorbbiorComponent extends AppComponentBase implements AfterVi
             this.interestCenters = result.items;
             this.activatedRoute.fragment.subscribe(f => {
                 this.goTo(f);
-            })
-            
+            })            
         });
     }
 

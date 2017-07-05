@@ -11,16 +11,16 @@ import { Angulartics2 } from 'angulartics2';
 
 @Component({
     templateUrl: './home.component.html',
-    styles: ['.find-talent-home-banner{ background: url(/assets/metronic/worbby/global/img/banner-' + (Math.floor(Math.random() * (11 - 1 + 1)) + 1) + '.jpg);}'],
     animations: [appModuleAnimation()]
 })
 
 export class HomeComponent extends AppComponentBase implements AfterViewInit {
 
-    @ViewChild('homeReleaseModal') homeReleaseModal: HomeReleaseModalComponent;
+    @ViewChild('homeReleaseModal') homeReleaseModal: HomeReleaseModalComponent; 
 
     public interestCenters: InterestCenterDto[] = [];
     public filter:string;
+    public imagemBanner: string = "";
 
     constructor(
         injector: Injector,
@@ -52,6 +52,9 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
                 $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbient-beta.svg');
             }
         }
+
+        var resolution = window.screen.width < 768 ? "770" : window.screen.width < 990 ? "1000" : "1910";
+        this.imagemBanner = "/assets/metronic/worbby/global/img/home/" + resolution + "/banner-" + (Math.floor(Math.random() * (11 - 1 + 1)) + 1) + ".jpg";
     }
 
     showReleaseModal():void{

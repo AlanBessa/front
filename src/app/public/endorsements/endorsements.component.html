@@ -227,7 +227,7 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-md-3">    
                                                 <div class="divProfile">
-                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbior.userPicture" />
+                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbior.userPicture" /> 
                                                     <span *ngIf="worbbiorPremium" class="profile-pro"></span> 
                                                 </div>
                                             </div>
@@ -294,8 +294,8 @@
                                                         <a class="cursor-pointer btn-link" (click)="showRegister()">Cadastre-se na plataforma</a>
                                                     </h3>
 
-                                                    <!--<loginComponent [hidden]="register" #loginComponent></loginComponent>
-                                                    <registerComponent *ngIf="endorsement" [hidden]="!register" [endorse]="true" [endorsement]="endorsement" [endorsementUserId]="userId" #registerComponent></registerComponent>-->
+                                                    <loginComponent [hidden]="register" #loginComponent></loginComponent>
+                                                    <registerComponent *ngIf="endorsement" [hidden]="!register" [endorse]="true" [endorsement]="endorsement" [endorsementUserId]="userId" #registerComponent></registerComponent>
                                                 </div>   
                                                 <div *ngIf="active && isLogged && !notFound && !yourself && !notCurrentUser">
                                                     <h3 class="no-m-t m-b-xxxs">Responda este questionário</h3>

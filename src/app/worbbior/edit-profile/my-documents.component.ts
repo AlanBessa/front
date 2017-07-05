@@ -24,7 +24,7 @@ export class Sending {
 @Component({
     templateUrl: './my-documents.component.html',
     animations: [appModuleAnimation()],
-    selector: 'editMyDocumentsWorbbior',
+    selector: 'editMyDocumentsWorbbior'
 })
 export class MyDocumentsWorbbiorComponent extends AppComponentBase implements AfterViewInit {
 

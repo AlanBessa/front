@@ -27,8 +27,8 @@
                                     {{sending.rgFileName ? "Enviando..." : l("Attach")}}                                    
                                 </span>
                             </label>
-                            <input [disabled]="sending.rgFileName" style="display:none;" id="rg" name="rg" *ngIf="active" type="file" ng2FileSelect [uploader]="rgUploader"  />
-                            <input id="rgFileName" type="text" class="form-control" readonly=""/>
+                            <input [readonly]="sending.rgFileName" style="display:none;" id="rg" name="rg" *ngIf="active" type="file" ng2FileSelect [uploader]="rgUploader" />
+                            <input id="rgFileName" type="text" class="form-control" readonly="true" />
                         </div>                        
                     </div>
                 </div>

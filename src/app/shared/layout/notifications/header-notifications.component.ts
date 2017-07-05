@@ -2,6 +2,7 @@
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { NotificationServiceProxy, GetNotificationsOutput, UserNotification } from '@shared/service-proxies/service-proxies';
 import { UserNotificationHelper, IFormattedUserNotification } from './UserNotificationHelper';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './header-notifications.component.html',
@@ -12,11 +13,13 @@ export class HeaderNotificationsComponent extends AppComponentBase implements On
 
     notifications: IFormattedUserNotification[] = [];
     unreadNotificationCount: number = 0;
+    notificationOpen: string = "";
 
     constructor(
         injector: Injector,
         private _notificationService: NotificationServiceProxy,
-        private _userNotificationHelper: UserNotificationHelper
+        private _userNotificationHelper: UserNotificationHelper,
+        private _router: Router
     ) {
         super(injector);
     }
@@ -24,6 +27,14 @@ export class HeaderNotificationsComponent extends AppComponentBase implements On
     ngOnInit(): void {
         this.loadNotifications();
         this.registerToEvents();
+    }
+
+    showHideNotifications(): void {
+        if (this.notificationOpen == "") {
+            this.notificationOpen = "open";
+        } else {
+            this.notificationOpen = "";
+        }
     }
 
     loadNotifications(): void {
@@ -71,7 +82,8 @@ export class HeaderNotificationsComponent extends AppComponentBase implements On
 
     gotoUrl(url): void {
         if (url) {
-            location.href = url;
+            this._router.navigate([url]);
+            //location.href = url;
         }
     }
 }

@@ -39,6 +39,7 @@ import { NotificationSettingsModalCompoent } from '@app/shared/layout/notificati
 import { HeaderNotificationsComponent } from '@app/shared/layout/notifications/header-notifications.component';
 import { NotificationsComponent } from '@app/shared/layout/notifications/notifications.component';
 import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNotificationHelper';
+import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service'
 
 
 import { UtilsModule } from '@shared/utils/utils.module';
@@ -134,6 +135,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         NotificationsComponent
     ],
     providers: [
+        MessageSignalrService,
         UserNotificationHelper,
         ABP_HTTP_PROVIDER,
         { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },

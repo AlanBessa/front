@@ -46,7 +46,10 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
 
     ngOnInit(): void {
         this.interestCenterId = Number(this._activatedRoute.snapshot.params['interestCenterId'].slice(0, this._activatedRoute.snapshot.params['interestCenterId'].indexOf("-"))); 
-        this.imagemBanner = "/assets/metronic/worbby/global/img/banner-activities/" + this.interestCenterId + ".jpg";
+        
+        var resolution = window.screen.width < 768 ? "770" : window.screen.width < 990 ? "1000" : "1910";
+        
+        this.imagemBanner = "/assets/metronic/worbby/global/img/banner-activities/" + resolution + "/" + this.interestCenterId + ".jpg";
         this.searchBanner = "/assets/metronic/worbby/global/img/photo-team@2x.jpg";
         this.findWorbbyTaskInput.interestCenterTopLevelId = this.interestCenterId;
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;

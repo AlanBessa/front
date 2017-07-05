@@ -56,7 +56,7 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
     }
 
     updateActivity(activityUser: UserActivityInput): void {
-        this.createOrEditUserActivityModal.show(new UserActivityInput(JSON.parse(activityUser.toJSON())));
+        this.createOrEditUserActivityModal.show(new UserActivityInput(activityUser.toJSON()));
     }
 
     updateWorbbiorState(): void {
@@ -99,7 +99,7 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
 
     toogleUserActivityState(activityUser: UserActivityInput): void {
         var text = "";
-        var activityUserTemp = new UserActivityInput(JSON.parse(activityUser.toJSON()));
+        var activityUserTemp = new UserActivityInput(activityUser.toJSON());
         if (activityUserTemp.activityState == Number(ActivityState.Active)) {
             activityUserTemp.activityState = Number(ActivityState.InactiveByWorbbior);
             text = "Deseja desativar essa atividade?"; 

@@ -7,7 +7,7 @@ import { LoginService } from './login/login.service';
 export class AccountComponent implements OnInit {
 
     public constructor(
-        private _loginService: LoginService 
+        private _loginService: LoginService
     ) {
     }
 

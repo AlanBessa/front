@@ -7,13 +7,13 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="bg-White bg-shadow box">
                                 <a class="register-ancora btn-link visible-xs" (click)="goTo('cadastrar')">Cadastre-se</a>
-                                <!--<loginComponent #loginComponent></loginComponent>-->
+                                <loginComponent #loginComponent></loginComponent>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-12">
                             <div class="bg-White bg-shadow box">
                                 <h3 class="text-center no-m-t" id="cadastrar">Não tem cadastro ainda? Registre-se</h3>
-                                <!--<registerComponent #registerComponent></registerComponent>-->
+                                <registerComponent #registerComponent></registerComponent>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-xs-3 col-md-2 no-p-r-xs">
                                         <div class="divProfile">
-                                            <!--<span class="profile-online"></span>-->
+                                            <span class="profile-online"></span>
                                             <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.worbbior.userPicture" />
                                             <span *ngIf="worbbiorProfile.worbbior.premium" class="profile-pro"></span>
                                         </div>

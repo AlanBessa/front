@@ -9,12 +9,14 @@ import { AppConsts } from '@shared/AppConsts';
 import { MapsAPILoader } from '@agm/core';
 import * as _ from 'lodash';
 import * as moment from "moment"; 
+import { LoginService } from "app/account/login/login.service";
 
 declare var google: any;
 
 @Component({
     templateUrl: './post-a-task.component.html',
-    animations: [appModuleAnimation()]
+    animations: [appModuleAnimation()],
+    providers: [LoginService]
 })
 export class PostTaskComponent extends AppComponentBase implements AfterViewInit {
 

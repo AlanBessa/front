@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+.blockOverlay {
+    background-color: #FFCB33 !important;
+    opacity:1 !important;
+}
+
+.blockOverlay::before {
+    content: "";
+    background-image: url("/assets/metronic/worbby/global/img/photo-talents-prelancamento.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.sebm-google-map-container {
+  height: 300px;
+}

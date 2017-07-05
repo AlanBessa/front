@@ -15,8 +15,7 @@ declare var google: any;
 
 @Component({
     templateUrl: './post-a-task.component.html',
-    animations: [appModuleAnimation()],
-    providers: [LoginService]
+    animations: [appModuleAnimation()]
 })
 export class PostTaskComponent extends AppComponentBase implements AfterViewInit {
 

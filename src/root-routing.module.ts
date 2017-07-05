@@ -24,8 +24,8 @@ const routes: Routes = [
     { path: 'trocar-senha', redirectTo: '/conta/trocar-senha', pathMatch: 'full' },
     { path: 'email-activation', redirectTo: '/conta/ativacao-de-email', pathMatch: 'full' },
     { path: 'ativacao-de-email', redirectTo: '/conta/ativacao-de-email', pathMatch: 'full' },
-    { path: 'confirm-email', redirectTo: '/conta/confirmar-email', pathMatch: 'full' },
-    { path: 'confirmar-email', redirectTo: '/conta/confirmar-email', pathMatch: 'full' },
+    { path: 'confirm-email', redirectTo: '/conta/confirmar-email' + location.search, pathMatch: 'full' },
+    { path: 'confirmar-email', redirectTo: '/conta/confirmar-email' + location.search, pathMatch: 'full' },
     {
         path: 'worbbior',
         loadChildren: 'app/worbbior/worbbior.module#WorbbiorModule', //Lazy load worbbior module

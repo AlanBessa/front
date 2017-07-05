@@ -11,8 +11,7 @@ import { AbpSessionService } from '@abp/session/abp-session.service';
 @Component({
     selector: 'loginComponent',
     templateUrl: './login.component.html',
-    animations: [accountModuleAnimation()],
-    providers: [LoginService]
+    animations: [accountModuleAnimation()]
 })
 export class LoginComponent extends AppComponentBase {
 

@@ -326,7 +326,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'find-a-talents/:interestCenterId', redirectTo: 'talentos/:interestCenterId', pathMatch: 'full' },
+                    { path: 'find-a-talents/:interestCenterId', redirectTo: 'talentos/:interestCenterId', pathMatch: 'full' }, 
 
                     {
                       path: 'talentos-t/:filter', component: FindTalentComponent, data: {

@@ -201,7 +201,8 @@ export class EditProfileWorbbiorComponent extends AppComponentBase implements Af
                         this.editMyAvailabilityWorbbior.updateWorbbiorState();
                         this.editMyEndorsementsWorbbior.updateWorbbiorState();
                     }, error => {
-                        let filters = "FALHA | Erros: " + error.error.details;
+
+                        let filters = "FALHA | Erros: " + (error.error == undefined ? "details undefined" : error.error.details);
 
                         this.angulartics2.eventTrack.next({ 
                             action: filters, 

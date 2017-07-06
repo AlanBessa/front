@@ -27,7 +27,7 @@ export class RootComponent extends AppComponentBase implements OnInit {
 
     ngOnInit(): void {
 
-        if (this.appSession.application.features['SignalR']) {
+        if (this.appSession.application.features['SignalR'] && abp.session.userId) {
             SignalRHelper.initSignalR(() => { this._messageSignalrService.init(); });
         }
 

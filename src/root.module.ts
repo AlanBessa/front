@@ -69,10 +69,12 @@ export function appInitializerFactory(injector: Injector) {
                         }
 
                         abp.ui.clearBusy();
+                        $('.blockUI.blockOverlay').remove();
                         resolve(result);
                     },
                     (err) => {
                         abp.ui.clearBusy();
+                        $('.blockUI.blockOverlay').remove();
                         reject(err);
                     }
                 );

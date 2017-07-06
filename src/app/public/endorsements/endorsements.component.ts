@@ -63,7 +63,7 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
     }
 
     ngOnInit() {
-    this.worbbiorPremium = this.appSessionService.worbbiorPremium;
+        this.worbbiorPremium = this.appSessionService.worbbiorPremium;
         if (abp.session.userId) {
             this.isLogged = true;
             if(this.appSession.endorsement){

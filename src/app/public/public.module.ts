@@ -54,7 +54,7 @@ import { ActivityCenterComponent } from "./activity-center/activity-center-page.
 import { SideMenuComponent } from '@app/shared/layout/side-menu.component';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { AgmCoreModule } from '@agm/core';
-import { LoginService } from '@app/account/login/login.service';
+import { LoginService } from "app/account/login/login.service";
 
 @NgModule({
     imports: [

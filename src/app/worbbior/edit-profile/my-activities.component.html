@@ -68,7 +68,7 @@
             <div class="text-center new-activity-body">
                 <img class="m-b-xss" src="/assets/metronic/worbby/global/img/worbbior-descuberta-talentos.png" />
                 <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" (click)="navigateToPage('/worbbior/talent-questionnaire')"
-                    class="btn btn-prime btn-around btn-block txt-small-only-mobile">
+                    class="btn btn-prime btn-around btn-block txt-small-only-mobile txt-small-tablet">
                     <span>Descubra seus talentos</span>
                 </button>
             </div>
@@ -76,7 +76,7 @@
         </div>
         <div *ngIf="(worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit) && (editProfile.editMyPersonalDataWorbbior.active && active && editProfile.editMyDocumentsWorbbior.active && editProfile.editMyAvailabilityWorbbior.active && editProfile.editMyEndorsementsWorbbior.active)" class="card-talents-new">
             <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" (click)="addActivity()"
-                class="btn btn-prime btn-around btn-block txt-small-only-mobile" href="javascript:;">
+                class="btn btn-prime btn-around btn-block txt-small-only-mobile txt-small-tablet" href="javascript:;">
                 <span>Registre uma nova atividade +</span>
             </button>
         </div>

@@ -52,6 +52,14 @@ export class RootComponent extends AppComponentBase implements OnInit {
         abp.event.on("changePasswordModal", () => {
             this.changePassword();
         });
+
+        // We can attach the `fileselect` event to all file inputs on the page
+        $(document).on('change', ':file', function() {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            var fileText = $(this).parents('.input-group').find(':text')
+                fileText.val(label);
+        });
     }
 
     changePassword(): void {

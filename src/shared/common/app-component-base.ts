@@ -24,7 +24,7 @@ export abstract class AppComponentBase {
     multiTenancy: AbpMultiTenancyService;
     appSession: AppSessionService;
     storageService: BinaryObjectServiceProxy;
-    activatedRoute:ActivatedRoute;
+    activatedRoute: ActivatedRoute;
     mediaQuery: string;
 
     constructor(injector: Injector) {
@@ -43,22 +43,22 @@ export abstract class AppComponentBase {
     ngOnInit() {
         let self = this;
         self.setMediaQueries();
-        window.onresize = () =>{
+        window.onresize = () => {
             self.setMediaQueries();
         }
-        
-        if(this.activatedRoute.snapshot.url.join('') == "seja-um-worbbior" || this.activatedRoute.snapshot.url.join('') == "become-a-worbbior"){
+
+        if (this.activatedRoute.snapshot.url.join('') == "seja-um-worbbior" || this.activatedRoute.snapshot.url.join('') == "become-a-worbbior") {
             $('body').attr('class', 'worbbior');
             $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbior-beta.svg');
-        }else{
-            if(this.appSession.userRoleName == "Worbbior"){
+        } else {
+            if (this.appSession.userRoleName == "Worbbior") {
                 $('body').attr('class', 'worbbior');
                 $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbior-beta.svg');
-            }else{
+            } else {
                 $('body').attr('class', 'worbbient');
                 $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbient-beta.svg');
             }
-        }        
+        }
     }
 
     l(key: string, ...args: any[]): string {
@@ -81,12 +81,12 @@ export abstract class AppComponentBase {
     }
 
 
-    getAverage(list:any[], propert:string){
-        if(list.length == 0)
+    getAverage(list: any[], propert: string) {
+        if (list.length == 0)
             return 0;
 
-        var sum:number = 0;
-        var count:number = list.length;
+        var sum: number = 0;
+        var count: number = list.length;
 
         list.forEach(element => {
             sum = sum + Number(element[propert]);
@@ -95,38 +95,43 @@ export abstract class AppComponentBase {
         return Math.round(sum / count);
     }
 
-    distance(lat1, lon1, lat2, lon2):number {
-        var radlat1 = Math.PI * lat1/180
-        var radlat2 = Math.PI * lat2/180
-        var theta = lon1-lon2
-        var radtheta = Math.PI * theta/180
+    distance(lat1, lon1, lat2, lon2): number {
+        var radlat1 = Math.PI * lat1 / 180
+        var radlat2 = Math.PI * lat2 / 180
+        var theta = lon1 - lon2
+        var radtheta = Math.PI * theta / 180
         var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
         dist = Math.acos(dist)
-        dist = dist * 180/Math.PI
+        dist = dist * 180 / Math.PI
         dist = dist * 60 * 1.1515
         dist = dist * 1.609344 * 1000;
         return dist
     }
 
-    getPictureByGuid(guid:string):Promise<string> {
+    getPictureByGuid(guid: string): Promise<string> {
         let self = this;
-        return new Promise<string>((resolve,reject) => {
-            self.storageService.getBase64String(guid).subscribe((result) => {
-                var base64String = "";
-                if(result.base64String != ""){
-                    base64String = "data:image/jpeg;base64,";
-                }
-                resolve(base64String + result.base64String);
-                
-            });  
+        var base64String = "";
+        return new Promise<string>((resolve, reject) => {
+            if (guid != null) {
+                self.storageService.getBase64String(guid).subscribe((result) => {
+                   
+                    if (result.base64String != "") {
+                        base64String = "data:image/jpeg;base64,";
+                    }
+                    resolve(base64String + result.base64String);
+                });
+            }else{
+                 resolve(base64String);
+            }
+
         });
     }
 
-    toNumber(value):number {
+    toNumber(value): number {
         return Number(value);
     }
 
-    isEmpty(value):boolean{
+    isEmpty(value): boolean {
         return (value == null || value === '');
     }
 
@@ -152,68 +157,68 @@ export abstract class AppComponentBase {
             currentTime = 0,
             increment = 20;
 
-        var easeInOutQuad = function(t, b, c, d) {
-            t /= d/2;
-            if (t < 1) return c/2*t*t + b;
+        var easeInOutQuad = function (t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
             t--;
-            return -c/2 * (t*(t-2) - 1) + b;
+            return -c / 2 * (t * (t - 2) - 1) + b;
         }
 
-        var animateScroll = function(){        
+        var animateScroll = function () {
             currentTime += increment;
-            var val = easeInOutQuad(currentTime, start, change, duration);                        
-            window.scrollTo(0,val);
+            var val = easeInOutQuad(currentTime, start, change, duration);
+            window.scrollTo(0, val);
 
-            if(currentTime < duration) {
+            if (currentTime < duration) {
                 setTimeout(animateScroll, increment);
             }
         };
-        
+
         animateScroll();
-    }    
+    }
 
     isImageFile(fileName: string): boolean {
 
         var fileExtension = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName) : undefined;
 
-        var isValid:boolean = false;
+        var isValid: boolean = false;
         switch (fileExtension.toString()) {
             case 'jpeg':
-                isValid =  true
+                isValid = true
                 break;
             case 'png':
-                isValid =  true
+                isValid = true
                 break;
             case 'jpg':
-                isValid =  true
+                isValid = true
                 break;
             default:
         }
         return isValid;
     }
 
-    megByteToBytes(value:number):number{
+    megByteToBytes(value: number): number {
         return value * 1048576;
-    }   
+    }
 
-    setTheme():void{
-        if(this.appSession.userRoleName == "Worbbior"){
+    setTheme(): void {
+        if (this.appSession.userRoleName == "Worbbior") {
             $('body').attr('class', 'worbbior');
             $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbior-beta.svg');
-        }else{
+        } else {
             $('body').attr('class', 'worbbient');
             $('.logo-topo').attr('src', '/assets/metronic/worbby/global/img/logo-worbbient-beta.svg');
         }
     }
 
-    setMediaQueries(){
-        if(window.innerWidth < 768){
+    setMediaQueries() {
+        if (window.innerWidth < 768) {
             this.mediaQuery = "xs";
-        }else if(window.innerWidth >= 768 && window.screen.width < 992){
+        } else if (window.innerWidth >= 768 && window.screen.width < 992) {
             this.mediaQuery = "sm";
-        }else if(window.innerWidth >= 992 && window.screen.width < 1200){
+        } else if (window.innerWidth >= 992 && window.screen.width < 1200) {
             this.mediaQuery = "md";
-        }else if(window.innerWidth >= 1200){
+        } else if (window.innerWidth >= 1200) {
             this.mediaQuery = "lg";
         }
     }

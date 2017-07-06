@@ -174,28 +174,28 @@
                             </div>
                             <div class="col-xs-3">
                                 <button *ngIf="!personalDataTabActive"
-                                    type="button" class="btn btn-around btn-prime-inverted btn-block" (click)="backTab()">
+                                    type="button" class="btn btn-around btn-prime-inverted btn-block txt-small-only-mobile txt-small-tablet" (click)="backTab()">
                                     <i class="fa fa-chevron-left p-y-xxxs visible-xs"></i>
-                                    <span class="hidden-xs">{{l("Back")}}</span>
+                                    <span class="hidden-xs">{{l("Back")}}</span> 
                                 </button>
                             </div>
                             <div class="col-xs-6">
                                 <button *ngIf="(worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit) && (editMyPersonalDataWorbbior.active && editMyActivitiesWorbbior.active && editMyDocumentsWorbbior.active && editMyAvailabilityWorbbior.active && editMyEndorsementsWorbbior.active)"
-                                    type="button" class="btn btn-around btn-secondary btn-block" (click)="saveProfile()" [buttonBusy]="saving"
+                                    type="button" class="btn btn-around btn-secondary btn-block txt-small-only-mobile txt-small-tablet" (click)="saveProfile()" [buttonBusy]="saving"
                                     [busyText]="l('SavingWithThreeDot')">
                                     <span>{{l("Save")}}</span>
                                 </button>
                             </div>
                             <div class="col-xs-3">
                                 <button *ngIf="!documentTabActive"
-                                    type="button" class="btn btn-around btn-prime-inverted btn-block" (click)="nextTab()">
+                                    type="button" class="btn btn-around btn-prime-inverted btn-block txt-small-only-mobile txt-small-tablet" (click)="nextTab()">
                                     <i class="fa fa-chevron-right p-y-xxxs visible-xs"></i>
                                     <span class="hidden-xs">{{l("Next")}}</span>
                                 </button>
                             </div>
                             <div class="col-xs-12 m-y-sm">
                                 <button *ngIf="(worbbiorState == WorbbiorState.PreRegistration || worbbiorState == WorbbiorState.WaitingEdit) && (editMyPersonalDataWorbbior.active && editMyActivitiesWorbbior.active && editMyDocumentsWorbbior.active && editMyAvailabilityWorbbior.active && editMyEndorsementsWorbbior.active)"
-                                    type="button" class="btn btn-around btn-prime btn-block txt-small-only-mobile" (click)="requestActivation()"
+                                    type="button" class="btn btn-around btn-prime btn-block txt-small-only-mobile txt-small-tablet" (click)="requestActivation()"
                                     [buttonBusy]="saving" [busyText]="l('SendWithThreeDot')">
                                     <span>{{l("RequestActivation")}}</span>
                                 </button>

@@ -65,7 +65,7 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
 
     removeActivity(activityUser: UserActivityInput): void {
         this.message.confirm(
-            this.l('AreYouSureToRemoveTheActivity'), activityUser.title,
+            'Tem certeza que quer excluir a atividade?', activityUser.title,
             isConfirmed => {
                 if (isConfirmed) {
                     this._activitiesService.removeActivityToUser(activityUser.id).subscribe(() => {
@@ -102,7 +102,7 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
         var activityUserTemp = new UserActivityInput(activityUser.toJSON());
         if (activityUserTemp.activityState == Number(ActivityState.Active)) {
             activityUserTemp.activityState = Number(ActivityState.InactiveByWorbbior);
-            text = "Deseja desativar essa atividade?"; 
+            text = "Deseja desativar essa atividade? Você pode reativar essa atividade a qualquer momento."; 
         } else {
             activityUserTemp.activityState = Number(ActivityState.Active);
             text = "Deseja ativar essa atividade?"

@@ -37,16 +37,14 @@ export class RootComponent extends AppComponentBase implements OnInit {
 
         if(abp.session.userId){
             this.isAuthenticated = true
-            if(this.appSession.userRoleName == "Worbbient"){
-                this.router.navigate(['/']);
-            }else if(this.appSession.userRoleName == "Worbbior"){
+            if(this.appSession.userRoleName == "Worbbior"){
                 if(this.appSession.worbbiorState != WorbbiorState.Active){
-                    this.router.navigate(['/worbbior/edit-profile']);
-                }else{
-                    this.router.navigate(['/']);
+                    var initialUrl = decodeURIComponent(location.href);
+                    if (!(initialUrl.indexOf('/endorsement') > 0) &&
+                    !(initialUrl.indexOf('/endosso') > 0)) {
+                        this.router.navigate(['/worbbior/edit-profile']);
+                    }                    
                 }
-            }else{
-                this.router.navigate(['/']);
             }
         }
 

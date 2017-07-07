@@ -119,7 +119,6 @@ export class AppSessionService {
         this._endorsement = value;
     }
 
-
     get userRoleName(): string {
         return this._currentRoleName;
     }

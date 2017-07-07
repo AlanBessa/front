@@ -21,6 +21,7 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
     public interestCenters: InterestCenterDto[] = [];
     public filter:string;
     public imagemBanner: string = "";
+    public isPublic: boolean = false; 
 
     constructor(
         injector: Injector,
@@ -39,6 +40,8 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
     } 
 
     ngOnInit() {
+        this.isPublic = this.appSession.userId == null;
+
         this.buildIframe();
         if(this.activatedRoute.snapshot.url.join('') == "seja-um-worbbior" || this.activatedRoute.snapshot.url.join('') == "become-a-worbbior"){
             $('body').attr('class', 'worbbior');

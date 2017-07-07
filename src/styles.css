@@ -19,3 +19,9 @@
 .sebm-google-map-container {
   height: 300px;
 }
+
+@media (max-width: 480px) {
+    .blockOverlay::before {
+        background-image: url("/assets/metronic/worbby/global/img/pagina-espera-prelancamento-S.png") !important;
+    }
+}

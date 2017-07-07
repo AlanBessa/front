@@ -40,6 +40,9 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
 
     chatConnected = false;
 
+    public isWorbbior: boolean = false;
+    public isMobile: boolean = false;
+
     constructor(
         injector: Injector,
         public appSessionService: AppSessionService,
@@ -66,6 +69,9 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         this.getProfilePicture();
 
         this.registerToEvents();
+
+        this.isWorbbior = this.appSession.userRoleName == "Worbbior";
+        this.isMobile = window.screen.width < 768;
     }
 
     changeLanguage(languageName: string): void {

@@ -273,6 +273,7 @@ export class LoginService {
             model.roleName = self.roleName;
             model.administrativeArea = self.administrativeArea;
             model.worbbiorRegisterCode = self.worbbiorRegisterCode;
+            model.returnUrl = UrlHelper.getReturnUrl();
 
             this._tokenAuthService.externalAuthenticate(model)
                 .finally(() => { 
@@ -361,7 +362,7 @@ export class LoginService {
             model.roleName = self.roleName;
             model.administrativeArea = self.administrativeArea;
             model.worbbiorRegisterCode = self.worbbiorRegisterCode;
-
+            model.returnUrl = UrlHelper.getReturnUrl();
             
 
             self._tokenAuthService.externalAuthenticate(model)

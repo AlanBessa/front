@@ -942,7 +942,7 @@ a.invert{
 }
 
 .toast-top-full-width {
-    top: 133px !important;
+    top: 125px !important;
     right: 0;
     left: 0;
     width: 100% !important;
@@ -3800,7 +3800,7 @@ recaptcha {
 
     @media (min-width: 1011px) and (max-width: 1036px) {
         .toast-top-full-width {
-            top: 162px !important;
+            top: 153px !important;
         }
     }
 
@@ -3814,7 +3814,7 @@ recaptcha {
         }
 
         .toast-top-full-width {
-            top: 134px !important;
+            top: 125px !important;
         }
     }
 
@@ -3909,7 +3909,7 @@ recaptcha {
         }
 
         .toast-top-full-width {
-            top: 134px !important;
+            top: 125px !important;
         }
     }
 
@@ -3927,7 +3927,7 @@ recaptcha {
 
     @media (min-width: 849px) and (max-width: 861px) {
         .toast-top-full-width {
-            top: 134px !important;
+            top: 125px !important;
         }
 
         .width-sm-210px {
@@ -3965,16 +3965,12 @@ recaptcha {
             text-align: left;
         }
 
-        .toast-top-full-width {
-            top: 161px !important;
-        }
-
         .width-sm-210px {
             width: 210px !important; 
         }
 
         .toast-top-full-width {
-            top: 134px !important;
+            top: 125px !important;
         }
     }
 

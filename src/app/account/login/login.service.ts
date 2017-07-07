@@ -313,7 +313,7 @@ export class LoginService {
                                     });
                                 } 
 
-                                self.login(result.accessToken, result.expireInSeconds);                                
+                                self.login(result.accessToken, result.encryptedAccessToken, result.expireInSeconds, false, '', result.returnUrl);                                
                             }
                         );
                     }else{
@@ -321,7 +321,7 @@ export class LoginService {
                             function(response) {
                                 self.angulartics2.eventTrack.next({ action: "Facebook", properties: { category: 'Login', label: response.email }});
 
-                                self.login(result.accessToken, result.expireInSeconds); 
+                                self.login(result.accessToken, result.encryptedAccessToken, result.expireInSeconds, false, '', result.returnUrl); 
                             }
                         );                        
                     }
@@ -403,7 +403,7 @@ export class LoginService {
 
                     self.angulartics2.eventTrack.next({ action: "Google", properties: { category: 'Login', label: userEmail }});
 
-                    self.login(result.accessToken, result.expireInSeconds);
+                    self.login(result.accessToken, result.encryptedAccessToken, result.expireInSeconds, false, '', result.returnUrl);
                 }, (error) => { 
                     var userEmail = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
                     if(model.roleName != null) {                         

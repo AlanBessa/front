@@ -5,7 +5,17 @@ import { AccountServiceProxy, ActivateEmailInput } from '@shared/service-proxies
 import { AppSessionService } from '@shared/common/session/app-session.service';
 
 @Component({
-    template: `<p>{{waitMessage}}</p>`
+    template: `
+    <div [@routerTransition]>
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+        <div class="container">
+            <div class="row m-b-lg m-t-lg">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+                    <p>{{waitMessage}}</p>
+                </div>
+            </div>
+        </div>
+    </div>`
 })
 export class ConfirmEmailComponent extends AppComponentBase implements OnInit {
 
@@ -57,6 +67,8 @@ export class ConfirmEmailComponent extends AppComponentBase implements OnInit {
                 }else{
                     this._router.navigate(['/login']);
                 }
+            }, (error) => {
+                this._router.navigate(['/conta/ativacao-de-email']);
             });
     }
 

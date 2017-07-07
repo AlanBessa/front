@@ -2,7 +2,7 @@
   aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form *ngIf="active" #userActivityForm="ngForm" novalidate (ngSubmit)="save()">
+      <form *ngIf="active" #userActivityForm="ngForm" novalidate>
         <div class="modal-header">
           <div class="row">
             <div class="col-xs-12 select-activity-form">
@@ -149,8 +149,8 @@
               </button>
             </div>
             <div class="col-xs-12 col-md-4 col-md-offset-4">
-              <button type="submit" class="btn btn-secondary btn-around btn-block m-b-xxs" [disabled]="!userActivityForm.form.valid || worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+              <button type="button" class="btn btn-secondary btn-around btn-block m-b-xxs" [disabled]="!userActivityForm.form.valid || worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" (click)="save()">
                 <span>{{l("Save")}}</span>
               </button>
             </div>

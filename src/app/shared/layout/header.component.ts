@@ -31,6 +31,8 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
 
     chatConnected = false;
 
+    public isMobile: boolean = false;
+
     constructor(
         injector: Injector,
         public appSessionService: AppSessionService,
@@ -45,7 +47,7 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
 
 
     ngOnInit() {
-
+        this.isMobile = window.screen.width < 768;
         this.languages = this.localization.languages;
         this.currentLanguage = this.localization.currentLanguage;
     }

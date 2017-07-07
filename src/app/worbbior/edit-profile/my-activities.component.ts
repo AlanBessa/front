@@ -56,7 +56,7 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
     }
 
     updateActivity(activityUser: UserActivityInput): void {
-        this.createOrEditUserActivityModal.show(new UserActivityInput(activityUser.toJSON()));
+        this.createOrEditUserActivityModal.show(new UserActivityInput(activityUser));
     }
 
     updateWorbbiorState(): void {

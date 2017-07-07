@@ -252,7 +252,7 @@
     border-radius: 4px;	
     font-size: 18px;
     color: #ffffff;
-    padding: 11px 16px 12px !important;
+    padding: 7px 16px !important;
 }
 
 .btn-prime-inverted {
@@ -4347,7 +4347,8 @@ recaptcha {
 
         /*How does it work - Home*/
         .destaque.col-item img {
-            width: 30px;
+            width: 40px;
+            height: auto;
             margin-bottom: 0;
         }
 

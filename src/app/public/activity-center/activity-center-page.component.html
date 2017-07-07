@@ -11,14 +11,14 @@
                         <h1>{{interestCenter.displayName}}</h1>
                         <p>{{interestCenter.description}}</p>
                         <a (click)="goTo('torneWorbbior')" class="cursor-pointer">
-                            Junte à nossa comunidade de {{interestCenter.displayName}}
+                            Junte-se à nossa comunidade de {{interestCenter.displayName}}
                             <i class="fa fa-angle-double-right"></i> 
                         </a>
                     </div>                    
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="sub-activities-box" [ngClass]="{'open': isOpenedSubActivities}">
-                        <h5>Nossos talentos de {{interestCenter.displayName}} podem ajudar você com:</h5>
+                        <h5>Nossos talentos de <i>{{interestCenter.displayName}}</i> podem ajudar você com:</h5>
                         <ul class="list-inline">
                             <li class="list-inline-item" *ngFor="let subActivities of subActivitiesList">
                                 <a (click)="navigateToFindATalent(interestCenter.id, subActivities.id)" class="cursor-pointer">{{subActivities.displayName}}</a>
@@ -38,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12" [ngClass]="{'col-md-8': hasSpecialPartner, 'col-md-12': !hasSpecialPartner}"> 
-                    <h3 class="m-b-20px display-inline-block">Conheça nossos melhores talentos de {{interestCenter.displayName}}</h3>                   
+                    <h3 class="m-b-20px display-inline-block">Conheça nossos melhores talentos de <i>{{interestCenter.displayName}}</i></h3>                   
                     <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregado">                        
                         <div *ngFor="let worbbiorActivity of worbbiorTopTalentList; let i = index" [attr.data-index]="i">                        
                             <div *ngIf="i % 3 == 0 && (i < 6 || !hasSpecialPartner)" class="col-xs-12" [ngClass]="{'col-md-6': hasSpecialPartner, 'col-md-4': !hasSpecialPartner}">

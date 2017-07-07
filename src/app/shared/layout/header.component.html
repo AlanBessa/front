@@ -122,7 +122,7 @@
                                 <a class="close-nav" routerLink="/find-a-tasks">Tarefas postadas</a>
                             </li>
                             <li class="nav-btn">
-                                <a id="PostTaskMobile" class="close-nav btn btn-prime btn-around m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" routerLink="/post-a-task">
+                                <a id="PostTaskMobile" class="close-nav btn btn-prime btn-around m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime-inverted': isMobile, 'btn-prime': !isMobile }" routerLink="/post-a-task">
                                     {{l("PostATask")}}
                                     <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
                                     <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">

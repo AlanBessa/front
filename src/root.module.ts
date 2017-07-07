@@ -57,16 +57,44 @@ export function appInitializerFactory(injector: Injector) {
                     (result) => {
 
                         //Css classes based on the layout
-                        if (abp.session.userId) {
-                            $('body').attr('class', 'page-md page-header-fixed page-sidebar-closed-hide-logo');
-                        } else {
-                            $('body').attr('class', 'page-md login');
-                        }
+                        // if (abp.session.userId) {
+                        //     $('body').attr('class', 'page-md page-header-fixed page-sidebar-closed-hide-logo');
+                        // } else {
+                        //     $('body').attr('class', 'page-md login');
+                        // }
 
                         //tenant specific custom css
-                        if (appSessionService.tenant && appSessionService.tenant.customCssId) {
-                            $('head').append('<link id="TenantCustomCss" href="' + AppConsts.remoteServiceBaseUrl + '/TenantCustomization/GetCustomCss?id=' + appSessionService.tenant.customCssId + '" rel="stylesheet"/>');
-                        }
+                        // if (appSessionService.tenant && appSessionService.tenant.customCssId) {
+                        //     $('head').append('<link id="TenantCustomCss" href="' + AppConsts.remoteServiceBaseUrl + '/TenantCustomization/GetCustomCss?id=' + appSessionService.tenant.customCssId + '" rel="stylesheet"/>');
+                        // }
+
+                        var facebookScript = '<!-- Facebook Pixel Code -->' + 
+                        '<script>' + 
+                        '(function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?' + 
+                        'n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;' + 
+                        'n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;' + 
+                        't.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)})(window,' + 
+                        'document,"script","https://connect.facebook.net/en_US/fbevents.js");' + 
+                        'fbq("init", "' + AppConsts.facebookPixelId + '");' + 
+                        'fbq("track", "PageView");' + 
+                        '</script>' + 
+                        '<noscript><img height="1" width="1" style="display:none"' + 
+                        'src="https://www.facebook.com/tr?id=818536918315191&ev=PageView&noscript=1"' + 
+                        '/></noscript>' + 
+                        '<!-- DO NOT MODIFY -->' + 
+                        '<!-- End Facebook Pixel Code -->';
+
+                        $('head').append(facebookScript);
+
+                        var googleAnalyticsScript = "<script>" +
+                        "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){" +
+                        "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o)," +
+                        "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)" +
+                        "})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');" +
+                        "ga('create', '" + AppConsts.googleAnalyticsId + "', 'auto');" +
+                        "</script>"; 
+
+                        $('head').append(googleAnalyticsScript);
 
                         abp.ui.clearBusy();
                         $('.blockUI.blockOverlay').remove();

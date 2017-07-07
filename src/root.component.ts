@@ -5,6 +5,8 @@ import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-
 import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNotificationHelper';
 import { SignalRHelper } from 'shared/helpers/SignalRHelper';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service'
+import { Router } from '@angular/router';
+import { WorbbiorState } from '@shared/AppEnums';
 
 @Component({
     selector: 'app-root',
@@ -17,11 +19,13 @@ export class RootComponent extends AppComponentBase implements OnInit {
     @ViewChild('notificationSettingsModal') notificationSettingsModal: NotificationSettingsModalCompoent;
 
     public isAuthenticated:boolean = false;
+    public WorbbiorState: typeof WorbbiorState = WorbbiorState;
 
     public constructor(
         injector: Injector,
         private _userNotificationHelper: UserNotificationHelper,
-        private _messageSignalrService: MessageSignalrService) {
+        private _messageSignalrService: MessageSignalrService,
+        private router: Router) {
         super(injector);
     }
 
@@ -33,6 +37,17 @@ export class RootComponent extends AppComponentBase implements OnInit {
 
         if(abp.session.userId){
             this.isAuthenticated = true
+            if(this.appSession.userRoleName == "Worbbient"){
+                this.router.navigate(['/']);
+            }else if(this.appSession.userRoleName == "Worbbior"){
+                if(this.appSession.worbbiorState != WorbbiorState.Active){
+                    this.router.navigate(['/worbbior/edit-profile']);
+                }else{
+                    this.router.navigate(['/']);
+                }
+            }else{
+                this.router.navigate(['/']);
+            }
         }
 
         this._userNotificationHelper.settingsModal = this.notificationSettingsModal;

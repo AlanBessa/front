@@ -58,7 +58,7 @@ export class MenuComponent extends AppComponentBase implements OnInit {
         new UserMenuItem("PaymentsHistory", "Pages.Worbbior.PaymentsHistory", "Worbbior", "", "/worbbior/payments-history"),
         new UserMenuItem("Messages", "Pages.Worbbior.Messages", "Worbbior", "", "/worbbior/messages"),
         new UserMenuItem("EditProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/edit-profile"),
-        new UserMenuItem("DiscoverYourTalents", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/talent-questionnaire"),
+        //new UserMenuItem("DiscoverYourTalents", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/talent-questionnaire"),
         new UserMenuItem("ViewProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/page/", this.appSessionService.worbbiorSlug ? this.appSessionService.worbbiorSlug : ""),
     ]);
     

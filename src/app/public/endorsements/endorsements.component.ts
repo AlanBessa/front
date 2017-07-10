@@ -171,15 +171,15 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
 
             this.active = true;
 
-            console.log(">>>>>>>>>>>");
-            console.log("isLogged:" + this.isLogged);
-            console.log("register:" + this.register);
-            console.log("active:" + this.active);
-            console.log("saving:" + this.saving);
-            console.log("notFound:" + this.notFound);
-            console.log("yourself:" + this.yourself);
-            console.log("notCurrentUser:" + this.notCurrentUser);
-            console.log("otherEndorsementExists:" + this.otherEndorsementExists);
+            // console.log(">>>>>>>>>>>");
+            // console.log("isLogged:" + this.isLogged);
+            // console.log("register:" + this.register);
+            // console.log("active:" + this.active);
+            // console.log("saving:" + this.saving);
+            // console.log("notFound:" + this.notFound);
+            // console.log("yourself:" + this.yourself);
+            // console.log("notCurrentUser:" + this.notCurrentUser);
+            // console.log("otherEndorsementExists:" + this.otherEndorsementExists);
 
 
         });

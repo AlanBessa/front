@@ -46,7 +46,6 @@ import { PostTaskComponent } from './post-a-task/post-a-task.component';
 import { EndorsementSelectActivityComponent } from './endorsements/endorsement-select-activity.component';
 import { EndorsementSuccessComponent } from './endorsements/endorsement-success.component';
 import { WorbbyTaskComponent } from './worbby-task/worbby-task.component';
-import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { SendOfferModalComponent } from './worbby-task/send-offer-modal.component';
 import { HomeReleaseModalComponent } from './home/home-release-modal.component';
 import { SlickSliderComponent } from 'shared/slick-slider.component';
@@ -106,7 +105,6 @@ import { LoginService } from "app/account/login/login.service";
         EndorsementSelectActivityComponent,
         EndorsementSuccessComponent,
         WorbbyTaskComponent,
-        ComingSoonComponent,
         ActivityCenterComponent,
         HomeReleaseModalComponent,
         SideMenuComponent

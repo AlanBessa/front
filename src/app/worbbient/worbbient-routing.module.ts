@@ -22,48 +22,48 @@ import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-paym
                 path: '',
                 children: [
                     //Versão Completa
-                    // { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },
-                    // //{ path: 'messages', component: MessagesWorbbientComponent, data: { permission: 'Pages.Worbbient.Messages' } },
-                    // { path: 'my-worbby', component: MyWorbbyWorbbientComponent, data: { permission: 'Pages.Worbbient.MyWorbby' } },
-                    // { path: 'payments-history', component: PaymentsHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
-                    // { path: 'tasks-history', component: TasksHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.TasksHistory' } },
-                    // { path: 'worbby-task-offers/:worbbyTaskId', component: WorbbientTaskOffersComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
-                    // { path: 'worbby-task-offer/:worbbyOfferId', component: WorbbientTaskOfferComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
-                    // { path: 'worbby-task-details/:worbbyTaskId', component: WorbbientTaskDetailsComponent, data: { } },
-                    // { path: 'evaluate-worbbior/:worbbyTaskId', component: EvaluateWorbbiorComponent, data: { } },
-                    // { path: 'worbby-task-submit-payment/:worbbyTaskId', component: WorbbientTaskSubmitPaymentComponent, data: { } },
-                    // { path: 'worbby-task-payment/:worbbyTaskId', component: WorbbientTaskPaymentComponent, data: { } },
-                    // { path: 'post-a-task-edit/:worbbyTaskId', redirectTo: 'editar-tarefa-postada', pathMatch: 'full' },
-                    // {
-                    //     path: 'editar-tarefa-postada/:worbbyTaskId', component: WorbbientEditWorbbyTaskComponent, data: {
-                    //         meta: {
-                    //             title: '',
-                    //             description: ''
-                    //         }
-                    //     }
-                    // }
-
-                    //Versão limitada
                     { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },
                     //{ path: 'messages', component: MessagesWorbbientComponent, data: { permission: 'Pages.Worbbient.Messages' } },
-                    { path: 'my-worbby', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.MyWorbby' } },
-                    { path: 'payments-history', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
-                    { path: 'tasks-history', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.TasksHistory' } },
-                    { path: 'worbby-task-offers/:worbbyTaskId', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
-                    { path: 'worbby-task-offer/:worbbyOfferId', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
-                    { path: 'worbby-task-details/:worbbyTaskId', component: ComingSoonComponent, data: { } },
-                    { path: 'evaluate-worbbior/:worbbyTaskId', component: ComingSoonComponent, data: { } },
-                    { path: 'worbby-task-submit-payment/:worbbyTaskId', component: ComingSoonComponent, data: { } },
-                    { path: 'worbby-task-payment/:worbbyTaskId', component: ComingSoonComponent, data: { } },
+                    { path: 'my-worbby', component: MyWorbbyWorbbientComponent, data: { permission: 'Pages.Worbbient.MyWorbby' } },
+                    { path: 'payments-history', component: PaymentsHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
+                    { path: 'tasks-history', component: TasksHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.TasksHistory' } },
+                    { path: 'worbby-task-offers/:worbbyTaskId', component: WorbbientTaskOffersComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
+                    { path: 'worbby-task-offer/:worbbyOfferId', component: WorbbientTaskOfferComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
+                    { path: 'worbby-task-details/:worbbyTaskId', component: WorbbientTaskDetailsComponent, data: { } },
+                    { path: 'evaluate-worbbior/:worbbyTaskId', component: EvaluateWorbbiorComponent, data: { } },
+                    { path: 'worbby-task-submit-payment/:worbbyTaskId', component: WorbbientTaskSubmitPaymentComponent, data: { } },
+                    { path: 'worbby-task-payment/:worbbyTaskId', component: WorbbientTaskPaymentComponent, data: { } },
                     { path: 'post-a-task-edit/:worbbyTaskId', redirectTo: 'editar-tarefa-postada', pathMatch: 'full' },
                     {
-                        path: 'editar-tarefa-postada/:worbbyTaskId', component: ComingSoonComponent, data: {
+                        path: 'editar-tarefa-postada/:worbbyTaskId', component: WorbbientEditWorbbyTaskComponent, data: {
                             meta: {
                                 title: '',
                                 description: ''
                             }
                         }
                     }
+
+                    //Versão limitada
+                    // { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },
+                    // //{ path: 'messages', component: MessagesWorbbientComponent, data: { permission: 'Pages.Worbbient.Messages' } },
+                    // { path: 'my-worbby', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.MyWorbby' } },
+                    // { path: 'payments-history', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
+                    // { path: 'tasks-history', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.TasksHistory' } },
+                    // { path: 'worbby-task-offers/:worbbyTaskId', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
+                    // { path: 'worbby-task-offer/:worbbyOfferId', component: ComingSoonComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
+                    // { path: 'worbby-task-details/:worbbyTaskId', component: ComingSoonComponent, data: { } },
+                    // { path: 'evaluate-worbbior/:worbbyTaskId', component: ComingSoonComponent, data: { } },
+                    // { path: 'worbby-task-submit-payment/:worbbyTaskId', component: ComingSoonComponent, data: { } },
+                    // { path: 'worbby-task-payment/:worbbyTaskId', component: ComingSoonComponent, data: { } },
+                    // { path: 'post-a-task-edit/:worbbyTaskId', redirectTo: 'editar-tarefa-postada', pathMatch: 'full' },
+                    // {
+                    //     path: 'editar-tarefa-postada/:worbbyTaskId', component: ComingSoonComponent, data: {
+                    //         meta: {
+                    //             title: '',
+                    //             description: ''
+                    //         }
+                    //     }
+                    // }
                     
                 ]
             }

@@ -210,7 +210,7 @@ import { PublicComponent } from './public.component';
                     },
                     { path: 'insurance', redirectTo: 'seguro', pathMatch: 'full' },
                     {
-                      path: 'postar-tarefa', component: ComingSoonComponent, data: {
+                      path: 'postar-tarefa', component: PostTaskComponent, data: {
                         meta: {
                           title: 'Precisa de ajuda em uma tarefa? Encontre um talento |WORBBY',
                           description: 'Poste qual tarefa você precisa realizar e receba ofertas da nossa comunidade de talentos. São pessoas habilidosas em diversas áreas prontas para te ajudar.',
@@ -228,7 +228,7 @@ import { PublicComponent } from './public.component';
 
                     { path: 'post-a-task/:activityUserId', redirectTo: 'postar-tarefa', pathMatch: 'full' },
                     {
-                      path: 'postar-tarefa/:activityUserId', component: ComingSoonComponent, data: {
+                      path: 'postar-tarefa/:activityUserId', component: PostTaskComponent, data: {
                         meta: {
                           title: 'Precisa de ajuda em uma tarefa? Encontre um talento |WORBBY',
                           description: 'Poste qual tarefa você precisa realizar e receba ofertas da nossa comunidade de talentos. São pessoas habilidosas em diversas áreas prontas para te ajudar.',
@@ -243,7 +243,7 @@ import { PublicComponent } from './public.component';
                       }
                     },
                     {
-                      path: 'worbby-task/:worbbyTaskId', component: ComingSoonComponent, data: {
+                      path: 'worbby-task/:worbbyTaskId', component: WorbbyTaskComponent, data: {
                         meta: {
                           title: 'Worbby',
                           description: ''

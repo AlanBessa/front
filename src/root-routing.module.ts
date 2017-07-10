@@ -1,6 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router, NavigationEnd } from '@angular/router';
 import { RootComponent } from './root.component';
+import { MetaModule } from '@nglibs/meta';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 const routes: Routes = [
     {
@@ -40,10 +42,12 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
+        MetaModule.forRoot(),
         RouterModule.forRoot(
             routes,
             { enableTracing: false } // <-- debugging purposes only
-        )
+        ),
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
     ],
     exports: [RouterModule],
     providers: []

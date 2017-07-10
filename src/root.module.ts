@@ -162,7 +162,8 @@ function handleLogoutRequest(authService: AppAuthService) {
         ChangePasswordModalComponent,
         NotificationSettingsModalCompoent,
         HeaderNotificationsComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        Angulartics2Module
     ],
     providers: [
         MessageSignalrService,

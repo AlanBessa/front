@@ -7,6 +7,7 @@ import { SignalRHelper } from 'shared/helpers/SignalRHelper';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service'
 import { Router } from '@angular/router';
 import { WorbbiorState } from '@shared/AppEnums';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
     selector: 'app-root',
@@ -25,6 +26,7 @@ export class RootComponent extends AppComponentBase implements OnInit {
         injector: Injector,
         private _userNotificationHelper: UserNotificationHelper,
         private _messageSignalrService: MessageSignalrService,
+        angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
         private router: Router) {
         super(injector);
     }

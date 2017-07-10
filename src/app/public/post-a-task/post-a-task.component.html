@@ -355,17 +355,17 @@
                                             <div class="form-group no-hint">                                    
                                                 <div class="col-xs-12 no-pad-x">
                                                     <label class="control-label">Data <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
-                                                    <button type="button" class="btn btn-block btn-secondary btn-check" [ngClass]="{'active' : worbbyTask.scheduleDateType == 1}" (click)="scheduleDateWhenPossibleChange()">Quando possível</button>
+                                                    <button type="button" class="btn btn-block btn-secondary btn-check" [ngClass]="{'active' : worbbyTask?.scheduleDateType == 1}" (click)="scheduleDateWhenPossibleChange()">Quando possível</button>
                                                 </div>
                                                 <div class="col-xs-12 text-center">
                                                     <div class="divOu">- ou -</div>
                                                 </div>
                                                 <div class="col-xs-12 no-pad-x">
-                                                    <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : worbbyTask.scheduleDateType == 2}" (click)="scheduleDateFixeChange()">
+                                                    <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : worbbyTask?.scheduleDateType == 2}" (click)="scheduleDateFixeChange()">
                                                         <i class="fa fa-calendar-o"></i>
                                                         {{scheduleDateDisplay}}
                                                     </button>
-                                                    <datepicker [showWeeks]="false" class="datepicker-custom" *ngIf="worbbyTask.scheduleDateType == 2 && showDataPicker" name="ScheduleDate" [(ngModel)]="worbbyTask.scheduledDate" (selectionDone)="scheduleDateDone($event)"></datepicker>
+                                                    <datepicker [showWeeks]="false" class="datepicker-custom" *ngIf="worbbyTask?.scheduleDateType == 2 && showDataPicker" name="ScheduleDate" [(ngModel)]="worbbyTask.scheduledDate" (selectionDone)="scheduleDateDone($event)"></datepicker>
                                                 </div>
                                             </div>
                                         </div>

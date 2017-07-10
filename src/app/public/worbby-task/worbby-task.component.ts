@@ -45,16 +45,6 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
 
             this.scheduleDateDisplay = moment(result.creationTime).format('L');
 
-            this.getPictureByGuid(this.worbbyTask.interestCenter.parentPictureId).then((result) => {
-                this.worbbyTask.interestCenter.parentPicture = result;
-            });
-
-            this.worbbyTask.interestCenter.parentPicture
-
-            this.worbbyTask.address
-            this.worbbyTask.interestCenter.parentDisplayName
-            this.worbbyTask.interestCenter.parentPicture
-
             this.active = true;
         });
 

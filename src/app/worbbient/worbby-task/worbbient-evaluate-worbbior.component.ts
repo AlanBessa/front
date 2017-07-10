@@ -77,8 +77,9 @@ export class EvaluateWorbbiorComponent extends AppComponentBase implements After
         this.evaluation.userActivityId = this.worbbyTask.activityUserId;
         this._evaluationService.createEvaluation(this.evaluation)
         .finally(() => { this.saving = false; })
-        .subscribe((result) => {  
-            this._router.navigate(['/worbbient/worbby-task-submit-payment', this.worbbyTask.id]);
+        .subscribe((result) => {
+            //TODO: Alan - Implementar mensagem sucesso customizada
+            this._router.navigate(['/worbbient/meu-worbby']);
         });
     }
 

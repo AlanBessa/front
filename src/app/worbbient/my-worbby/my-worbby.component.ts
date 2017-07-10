@@ -206,10 +206,6 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
                     this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {
                         element.worbbior.userPicture = result;
                     });
-                } else {
-                    this.getPictureByGuid(element.interestCenter.parentPictureId).then((result) => {
-                        element.interestCenter.parentPicture = result;
-                    });
                 }
             });
         });
@@ -218,11 +214,6 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
     getPublicWorbbyTasks(): void {
         this._worbbyTaskService.getPublicWorbbyTasksPostedByUserId(abp.session.userId).subscribe(result => {
             this.publicWorbbyTasks = result.items;
-            this.publicWorbbyTasks.forEach(element => {
-                this.getPictureByGuid(element.interestCenter.parentPictureId).then((result) => {
-                    element.interestCenter.parentPicture = result;
-                });
-            });
         });
     }
 

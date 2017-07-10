@@ -91,7 +91,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
 
         this.activityUserId = this._activatedRoute.snapshot.params['activityUserId'];
 
-        this.worbbyTask.scheduleDateType = Number(ScheduleDateType.WhenPossible);
+        //this.worbbyTask.scheduleDateType = Number(ScheduleDateType.WhenPossible);
 
         var unitMeasureOptions = Object.keys(UnitMeasure);
         this.unitMeasureOptions = unitMeasureOptions.slice(unitMeasureOptions.length / 2);
@@ -199,9 +199,16 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.showDataPicker = true;        
     }
 
-    scheduleDateDone(event):void {
-        this.scheduleDateDisplay = moment(event).format('L');
-        this.showDataPicker = false;
+    scheduleDateDone(date):void {
+        var currentDate = new Date();
+        currentDate.setHours(0,0,0,0)
+        //console.log(event);
+        if(date < currentDate){
+            this.message.error("Selecione um data igual ou posterior a data atual.", "Data inválida!")
+        }else{
+            this.scheduleDateDisplay = moment(date).format('L');
+            this.showDataPicker = false;
+        }
     }
 
     showStep1():void{

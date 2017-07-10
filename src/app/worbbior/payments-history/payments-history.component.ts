@@ -86,7 +86,7 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         new UserMenuItem("TasksHistory", "Pages.Worbbior.TasksHistory", "Worbbior", "", "/worbbior/tasks-history"),
         new UserMenuItem("EditProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/edit-profile"),
         new UserMenuItem("Messages", "Pages.Worbbior.Messages", "Worbbior", "", "/worbbior/messages"),
-        new UserMenuItem("DiscoverYourTalents", "", "Worbbior", "", "/worbbior/talent-questionnaire"),
+        //new UserMenuItem("DiscoverYourTalents", "", "Worbbior", "", "/worbbior/talent-questionnaire"),
         new UserMenuItem("ViewProfile", "", "Worbbior", "", "/worbbior/page/", this._appSessionService.worbbiorSlug ? this._appSessionService.worbbiorSlug : ""),
     ]);
 

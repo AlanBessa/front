@@ -6,7 +6,7 @@ import { ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { UtilsModule } from '@shared/utils/utils.module';
 import { AbpModule } from '@abp/abp.module';
 import { CommonModule } from '@shared/common/common.module';
-
+import { ComingSoonComponent } from '@app/public/coming-soon/coming-soon.component';
 import { TimeZoneComboComponent } from './timing/timezone-combo.component';
 import { AppAuthService } from './auth/app-auth.service';
 import { JqPluginDirective } from './libs/jq-plugin.directive';
@@ -46,7 +46,8 @@ import { RouterModule } from '@angular/router';
         DatePickerComponent,
         ChangeProfilePictureModalComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ComingSoonComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -56,7 +57,8 @@ import { RouterModule } from '@angular/router';
         DatePickerComponent,
         ChangeProfilePictureModalComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ComingSoonComponent
     ],
     providers: [
         DateTimeService,

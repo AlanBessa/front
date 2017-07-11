@@ -78,75 +78,23 @@
                     <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
                         <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#tasksInProgress" class="tasks-in-progress" aria-controls="tasks-in-progress" role="tab" data-toggle="tab">
-                                    Tarefas em progresso - {{numberOfTasksInProgress}}
-                                </a>
-                                <div class="arrow-nav"></div>
-                            </li>
-                            <li role="presentation">
                                 <a href="#offers" class="offers" aria-controls="offers" role="tab" data-toggle="tab">
                                     Ofertas e Propostas - {{numberOfTasksPosted}}
                                 </a>
                                 <div class="arrow-nav"></div>
-                            </li>                            
+                            </li>  
+                            <li role="presentation">
+                                <a href="#tasksInProgress" class="tasks-in-progress" aria-controls="tasks-in-progress" role="tab" data-toggle="tab">
+                                    Tarefas em progresso - {{numberOfTasksInProgress}}
+                                </a>
+                                <div class="arrow-nav"></div>
+                            </li>                                                      
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade in active" id="tasksInProgress">
-                                <div class="row">
-                                    <!-- Tarefas em progresso -->
-                                    <div *ngIf="worbbyTasksInProgress.length > 0" class="col-xs-12">
-                                        <h3 class="m-t-sm m-b-xss">Tarefas em progresso</h3>
-                                        <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksInProgress">
-                                            <div class="card-talents w-100">
-                                                <div class="col-xs-12">
-                                                    <!-- card -->
-                                                    <div class="card-simple">
-                                                        <div class="row">
-                                                            <a [routerLink]="['/worbbior/worbby-task-details', worbbyTask.id]" class="card-talents w-100">
-                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                    <div class="divProfile">
-                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-9 col-md-10 card-simple-info">
-                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
-                                                                </div>
-                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
-                                                                    <div class="row">
-                                                                        <div class="col-xs-6">
-                                                                            <div class="row">
-                                                                                <div class="col-xs-12 col-md-6 no-p-r">
-                                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-xs-6 text-right">
-                                                                            <div class="row">
-                                                                                <div class="col-xs-12 col-md-6 no-p-l">
-                                                                                    <p *ngIf="worbbyTask.distance" class="inline small cor-Botticelli text-right"> {{worbbyTask.distance}} m <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
-                                                                                </div>
-                                                                                <div class="col-xs-12 col-md-6 no-p-l">
-                                                                                    <p class="no-m-y small cor-Botticelli text-right"><span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- card : fim -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="offers">
+                            <div role="tabpanel" class="tab-pane fade in active" id="offers">
                                 <div class="row">
                                     <div *ngIf="worbbyTasksOffersAccepted.length > 0 || tasksProposed.length > 0" class="col-xs-12">
                                         <h3 class="m-t-sm m-b-xss">Requerendo sua ação</h3>
-
                                         <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksOffersAccepted">
                                             <div class="card-talents w-100">
                                                 <div class="col-xs-12">
@@ -232,7 +180,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row m-b-xss" *ngFor="let worbbyTask of tasksProposed">
                                             <div class="card-talents w-100">
                                                 <div class="col-xs-12">
@@ -319,10 +266,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div *ngIf="tasksProposedAcceptedByWorbbior.length > 0 || worbbyTasksOffersConfirmed.length > 0 || pendingOffers.length > 0" class="col-xs-12">
                                         <h3 class="m-t-sm m-b-xss">Aguardando</h3>
-
                                         <div class="row m-b-xss" *ngFor="let worbbyTask of tasksProposedAcceptedByWorbbior">
                                             <div class="card-talents w-100">
                                                 <div class="col-xs-12">
@@ -396,7 +341,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksOffersConfirmed">
                                             <div class="card-talents w-100">
                                                 <div class="col-xs-12">
@@ -466,7 +410,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row m-b-xss" *ngFor="let worbbyOffer of pendingOffers">
                                             <div class="card-talents w-100">
                                                 <div class="col-xs-12">
@@ -537,7 +480,58 @@
                                         </div> 
                                     </div>                                 
                                 </div>                   
-                            </div>                            
+                            </div>   
+                            <div role="tabpanel" class="tab-pane fade" id="tasksInProgress">
+                                <div class="row">
+                                    <!-- Tarefas em progresso -->
+                                    <div *ngIf="worbbyTasksInProgress.length > 0" class="col-xs-12">
+                                        <h3 class="m-t-sm m-b-xss">Tarefas em progresso</h3>
+                                        <div class="row m-b-xss" *ngFor="let worbbyTask of worbbyTasksInProgress">
+                                            <div class="card-talents w-100">
+                                                <div class="col-xs-12">
+                                                    <!-- card -->
+                                                    <div class="card-simple">
+                                                        <div class="row">
+                                                            <a [routerLink]="['/worbbior/worbby-task-details', worbbyTask.id]" class="card-talents w-100">
+                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                    <div class="divProfile">
+                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-9 col-md-10 card-simple-info">
+                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-md-6 no-p-r">
+                                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 text-right">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-md-6 no-p-l">
+                                                                                    <p *ngIf="worbbyTask.distance" class="inline small cor-Botticelli text-right"> {{worbbyTask.distance}} m <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-md-6 no-p-l">
+                                                                                    <p class="no-m-y small cor-Botticelli text-right"><span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card : fim -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>                                                     
                         </div>
                     </div>
                 </div>

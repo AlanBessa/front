@@ -9,6 +9,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { MapsAPILoader } from '@agm/core';
 import * as _ from 'lodash';
 import * as moment from "moment"; 
+import 'moment/min/locales';
 import { LoginService } from "app/account/login/login.service";
 
 declare var google: any;
@@ -85,6 +86,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     }
 
     ngOnInit(): void {
+        moment.locale('pt-br');
         this.administrativeAreas.items = this.administrativeAreas.items.filter(x => x.id == "RJ");
         if (abp.session.userId) 
                 this.public = false;
@@ -204,7 +206,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         currentDate.setHours(0,0,0,0)
         //console.log(event);
         if(date < currentDate){
-            this.message.error("Selecione um data igual ou posterior a data atual.", "Data inválida!")
+            this.message.error("Selecione um data igual ou posterior à data atual.", "Data inválida!")
         }else{
             this.scheduleDateDisplay = moment(date).format('L');
             this.showDataPicker = false;

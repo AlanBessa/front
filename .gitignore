@@ -41,3 +41,4 @@ project.lock.json
 Properties/launchSettings.json
 /Worbby.Worbby.AngularUI.xproj.user
 dist.zip
+debug.log

@@ -260,4 +260,16 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
             });
         });
     }
+
+    get numberOfTasksPosted():number {
+        return this.worbbyTasksProposed.length + 
+        this.worbbyTasksProposedAccepted.length + 
+        this.publicWorbbyTasks.length + 
+        this.worbbyTasksOffersAccepted.length + 
+        this.worbbyTasksOffersConfirmed.length;
+    }
+
+    get numberOfTasksInProgress():number {
+        return this.worbbyTasksInProgress.length;
+    }
 }

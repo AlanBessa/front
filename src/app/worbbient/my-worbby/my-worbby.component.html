@@ -54,13 +54,13 @@
                         <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist">
                             <li role="presentation" class="active">
                                 <a href="#postedTasks" class="posted-tasks" aria-controls="posted-tasks" role="tab" data-toggle="tab">
-                                    Tarefas postadas
+                                    Tarefas postadas - {{numberOfTasksPosted}}
                                 </a>
                                 <div class="arrow-nav"></div>
                             </li>
                             <li role="presentation">
                                 <a href="#tasksInProgress" class="tasks-in-progress" aria-controls="tasks-in-progress" role="tab" data-toggle="tab">
-                                    Tarefas em progresso
+                                    Tarefas em progresso - {{numberOfTasksInProgress}}
                                 </a>
                                 <div class="arrow-nav"></div>
                             </li>
@@ -265,11 +265,11 @@
                                                                                 Editar
                                                                             </a>
                                                                         </li>
-                                                                        <li>
+                                                                        <!--<li>
                                                                             <a (click)="viewWorbbyTask(worbbyTask)">
                                                                                 Visualizar
                                                                             </a>
-                                                                        </li>
+                                                                        </li>-->
                                                                         <li>
                                                                             <a (click)="cancelPublicWorbbyTask(worbbyTask)">
                                                                                 <i class="fa fa-trash cor-Flamingo"></i>

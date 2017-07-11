@@ -48,6 +48,10 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
     }
 
     ngOnInit(): void {
+        if(window.screen.width < 480) {
+            $('.footer').hide();
+            $('.container-fluid.bg-Solititude').addClass('p-b-lg');
+        }
         this.ehReverso = window.screen.width > 768 ? false : true;
 
         this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId']; 
@@ -56,6 +60,10 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
     ngOnDestroy():void{
         // console.log("ngOnDestroy");
         // this.subscriptionMessagesTimer.unsubscribe();
+        if(window.screen.width < 480) {
+            $('.footer').show();
+            $('.container-fluid.bg-Solititude').removeClass('p-b-lg');
+        }
     }
 
     ngAfterViewInit(): void {

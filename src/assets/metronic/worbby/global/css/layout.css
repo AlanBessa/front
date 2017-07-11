@@ -176,6 +176,7 @@
     padding-top: 10px;
 }
 
+.p-b-lg{padding-bottom: 120px;}
 .p-b-sm{padding-bottom: 60px;}
 .p-b-xs{padding-bottom: 30px;}
 .p-b-xxs{padding-bottom: 15px;}
@@ -795,7 +796,8 @@ a.invert{
     font-size: 20px;
     width: 40px;
     display: inline-block;
-    margin: -10px -10px 0 0;
+    margin: -10px -10px 5px 0;
+    text-align: center;
 }
 
 .btn-anchor {
@@ -4869,12 +4871,12 @@ recaptcha {
         .card-actions .dropdown-menu.position-box.config-atividades-xs {
             right: -28px !important;
             left: initial;
-            top: 35px;
+            top: 60px;
             width: 163px;
         }
 
         .card-actions .dropdown-menu.position-box.config-atividades-xs .arrow-up {
-            margin-left: 106px;
+            margin-left: 154px;
         }
 
         /* BOX */

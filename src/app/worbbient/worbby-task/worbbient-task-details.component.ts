@@ -45,12 +45,17 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         private _activatedRoute: ActivatedRoute,
         private _worbbyTaskService: WorbbyTaskServiceProxy,
         private _appSessionService: AppSessionService,
-        private _messageSignalrService: MessageSignalrService,
+        private _messageSignalrService: MessageSignalrService
     ) {
         super(injector);
     }
 
     ngOnInit(): void {
+        if(window.screen.width < 480) {
+            $('.footer').hide();
+            $('.container-fluid.bg-Solititude').addClass('p-b-lg');
+        }
+
         this.ehReverso = window.screen.width > 768 ? false : true;
         this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;
@@ -59,6 +64,10 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
     ngOnDestroy():void{
         // console.log("ngOnDestroy");
         // this.subscriptionMessagesTimer.unsubscribe();
+        if(window.screen.width < 480) {
+            $('.footer').show();
+            $('.container-fluid.bg-Solititude').removeClass('p-b-lg');
+        }
     }
 
     ngAfterViewInit(): void {

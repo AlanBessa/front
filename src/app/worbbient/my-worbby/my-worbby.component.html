@@ -89,7 +89,10 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">              
+                                                                    <div class="card-actions">  
+                                                                        <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
+                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+                                                                        </a>
                                                                         <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                                             <i class="fa fa-cog"></i>
                                                                         </a> 
@@ -169,7 +172,10 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">              
+                                                                    <div class="card-actions">
+                                                                        <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
+                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+                                                                        </a>
                                                                         <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                                             <i class="fa fa-cog"></i>
                                                                         </a> 
@@ -329,8 +335,11 @@
                                                                     <p class="no-m-y display-inline-block">"{{worbbyTask.title}}"</p>
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
                                                                 </div>
-                                                                <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">              
+                                                                <div class="col-xs-2 col-md-2"> 
+                                                                    <div class="card-actions"> 
+                                                                        <a (click)="viewWorbbyTask(worbbyTask)">
+                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+                                                                        </a>             
                                                                         <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                                             <i class="fa fa-cog"></i>
                                                                         </a> 
@@ -408,7 +417,10 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">              
+                                                                    <div class="card-actions">
+                                                                        <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
+                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+                                                                        </a>
                                                                         <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                                             <i class="fa fa-cog"></i>
                                                                         </a> 
@@ -462,6 +474,12 @@
                                                 </div>
                                             </div>
                                         </div>   
+                                    </div>
+
+                                    <div class="col-xs-12 m-t-20px" *ngIf="worbbyTasksOffersConfirmed.length == 0 && publicWorbbyTasks.length == 0 && worbbyTasksProposedAccepted.length == 0 && worbbyTasksOffersAccepted.length == 0 && worbbyTasksProposed.length == 0">
+                                        <div class="well well-lg bg-White">
+                                            Não foi encontrado nenhuma tarefa
+                                        </div>
                                     </div>
                                 </div>                   
                             </div>
@@ -522,7 +540,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
+                                    <div class="col-xs-12 m-t-20px" *ngIf="worbbyTasksInProgress.length == 0">
+                                        <div class="well well-lg bg-White">
+                                            Não foi encontrado nenhuma tarefa em progresso
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

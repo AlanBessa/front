@@ -56,6 +56,10 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     }
 
     ngOnInit(): void {
+        if(window.screen.width < 480) {
+            $('.footer').hide();
+            $('.container-fluid.bg-Solititude').addClass('p-b-lg');
+        }
         this.ehReverso = window.screen.width > 768 ? false : true;
 
         this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
@@ -65,6 +69,10 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     ngOnDestroy():void{
         // console.log("ngOnDestroy");
         // this.subscriptionMessagesTimer.unsubscribe();
+        if(window.screen.width < 480) {
+            $('.footer').hide();
+            $('.container-fluid.bg-Solititude').addClass('p-b-lg');
+        }
     }
 
     ngAfterViewInit(): void {

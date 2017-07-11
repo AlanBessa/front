@@ -213,7 +213,7 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
                 this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
             });            
         }, (error) => {
-            this.message.error("Pagamento recusado, use um outro cartão").done(() => {});            
+            //this.message.error("Pagamento recusado, use um outro cartão").done(() => {});            
         });
     }
 }

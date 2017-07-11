@@ -84,6 +84,7 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
             });
             
             this.active = true;
+            this.getWorbbyTaskMessages();
         });
     }
 

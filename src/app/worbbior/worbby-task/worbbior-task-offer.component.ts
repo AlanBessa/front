@@ -88,6 +88,7 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
             });
             
             this.active = true;
+            this.getWorbbyTaskMessages();
         });
     }
 

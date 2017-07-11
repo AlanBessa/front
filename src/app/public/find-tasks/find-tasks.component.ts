@@ -118,11 +118,6 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
         this._worbbyTaskService.findWorbbyTasks(this.findWorbbyTaskInput).subscribe((result: ListResultDtoOfWorbbyTaskDto) => {
             this.carregado = true;
             this.worbbyTasks = result.items;
-            this.worbbyTasks.forEach(element => {
-                this.getPictureByGuid(element.interestCenter.parentPictureId).then((result) => {
-                    element.interestCenter.parentPicture = result;
-                });
-            });
         });
     }
 

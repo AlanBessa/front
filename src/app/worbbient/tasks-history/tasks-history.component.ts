@@ -105,10 +105,6 @@ export class TasksHistoryWorbbientComponent extends AppComponentBase implements 
                     this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {
                         element.worbbior.userPicture = result;
                     });
-                }else{
-                    this.getPictureByGuid(element.interestCenter.parentPictureId).then((result) => {
-                        element.interestCenter.parentPicture = result;
-                    });
                 }
                 this.status = this.l(WorbbyTaskStatus[element.status])
             });

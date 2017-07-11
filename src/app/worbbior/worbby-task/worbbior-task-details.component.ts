@@ -42,8 +42,8 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public worbbientId: number = 0;
     public taskId: number = 0;
 
-    private messagesTimer:any;
-    private subscriptionMessagesTimer: any;
+    //private messagesTimer:any;
+    //private subscriptionMessagesTimer: any;
 
     constructor(
         injector: Injector,
@@ -63,19 +63,19 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     }
 
     ngOnDestroy():void{
-        console.log("ngOnDestroy");
-        this.subscriptionMessagesTimer.unsubscribe();
+        // console.log("ngOnDestroy");
+        // this.subscriptionMessagesTimer.unsubscribe();
     }
 
     ngAfterViewInit(): void {
         this.registerEvents();
         this.getWorbbyTask();
         //this.getWorbbyTaskMessages();
-        this.messagesTimer = Observable.timer(2000,30000);
-        this.subscriptionMessagesTimer = this.messagesTimer
-        .subscribe(() => {
-            this.getWorbbyTaskMessages();
-        });   
+        // this.messagesTimer = Observable.timer(2000,30000);
+        // this.subscriptionMessagesTimer = this.messagesTimer
+        // .subscribe(() => {
+        //     this.getWorbbyTaskMessages();
+        // });   
     }
 
     confirmOffer():void{
@@ -89,12 +89,6 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
             this.scheduleDateDisplay = moment(result.creationTime).format('L');
             this.worbbientId = this.worbbyTask.userId;
             this.taskId = this.worbbyTask.id;
-
-            if(this.worbbyTask.interestCenter){
-                this.getPictureByGuid(this.worbbyTask.interestCenter.parentPictureId).then((res) => {
-                    this.worbbyTask.interestCenter.parentPicture = res;
-                });
-            }
 
             this.getPictureByGuid(this.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;

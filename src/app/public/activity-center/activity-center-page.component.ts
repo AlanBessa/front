@@ -94,11 +94,6 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
             this.completedTasksList = result.items;
             this.active = true; //Coloque no último metodo chamado
             this.carregado = true;
-            this.completedTasksList.forEach(element => {
-                this.getPictureByGuid(element.interestCenter.parentPictureId).then((result) => {
-                    element.interestCenter.parentPicture = result;
-                });
-            });
         });
     }
 

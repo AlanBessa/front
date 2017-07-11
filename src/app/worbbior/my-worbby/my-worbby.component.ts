@@ -142,11 +142,6 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
     getPendingOffers(): void {
         this._worbbyTaskService.getPendingOffersByUserId(abp.session.userId).subscribe(result => {
             this.pendingOffers = result.items;
-            this.pendingOffers.forEach(element => {
-                this.getPictureByGuid(element.worbbyTask.interestCenter.parentPictureId).then((result) => {
-                    element.worbbyTask.interestCenter.parentPicture = result;
-                });
-            });
         });
     }
 
@@ -283,5 +278,13 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
                 }
             }
         );
+    }
+
+    get numberOfTasksPosted():number {
+        return this.worbbyTasksOffersAccepted.length + this.worbbyTasksOffersConfirmed.length + this.pendingOffers.length + this.tasksProposed.length + this.tasksProposedAcceptedByWorbbior.length;
+    }
+
+    get numberOfTasksInProgress():number {
+        return this.worbbyTasksInProgress.length;
     }
 }

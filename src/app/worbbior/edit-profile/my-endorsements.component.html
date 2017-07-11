@@ -7,8 +7,10 @@
     </div>
 </div>
 
-<h3 class="cor-Cinder profile-xs">{{l("Endorsement")}}<ng-template #popTemplateEndosso><div class="text-left" [innerHtml]="tooltipEndosso"></div></ng-template>
-<i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateEndosso"></i></h3>
+<h3 class="cor-Cinder profile-xs hidden-sm hidden-md hidden-lg">
+    {{l("Endorsement")}} <ng-template #popTemplateEndosso><div class="text-left" [innerHtml]="tooltipEndosso"></div></ng-template><i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateEndosso"></i>
+    <br /> <small>Você necessita de pelo menos dois endossos em uma atividade para solicitar seu cadastro.</small>
+</h3>
 
 <div class="panel panel-clean m-b-xs m-t-xs">
     <div class="panel-body">

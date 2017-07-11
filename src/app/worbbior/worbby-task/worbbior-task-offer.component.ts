@@ -37,8 +37,8 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     public worbbyTaskMessageId:number;
     public showButtonMore:boolean = false;
 
-    private messagesTimer:any;
-    private subscriptionMessagesTimer: any;
+    //private messagesTimer:any;
+    //private subscriptionMessagesTimer: any;
 
     constructor(
         injector: Injector,
@@ -58,19 +58,19 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     }
 
     ngOnDestroy():void{
-        console.log("ngOnDestroy");
-        this.subscriptionMessagesTimer.unsubscribe();
+        //console.log("ngOnDestroy");
+        //this.subscriptionMessagesTimer.unsubscribe();
     }
 
     ngAfterViewInit(): void {
         this.registerEvents();
         this.getWorbbyOffer();
         //this.getWorbbyTaskMessages();  
-        this.messagesTimer = Observable.timer(2000,30000);
-        this.subscriptionMessagesTimer = this.messagesTimer
-        .subscribe(() => {
-            this.getWorbbyTaskMessages();
-        });         
+        //this.messagesTimer = Observable.timer(2000,30000);
+        // this.subscriptionMessagesTimer = this.messagesTimer
+        // .subscribe(() => {
+        //     this.getWorbbyTaskMessages();
+        // });         
     }
 
     getWorbbyOffer():void{
@@ -78,10 +78,6 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
             this.worbbyOffer = result;
 
             this.scheduleDateDisplay = moment(result.worbbyTask.creationTime).format('L');
-
-            this.getPictureByGuid(this.worbbyOffer.worbbyTask.interestCenter.parentPictureId).then((res) => {
-                this.worbbyOffer.worbbyTask.interestCenter.parentPicture = res;
-            });
 
             this.getPictureByGuid(this.worbbyOffer.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyOffer.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;

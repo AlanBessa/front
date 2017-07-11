@@ -37,7 +37,14 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
 
         this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
 
-        this._worbbyTaskService.getWorbbyTaskWithOffers(this.worbbyTaskId).subscribe(result => {
+        this.getWorbbyTaskWithOffers(this.worbbyTaskId);
+    }
+
+    ngAfterViewInit(): void {
+    }
+
+    getWorbbyTaskWithOffers(taskId): void {
+        this._worbbyTaskService.getWorbbyTaskWithOffers(taskId).subscribe(result => {
             this.worbbyTask = result;
 
             this.scheduleDateDisplay = moment(result.creationTime).format('L');
@@ -48,11 +55,7 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
                 });
             });
             this.active = true;
-        });
-
-    }
-
-    ngAfterViewInit(): void {
+        }); 
     }
 
     acceptOffer(offer:WorbbyOfferDto):void {

@@ -107,7 +107,7 @@
                         </div>
                         <button type="button" class="btn btn-prime-inverted btn-block visible-xs btn-chat-info" (click)="openDetails(isOpenedInfo)">
                             <i class="fa" [ngClass]="{'fa-angle-double-down': !isOpenedInfo, 'fa-angle-double-up': isOpenedInfo}"></i>
-                            {{isOpenedInfo ? 'Fechar' : worbbyOffer.worbbyTask.title}}
+                            {{isOpenedInfo ? 'Fechar' : worbbyTask.title}}
                         </button>
                     </div>
                     <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
@@ -201,7 +201,7 @@
                                     </div>	
                                 </div>
                             </div>
-                            <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
+                            <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-b-20px" (click)="loadingMore()">Carregar mais...</button>
                         </div>                        
                     </div>                    
                 </div>             

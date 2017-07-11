@@ -79,7 +79,7 @@ export class EvaluateWorbbiorComponent extends AppComponentBase implements After
         .finally(() => { this.saving = false; })
         .subscribe((result) => {
             //TODO: Alan - Implementar mensagem sucesso customizada
-            this._router.navigate(['/worbbient/meu-worbby']);
+            this._router.navigate(['/worbbient/my-worbby']);
         });
     }
 

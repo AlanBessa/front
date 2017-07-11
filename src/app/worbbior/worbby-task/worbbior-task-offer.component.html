@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="box-chat m-b-xss">
+                        <div class="box-chat m-b-xss"> 
                             <!-- Mobile Version -->
                             <button *ngIf="showButtonMore" type="button" class="btn btn-secondary btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>                            
                             <div class="clearfix m-b-xss visible-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages | reverse">                                

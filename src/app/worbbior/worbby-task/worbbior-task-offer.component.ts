@@ -8,7 +8,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { Observable } from 'rxjs/Rx';
-import * as _ from 'lodash';
+import * as _ from 'lodash'; 
 import * as moment from "moment";
 
 @Component({

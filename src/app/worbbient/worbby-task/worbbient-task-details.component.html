@@ -89,7 +89,7 @@
                                             <p class="small cor-Botticelli text-right">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}}</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">R$ {{worbbyTask.unitPrice}}</p>
+                                            <p class="inline"><span class="cor-Botticelli txt-small">R$</span> <span class="cor-Botticelli">{{worbbyTask.unitPrice}}</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                             <p class="small cor-Botticelli text-right">Valor total</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">R$ {{worbbyTask.totalPrice}}</p>
+                                            <p class="inline"><span class="cor-Botticelli txt-small">R$</span> <span class="cor-Denim">{{worbbyTask.totalPrice}}</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                 <div class="bg-White clearfix display-two-photo hidden-xs p-y-xs m-b-xss">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="divProfile divProfile-medium">
-                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" src="{{worbbyTask.worbbient.userPicture}}">
+                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile-blue pro" src="{{worbbyTask.worbbient.userPicture}}">
                                         </div>
                                         <div class="text-center">
                                             <h4>{{worbbyTask.worbbient.name}} - {{worbbyTask.worbbient.surname}}</h4>
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="divProfile divProfile-medium">
-                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile-blue pro" src="{{worbbyTask.worbbior.userPicture}}">
+                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" src="{{worbbyTask.worbbior.userPicture}}">
                                             <span *ngIf="worbbyTask.worbbior.premium" class="profile-pro"></span>
                                         </div>
                                         <div class="text-center">
@@ -157,11 +157,11 @@
                         </form>                        
                         <div class="box-chat m-b-xss">
                             <!-- Mobile Version -->
-                            <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
+                            <button *ngIf="showButtonMore" type="button" class="btn btn-secondary btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
                             <div class="clearfix m-b-xss visible-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages | reverse">
                                 <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyTaskMessage.side == 2}">
                                     <div class="divProfile divProfile-small">
-                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyTaskMessage.userPicture" [ngClass]="{'img-profile-blue': worbbyTaskMessage.side == 2, 'img-profile': worbbyTaskMessage.side == 1}">
+                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyTaskMessage.userPicture" [ngClass]="{'img-profile-blue': worbbyTaskMessage.side == 1, 'img-profile': worbbyTaskMessage.side == 2}">
                                         <span *ngIf="worbbiorPremium" class="profile-pro"></span>
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@
                                         <div class="card-chat" [ngClass]="{'arrow-right': worbbyTaskMessage.side == 2, 'arrow-left': worbbyTaskMessage.side == 1}">
                                             <div class="arrow-chat"></div>
                                             <div class="card-chat-content cor-Cinder">
-                                                <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 2, 'cor-Sunglow': worbbyTaskMessage.side == 1}">
+                                                <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 1, 'cor-Sunglow': worbbyTaskMessage.side == 2}">
                                                     {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'L HH:mm:ss'}}
                                                 </div>
                                                 {{worbbyTaskMessage.message}}
@@ -183,7 +183,7 @@
                             <div class="clearfix m-b-xss hidden-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages">
                                 <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyTaskMessage.side == 2}">
                                     <div class="divProfile divProfile-small">
-                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyTaskMessage.userPicture" [ngClass]="{'img-profile-blue': worbbyTaskMessage.side == 2, 'img-profile': worbbyTaskMessage.side == 1}">
+                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyTaskMessage.userPicture" [ngClass]="{'img-profile-blue': worbbyTaskMessage.side == 1, 'img-profile': worbbyTaskMessage.side == 2}">
                                         <span *ngIf="worbbiorPremium" class="profile-pro"></span>
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@
                                     </div>	
                                 </div>
                             </div>
-                            <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
+                            <button *ngIf="showButtonMore" type="button" class="btn btn-secondary btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>
                         </div>                        
                     </div>                    
                 </div>             
@@ -209,3 +209,4 @@
         </div>
     </div>
 </div>
+<div id="goToDown" name="goToDown"></div>

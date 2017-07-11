@@ -19,7 +19,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
 
     public active:boolean = false;
     public sending:boolean = false;
-    public isOpenedInfo: boolean = true;
+    public isOpenedInfo: boolean = false;
     public scheduleDateDisplay: string;
     public worbbyTaskId:number;
     public worbbyTask:WorbbyTaskDto;

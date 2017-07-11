@@ -8,6 +8,7 @@ import { AdministrativeAreas, KeyValueAddress, ScheduleDateType, UnitMeasure, Wo
 import { MapsAPILoader } from "@agm/core";
 import * as _ from 'lodash';
 import * as moment from "moment"
+import 'moment/min/locales';
 
 @Component({
     templateUrl: './worbbient-edit-worbby-task.component.html',
@@ -65,6 +66,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
     }
 
     ngOnInit(): void {
+        moment.locale('pt-br');
         this.administrativeAreas.items = this.administrativeAreas.items.filter(x => x.id == "RJ");
         
         this.idWorbbyTask = this._activatedRoute.snapshot.params['worbbyTaskId'];
@@ -251,7 +253,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
                 this.saving = false;
             })
             .subscribe(() => {
-                this.message.custom('O Worbbior será notificados desta alteração.', 'Sua tarefa foi editada!', 'assets/common/images/icon-rocket@2x.png').done(() => {
+                this.message.custom('O worbbior será notificados desta alteração.', 'Sua tarefa foi editada!', 'assets/common/images/icon-rocket@2x.png').done(() => {
                     this._router.navigate(['/worbbient/my-worbby']);
                 });                               
             });

@@ -30,7 +30,8 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     constructor(
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
-        private _worbbyTaskService: WorbbyTaskServiceProxy
+        private _worbbyTaskService: WorbbyTaskServiceProxy,
+        private _router: Router
     ) {
         super(injector);
     }
@@ -60,6 +61,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
 
     modalOfferSuccess():void{
         this.message.custom('Se sua oferta for aceita, você será notificado! Você também pode acompanha-la em seu perfil.', 'Oferta enviada!', 'assets/common/images/default-profile-picture.png').done(() => {
+            this._router.navigate(['/worbbior/my-worbby']);
         });
     }
 }

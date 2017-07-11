@@ -176,7 +176,7 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
             this.saving = false;
         })
         .subscribe(() => {
-            this.message.success("Sua Tarefa foi cancelada com sucesso!");
+            this.message.success("Sua tarefa foi cancelada com sucesso!");
         }, (error) => {
             console.log(error);
         });
@@ -188,7 +188,7 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
             this.saving = false;
         })
         .subscribe(() => {
-            this.message.success("Sua Tarefa foi cancelada com sucesso!");
+            this.message.success("Sua tarefa foi cancelada com sucesso!");
         }, (error) => {
             console.log(error);
         });

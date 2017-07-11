@@ -1,15 +1,15 @@
 <div [@routerTransition]>
     <div class="container-fluid bg-Solititude bg-fluid-hidden">
-        <div class="row">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 p-xxs m-t-sm m-b-xs clearfix">
-                        <h3>Detalhe de pagamento</h3>                   
-                    </div>
-                    <div class="col-xs-12 p-t-sm p-b-sm bg-White m-b-sm">
-                        <div class="row">
-                            <div class="col-xs-10 col-xs-offset-1">
-                                <div *ngIf="active" class="card-talents w-100 row">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 m-t-sm m-b-sm">
+                    <div class="wizard-steps wizard-container" *ngIf="active">
+                        <div *ngIf="active" class="row m-b-sm">
+                            <div class="col-xs-12 p-xxs m-t-sm m-b-sm clearfix text-center">
+                                <h1 class="cor-Tangerine">Detalhe de pagamento</h1>                   
+                            </div>
+                            <div class="col-xs-12 m-b-sm">
+                                <div *ngIf="active" class="card-talents w-100">
                                     <!-- card -->
                                     <div class="card-simple">
                                         <div class="row">
@@ -21,20 +21,25 @@
                                                         <span *ngIf="worbbiorPremium" class="profile-pro"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-7 col-md-8 card-simple-info">
-                                                    <p class="no-m-y display-inline-block">"{{worbbyTask.title}}"</p>
-                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
-                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.description}}</p>
+                                                <div class="col-xs-7 col-md-7 card-simple-info">
+                                                    <p class="no-m-y display-inline-block">{{worbbyTask.title}}</p>
+                                                    <p class="small profileName cor-Botticelli txt-small-only-mobile txt-small-tablet">{{worbbyTask.worbbior.displayName}}</p>
+                                                    <p class="small profileName cor-Botticelli txt-small-only-mobile txt-small-tablet">{{worbbyTask.description}}</p>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <p class="text-right font-regular-18-xs"><span class="cor-Botticelli txt-small">R$</span> <span class="cor-Denim">{{worbbyTask.totalPrice}}</span></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- card : fim -->
+                                    <!-- card : fim --> 
                                 </div>
                             </div>
-                            <div class="col-xs-10 col-xs-offset-1">
-                                <button type="button" (click)="capturePayment()" class="btn btn-round bg-Sunglow cor-White m-b-lg m-t-xxs" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">Liberar Pagamento</button>
-                            </div>                            
+                            <div class="col-xs-12">
+                                <button type="button" (click)="capturePayment()" class="btn btn-around btn-block btn-prime m-b-lg m-t-xxs" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                                    Liberar Pagamento
+                                </button>
+                            </div>  
                         </div>
                     </div>
                 </div>

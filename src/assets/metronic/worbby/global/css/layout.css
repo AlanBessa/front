@@ -67,6 +67,20 @@
 
 /* Bordas */
 
+.borda-top-1 {
+    border-top: 1px solid;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.borda-bottom-1 {
+    border-top: 0;
+    border-bottom: 1px solid;
+    border-left: 0;
+    border-right: 0;
+}
+
 .borda-top-2 {
     border-top: 2px solid;
     border-bottom: 0;
@@ -4747,7 +4761,8 @@ recaptcha {
             margin-bottom: 10px;
         }
 
-        .find-talent-home h2 {
+        .find-talent-home h2,
+        .font-regular-18-xs {
             font-size: 18px;
             line-height: 22px;
             font-family: "FilsonSoftRegular", sans-serif !important;

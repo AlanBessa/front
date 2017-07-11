@@ -212,6 +212,8 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
             this.message.success("Seu pagamento foi reservado com sucesso!", "Pagamento").done(() => {
                 this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
             });            
+        }, (error) => {
+            this.message.error("Pagamento recusado, use um outro cartão").done(() => {});            
         });
     }
 }

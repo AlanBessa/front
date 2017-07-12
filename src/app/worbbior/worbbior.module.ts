@@ -35,6 +35,7 @@ import { ReceivedPaymentWorbbiorComponent } from "app/worbbior/payments-history/
 import { PaidPaymentWorbbiorComponent } from "app/worbbior/payments-history/paid-payment.component";
 import { ViewDocumentModalComponent } from '@app/worbbior/edit-profile/view-document-modal.component';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 
 @NgModule({
     imports: [
@@ -82,7 +83,8 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
         ReceivedPaymentWorbbiorComponent,
         PaidPaymentWorbbiorComponent,
         ViewDocumentModalComponent,
-        PdfViewerComponent
+        PdfViewerComponent,
+        NotificationsComponent
     ],
     providers: [
     ]

@@ -26,6 +26,7 @@ import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-w
 import { MomentModule } from "angular2-moment";
 import { TextMaskModule } from 'angular2-text-mask';
 import { SelectModule } from 'ng2-select';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { SelectModule } from 'ng2-select';
         EvaluateWorbbiorComponent,
         WorbbientTaskSubmitPaymentComponent,
         WorbbientTaskPaymentComponent,
-        WorbbientEditWorbbyTaskComponent
+        WorbbientEditWorbbyTaskComponent,
+        NotificationsComponent
     ],
     providers: [
     ]

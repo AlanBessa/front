@@ -31,11 +31,16 @@ export class NotificationsComponent extends AppComponentBase implements AfterVie
     }
 
     ngAfterViewInit(): void {
+        this.createTable();
+    }
+
+    createTable(): void {
         this._$table = $(this.table.nativeElement);
         this._$table.jtable({
             title: this.l('Notifications'),
             paging: true,
-
+            pageSizeChangeArea: false,
+            gotoPageArea: 'none',
             actions: {
                 listAction: (postData, jtParams: JTableParams) => {
                     return JTableHelper.toJTableListAction(
@@ -47,7 +52,6 @@ export class NotificationsComponent extends AppComponentBase implements AfterVie
                     );
                 }
             },
-
             fields: {
                 id: {
                     key: true,
@@ -60,7 +64,7 @@ export class NotificationsComponent extends AppComponentBase implements AfterVie
                     listClass: 'text-center',
                     display: (data: JTableFieldOptionDisplayData<UserNotification>) => {
                         const $span = $('<span></span>');
-                        var $button = $('<button class="btn btn-xs btn-primary blue" title="' + this.l('SetAsRead') + '"></button>')
+                        var $button = $('<button class="btn btn-warning" title="' + this.l('SetAsRead') + '"></button>')
                             .click((e) => {
                                 e.preventDefault();
                                 this.setNotificationAsRead(data.record, () => {
@@ -71,7 +75,7 @@ export class NotificationsComponent extends AppComponentBase implements AfterVie
                                 });
                             }).appendTo($span);
 
-                        var $i = $('<i class="fa" >').appendTo($button);
+                        var $i = $('<i class="fa no-m-r">').appendTo($button);
 
                         var notificationState = this._userNotificationHelper.format(<any>data.record).state;
 
@@ -88,7 +92,7 @@ export class NotificationsComponent extends AppComponentBase implements AfterVie
                     }
                 },
                 notification: {
-                    title: this.l('Notification'),
+                    title: this.l('Notifications'),
                     width: '70%',
                     display: (data: JTableFieldOptionDisplayData<UserNotification>) => {
                         var formattedRecord = this._userNotificationHelper.format(<any>data.record, false);

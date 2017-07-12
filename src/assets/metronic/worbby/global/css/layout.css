@@ -155,6 +155,7 @@
 /*NO MARGIN*/
 .no-m-t{margin-top:0 !important;}
 .no-m-b{margin-bottom:0 !important;}
+.no-m-r{margin-right:0 !important;}
 
 .no-m-y{margin-top:0 !important; margin-bottom:0 !important;}
 .no-m-x{margin-left:0 !important; margin-right:0 !important;}
@@ -2425,6 +2426,41 @@ body {
     margin-top: 35px;
 }
 
+div.jtable-main-container>div.jtable-title {
+    background-color: #FFB247 !important;
+}
+
+div.jtable-main-container>div.jtable-title div.jtable-title-text,
+div.jtable-main-container>table.jtable>thead th,
+div.jtable-main-container>div.jtable-bottom-panel {
+    color: #1E2225 !important;
+}
+
+div.jtable-main-container>table.jtable {
+    border: 1px solid #FFCB33 !important;
+}
+
+div.jtable-main-container>table.jtable>thead {
+    background-color: #FFCB33 !important;
+}
+
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number, 
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number-space, 
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number-first, 
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number-last, 
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number-previous, 
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number-next, 
+div.jtable-main-container>div.jtable-bottom-panel .jtable-page-list .jtable-page-number-active {
+    color: #1E2225 !important;
+    background-color: #FFB247 !important;
+}
+
+div.jtable-main-container>div.jtable-bottom-panel {
+    background-color: #FFB247 !important;
+    border: 1px solid #FFB247 !important;
+    padding: 2px 5px;
+}
+
 /*MESSAGES - CHAT*/
 .icon-messages-unread {
     height: 8px;
@@ -2562,7 +2598,7 @@ recaptcha {
     border: none;
 }
 
- .modal .header-menu-aberto .site-logo img{
+.modal .header-menu-aberto .site-logo img{
     max-width: 156px;
 }
 

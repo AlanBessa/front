@@ -12,6 +12,7 @@ import { ComingSoonComponent } from '@app/public/coming-soon/coming-soon.compone
 import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.component';
 import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
 import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-details.component';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 
 @NgModule({
     imports: [
@@ -30,7 +31,7 @@ import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-detail
                     { path: 'talent-questionnaire', component: TalentQuestionnaireComponent, data: { } },
                     { path: 'worbby-task-offer/:worbbyOfferId', component: WorbbiorTaskOfferComponent, data: { } },
                     { path: 'worbby-task-details/:worbbyTaskId', component: WorbbiorTaskDetailsComponent, data: { } },
-                    
+                    { path: 'notifications', component: NotificationsComponent, data: { } }
 
                     //Versão limitada
                     // { path: 'edit-profile', component: EditProfileWorbbiorComponent, data: { permission: 'Pages.Worbbior.EditProfile' } },

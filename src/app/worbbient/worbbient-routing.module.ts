@@ -14,6 +14,7 @@ import { EvaluateWorbbiorComponent } from './worbby-task/worbbient-evaluate-worb
 import { WorbbientTaskSubmitPaymentComponent } from './worbby-task/worbbient-task-submit-payment.component';
 import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-worbby-task.component';
 import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-payment.component';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-paym
                                 description: ''
                             }
                         }
-                    }
+                    },
+                    { path: 'notifications', component: NotificationsComponent, data: { } }
 
                     //Versão limitada
                     // { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },

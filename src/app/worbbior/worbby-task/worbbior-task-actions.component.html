@@ -1,0 +1,50 @@
+<div *ngIf="actionsType == 'options'" class="card-actions">
+    <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <i class="fa fa-cog"></i>
+    </a> 
+    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+        <li class="arrow-up"></li>
+        <li *ngIf="ifOfferAcceptedByWorbbient">
+            <a (click)="confirmOfferAccepted(worbbyTask)">
+                <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
+                Confirmar                            
+            </a> 
+        </li>
+        <li *ngIf="ifOfferAcceptedByWorbbient">
+            <a (click)="refusedOfferAccepted(worbbyTask)">
+                <i class="fa fa-trash cor-Flamingo"></i>
+                Recusar                            
+            </a> 
+        </li>
+        <li>
+            <a (click)="acceptWorbbyTaskProposed()">
+                <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
+                Aceitar                            
+            </a> 
+        </li>
+        <li>
+            <a (click)="refusedWorbbyTaskProposed()">
+                <i class="fa fa-trash cor-Flamingo"></i>
+                Recusar                            
+            </a> 
+        </li>
+        <li>
+            <a (click)="sendReport()">
+                Reporte este worbbient
+            </a>
+        </li>
+    </ul>                      
+</div>
+
+<div *ngIf="actionsType == 'buttons'" class="buttons-actions">
+    <div class="row">
+        <div *ngIf="ifOfferAcceptedByWorbbient" class="col-xs-6">
+            <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="confirmOfferAccepted()">Confirmar</button>                                                                        
+        </div>
+        <div *ngIf="ifOfferAcceptedByWorbbient" class="col-xs-6">
+            <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedOfferAccepted()">Recusar</button>
+        </div>
+    </div>
+</div>
+
+<sendReportModal #sendReportModal [inputId]="worbbyTask.worbbient.id" [inputType]="'worbbient'" [inputIdTask]="worbbyTask.id"></sendReportModal>

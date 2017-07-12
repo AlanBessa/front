@@ -55,7 +55,7 @@ export class WorbbientTaskSubmitPaymentComponent extends AppComponentBase implem
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
             this.getPictureByGuid(this.worbbyTask.worbbior.userPictureId).then((result) => {
-                if(!this.isEmpty(result)){
+                if(!this.isNullOrEmpty(result)){
                     this.worbbyTask.worbbior.userPicture = result;
                 }else{
                     this.worbbyTask.worbbior.userPicture = AppConsts.defaultProfilePicture;

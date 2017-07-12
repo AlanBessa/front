@@ -130,7 +130,7 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
             this.carregado = true;
              this.worbbiorTopTalentList.forEach(element => {
                 this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {
-                    if(!this.isEmpty(result)){
+                    if(!this.isNullOrEmpty(result)){
                         element.worbbior.userPicture = result;
                     }else{
                         element.worbbior.userPicture = AppConsts.defaultProfilePicture;

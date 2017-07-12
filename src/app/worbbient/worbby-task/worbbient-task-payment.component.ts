@@ -158,7 +158,7 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
             this.active = true;
 
             this.getPictureByGuid(this.worbbyTask.worbbior.userPictureId).then((result) => {
-                if(!this.isEmpty(result)){
+                if(!this.isNullOrEmpty(result)){
                     this.worbbyTask.worbbior.userPicture = result;
                 }else{
                     this.worbbyTask.worbbior.userPicture = AppConsts.defaultProfilePicture;

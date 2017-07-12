@@ -103,10 +103,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-12 divider nopad-x m-b-20px">
+                                    <worbbiorWorbbyTaskActions [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                </div>
                                 <div class="col-xs-12 divider no-pad-x m-b-20px">
-                                    <a (click)="sendReport()" class="btn btn-prime btn-block txt-small-tablet">
-                                        Reporte este worbbient
-                                    </a>
+                                    <worbbiorWorbbyTaskActions [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                    
                                 </div>
                             </div>                                  
                         </div>
@@ -217,5 +219,3 @@
     </div>
 </div>
 <div id="goToDown" name="goToDown"></div>
-
-<!--<sendReportModal #sendReportModal [inputId]="worbbientId" [inputType]="'worbbient'" [inputIdTask]="taskId"></sendReportModal>-->

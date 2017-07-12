@@ -125,7 +125,7 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
 
     sendMessage():void {
         var msg = this.worbbyTaskMessage.replace("\n", "");
-        if(!this.isEmpty(msg.trim())){
+        if(!this.isNullOrEmpty(msg.trim())){
             this.sending = true;
             var worbbyMessage = new WorbbyTaskMessageDto();
             worbbyMessage.userId = abp.session.userId;

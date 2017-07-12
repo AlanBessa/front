@@ -14,11 +14,14 @@ import { EvaluateWorbbiorComponent } from './worbby-task/worbbient-evaluate-worb
 import { WorbbientTaskSubmitPaymentComponent } from './worbby-task/worbbient-task-submit-payment.component';
 import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-worbby-task.component';
 import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-payment.component';
+import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
+                canActivate: [AppRouteGuard],
+                canActivateChild: [AppRouteGuard],
                 path: '',
                 children: [
                     //Versão Completa

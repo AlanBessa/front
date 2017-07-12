@@ -3,9 +3,8 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, WorbbyTaskMessageDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
+import { WorbbyTaskStatus, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
 import { AppConsts } from '@shared/AppConsts';
-import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { Observable } from 'rxjs/Rx';
@@ -17,8 +16,6 @@ import * as moment from "moment";
     animations: [appModuleAnimation()]
 })
 export class WorbbiorTaskDetailsComponent extends AppComponentBase implements AfterViewInit {
-
-    @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
 
     public active:boolean = false;
     public sending:boolean = false;
@@ -33,6 +30,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public AppConsts: typeof AppConsts = AppConsts;
+    public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
     public worbbyTaskMessage:string;
     public worbbiorPremium: boolean;
     public currentLength: number = 0;
@@ -144,7 +142,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
 
     sendMessage():void {
         var msg = this.worbbyTaskMessage.replace("\n", "");
-        if(!this.isEmpty(msg.trim())){
+        if(!this.isNullOrEmpty(msg.trim())){
             this.sending = true;
             var worbbyMessage = new WorbbyTaskMessageDto();
             worbbyMessage.userId = abp.session.userId;
@@ -206,8 +204,4 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
             console.log("app.message.connected");
         });
     }
-
-    sendReport(): void {
-        this.sendReportModal.show();
-    }       
 }

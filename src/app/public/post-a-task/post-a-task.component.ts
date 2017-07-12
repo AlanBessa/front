@@ -116,7 +116,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
                     this.worbbiorProfile = result;
                     this.active = true; 
                     this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
-                        if(!this.isEmpty(result)){
+                        if(!this.isNullOrEmpty(result)){
                             this.worbbiorProfile.worbbior.userPicture = result;
                         }else{
                             this.worbbiorProfile.worbbior.userPicture = AppConsts.defaultProfilePicture;

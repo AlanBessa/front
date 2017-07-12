@@ -12,11 +12,14 @@ import { ComingSoonComponent } from '@app/public/coming-soon/coming-soon.compone
 import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.component';
 import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
 import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-details.component';
+import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
+                canActivate: [AppRouteGuard],
+                canActivateChild: [AppRouteGuard],
                 path: '',
                 children: [
                     //Versão Completa

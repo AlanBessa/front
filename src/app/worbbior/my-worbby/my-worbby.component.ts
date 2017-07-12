@@ -8,6 +8,8 @@ import { AppSessionService } from '@shared/common/session/app-session.service';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { UnitMeasure } from '@shared/AppEnums';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
+
 
 @Component({
     templateUrl: './my-worbby.component.html',
@@ -208,22 +210,7 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
         console.log('viewWorbbyTask: ' + worbbyTask);
     }
 
-    acceptWorbbyTaskProposed(worbbyTask: WorbbyTaskDto): void {
-
-        this.saving = true;
-        var entityDto: EntityDtoOfInt64 = new EntityDtoOfInt64();
-        entityDto.id = worbbyTask.id;
-
-        this._worbbyTaskService.worbbyTaskProposalAcceptedByWorbbior(entityDto)
-            .finally(() => {
-                this.saving = false;
-            })
-            .subscribe(() => {
-                this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                });
-
-            });
-    }
+    
 
     refusedWorbbyTaskProposed(worbbyTask: WorbbyTaskDto): void {
         this.saving = true;
@@ -245,39 +232,6 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
             }
         );
 
-    }
-
-    confirmOfferAccepted(worbbyTask: WorbbyTaskDto): void {
-        var entityDto = new EntityDtoOfInt64();
-        entityDto.id = worbbyTask.id;
-        this._worbbyTaskService.offerConfirmedByWorbbior(entityDto)
-            .finally(() => {
-                this.saving = false;
-            })
-            .subscribe(() => {
-                this._router.navigate(['/worbbior/worbby-task-details', worbbyTask.id]);
-            });
-    }
-
-    refusedOfferAccepted(worbbyTask: WorbbyTaskDto): void {
-        var entityDto = new EntityDtoOfInt64();
-        entityDto.id = worbbyTask.id;
-        this.message.confirm(
-            'Deseja recusar essa oferta?', 'Ops!',
-            isConfirmed => {
-                if (isConfirmed) {
-                    this._worbbyTaskService.offerCanceledByWorbbior(entityDto)
-                        .finally(() => {
-                            this.saving = false;
-                        })
-                        .subscribe(() => {
-                            this.getWorbbyTasksOffersAcceptedByWorbbient();
-                            this.message.custom('', 'Oferta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            });
-                        });
-                }
-            }
-        );
     }
 
     get numberOfTasksPosted():number {

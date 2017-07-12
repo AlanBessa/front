@@ -1,7 +1,7 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Injector, APP_INITIALIZER } from '@angular/core';
-
+import { LOCALE_ID } from '@angular/core';
 import { AbpModule, ABP_HTTP_PROVIDER } from '@abp/abp.module';
 
 import { ModalModule, TooltipModule, AccordionModule, ButtonsModule, RatingModule } from 'ngx-bootstrap';
@@ -30,7 +30,6 @@ import { FooterComponent } from '@app/shared/layout/footer.component';
 import { HeaderComponent } from '@app/shared/layout/header.component';
 import { MenuComponent } from '@app/shared/layout/menu.component';
 import { AppHeaderComponent } from '@app/shared/layout/app-header.component';
-import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 import { FeedbackComponent } from "shared/feedback/feedback.component";
 import { ChangePasswordModalComponent } from '@app/shared/layout/profile/change-password-modal.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics, Angulartics2Facebook } from 'angulartics2';
@@ -149,7 +148,6 @@ function handleLogoutRequest(authService: AppAuthService) {
         FooterComponent,
         HeaderComponent,
         AppHeaderComponent,
-        SendReportModalComponent,
         FeedbackComponent,
         ChangePasswordModalComponent,
         MenuComponent,
@@ -170,6 +168,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         UserNotificationHelper,
         ABP_HTTP_PROVIDER,
         { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
+        { provide: LOCALE_ID, useValue: "pt-BR" },
         {
             provide: APP_INITIALIZER,
             useFactory: appInitializerFactory,

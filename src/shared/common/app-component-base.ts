@@ -131,8 +131,8 @@ export abstract class AppComponentBase {
         return Number(value);
     }
 
-    isEmpty(value): boolean {
-        return (value == null || value === '');
+    isNullOrEmpty(value): boolean {
+        return (value == null || value === '' || value == undefined);
     }
 
     goTo(location): void {

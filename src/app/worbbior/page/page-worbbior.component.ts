@@ -66,7 +66,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         this._worbbiorService.getWorbbiorProfile(this.worbbiorId).subscribe((result) => {
             this.worbbiorProfile = result;
             this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
-                if(!this.isEmpty(result)){
+                if(!this.isNullOrEmpty(result)){
                     this.worbbiorProfile.worbbior.userPicture = result;
                 }else{
                     this.worbbiorProfile.worbbior.userPicture = AppConsts.defaultProfilePicture;
@@ -99,7 +99,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         this._worbbiorService.getPreviewWorbbiorProfile(this.worbbiorId).subscribe((result) => {
             this.worbbiorProfile = result;
             this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
-                if(!this.isEmpty(result)){
+                if(!this.isNullOrEmpty(result)){
                     this.worbbiorProfile.worbbior.userPicture = result;
                 }else{
                     this.worbbiorProfile.worbbior.userPicture = AppConsts.defaultProfilePicture;

@@ -148,12 +148,18 @@ export enum ScheduleDateType {
 }
 
 export enum WorbbyTaskStatus {
-    Post = Number(WorbbyTaskDtoStatus._1),
-    Hired = Number(WorbbyTaskDtoStatus._2),
-    Start = Number(WorbbyTaskDtoStatus._3),
-    Delivered = Number(WorbbyTaskDtoStatus._4),
-    Canceled = Number(WorbbyTaskDtoStatus._5),
-    Paid = Number(WorbbyTaskDtoStatus._6)
+    Post = Number(WorbbyTaskDtoStatus._1), //Tarefa Postada
+    Hired = Number(WorbbyTaskDtoStatus._2), //Tarefa Contratada
+    Start = Number(WorbbyTaskDtoStatus._3), //Tarefa Iniciada
+    Delivered = Number(WorbbyTaskDtoStatus._4), //Tarefa Entregue
+    Canceled = Number(WorbbyTaskDtoStatus._5), // Tarefa Cancelada
+    Paid = Number(WorbbyTaskDtoStatus._6), // Tarefa Paga
+    OfferAcceptedByWorbbient = Number(WorbbyTaskDtoStatus._7), // * Oferta aceita pelo worbbient
+    OfferCanceledByWorbbient = Number(WorbbyTaskDtoStatus._8), // * Oferta regeitada pelo worbbient
+    OfferCanceledByWorbbior = Number(WorbbyTaskDtoStatus._9), // Oferta cancelada pelo Worbbior
+    OfferConfirmedByWorbbior = Number(WorbbyTaskDtoStatus._10), // Oferta de tarefa confirmada pelo Worbbior
+    WorbbyTaskProposalAcceptedByWorbbior = Number(WorbbyTaskDtoStatus._11), //* Tarefa proposta  aceita pelo Worbbior
+    WorbbyTaskProposalRefusedByWorbbior = Number(WorbbyTaskDtoStatus._12) //* Tarefa proposta recusada pelo Worbbior
 }
 
 export enum WorbbyTaskMessageReadState{

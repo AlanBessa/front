@@ -170,7 +170,7 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
             this.worbbiorActivities = result.items;
             this.worbbiorActivities.forEach(element => {
                 this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {
-                    if(!this.isEmpty(result)){
+                    if(!this.isNullOrEmpty(result)){
                         element.worbbior.userPicture = result;
                     }else{
                         element.worbbior.userPicture = AppConsts.defaultProfilePicture;

@@ -199,7 +199,7 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
     }
 
     checkFiltersActive():void{
-        if(!this.isEmpty(this.findWorbbyTaskInput.filter) || !this.isEmpty(this.findWorbbyTaskInput.interestCenterTopLevelId) || !this.isEmpty(this.findWorbbyTaskInput.address)  || !this.isEmpty(this.findWorbbyTaskInput.orderBy)){
+        if(!this.isNullOrEmpty(this.findWorbbyTaskInput.filter) || !this.isNullOrEmpty(this.findWorbbyTaskInput.interestCenterTopLevelId) || !this.isNullOrEmpty(this.findWorbbyTaskInput.address)  || !this.isNullOrEmpty(this.findWorbbyTaskInput.orderBy)){
             this.filtersActive = true;
         }else{
             this.filtersActive = false;

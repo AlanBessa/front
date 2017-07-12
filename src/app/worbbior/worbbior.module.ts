@@ -29,12 +29,14 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { InfoTutorialCadastroModalComponent } from "app/worbbior/edit-profile/info-tutorial-cadastro-modal.component";
 import { SendEndorsementModalComponent } from 'app/worbbior/edit-profile/send-endorsement-modal.component';
 import { AgmCoreModule } from '@agm/core';
-
 import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
 import { ReceivedPaymentWorbbiorComponent } from "app/worbbior/payments-history/received-payment.component";
 import { PaidPaymentWorbbiorComponent } from "app/worbbior/payments-history/paid-payment.component";
 import { ViewDocumentModalComponent } from '@app/worbbior/edit-profile/view-document-modal.component';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
+import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.component';
+import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 
 @NgModule({
     imports: [
@@ -82,9 +84,12 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
         ReceivedPaymentWorbbiorComponent,
         PaidPaymentWorbbiorComponent,
         ViewDocumentModalComponent,
-        PdfViewerComponent
+        PdfViewerComponent,
+        WorbbiorWorbbyTaskActions,
+        SendReportModalComponent
     ],
     providers: [
+        AppRouteGuard
     ]
 })
 export class WorbbiorModule { }

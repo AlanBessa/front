@@ -144,7 +144,7 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
             if(result.userId != undefined){
                 this.worbbior = result;
                 this.getPictureByGuid(this.worbbior.userPictureId).then((result) =>{
-                    if(!this.isEmpty(result)){
+                    if(!this.isNullOrEmpty(result)){
                         this.worbbior.userPicture = result;
                     }else{
                         this.worbbior.userPicture = AppConsts.defaultProfilePicture;

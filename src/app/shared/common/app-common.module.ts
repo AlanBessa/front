@@ -23,6 +23,8 @@ import { RegisterComponent } from '@app/account/register/register.component';
 import { SelectModule } from 'ng2-select';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RouterModule } from '@angular/router';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
+import { WorbbientWorbbyTaskActions } from '@app/worbbient/worbby-task/worbbient-task-actions.component';
 
 @NgModule({
     imports: [
@@ -47,7 +49,9 @@ import { RouterModule } from '@angular/router';
         ChangeProfilePictureModalComponent,
         LoginComponent,
         RegisterComponent,
-        ComingSoonComponent
+        ComingSoonComponent,
+        NotificationsComponent,
+        WorbbientWorbbyTaskActions
     ],
     exports: [
         TimeZoneComboComponent,
@@ -58,7 +62,9 @@ import { RouterModule } from '@angular/router';
         ChangeProfilePictureModalComponent,
         LoginComponent,
         RegisterComponent,
-        ComingSoonComponent
+        ComingSoonComponent,
+        NotificationsComponent,
+        WorbbientWorbbyTaskActions
     ],
     providers: [
         DateTimeService,

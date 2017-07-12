@@ -1,33 +1,47 @@
 <div *ngIf="actionsType == 'options'" class="card-actions">
+    <a *ngIf="pageType == 'list'" class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
+        <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+    </a>     
     <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="fa fa-cog"></i>
     </a> 
     <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
         <li class="arrow-up"></li>
-        <li *ngIf="ifOfferAcceptedByWorbbient">
-            <a (click)="confirmOfferAccepted(worbbyTask)">
+        <li *ngIf="pageType == 'list'">
+            <a (click)="viewWorbbyTask()">
+                Visualizar
+            </a>
+        </li>
+        <li *ngIf="isOfferAcceptedByWorbbient">
+            <a (click)="confirmOfferAccepted()">
                 <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
                 Confirmar                            
             </a> 
         </li>
-        <li *ngIf="ifOfferAcceptedByWorbbient">
-            <a (click)="refusedOfferAccepted(worbbyTask)">
+        <li *ngIf="isOfferAcceptedByWorbbient || isOfferConfirmedByWorbbior">
+            <a (click)="refusedOfferAccepted()">
                 <i class="fa fa-trash cor-Flamingo"></i>
                 Recusar                            
             </a> 
         </li>
-        <li>
+        <li *ngIf="isWorbbyTaskProposed">
             <a (click)="acceptWorbbyTaskProposed()">
                 <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
                 Aceitar                            
             </a> 
         </li>
-        <li>
+        <li *ngIf="isWorbbyTaskProposed || isWorbbyTaskProposedAccepted">
             <a (click)="refusedWorbbyTaskProposed()">
                 <i class="fa fa-trash cor-Flamingo"></i>
                 Recusar                            
             </a> 
         </li>
+        <li *ngIf="isPendingOffer">
+            <a (click)="pendingOfferCancel()">
+                <i class="fa fa-trash cor-Flamingo"></i>
+                Cancelar                            
+            </a> 
+        </li>        
         <li>
             <a (click)="sendReport()">
                 Reporte este worbbient
@@ -38,11 +52,17 @@
 
 <div *ngIf="actionsType == 'buttons'" class="buttons-actions">
     <div class="row">
-        <div *ngIf="ifOfferAcceptedByWorbbient" class="col-xs-6">
+        <div *ngIf="isOfferAcceptedByWorbbient" class="col-xs-6">
             <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="confirmOfferAccepted()">Confirmar</button>                                                                        
         </div>
-        <div *ngIf="ifOfferAcceptedByWorbbient" class="col-xs-6">
+        <div *ngIf="isOfferAcceptedByWorbbient" class="col-xs-6">
             <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedOfferAccepted()">Recusar</button>
+        </div>
+        <div *ngIf="isWorbbyTaskProposed" class="col-xs-6">
+            <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="acceptWorbbyTaskProposed(worbbyTask)">Aceitar</button>                                                                        
+        </div>
+        <div *ngIf="isWorbbyTaskProposed" class="col-xs-6">
+            <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedWorbbyTaskProposed(worbbyTask)">Recusar</button>
         </div>
     </div>
 </div>

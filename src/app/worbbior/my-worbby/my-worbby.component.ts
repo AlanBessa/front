@@ -196,44 +196,6 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
         console.log('offerAcceptClick: ' + worbbyTask);
     }
 
-    pendingOfferView(worbbyOffer: WorbbyOfferDto): void {
-        this._router.navigate(['/worbbior/worbby-task-offer', worbbyOffer.id]);
-        console.log('pendingOfferClick');
-    }
-
-    pendingOfferCancel(): void {
-        console.log("TODO: Implementar cancelamento de oferta!!");
-    }
-
-    viewWorbbyTask(worbbyTask: WorbbyTaskDto): void {
-        this._router.navigate(['/worbbior/worbby-task-details', worbbyTask.id]);
-        console.log('viewWorbbyTask: ' + worbbyTask);
-    }
-
-    
-
-    refusedWorbbyTaskProposed(worbbyTask: WorbbyTaskDto): void {
-        this.saving = true;
-        var entityDto: EntityDtoOfInt64 = new EntityDtoOfInt64();
-        entityDto.id = worbbyTask.id;
-        this.message.confirm(
-            'Deseja recusar essa proposta?', 'Ops!',
-            isConfirmed => {
-                if (isConfirmed) {
-                    this._worbbyTaskService.worbbyTaskProposalRefusedByWorbbior(new EntityDtoOfInt64(entityDto))
-                        .finally(() => {
-                            this.saving = false;
-                        })
-                        .subscribe(() => {
-                            this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            });
-                        });
-                }
-            }
-        );
-
-    }
-
     get numberOfTasksPosted():number {
         return this.worbbyTasksOffersAccepted.length + this.worbbyTasksOffersConfirmed.length + this.pendingOffers.length + this.tasksProposed.length + this.tasksProposedAcceptedByWorbbior.length;
     }

@@ -114,7 +114,8 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">  
+                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                                                    <!--<div class="card-actions">  
                                                                         <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
                                                                             <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
                                                                         </a>              
@@ -141,7 +142,7 @@
                                                                                 </a> 
                                                                             </li>
                                                                         </ul>                        
-                                                                    </div>
+                                                                    </div>-->
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
@@ -168,14 +169,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
-                                                                <div class="row">
+                                                                <worbbiorWorbbyTaskActions [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                                                <!--<div class="row">
                                                                     <div class="col-xs-6">
                                                                         <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="confirmOfferAccepted(worbbyTask)">Confirmar</button>                                                                        
                                                                     </div>
                                                                     <div class="col-xs-6">
                                                                         <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedOfferAccepted(worbbyTask)">Recusar</button>
                                                                     </div>
-                                                                </div>
+                                                                </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -202,7 +204,8 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">
+                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                                                    <!--<div class="card-actions">
                                                                         <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
                                                                             <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
                                                                         </a>              
@@ -229,7 +232,7 @@
                                                                                 </a> 
                                                                             </li>
                                                                         </ul>                        
-                                                                    </div>
+                                                                    </div>-->
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
@@ -256,14 +259,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
-                                                                <div class="row">
+                                                                <worbbiorWorbbyTaskActions [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                                                <!--<div class="row">
                                                                     <div class="col-xs-6">
                                                                         <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="acceptWorbbyTaskProposed(worbbyTask)">Aceitar</button>                                                                        
                                                                     </div>
                                                                     <div class="col-xs-6">
                                                                         <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedWorbbyTaskProposed(worbbyTask)">Recusar</button>
                                                                     </div>
-                                                                </div>
+                                                                </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -292,7 +296,8 @@
                                                                 <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
                                                             </div>
                                                             <div class="col-xs-2 col-md-2">
-                                                                <div class="card-actions">
+                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                                                <!--<div class="card-actions">
                                                                     <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
                                                                         <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
                                                                     </a>  
@@ -319,7 +324,7 @@
                                                                             </a> 
                                                                         </li>
                                                                     </ul>                      
-                                                                </div>
+                                                                </div>-->
                                                             </div>
                                                             <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                 <div class="row">
@@ -440,7 +445,8 @@
                                                                 <p class="small profileName cor-Botticelli">{{worbbyOffer.worbbior.displayName}}</p>                                                            
                                                             </div>
                                                             <div class="col-xs-2 col-md-2">
-                                                                <div class="card-actions">
+                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer"></worbbiorWorbbyTaskActions>
+                                                                <!--<div class="card-actions">
                                                                     <a class="btn-cog" (click)="pendingOfferView(worbbyOffer)">
                                                                         <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
                                                                     </a>
@@ -461,7 +467,7 @@
                                                                             </a> 
                                                                         </li>
                                                                     </ul>                    
-                                                                </div>
+                                                                </div>-->
                                                             </div>
 
                                                             <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">

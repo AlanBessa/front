@@ -170,34 +170,6 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
         this._router.navigate(['/worbbient/editar-tarefa-postada', worbbyTask.id]);
     }
 
-    cancelPublicWorbbyTask(worbbyTask:WorbbyTaskDto):void{
-        this._worbbyTaskService.cancelPublicWorbbyTask(new EntityDtoOfInt64(worbbyTask))
-        .finally(() => {
-            this.saving = false;
-        })
-        .subscribe(() => {
-            this.message.success("Sua tarefa foi cancelada com sucesso!");
-        }, (error) => {
-            console.log(error);
-        });
-    }
-
-    cancelProposedWorbbyTask(worbbyTask:WorbbyTaskDto):void{
-        this._worbbyTaskService.cancelProposedWorbbyTask(new EntityDtoOfInt64(worbbyTask))
-        .finally(() => {
-            this.saving = false;
-        })
-        .subscribe(() => {
-            this.message.success("Sua tarefa foi cancelada com sucesso!");
-        }, (error) => {
-            console.log(error);
-        });
-    }
-
-    viewWorbbyTask(worbbyTask:WorbbyTaskDto):void{
-        this._router.navigate(['/worbbient/worbby-task-details', worbbyTask.id]);
-    }
-
     getGetWorbbyTasksInProgress(): void {
         this._worbbyTaskService.getWorbbyTasksInProgressByUserId(abp.session.userId).subscribe(result => {
             this.worbbyTasksInProgress = result.items;

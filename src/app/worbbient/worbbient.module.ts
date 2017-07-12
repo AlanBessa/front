@@ -27,7 +27,7 @@ import { MomentModule } from "angular2-moment";
 import { TextMaskModule } from 'angular2-text-mask';
 import { SelectModule } from 'ng2-select';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
-import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
+
 
 
 @NgModule({
@@ -67,8 +67,7 @@ import { NotificationsComponent } from "app/shared/layout/notifications/notifica
         EvaluateWorbbiorComponent,
         WorbbientTaskSubmitPaymentComponent,
         WorbbientTaskPaymentComponent,
-        WorbbientEditWorbbyTaskComponent,
-        NotificationsComponent
+        WorbbientEditWorbbyTaskComponent
     ],
     providers: [
         AppRouteGuard

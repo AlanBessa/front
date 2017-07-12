@@ -103,6 +103,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-12 divider nopad-x m-b-20px">
+                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbientWorbbyTaskActions>
+                                </div>
+                                <div class="col-xs-12 divider no-pad-x m-b-20px">
+                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbientWorbbyTaskActions>
+                                </div>
                             </div>                                  
                         </div>
                         <button type="button" class="btn btn-prime-inverted btn-block visible-xs btn-chat-info" (click)="openDetails(isOpenedInfo)">

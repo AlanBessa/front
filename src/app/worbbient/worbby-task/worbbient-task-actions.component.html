@@ -1,0 +1,52 @@
+<div *ngIf="actionsType == 'options'" class="card-actions">
+    <a *ngIf="pageType == 'list'" class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
+        <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+    </a>     
+    <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <i class="fa fa-cog"></i>
+    </a> 
+    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
+        <li class="arrow-up"></li>
+        <li *ngIf="pageType == 'list' && !isPublicWorbbyTasks">
+            <a (click)="viewWorbbyTask()">
+                Visualizar
+            </a>
+        </li>
+        <li *ngIf="isWorbbyTaskOfferConfirmed || isWorbbyTasksProposedAccepted">
+            <a [routerLink]="['/worbbient/worbby-task-payment', worbbyTask.id]">Contratar</a>
+        </li>
+        <li *ngIf="isWorbbyTaskOfferConfirmed || isPublicWorbbyTasks || isWorbbyTasksOffersAccepted">
+            <a (click)="cancelPublicWorbbyTask()">
+                <i class="fa fa-trash cor-Flamingo"></i>
+                Cancelar                            
+            </a> 
+        </li>
+        <li *ngIf="isWorbbyTasksProposedAccepted || isWorbbyTasksProposed">
+            <a (click)="cancelProposedWorbbyTask()">
+                <i class="fa fa-trash cor-Flamingo"></i>
+                Cancelar                            
+            </a> 
+        </li>
+        <li *ngIf="isPublicWorbbyTasks">
+            <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" >
+                Ver ofertas
+            </a>
+        </li>
+        <li *ngIf="isPublicWorbbyTasks || isWorbbyTasksOffersAccepted || isWorbbyTasksProposed">
+            <a (click)="editWorbbyTask()">
+                Editar
+            </a>
+        </li>
+        <li *ngIf="isWorbbyTasksOffersAccepted">
+            <a (click)="removeOfferSelected(worbbyTask)">Desistir da oferta selecionada</a>
+        </li>
+    </ul>                      
+</div>
+
+<div *ngIf="actionsType == 'buttons'" class="buttons-actions">
+    <div class="row">
+        <div *ngIf="isWorbbyTaskOfferConfirmed || isWorbbyTasksProposedAccepted" class="col-xs-12">
+            <a [routerLink]="['/worbbient/worbby-task-payment', worbbyTask.id]" class="btn btn-prime btn-block">Contratar</a>                                                                       
+        </div>
+    </div>
+</div>

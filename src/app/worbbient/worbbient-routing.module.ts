@@ -15,6 +15,7 @@ import { WorbbientTaskSubmitPaymentComponent } from './worbby-task/worbbient-tas
 import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-worbby-task.component';
 import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-payment.component';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
                                 description: ''
                             }
                         }
-                    }
+                    },
+                    { path: 'notifications', component: NotificationsComponent, data: { } }
 
                     //Versão limitada
                     // { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },

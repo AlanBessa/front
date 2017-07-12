@@ -13,6 +13,7 @@ import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.co
 import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
 import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-details.component';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
+import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 
 @NgModule({
     imports: [
@@ -33,7 +34,7 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
                     { path: 'talent-questionnaire', component: TalentQuestionnaireComponent, data: { } },
                     { path: 'worbby-task-offer/:worbbyOfferId', component: WorbbiorTaskOfferComponent, data: { } },
                     { path: 'worbby-task-details/:worbbyTaskId', component: WorbbiorTaskDetailsComponent, data: { } },
-                    
+                    { path: 'notifications', component: NotificationsComponent, data: { } }
 
                     //Versão limitada
                     // { path: 'edit-profile', component: EditProfileWorbbiorComponent, data: { permission: 'Pages.Worbbior.EditProfile' } },

@@ -37,8 +37,8 @@
         <div class="sidebar-notifications-empty" *ngIf="!notifications.length">
             {{l("ThereIsNoNotification")}}
         </div>
-        <!--<a routerLink="notifications" class="btn btn-block btn-prime-inverted btn-around txt-small white-space">
+        <a routerLink="worbbior/notifications" (click)="showHideNotifications()" class="btn btn-block btn-prime-inverted btn-around txt-small white-space cursor-pointer">
             {{l("SeeAllNotifications")}}
-        </a>-->
+        </a>
     </div>
 </div>

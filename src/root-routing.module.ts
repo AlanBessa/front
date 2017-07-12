@@ -3,6 +3,7 @@ import { Routes, RouterModule, Router, NavigationEnd } from '@angular/router';
 import { RootComponent } from './root.component';
 import { MetaModule } from '@nglibs/meta';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { NotificationsComponent } from '@app/shared/layout/notifications/notifications.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,7 @@ const routes: Routes = [
         loadChildren: 'app/account/account.module#AccoutModule', //Lazy load account module
         data: { preload: true }
     },
+    { path: 'notifications', component: NotificationsComponent },
     { path: 'login', redirectTo: '/conta/entrar', pathMatch: 'full' },
     { path: 'entrar', redirectTo: '/conta/entrar', pathMatch: 'full' },
     { path: 'register/:roleName', redirectTo: '/conta/registrar/:roleName', pathMatch: 'full', },

@@ -74,7 +74,7 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
             
         })
 
-        this.getInterestCentersTopLevel();
+        this.getLocation();
 
         // if(!self.tabFeaturesActive){
         //     this.getInterestCentersTopLevel();
@@ -218,12 +218,12 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude.toString();
                 this.longitude = position.coords.longitude.toString();
-                this.getTalents();
+                this.getInterestCentersTopLevel();
             },(error) => {
-                this.getTalents();
+                this.getInterestCentersTopLevel();
             });
         }else{
-            this.getTalents();
+            this.getInterestCentersTopLevel();
         }
     }
 

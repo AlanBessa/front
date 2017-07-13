@@ -74,6 +74,24 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
         )
     }
 
+    get isWorbbyTaskHired(){
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Hired)
+        )
+    }
+
+    get isWorbbyTaskDelivered(){
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Delivered)
+        )
+    }
+
+    get isWorbbyTaskStart(){
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Start)
+        )
+    }
+
     cancelPublicWorbbyTask():void{
         this.message.confirm(
             'Deseja cancelar essa tarefa?', 'Ops!',

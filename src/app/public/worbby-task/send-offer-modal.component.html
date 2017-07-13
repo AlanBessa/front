@@ -23,6 +23,27 @@
                     </textarea>
                     <p class="small">{{description.value.length}} / 450 caracteres usados.</p>
                   </div>
+                  <div class="form-group no-hint">
+                    <label>
+                      Política de cancelamento
+                      <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
+                      <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
+                    </label>
+                    <div *ngIf="cancellationPolicyOptions.length" class="dropdown">
+                      <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
+                        data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                          {{l(currentCancellationPolicyOptions)}}
+                          <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li *ngFor="let name of cancellationPolicyOptions">
+                          <a href="javascript:;" (click)="changeCancellationPolicy(name)">
+                              {{l(name)}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

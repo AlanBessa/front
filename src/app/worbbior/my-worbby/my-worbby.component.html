@@ -114,35 +114,7 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
-                                                                    <!--<div class="card-actions">  
-                                                                        <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
-                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
-                                                                        </a>              
-                                                                        <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                                            <i class="fa fa-cog"></i>
-                                                                        </a> 
-                                                                        <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
-                                                                            <li class="arrow-up"></li>
-                                                                            <li>
-                                                                                <a (click)="viewWorbbyTask(worbbyTask)">
-                                                                                    Visualizar
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a (click)="confirmOfferAccepted(worbbyTask)">
-                                                                                    <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
-                                                                                    Confirmar                            
-                                                                                </a> 
-                                                                            </li>
-                                                                            <li>
-                                                                                <a (click)="refusedOfferAccepted(worbbyTask)">
-                                                                                    <i class="fa fa-trash cor-Flamingo"></i>
-                                                                                    Recusar                            
-                                                                                </a> 
-                                                                            </li>
-                                                                        </ul>                        
-                                                                    </div>-->
+                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
@@ -169,15 +141,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
-                                                                <worbbiorWorbbyTaskActions [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
-                                                                <!--<div class="row">
-                                                                    <div class="col-xs-6">
-                                                                        <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="confirmOfferAccepted(worbbyTask)">Confirmar</button>                                                                        
-                                                                    </div>
-                                                                    <div class="col-xs-6">
-                                                                        <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedOfferAccepted(worbbyTask)">Recusar</button>
-                                                                    </div>
-                                                                </div>-->
+                                                                <worbbiorWorbbyTaskActions [actionsType]="'buttons'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -296,35 +260,7 @@
                                                                 <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
                                                             </div>
                                                             <div class="col-xs-2 col-md-2">
-                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
-                                                                <!--<div class="card-actions">
-                                                                    <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
-                                                                        <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
-                                                                    </a>  
-                                                                    <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                                        <i class="fa fa-cog"></i>
-                                                                    </a> 
-                                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
-                                                                        <li class="arrow-up"></li>
-                                                                        <li>
-                                                                            <a (click)="viewWorbbyTask(worbbyTask)">
-                                                                                Visualizar
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a (click)="acceptWorbbyTaskProposed(worbbyTask)">
-                                                                                <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
-                                                                                Aceitar                            
-                                                                            </a> 
-                                                                        </li>
-                                                                        <li>
-                                                                            <a (click)="refusedWorbbyTaskProposed(worbbyTask)">
-                                                                                <i class="fa fa-trash cor-Flamingo"></i>
-                                                                                Recusar                            
-                                                                            </a> 
-                                                                        </li>
-                                                                    </ul>                      
-                                                                </div>-->
+                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                                             </div>
                                                             <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                 <div class="row">
@@ -374,7 +310,8 @@
                                                                     <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
                                                                 </div>
                                                                 <div class="col-xs-2 col-md-2">
-                                                                    <div class="card-actions">
+                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
+                                                                    <!--<div class="card-actions">
                                                                         <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
                                                                             <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
                                                                         </a>
@@ -395,7 +332,7 @@
                                                                                 </a> 
                                                                             </li>
                                                                         </ul>                    
-                                                                    </div>
+                                                                    </div>-->
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
@@ -445,29 +382,7 @@
                                                                 <p class="small profileName cor-Botticelli">{{worbbyOffer.worbbior.displayName}}</p>                                                            
                                                             </div>
                                                             <div class="col-xs-2 col-md-2">
-                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer"></worbbiorWorbbyTaskActions>
-                                                                <!--<div class="card-actions">
-                                                                    <a class="btn-cog" (click)="pendingOfferView(worbbyOffer)">
-                                                                        <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
-                                                                    </a>
-                                                                    <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                                        <i class="fa fa-cog"></i>
-                                                                    </a> 
-                                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
-                                                                        <li class="arrow-up"></li>
-                                                                        <li>
-                                                                            <a (click)="pendingOfferView(worbbyOffer)">
-                                                                                Visualizar
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a (click)="pendingOfferCancel(worbbyTask)">
-                                                                                <i class="fa fa-trash cor-Flamingo"></i>
-                                                                                Cancelar                            
-                                                                            </a> 
-                                                                        </li>
-                                                                    </ul>                    
-                                                                </div>-->
+                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                                             </div>
 
                                                             <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">

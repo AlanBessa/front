@@ -166,10 +166,6 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
         );
     }
 
-    editWorbbyTask(worbbyTask: WorbbyTaskDto): void {
-        this._router.navigate(['/worbbient/editar-tarefa-postada', worbbyTask.id]);
-    }
-
     getGetWorbbyTasksInProgress(): void {
         this._worbbyTaskService.getWorbbyTasksInProgressByUserId(abp.session.userId).subscribe(result => {
             this.worbbyTasksInProgress = result.items;
@@ -243,5 +239,15 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
 
     get numberOfTasksInProgress():number {
         return this.worbbyTasksInProgress.length;
+    }
+
+    actionReturn():void {
+        console.log('actionReturn');
+        this.getPublicWorbbyTasks();
+        this.getProposedWorbbyTasks();
+        this.getWorbbyTasksProposedAccepted();
+        this.getGetWorbbyTasksInProgress();
+        this.getWorbbyTasksOffersAcceptedByWorbbient();
+        this.getWorbbyTasksOffersConfirmedByWorbbior();
     }
 }

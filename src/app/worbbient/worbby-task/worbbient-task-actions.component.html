@@ -1,7 +1,10 @@
 <div *ngIf="actionsType == 'options'" class="card-actions">
-    <a *ngIf="pageType == 'list'" class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
+    <a *ngIf="!isPublicWorbbyTasks && pageType == 'list'" class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
         <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
     </a>     
+    <a *ngIf="isPublicWorbbyTasks && pageType == 'list'" class="btn-cog" [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+    </a>   
     <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="fa fa-cog"></i>
     </a> 
@@ -47,6 +50,10 @@
     <div class="row">
         <div *ngIf="isWorbbyTaskOfferConfirmed || isWorbbyTasksProposedAccepted" class="col-xs-12">
             <a [routerLink]="['/worbbient/worbby-task-payment', worbbyTask.id]" class="btn btn-prime btn-block">Contratar</a>                                                                       
+        </div>
+
+        <div *ngIf="isPublicWorbbyTasks" class="col-xs-12">
+            <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" class="btn btn-prime btn-block">Ver Ofertas</a>                                                                       
         </div>
     </div>
 </div>

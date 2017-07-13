@@ -13525,6 +13525,51 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
+    offerUnboundCanceledByWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/OfferUnboundCanceledByWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processOfferUnboundCanceledByWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processOfferUnboundCanceledByWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processOfferUnboundCanceledByWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     offerConfirmedByWorbbior(input: EntityDtoOfInt64): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/WorbbyTask/OfferConfirmedByWorbbior";
         url_ = url_.replace(/[?&]$/, "");
@@ -26250,6 +26295,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
     tenantId: number;
     worbbyTaskId: number;
     worbbyTask: WorbbyTaskDto;
+    worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
     description: string;
     cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
     id: number;
@@ -26270,6 +26316,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
             this.tenantId = data["tenantId"];
             this.worbbyTaskId = data["worbbyTaskId"];
             this.worbbyTask = data["worbbyTask"] ? WorbbyTaskDto.fromJS(data["worbbyTask"]) : <any>undefined;
+            this.worbbyOfferStatus = data["worbbyOfferStatus"];
             this.description = data["description"];
             this.cancellationPolicy = data["cancellationPolicy"];
             this.id = data["id"];
@@ -26289,6 +26336,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
         data["tenantId"] = this.tenantId;
         data["worbbyTaskId"] = this.worbbyTaskId;
         data["worbbyTask"] = this.worbbyTask ? this.worbbyTask.toJSON() : <any>undefined;
+        data["worbbyOfferStatus"] = this.worbbyOfferStatus;
         data["description"] = this.description;
         data["cancellationPolicy"] = this.cancellationPolicy;
         data["id"] = this.id;
@@ -26302,6 +26350,7 @@ export interface IWorbbyOfferDto {
     tenantId: number;
     worbbyTaskId: number;
     worbbyTask: WorbbyTaskDto;
+    worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
     description: string;
     cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
     id: number;
@@ -27024,6 +27073,12 @@ export enum WorbbyTaskDtoStatus {
     _10 = 10, 
     _11 = 11, 
     _12 = 12, 
+}
+
+export enum WorbbyOfferDtoWorbbyOfferStatus {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
 }
 
 export enum WorbbyOfferDtoCancellationPolicy {

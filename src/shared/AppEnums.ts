@@ -21,6 +21,7 @@
     UserActivityInputUnitMeasure, 
     AvailabilityDtoDayOfWeek, 
     UserActivityInputCancellationPolicy, 
+    WorbbyOfferDtoWorbbyOfferStatus
 } from '@shared/service-proxies/service-proxies';
 import * as moment from "moment";
 
@@ -170,6 +171,12 @@ export enum WorbbyTaskMessageReadState{
 export enum WorbbyTaskMessageSide{
     Sender = Number(WorbbyTaskMessageDtoSide._1),
     Receiver = Number(WorbbyTaskMessageDtoSide._2),
+}
+
+export enum WorbbyOfferStatus {
+    Post = Number(WorbbyOfferDtoWorbbyOfferStatus._1), //Oferta postada
+    Accepted = Number(WorbbyOfferDtoWorbbyOfferStatus._2), //Oferta postada
+    Canceled = Number(WorbbyOfferDtoWorbbyOfferStatus._3), //Oferta cancelada
 }
 
 export class AdministrativeAreas {

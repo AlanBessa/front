@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { EntityDtoOfInt64, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,6 +15,8 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     @Input() worbbyOffer: WorbbyOfferDto;
     @Input() actionsType: string;
     @Input() pageType: string;
+
+    @Output() actionReturn: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
 
@@ -95,12 +97,13 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.offerCanceledByWorbbior(entityDto)
-                        .finally(() => {
-                        })
-                        .subscribe(() => {
-                            this.message.custom('', 'Oferta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            });
-                        });
+                    .finally(() => {
+                    })
+                    .subscribe(() => {
+                        this.message.custom('', 'Oferta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                            this.actionReturn.emit(null);
+                        });                        
+                    });
                 }
             }
         );
@@ -114,6 +117,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             })
             .subscribe(() => {
                 this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                    this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
                 });
             });
     }
@@ -125,12 +129,13 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.worbbyTaskProposalRefusedByWorbbior(new EntityDtoOfInt64(entityDto))
-                        .finally(() => {
-                        })
-                        .subscribe(() => {
-                            this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            });
+                    .finally(() => {
+                    })
+                    .subscribe(() => {
+                        this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                            this.actionReturn.emit(null);
                         });
+                    });
                 }
             }
         );
@@ -145,7 +150,22 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     }
 
     pendingOfferCancel(): void {
-        console.log("TODO: Implementar cancelamento de oferta!!");
+        var entityDto: EntityDtoOfInt64 = new EntityDtoOfInt64(this.worbbyOffer);
+        this.message.confirm(
+            'Deseja cancelar essa oferta?', 'Ops!',
+            isConfirmed => {
+                if (isConfirmed) {
+                    this._worbbyTaskService.offerUnboundCanceledByWorbbior(new EntityDtoOfInt64(entityDto))
+                    .finally(() => {
+                    })
+                    .subscribe(() => {
+                        this.message.custom('', 'Oferta cancelada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                            this.actionReturn.emit(null);
+                        });
+                    });
+                }
+            }
+        );
     }
 
     sendReport(): void {

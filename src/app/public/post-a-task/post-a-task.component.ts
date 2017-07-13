@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { WorbbiorProfileDto, UserActivityInput, ActivityServiceProxy, WorbbiorDto, WorbbiorServiceProxy, WorbbyTaskDto, WorbbyTaskInput, AddressDto, InterestCenterDto, InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, WorbbyTaskServiceProxy } from '@shared/service-proxies/service-proxies';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ScheduleDateType, Countries, AdministrativeAreas, KeyValueItem, KeyValueAddress, UnitMeasure, WorbbyTaskStatus } from '@shared/AppEnums';
+import { CancellationPolicy, ScheduleDateType, Countries, AdministrativeAreas, KeyValueItem, KeyValueAddress, UnitMeasure, WorbbyTaskStatus } from '@shared/AppEnums';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { AppConsts } from '@shared/AppConsts';
 import { MapsAPILoader } from '@agm/core';
@@ -35,7 +35,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public showDataPicker:boolean = false;
     public showInterestCentersTopLevel:boolean = false;
     public public:boolean = true;
-    public isOffer:boolean = false;
+    public isProposed:boolean = false;
     public isUnitPrice:string = "1";
     public register:boolean = true;
     public activityUserId:number;
@@ -55,6 +55,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
+    public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
     public scheduleDateDisplay:string = "Fixa";
 
     public countries: Countries = new Countries();
@@ -71,6 +72,8 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public currentTime:string = "Qualquer horário";
 
     private completeAddress:string = "";
+
+    public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
     constructor(
         injector: Injector,
@@ -111,7 +114,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
                 this.worbbyTask.unitPrice = this.userActivity.price;
                 this.worbbyTask.unitMeasure = Number(this.userActivity.unitMeasure);
                 this.currentUnitMeasureOptions = UnitMeasure[this.worbbyTask.unitMeasure];
-                this.isOffer = true;
+                this.isProposed = true;
                 this._worbbiorService.getWorbbiorProfileByUserId(result.userId).subscribe(result => {
                     this.worbbiorProfile = result;
                     this.active = true; 

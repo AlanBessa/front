@@ -203,4 +203,14 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
     get numberOfTasksInProgress():number {
         return this.worbbyTasksInProgress.length;
     }
+
+    actionReturn():void {
+        console.log('actionReturn');
+        this.getPendingOffers();
+        this.getTasksProposed();
+        this.getTasksProposedAcceptedByWorbbior();
+        this.getWorbbyTasksOffersAcceptedByWorbbient();
+        this.getWorbbyTasksOffersConfirmedByWorbbior();
+        this.getGetWorbbyTasksInProgress();
+    }
 }

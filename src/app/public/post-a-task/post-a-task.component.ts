@@ -277,7 +277,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
                     this.saving = false;
                 })
                 .subscribe(() => {                    
-                    this.message.custom('Acompanhe sua tarefa na página "Meu worbby". <strong>Você será notificado quando worbbiors</strong> fizerem ofertas para a sua tarefa', 'Sua tarefa foi postada!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                    this.message.custom('Acompanhe sua tarefa na página "Meu worbby". Você será notificado quando worbbiors fizerem ofertas para a sua tarefa', 'Sua tarefa foi postada!', 'assets/common/images/icon-dove@2x.png').done(() => {
                         this._router.navigate(['/worbbient/my-worbby']);
                     });       
                 });

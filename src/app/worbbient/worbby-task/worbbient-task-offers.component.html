@@ -3,8 +3,18 @@
         <div class="row">
             <div class="container">
                 <div *ngIf="active" class="row">
-                    <div class="col-xs-12">
-                        <h3 class="visible-xs titulo-WorbbiorProfile">Escolha uma oferta</h3>
+                    <div class="col-xs-12 visible-xs">
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <h3 class="titulo-WorbbiorProfile">Escolha uma oferta</h3>
+                            </div>
+                            <div class="col-xs-3">
+                                <a routerLink="/worbbient/my-worbby" class="btn btn-secondary m-t-20px">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span class="hidden-xs">Voltar</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>                    
                     <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
                         <div *ngIf="active" class="card-profile">
@@ -72,7 +82,7 @@
                                             <p class="small cor-Botticelli text-right">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}}</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline"><span class="cor-Botticelli txt-small">R$</span> {{worbbyTask.unitPrice}}</p>
+                                            <p class="inline"><span class="cor-Botticelli txt-small">R$</span> {{worbbyTask.unitPrice}}</p> 
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +100,17 @@
                         </div>
                     </div>
                     <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
-                        <h3 class="hidden-xs m-b-xss">Escolha uma oferta</h3>
+                        <div class="row hidden-xs">
+                            <div class="col-xs-9">
+                                <h3 class="titulo-WorbbiorProfile">Escolha uma oferta</h3>
+                            </div>
+                            <div class="col-xs-3 text-right">
+                                <a routerLink="/worbbient/my-worbby" class="btn btn-secondary m-t-xs txt-small">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span class="hidden-xs">Voltar</span>
+                                </a>
+                            </div>
+                        </div>
                         <div class="row m-b-xs" *ngIf="worbbyTask.offersList.items.length == 0">
                             <div class="col-xs-12">
                                 <div class="well well-lg">
@@ -117,7 +137,7 @@
                                                     <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
                                                 </p> 
                                             </div>
-                                            <div class="col-xs-2 col-md-2"> 
+                                            <div class="col-xs-2 col-md-2 text-right"> 
                                                 <worbbientWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="offer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
                                             </div>
                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">

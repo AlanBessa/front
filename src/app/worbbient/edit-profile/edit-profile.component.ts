@@ -8,7 +8,6 @@ import { AppSessionService } from '@shared/common/session/app-session.service';
 import { AppTimezoneScope } from '@shared/AppEnums';
 import { ChangeProfilePictureModalComponent } from '@app/shared/layout/profile/change-profile-picture-modal.component';
 import { MyPersonalDataWorbbientComponent } from './my-personal-data.component';
-import { MyPaymentWorbbientComponent } from './my-payment.component';
 import { MyAddressWorbbientComponent } from './my-address.component';
 import { UserMenu } from '@app/shared/layout/user-menu';
 import { UserMenuItem } from '@app/shared/layout/user-menu-item';
@@ -23,8 +22,6 @@ export class EditProfileWorbbientComponent extends AppComponentBase implements A
     @ViewChild('changeProfilePictureModal') changeProfilePictureModal: ChangeProfilePictureModalComponent;
 
     @ViewChild('editMyPersonalDataWorbbient') editMyPersonalDataWorbbient: MyPersonalDataWorbbientComponent;
-
-    @ViewChild('myPaymentWorbbient') myPaymentWorbbient: MyPaymentWorbbientComponent;
 
     @ViewChild('myAddressWorbbient') myAddressWorbbient: MyAddressWorbbientComponent; 
 

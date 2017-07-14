@@ -55,7 +55,6 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
         WorbbientComponent,
         EditProfileWorbbientComponent,
         MyPersonalDataWorbbientComponent,
-        MyPaymentWorbbientComponent,
         MyAddressWorbbientComponent,
         MessagesWorbbientComponent,
         MyWorbbyWorbbientComponent,

@@ -102,8 +102,7 @@
                                                 </div>
                                                 <div [hidden]="form.controls.securityCode.valid || form.controls.securityCode.pristine" class="form-group">
                                                     <ul class="help-block text-danger" *ngIf="form.controls.securityCode.errors">
-                                                        <li *ngIf="form.controls.securityCode.errors && !form.controls.securityCode.errors.minlength">Minimo de 3 caracteres.</li>
-                                                        <li *ngIf="form.controls.securityCode.errors && !form.controls.securityCode.errors.maxlength">Máximo de 3 caracteres.</li>
+                                                        <li *ngIf="form.controls.securityCode.errors && !form.controls.securityCode.errors.minlength">Mínimo de 3 caracteres.</li>
                                                     </ul>
                                                 </div>
                                             </div>

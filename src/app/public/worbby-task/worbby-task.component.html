@@ -63,7 +63,9 @@
                                 <p class="small cor-Botticelli text-right no-m-b">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}}</p>
                             </div>
                             <div class="display-cell">
-                                <p class="inline no-m-b">{{worbbyTask.unitPrice}}</p>
+                                <p class="inline no-m-b">
+                                    <span class="cor-Botticelli txt-small">R$</span> {{worbbyTask.unitPrice}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -73,7 +75,9 @@
                                 <p class="small cor-Botticelli text-right no-m-b">Valor total</p>
                             </div>
                             <div class="display-cell">
-                                <p class="inline no-m-b">{{worbbyTask.totalPrice}}</p>
+                                <p class="inline no-m-b">
+                                    <span class="cor-Botticelli txt-small">R$</span> <span class="cor-Denim">{{worbbyTask.totalPrice}}</span>
+                                </p>
                             </div>
                         </div>
                     </div>                     
@@ -85,7 +89,10 @@
                 </div>
                 <div class="col-xs-12 col-md-8">
                     <button *ngIf="isLogged" (click)="openOfferModal()" type="button" class="btn btn-prime btn-block btn-around m-b-10px">Fazer um oferta</button>
-                    <button *ngIf="!isLogged" routerLink="/login" type="button" class="btn btn-prime btn-block btn-around white-space m-b-10px">Cadastre-se ou faça o login para realizar uma oferta</button>
+                    <button *ngIf="!isLogged" routerLink="/login" type="button" class="btn btn-prime btn-block btn-around white-space m-b-10px cor-Cinder">
+                        Fazer um oferta
+                        <small class="btn-prime-sub">Login ou cadastre-se</small>
+                    </button>
                 </div> 
             </div>
         </div>

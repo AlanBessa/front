@@ -10,7 +10,6 @@ import { AppCommonModule } from '@app/shared/common/app-common.module'
 import { WorbbientComponent } from './worbbient.component'
 import { EditProfileWorbbientComponent } from './edit-profile/edit-profile.component'
 import { MyPersonalDataWorbbientComponent } from './edit-profile/my-personal-data.component'
-import { MyPaymentWorbbientComponent } from './edit-profile/my-payment.component'
 import { MyAddressWorbbientComponent } from './edit-profile/my-address.component'
 import { MessagesWorbbientComponent } from './messages/messages.component';
 import { MyWorbbyWorbbientComponent } from './my-worbby/my-worbby.component';
@@ -55,7 +54,6 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
         WorbbientComponent,
         EditProfileWorbbientComponent,
         MyPersonalDataWorbbientComponent,
-        MyPaymentWorbbientComponent,
         MyAddressWorbbientComponent,
         MessagesWorbbientComponent,
         MyWorbbyWorbbientComponent,

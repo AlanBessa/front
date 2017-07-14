@@ -291,13 +291,13 @@
                                         <div *ngIf="!isOffer" class="form-group no-hint m-b-xs">
                                             <div class="row">
                                                 <div class="col-xs-12 col-md-5">
-                                                    <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">Preço unidade / Hora</button>
-                                                </div>
+                                                    <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">Preço total</button>
+                                                </div>                                            
                                                 <div class="col-xs-12 col-md-2">
                                                     <div class="divOu">- ou -</div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-5">
-                                                    <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="0" btnCheckboxFalse="1">Preço total</button>
+                                                    <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="0" btnCheckboxFalse="1">Preço unidade / Hora</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -351,7 +351,7 @@
                                                     <h3 class="display-inline m-l-5px" *ngIf="worbbyTask.isUnitPrice"> {{worbbyTask.unitPrice * worbbyTask.amount}}</h3>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="row m-t-xs">
                                             <div class="col-xs-12 col-sm-6 col-md-4 m-b-xxs">
                                                 <button routerLink="/worbbient/my-worbby" type="button" class="btn btn-secondary btn-around btn-block">Voltar</button>

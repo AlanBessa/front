@@ -72,7 +72,6 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
             ])],
             securityCode: ['', Validators.compose([
                 Validators.minLength(3),
-                Validators.maxLength(3),
                 Validators.required
             ])]
         });

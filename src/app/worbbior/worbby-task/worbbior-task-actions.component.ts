@@ -78,6 +78,24 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         )
     }
 
+    get isWorbbyTaskHired(){
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Hired)
+        )
+    }
+
+    get isWorbbyTaskDelivered(){
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Delivered)
+        )
+    }
+
+    get isWorbbyTaskStart(){
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Start)
+        )
+    }
+
     confirmOfferAccepted(): void {
         var entityDto = new EntityDtoOfInt64(this.worbbyTask);
         this._worbbyTaskService.offerConfirmedByWorbbior(entityDto)
@@ -93,7 +111,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     refusedOfferAccepted(): void {
         var entityDto = new EntityDtoOfInt64(this.worbbyTask);
         this.message.confirm(
-            'Deseja recusar essa oferta?', 'Ops!',
+            '', 'Deseja recusar essa oferta?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.offerCanceledByWorbbior(entityDto)
@@ -125,7 +143,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     refusedWorbbyTaskProposed(): void {
         var entityDto: EntityDtoOfInt64 = new EntityDtoOfInt64(this.worbbyTask);
         this.message.confirm(
-            'Deseja recusar essa proposta?', 'Ops!',
+            '', 'Deseja recusar essa proposta?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.worbbyTaskProposalRefusedByWorbbior(new EntityDtoOfInt64(entityDto))
@@ -152,7 +170,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     pendingOfferCancel(): void {
         var entityDto: EntityDtoOfInt64 = new EntityDtoOfInt64(this.worbbyOffer);
         this.message.confirm(
-            'Deseja cancelar essa oferta?', 'Ops!',
+            '', 'Deseja cancelar essa oferta?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.offerUnboundCanceledByWorbbior(new EntityDtoOfInt64(entityDto))
@@ -167,6 +185,46 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             }
         );
     }
+
+    cancelWorbbyTaskHired():void{
+        this.message.confirm(
+            '', 'Tem certeza que quer cancelar esta tarefa?',
+            isConfirmed => {
+                if (isConfirmed) {
+                    this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
+                    .finally(() => {
+                    })
+                    .subscribe(() => {
+                        this.message.success("Sua tarefa foi cancelada com sucesso!");
+                        this.actionReturn.emit(null);
+                    }, (error) => {
+                        console.log(error);
+                    });
+                }
+            }
+        );
+    }
+
+    WorbbyTaskDelivered():void{
+        this.message.confirm(
+            'Você entregou esta tarefa?',
+            isConfirmed => {
+                if (isConfirmed) {
+                    this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
+                    .finally(() => {
+                    })
+                    .subscribe(() => {
+                        this.message.success("O Worbbient será notificado para que possa liberar o pagamento.", "Confirmada a entrega da tarefa!");
+                        this.actionReturn.emit(null);
+                    }, (error) => {
+                        console.log(error);
+                    });
+                }
+            }
+        );
+    }
+
+    // Confirmar a entrega da tarefa
 
     sendReport(): void {
         this.sendReportModal.show();

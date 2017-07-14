@@ -357,7 +357,7 @@
                                                     <!-- card -->
                                                     <div class="card-simple">
                                                         <div class="row">
-                                                            <a [routerLink]="['/worbbient/worbby-task-details', worbbyTask.id]" class="w-100">
+                                                            <div class="w-100">
                                                                 <div class="col-xs-3 col-md-2 no-p-r-xs">
                                                                     <div class="divProfile">
                                                                         <!--<span class="profile-online"></span>-->
@@ -365,8 +365,11 @@
                                                                         <span *ngIf="worbbiorPremium" class="profile-pro"></span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-9 col-md-10 card-simple-info">
+                                                                <div class="col-xs-7 col-md-8 card-simple-info">
                                                                     <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                </div>
+                                                                <div class="col-xs-2 col-md-2"> 
+                                                                    <worbbientWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
@@ -389,14 +392,17 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
+                                                                <worbbientWorbbyTaskActions [actionsType]="'buttons'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
+                                                            </div>
+                                                            <!--<div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
                                                                 <div class="row">
                                                                     <div class="col-xs-12">                                                                        
                                                                         <a [routerLink]="['/worbbient/worbby-task-submit-payment', worbbyTask.id]" class="btn btn-prime btn-block">Finalizar e Avaliar</a>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div>-->
                                                         </div>
                                                     </div>
                                                     <!-- card : fim -->

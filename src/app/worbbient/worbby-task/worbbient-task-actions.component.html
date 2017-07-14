@@ -2,9 +2,12 @@
     <a *ngIf="!isPublicWorbbyTasks && pageType == 'list'" class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
         <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
     </a>     
-    <a *ngIf="isPublicWorbbyTasks && pageType == 'list'" class="btn-cog" [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]">
+    <a *ngIf="isPublicWorbbyTasks && pageType == 'list' && !worbbyOffer" class="btn-cog" [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]">
         <i class="fa fa-eye" aria-hidden="true"></i>
-    </a>   
+    </a>
+    <a *ngIf="isPublicWorbbyTasks && pageType == 'list' && worbbyOffer" class="btn-cog" [routerLink]="['/worbbient/worbby-task-offer', worbbyOffer.id]">
+        <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+    </a>
     <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="fa fa-cog"></i>
     </a> 
@@ -18,6 +21,26 @@
         <li *ngIf="isWorbbyTaskOfferConfirmed || isWorbbyTasksProposedAccepted">
             <a [routerLink]="['/worbbient/worbby-task-payment', worbbyTask.id]">Contratar</a>
         </li>
+        <li *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart">
+            <a [routerLink]="['/worbbient/worbby-task-submit-payment', worbbyTask.id]">Finalizar e Avaliar</a>
+        </li>
+        <li *ngIf="isPublicWorbbyTasks && !worbbyOffer">
+            <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" >
+                Ver ofertas
+            </a>
+        </li>
+
+        <li *ngIf="isPublicWorbbyTasks || isWorbbyTasksOffersAccepted || isWorbbyTasksProposed">
+            <a (click)="editWorbbyTask()">
+                Editar
+            </a>
+        </li>
+
+        <li *ngIf="isPublicWorbbyTasks && worbbyOffer">
+            <a (click)="acceptOffer()">
+                Aceitar Oferta
+            </a>
+        </li>
         <li *ngIf="isWorbbyTaskOfferConfirmed || isPublicWorbbyTasks || isWorbbyTasksOffersAccepted">
             <a (click)="cancelPublicWorbbyTask()">
                 <i class="fa fa-trash cor-Flamingo"></i>
@@ -30,18 +53,13 @@
                 Cancelar                            
             </a> 
         </li>
-        <li *ngIf="isPublicWorbbyTasks">
-            <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" >
-                Ver ofertas
-            </a>
-        </li>
-        <li *ngIf="isPublicWorbbyTasks || isWorbbyTasksOffersAccepted || isWorbbyTasksProposed">
-            <a (click)="editWorbbyTask()">
-                Editar
-            </a>
-        </li>
         <li *ngIf="isWorbbyTasksOffersAccepted">
-            <a (click)="removeOfferSelected(worbbyTask)">Desistir da oferta selecionada</a>
+            <a (click)="removeOfferSelected()">Desistir da oferta selecionada</a>
+        </li>
+        <li *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart">
+            <a (click)="cancelWorbbyTaskHired()">
+                Cancelar
+            </a>
         </li>
     </ul>                      
 </div>
@@ -52,8 +70,15 @@
             <a [routerLink]="['/worbbient/worbby-task-payment', worbbyTask.id]" class="btn btn-prime btn-block">Contratar</a>                                                                       
         </div>
 
-        <div *ngIf="isPublicWorbbyTasks" class="col-xs-12">
+        <div *ngIf="isPublicWorbbyTasks && !worbbyOffer" class="col-xs-12">
             <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" class="btn btn-prime btn-block">Ver Ofertas</a>                                                                       
         </div>
+        <div *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart" class="col-xs-12">                                                                        
+            <a [routerLink]="['/worbbient/worbby-task-submit-payment', worbbyTask.id]" class="btn btn-prime btn-block">Finalizar e Avaliar</a>
+        </div>
+
+        <div *ngIf="isPublicWorbbyTasks && worbbyOffer" class="col-xs-12">
+            <button type="button" class="btn btn-prime btn-block" (click)="acceptOffer(offer)">Aceitar Oferta</button>
+        </div> 
     </div>
 </div>

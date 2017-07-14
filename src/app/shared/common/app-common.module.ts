@@ -25,6 +25,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { RouterModule } from '@angular/router';
 import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
 import { WorbbientWorbbyTaskActions } from '@app/worbbient/worbby-task/worbbient-task-actions.component';
+import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { WorbbientWorbbyTaskActions } from '@app/worbbient/worbby-task/worbbient
         RegisterComponent,
         ComingSoonComponent,
         NotificationsComponent,
-        WorbbientWorbbyTaskActions
+        WorbbientWorbbyTaskActions,
+        SendReportModalComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -64,7 +66,8 @@ import { WorbbientWorbbyTaskActions } from '@app/worbbient/worbby-task/worbbient
         RegisterComponent,
         ComingSoonComponent,
         NotificationsComponent,
-        WorbbientWorbbyTaskActions
+        WorbbientWorbbyTaskActions,
+        SendReportModalComponent
     ],
     providers: [
         DateTimeService,

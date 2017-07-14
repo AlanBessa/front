@@ -133,7 +133,11 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
     }
 
     viewWorbbyTask():void{
-        this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
+        if(this.worbbyOffer){
+            this._router.navigate(['/worbbient/worbby-task-offer', this.worbbyOffer.id]);
+        }else{
+            this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
+        }
     }
 
 
@@ -142,7 +146,7 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
             'Deseja cancelar essa tarefa?', 'Tem certeza que quer cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
-                    this._worbbyTaskService.cancelWorbbyTaskAfterHired(new EntityDtoOfInt64(this.worbbyTask))
+                    this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
                     .finally(() => {
                     })
                     .subscribe(() => {
@@ -156,9 +160,19 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
         );
     }
     
-    editWorbbyTask(worbbyTask: WorbbyTaskDto): void {
-        this._router.navigate(['/worbbient/editar-tarefa-postada', worbbyTask.id]);
+    editWorbbyTask(): void {
+        this._router.navigate(['/worbbient/editar-tarefa-postada', this.worbbyTask.id]);
     }
 
 
+    acceptOffer():void {
+        this._worbbyTaskService.offerAcceptedByWorbbient(this.worbbyOffer)
+        .finally(() => {
+        })
+        .subscribe(() => {
+            this.message.custom('Oferta aceita.', 'Sucesso!', 'assets/common/images/default-profile-picture.png').done(() => {
+             });
+            this._router.navigate(['/worbbient/worbby-task-details', this.worbbyOffer.worbbyTaskId]);
+        });
+    }
 }

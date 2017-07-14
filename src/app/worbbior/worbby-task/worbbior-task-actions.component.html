@@ -18,18 +18,18 @@
                 Confirmar                            
             </a> 
         </li>
-        <li *ngIf="isOfferAcceptedByWorbbient || isOfferConfirmedByWorbbior">
-            <a (click)="refusedOfferAccepted()">
-                <i class="fa fa-trash cor-Flamingo"></i>
-                Recusar                            
-            </a> 
-        </li>
         <li *ngIf="isWorbbyTaskProposed">
             <a (click)="acceptWorbbyTaskProposed()">
                 <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
                 Aceitar                            
             </a> 
         </li>
+        <li *ngIf="isOfferAcceptedByWorbbient || isOfferConfirmedByWorbbior">
+            <a (click)="refusedOfferAccepted()">
+                <i class="fa fa-trash cor-Flamingo"></i>
+                Recusar                            
+            </a> 
+        </li>        
         <li *ngIf="isWorbbyTaskProposed || isWorbbyTaskProposedAccepted">
             <a (click)="refusedWorbbyTaskProposed()">
                 <i class="fa fa-trash cor-Flamingo"></i>
@@ -45,6 +45,11 @@
         <li>
             <a (click)="sendReport()">
                 Reporte este worbbient
+            </a>
+        </li>
+        <li *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart">
+            <a (click)="cancelWorbbyTaskHired()">
+                Cancelar
             </a>
         </li>
     </ul>                      

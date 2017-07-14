@@ -36,7 +36,6 @@ import { ViewDocumentModalComponent } from '@app/worbbior/edit-profile/view-docu
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.component';
-import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 
 
 @NgModule({
@@ -86,8 +85,7 @@ import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.c
         PaidPaymentWorbbiorComponent,
         ViewDocumentModalComponent,
         PdfViewerComponent,
-        WorbbiorWorbbyTaskActions,
-        SendReportModalComponent
+        WorbbiorWorbbyTaskActions
     ],
     providers: [
         AppRouteGuard

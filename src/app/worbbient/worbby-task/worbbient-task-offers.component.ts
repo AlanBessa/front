@@ -60,18 +60,4 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
             this.active = true;
         }); 
     }
-
-    acceptOffer(offer:WorbbyOfferDto):void {
-        this.saving = true;
-
-        this._worbbyTaskService.offerAcceptedByWorbbient(offer)
-        .finally(() => {
-            this.saving = false;
-        })
-        .subscribe(() => {
-            this.message.custom('Oferta aceita.', 'Sucesso!', 'assets/common/images/default-profile-picture.png').done(() => {
-             });
-            this._router.navigate(['/worbbient/worbby-task-details', offer.worbbyTaskId]);
-        });
-    }
 }

@@ -13714,8 +13714,8 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
-    cancelWorbbyTaskAfterHired(input: EntityDtoOfInt64): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskAfterHired";
+    cancelWorbbyTaskAfterHiredByWorbbient(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskAfterHiredByWorbbient";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input ? input.toJSON() : null);
@@ -13730,11 +13730,11 @@ export class WorbbyTaskServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processCancelWorbbyTaskAfterHired(response_);
+            return this.processCancelWorbbyTaskAfterHiredByWorbbient(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processCancelWorbbyTaskAfterHired(response_);
+                    return this.processCancelWorbbyTaskAfterHiredByWorbbient(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -13743,7 +13743,52 @@ export class WorbbyTaskServiceProxy {
         });
     }
 
-    protected processCancelWorbbyTaskAfterHired(response: Response): Observable<void> {
+    protected processCancelWorbbyTaskAfterHiredByWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelWorbbyTaskAfterHiredByWorbbior(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskAfterHiredByWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelWorbbyTaskAfterHiredByWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelWorbbyTaskAfterHiredByWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelWorbbyTaskAfterHiredByWorbbior(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {

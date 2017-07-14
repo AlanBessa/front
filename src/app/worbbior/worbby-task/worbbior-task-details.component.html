@@ -13,7 +13,10 @@
                                     <h3>{{worbbyTask.title}}</h3>
                                 </div>
                                 <div class="col-xs-12 divider">
-                                    <p class="cor-Botticelli small">{{worbbyTask.description}}</p>
+                                    <p class="cor-Botticelli small w-80 display-inline-block">{{worbbyTask.description}}</p>
+                                    <p class="pull-right btn-config-sidemenu">
+                                        <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                    </p>
                                 </div>
                                 <div *ngIf="worbbyTask.interestCenter" class="col-xs-12 divider">
                                     <div class="display-table">
@@ -26,7 +29,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="worbbyTask.userActivity" class="col-xs-12 m-t-sm">
+                                <div *ngIf="worbbyTask.userActivity" class="col-xs-12 divider">
                                     <div class="display-table">
                                         <div class="display-cell">
                                             <p class="small cor-Botticelli text-right">Centro(s) de interesse(s)</p>
@@ -102,9 +105,6 @@
                                             <p class="inline"><span class="cor-Botticelli txt-small">R$</span> <span class="cor-Denim">{{worbbyTask.totalPrice}}</span></p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-12 divider nopad-x m-b-20px">
-                                    <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
                                 </div>
                                 <div class="col-xs-12 divider no-pad-x m-b-20px">
                                     <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>

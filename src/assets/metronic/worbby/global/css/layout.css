@@ -234,6 +234,7 @@
 .w-20{width: 20%;}
 .w-10{width: 10%;}
 
+.w-85{width: 85%;}
 .w-77{width: 77%;}
 
 .width-330px {
@@ -258,7 +259,7 @@
     font-size: 18px;
     background-color: #90A3B1;
     color: #ffffff;
-    padding: 11px 16px 12px !important;
+    padding: 7px 16px !important;
 }
 
 .btn-prime, 
@@ -277,7 +278,7 @@
     border-radius: 4px;	
     font-size: 18px;
     color: #1E2225;
-    padding: 11px 16px 12px !important;
+    padding: 7px 16px !important;
     border: 1px solid #90A3B1;
 }
 
@@ -799,6 +800,27 @@ a.invert{
     display: inline-block;
     margin: -10px -10px 5px 0;
     text-align: center;
+}
+
+.btn-config-sidemenu {
+    margin: 0;
+}
+
+.btn-config-sidemenu .btn-cog {
+    margin: 0;
+}
+
+.btn-config-sidemenu .card-actions {
+    margin: 0;
+}
+
+.btn-config-sidemenu .card-actions.open > .dropdown-menu.position-box {
+    right: 0px !important;
+    top: 38px;
+}
+
+.btn-config-sidemenu .card-actions .box-user-menu li.arrow-up {
+    margin: 0px 13px 0 auto;
 }
 
 .btn-anchor {
@@ -3963,6 +3985,10 @@ recaptcha {
         .toast-top-full-width {
             top: 125px !important;
         }
+
+        .w-80.display-inline-block {
+            width: 78%;
+        }
     }
 
     /*TABLET LANDSCAPE*/
@@ -4913,6 +4939,11 @@ recaptcha {
 
         .card-actions .dropdown-menu.position-box.config-atividades-xs .arrow-up {
             margin-left: 154px;
+        }
+
+        .btn-config-sidemenu .card-actions .dropdown-menu.position-box.config-atividades-xs {
+            right: -13px !important;
+            top: 39px;
         }
 
         /* BOX */

@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, WorbbyTaskMessageDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WorbbyTaskStatus, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
+import { CancellationPolicy, WorbbyTaskStatus, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
 import { AppConsts } from '@shared/AppConsts';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -28,6 +28,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public WorbbyTaskMessageSide: typeof WorbbyTaskMessageSide = WorbbyTaskMessageSide;
     public WorbbyTaskMessageReadState: typeof WorbbyTaskMessageReadState = WorbbyTaskMessageReadState;
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
+    public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public AppConsts: typeof AppConsts = AppConsts;
     public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
@@ -39,6 +40,8 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public showButtonMore:boolean = false;
     public worbbientId: number = 0;
     public taskId: number = 0;
+
+    public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
     //private messagesTimer:any;
     //private subscriptionMessagesTimer: any;

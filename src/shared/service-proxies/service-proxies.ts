@@ -3110,6 +3110,54 @@ export class CieloServiceProxy {
         }
         return Observable.of<CieloCaptureSaleOutput>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    cancelWorbbyTaskAndCapturePaymentTransaction(worbbyTaskId: number): Observable<CieloCaptureSaleOutput> {
+        let url_ = this.baseUrl + "/api/Cielo/CancelWorbbyTaskAndCapturePaymentTransaction";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskId);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelWorbbyTaskAndCapturePaymentTransaction(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelWorbbyTaskAndCapturePaymentTransaction(response_);
+                } catch (e) {
+                    return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelWorbbyTaskAndCapturePaymentTransaction(response: Response): Observable<CieloCaptureSaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CieloCaptureSaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CieloCaptureSaleOutput.fromJS(resultData200) : new CieloCaptureSaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CieloCaptureSaleOutput>(<any>null);
+    }
 }
 
 @Injectable()
@@ -13714,6 +13762,51 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
+    worbbyTaskDelivered(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/WorbbyTaskDelivered";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processWorbbyTaskDelivered(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processWorbbyTaskDelivered(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processWorbbyTaskDelivered(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     cancelWorbbyTaskAfterHiredByWorbbient(input: EntityDtoOfInt64): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskAfterHiredByWorbbient";
         url_ = url_.replace(/[?&]$/, "");
@@ -13904,15 +13997,15 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
-    worbbyTaskDelivered(input: EntityDtoOfInt64): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/WorbbyTaskDelivered";
+    getCurrentDate(): Observable<CurrentDateDto> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetCurrentDate";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        const content_ = "";
         
         let options_ = {
             body: content_,
-            method: "post",
+            method: "get",
             headers: new Headers({
                 "Content-Type": "application/json; charset=UTF-8", 
                 "Accept": "application/json; charset=UTF-8"
@@ -13920,30 +14013,33 @@ export class WorbbyTaskServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processWorbbyTaskDelivered(response_);
+            return this.processGetCurrentDate(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processWorbbyTaskDelivered(response_);
+                    return this.processGetCurrentDate(response_);
                 } catch (e) {
-                    return <Observable<void>><any>Observable.throw(e);
+                    return <Observable<CurrentDateDto>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<void>><any>Observable.throw(response_);
+                return <Observable<CurrentDateDto>><any>Observable.throw(response_);
         });
     }
 
-    protected processWorbbyTaskDelivered(response: Response): Observable<void> {
+    protected processGetCurrentDate(response: Response): Observable<CurrentDateDto> {
         const status = response.status; 
 
         if (status === 200) {
             const responseText = response.text();
-            return Observable.of<void>(<any>null);
+            let result200: CurrentDateDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CurrentDateDto.fromJS(resultData200) : new CurrentDateDto();
+            return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const responseText = response.text();
             return throwException("An unexpected server error occurred.", status, responseText);
         }
-        return Observable.of<void>(<any>null);
+        return Observable.of<CurrentDateDto>(<any>null);
     }
 }
 
@@ -22195,6 +22291,7 @@ export class SaleInput implements ISaleInput {
     saleStatus: SaleInputSaleStatus;
     returnCode: string;
     returnMessage: string;
+    isCancelWorbbyTask: boolean;
     id: number;
 
     constructor(data?: ISaleInput) {
@@ -22216,6 +22313,7 @@ export class SaleInput implements ISaleInput {
             this.saleStatus = data["saleStatus"];
             this.returnCode = data["returnCode"];
             this.returnMessage = data["returnMessage"];
+            this.isCancelWorbbyTask = data["isCancelWorbbyTask"];
             this.id = data["id"];
         }
     }
@@ -22236,6 +22334,7 @@ export class SaleInput implements ISaleInput {
         data["saleStatus"] = this.saleStatus;
         data["returnCode"] = this.returnCode;
         data["returnMessage"] = this.returnMessage;
+        data["isCancelWorbbyTask"] = this.isCancelWorbbyTask;
         data["id"] = this.id;
         return data; 
     }
@@ -22250,6 +22349,7 @@ export interface ISaleInput {
     saleStatus: SaleInputSaleStatus;
     returnCode: string;
     returnMessage: string;
+    isCancelWorbbyTask: boolean;
     id: number;
 }
 
@@ -26924,6 +27024,41 @@ export class WorbbyTaskInput implements IWorbbyTaskInput {
 export interface IWorbbyTaskInput {
     worbbyTask: WorbbyTaskDto;
     address: AddressDto;
+}
+
+export class CurrentDateDto implements ICurrentDateDto {
+    currentDate: moment.Moment;
+
+    constructor(data?: ICurrentDateDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.currentDate = data["currentDate"] ? moment(data["currentDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CurrentDateDto {
+        let result = new CurrentDateDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentDate"] = this.currentDate ? this.currentDate.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICurrentDateDto {
+    currentDate: moment.Moment;
 }
 
 export enum IncomeStatisticsDateInterval {

@@ -106,6 +106,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div *ngIf="worbbyTask?.cancellationPolicy" class="col-xs-12 divider">
+                                    <div class="display-table">
+                                        <div class="display-cell">
+                                            <p class="small cor-Botticelli text-right">Politica de cancelamento</p>
+                                        </div>
+                                        <div class="display-cell">
+                                            <p class="inline">{{l(CancellationPolicy[worbbyTask.cancellationPolicy.toString()])}}</p>
+                                            <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
+                                            <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-xs-12 divider no-pad-x m-b-20px">
                                     <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbientWorbbyTaskActions>
                                 </div>

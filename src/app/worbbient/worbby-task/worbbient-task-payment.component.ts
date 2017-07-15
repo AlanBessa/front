@@ -2,13 +2,13 @@ import { Component, Injector, AfterViewInit, OnInit, ElementRef, ViewChild } fro
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 
-import { 
-    WorbbyTaskServiceProxy, 
+import {
+    WorbbyTaskServiceProxy,
     WorbbyTaskDto,
-    CieloServiceProxy, 
-    CieloSaleInput, 
-    CieloSaleOutput, 
-    PaymentDto, 
+    CieloServiceProxy,
+    CieloSaleInput,
+    CieloSaleOutput,
+    PaymentDto,
     CreditCardDto,
     CustomerDto
 } from '@shared/service-proxies/service-proxies';
@@ -29,22 +29,23 @@ import { SelectModule } from 'ng2-select';
 })
 
 export class WorbbientTaskPaymentComponent extends AppComponentBase implements AfterViewInit {
-    
+
     @ViewChild('btnScheduleDateType1') btnScheduleDateType1;
     @ViewChild('btnScheduleDateType2') btnScheduleDateType2;
 
-    public saving:boolean = false;
-    public active:boolean = false;
+    public saving: boolean = false;
+    public active: boolean = false;
 
-    public worbbyTask:WorbbyTaskDto;    
-    public worbbyTaskId:number;
+    public worbbyTask: WorbbyTaskDto;
+    public worbbyTaskId: number;
 
     public sale = new CieloSaleInput();
 
-    public month:  Array<KeyValueAddress> = [];
-    public year:  Array<KeyValueAddress> = [];
+    public month: Array<KeyValueAddress> = [];
+    public year: Array<KeyValueAddress> = [];
     public monthList: Array<KeyValueAddress> = [];
     public yearList: Array<KeyValueAddress> = [];
+    public brandValid: boolean = false;
 
     public form: FormGroup;
 
@@ -78,11 +79,11 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
     }
 
     ngOnInit(): void {
-        this.worbbyTaskId = Number(this._activatedRoute.snapshot.params['worbbyTaskId']);        
+        this.worbbyTaskId = Number(this._activatedRoute.snapshot.params['worbbyTaskId']);
     }
 
     ngAfterViewInit(): void {
-        $("body").scrollTop(0);  
+        $("body").scrollTop(0);
 
         this.getMonths();
         this.getYears();
@@ -98,7 +99,7 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
     //         console.log(result);
     //     });
     // }
-    
+
     getMonths(): void {
         this.monthList.push(new KeyValueAddress("01", "Janeiro"));
         this.monthList.push(new KeyValueAddress("02", "Fevereiro"));
@@ -129,20 +130,20 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
     getYears(): void {
         let actualYear = moment().year();
 
-        for(let i = actualYear; i < (actualYear + 10); i++) {
+        for (let i = actualYear; i < (actualYear + 10); i++) {
             this.yearList.push(new KeyValueAddress(i.toString(), i.toString()));
         }
 
         this.year.push(this.yearList[1]);
-    }  
+    }
 
-    getWorbbyTask():void{
+    getWorbbyTask(): void {
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
 
             this.sale.merchantOrderId = this.worbbyTask.id.toString();
             this.sale.worbbyTaskId = this.worbbyTask.id;
-            
+
             this.sale.payment = new PaymentDto();
             this.sale.payment.creditCard = new CreditCardDto();
             this.sale.payment.capture = false;
@@ -157,21 +158,21 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
             this.active = true;
 
             this.getPictureByGuid(this.worbbyTask.worbbior.userPictureId).then((result) => {
-                if(!this.isNullOrEmpty(result)){
+                if (!this.isNullOrEmpty(result)) {
                     this.worbbyTask.worbbior.userPicture = result;
-                }else{
+                } else {
                     this.worbbyTask.worbbior.userPicture = AppConsts.defaultProfilePicture;
                 }
             });
         });
     }
 
-     selectedMonth(value:any):void {
+    selectedMonth(value: any): void {
         let actualMonth = moment().month() + 1;
         let actualYear = moment().year();
 
         if (this.year.length != 0 && actualYear == Number(this.year[0].id) && Number(value.id) < actualMonth) {
-            this.notify.warn("O mês escolhido não pode ser inferior ao mês atual."); 
+            this.notify.warn("O mês escolhido não pode ser inferior ao mês atual.");
 
             this.month = [];
             this.month.push(this.monthList[actualMonth - 1]);
@@ -180,9 +181,9 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
             this.month = [];
             this.month.push(value);
         }
-    } 
+    }
 
-    selectedYear(value:any):void {
+    selectedYear(value: any): void {
         let actualMonth = moment().month() + 1;
         let actualYear = moment().year();
 
@@ -196,23 +197,34 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
             this.year = [];
             this.year.push(value);
         }
-    } 
+    }
 
-    sendPayment():void{     
-        this.saving = true;        
+    sendPayment(): void {
+        this.saving = true;
 
         this.sale.payment.creditCard.expirationDate = this.month[0].id + "/" + this.year[0].id;
 
         this._cieloService.createSale(this.sale)
-        .finally(() => {
-            this.saving = false;
-        })
-        .subscribe((result) => {
-            this.message.success("Seu pagamento foi reservado com sucesso!", "Pagamento").done(() => {
-                this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
-            });            
-        }, (error) => {
-            //this.message.error("Pagamento recusado, use um outro cartão").done(() => {});            
-        });
+            .finally(() => {
+                this.saving = false;
+            })
+            .subscribe((result) => {
+                this.message.success("Seu pagamento foi reservado com sucesso!", "Pagamento").done(() => {
+                    this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
+                });
+            }, (error) => {
+                //this.message.error("Pagamento recusado, use um outro cartão").done(() => {});            
+            });
+    }
+
+    validateBrandClick(): void {
+        this.brandValid = true;
+    }
+
+    validateBrandBlur(): void{
+         if(!this.brandValid)
+         {
+             this.brandValid = true;
+         }
     }
 }

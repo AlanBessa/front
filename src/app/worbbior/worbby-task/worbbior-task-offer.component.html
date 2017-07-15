@@ -3,9 +3,19 @@
         <div class="row">
             <div class="container">
                 <div *ngIf="active" class="row">
-                    <div class="col-xs-12">
-                        <h3 class="visible-xs titulo-WorbbiorProfile">Chat com {{worbbyOffer.worbbyTask.worbbient.name}}</h3>
-                    </div> 
+                    <div class="col-xs-12 visible-xs"> 
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <h3 class="titulo-WorbbiorProfile">Chat com {{worbbyOffer.worbbyTask.worbbient.name}}</h3>
+                            </div>
+                            <div class="col-xs-3">
+                                <a routerLink="/worbbior/my-worbby" class="btn btn-secondary m-t-20px">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span class="hidden-xs">Voltar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss p-b-xxs box-chat-info" [ngClass]="{'closeInfo': !isOpenedInfo}">
                         <div *ngIf="active" class="card-profile">
                             <div class="profile-details">                                
@@ -99,7 +109,17 @@
                     <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
                         <div class="row">
                             <div class="col-xs-12">
-                                <h3 class="m-b-xss hidden-xs">Chat com {{worbbyOffer.worbbyTask.worbbient.name}}</h3>
+                                <div class="row hidden-xs">
+                                    <div class="col-xs-9">
+                                        <h3 class="titulo-WorbbiorProfile">Chat com {{worbbyOffer.worbbyTask.worbbient.name}}</h3>
+                                    </div>
+                                    <div class="col-xs-3 text-right">
+                                        <a routerLink="/worbbior/my-worbby" class="btn btn-secondary m-t-xs txt-small">
+                                            <i class="fa fa-chevron-left"></i>
+                                            <span class="hidden-xs">Voltar</span>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="bg-White clearfix display-two-photo hidden-xs p-y-xs m-b-xss">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="divProfile divProfile-medium">

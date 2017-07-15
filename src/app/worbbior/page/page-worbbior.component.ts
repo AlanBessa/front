@@ -65,6 +65,10 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     getWorbbiorProfile():void{
         this._worbbiorService.getWorbbiorProfile(this.worbbiorId).subscribe((result) => {
             this.worbbiorProfile = result;
+            
+            this.active = true;
+            this.getLocation();
+
             this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
                 if(!this.isNullOrEmpty(result)){
                     this.worbbiorProfile.worbbior.userPicture = result;
@@ -83,9 +87,8 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                     } 
                 });
             });
-            this.active = true;
             this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName); 
-            this.getLocation();
+            
 
             this.metaService.setTitle("Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
             this.metaService.setTag("og:description","Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.");
@@ -98,6 +101,10 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     getPreviewWorbbiorProfile():void{
         this._worbbiorService.getPreviewWorbbiorProfile(this.worbbiorId).subscribe((result) => {
             this.worbbiorProfile = result;
+
+            this.active = true;
+            this.getLocation();
+
             this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
                 if(!this.isNullOrEmpty(result)){
                     this.worbbiorProfile.worbbior.userPicture = result;
@@ -116,9 +123,9 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                     } 
                 });
             });
-            this.active = true;
+            
             this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName); 
-            this.getLocation();
+            
 
             this.metaService.setTitle("Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
             this.metaService.setTag("og:description","Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.");
@@ -129,15 +136,19 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     }
 
     getLocation(): void {
+        setInterval(
+            function(){ 
+                 this._activatedRoute.fragment.subscribe(f => {
+                    this.goTo(f);
+                    console.log(f);
+                }); 
+            },
+        1000);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                this.worbbiorProfile.worbbior.distance = Math.round(this.distance(Number(this.worbbiorProfile.address.latitude), Number(this.worbbiorProfile.address.longitude), position.coords.latitude, position.coords.longitude));
-            
-                    this._activatedRoute.fragment.subscribe(f => {
-                        this.goTo(f);
-                        console.log(f);
-                    }); 
-                });
+            this.worbbiorProfile.worbbior.distance = Math.round(this.distance(Number(this.worbbiorProfile.address.latitude), Number(this.worbbiorProfile.address.longitude), position.coords.latitude, position.coords.longitude));
+                
+            });
         }
     }
 

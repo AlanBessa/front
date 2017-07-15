@@ -38,7 +38,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
     public ehReverso: boolean = false;
     public showButtonMore:boolean = false;
 
-    public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
+    public tooltipPoliticaCancelamento: string = "Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
     //private messagesTimer:any;
     //private subscriptionMessagesTimer: any;
@@ -48,7 +48,8 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         private _activatedRoute: ActivatedRoute,
         private _worbbyTaskService: WorbbyTaskServiceProxy,
         private _appSessionService: AppSessionService,
-        private _messageSignalrService: MessageSignalrService
+        private _messageSignalrService: MessageSignalrService,
+        private _router: Router,
     ) {
         super(injector);
     }
@@ -198,5 +199,9 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
 
     loadingMore():void{
         this.getWorbbyTaskMessages(true);
+    }
+
+    actionReturn():void{
+        this._router.navigate(['/worbbient/my-worbby'])
     }
 }

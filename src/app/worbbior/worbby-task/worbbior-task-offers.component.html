@@ -2,10 +2,20 @@
     <div class="container-fluid bg-Solititude bg-fluid-hidden">
         <div class="row">
             <div class="container">
-                <div *ngIf="active" class="row">
-                    <div class="col-xs-12">
-                        <h3 class="visible-xs titulo-WorbbiorProfile">Escolha uma oferta</h3>
-                    </div>   
+                <div *ngIf="active" class="row">  
+                    <div class="col-xs-12 visible-xs"> 
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <h3 class="titulo-WorbbiorProfile">Escolha uma oferta</h3>
+                            </div>
+                            <div class="col-xs-3">
+                                <a routerLink="/worbbior/my-worbby" class="btn btn-secondary m-t-20px">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span class="hidden-xs">Voltar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
                         <div *ngIf="active" class="row card-profile">
                             <div class="profile-details">                                
@@ -90,7 +100,17 @@
                         </div>
                     </div>
                     <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
-                        <h3 class="hidden-xs m-b-xss">Escolha uma oferta</h3>
+                        <div class="row hidden-xs">
+                            <div class="col-xs-9">
+                                <h3 class="titulo-WorbbiorProfile">Escolha uma oferta</h3>
+                            </div>
+                            <div class="col-xs-3 text-right">
+                                <a routerLink="/worbbior/my-worbby" class="btn btn-secondary m-t-xs txt-small">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span class="hidden-xs">Voltar</span>
+                                </a>
+                            </div>
+                        </div>
                         <div class="row m-b-xs" *ngFor="let offer of worbbyTask.offersList.items">                            
                             <div class="col-xs-12">
                                 <!-- card -->

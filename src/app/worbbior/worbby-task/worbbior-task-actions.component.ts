@@ -224,8 +224,6 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         );
     }
 
-    // Confirmar a entrega da tarefa
-
     sendReport(): void {
         this.sendReportModal.show();
     }

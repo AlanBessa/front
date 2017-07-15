@@ -136,19 +136,19 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     }
 
     getLocation(): void {
+        setInterval(
+            function(){ 
+                 this._activatedRoute.fragment.subscribe(f => {
+                    this.goTo(f);
+                    console.log(f);
+                }); 
+            },
+        1000);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                this.worbbiorProfile.worbbior.distance = Math.round(this.distance(Number(this.worbbiorProfile.address.latitude), Number(this.worbbiorProfile.address.longitude), position.coords.latitude, position.coords.longitude));
-                    this._activatedRoute.fragment.subscribe(f => {
-                        this.goTo(f);
-                        console.log(f);
-                    }); 
-                });
-        }else{
-            this._activatedRoute.fragment.subscribe(f => {
-                this.goTo(f);
-                console.log(f);
-            }); 
+            this.worbbiorProfile.worbbior.distance = Math.round(this.distance(Number(this.worbbiorProfile.address.latitude), Number(this.worbbiorProfile.address.longitude), position.coords.latitude, position.coords.longitude));
+                
+            });
         }
     }
 

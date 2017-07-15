@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <div class="wizard-steps wizard-container">
+                        <div class="wizard-steps wizard-container" id="post-task">
                             <form *ngIf="!public" #stepOneForm="ngForm" #step1 novalidate (ngSubmit)="save()" [hidden]="activeStep != 1">
                                 <div class="row">
                                     <h3 class="m-b-xss col-xs-12">Sua tarefa</h3>
@@ -588,7 +588,7 @@
                                 </div>
                                 <div class="row m-t-xs">    
                                     <div class="col-xs-12">
-                                        <p class="cor-Botticelli">Para sua segurança, somente o bairro e a cidade ficarão visíveis.</p>
+                                        <p class="cor-Botticelli text-center">Para sua segurança, somente o bairro e a cidade ficarão visíveis.</p>
                                     </div>
                                 </div>
                                 <div class="row m-t-20px"> 

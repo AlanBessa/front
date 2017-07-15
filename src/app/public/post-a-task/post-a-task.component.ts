@@ -233,12 +233,14 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.setValidSteps();
         if(this.stepOneForm.form.valid){
             this.activeStep = 2;
+            this.goTo("post-task");
         }
     }
     showStep3():void{
         this.setValidSteps();
         if(this.stepTwoForm.form.valid){
             this.activeStep = 3;
+            this.goTo("post-task");
         }
     }
     showStep4():void{
@@ -251,6 +253,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         
         if(this.stepThreeForm.form.valid){
             this.activeStep = 4;
+            this.goTo("post-task");
         }
     }
 

@@ -18,6 +18,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     @ViewChild('sendOfferModal') sendOfferModal: SendOfferModalComponent;
 
     public active: boolean = false;
+    public showRegisterOrLogin:boolean = false;
     public worbbyTaskId: number;
     public worbbyTask: WorbbyTaskDto;
     public scheduleDateDisplay: string;
@@ -56,7 +57,11 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     }
 
     openOfferModal():void {
-        this.sendOfferModal.show(this.worbbyTask);
+        if(abp.session.userId){
+            this.sendOfferModal.show(this.worbbyTask);
+        }else{
+            this.showRegisterOrLogin = true;
+        }
     }
 
     modalOfferSuccess():void{

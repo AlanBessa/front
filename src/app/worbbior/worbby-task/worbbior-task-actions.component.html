@@ -52,6 +52,11 @@
                 Cancelar
             </a>
         </li>
+        <li *ngIf="isWorbbyTaskHired || isWorbbyTaskStart">
+            <a (click)="WorbbyTaskDelivered()">
+                Confirmar a entrega da tarefa
+            </a>
+        </li>
     </ul>                      
 </div>
 

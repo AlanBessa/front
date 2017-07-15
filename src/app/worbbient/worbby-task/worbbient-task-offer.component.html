@@ -24,6 +24,9 @@
                                 </div>
                                 <div class="col-xs-12 divider">
                                     <p class="cor-Botticelli small">{{worbbyOffer.worbbyTask.description}}</p>
+                                    <p class="pull-right btn-config-sidemenu">
+                                        <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
+                                    </p>
                                 </div>
                                 <div class="col-xs-12 divider">
                                     <div class="display-table">
@@ -96,11 +99,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 divider nopad-x m-b-20px">
-                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer"></worbbientWorbbyTaskActions>
-                                </div>
                                 <div class="col-xs-12 divider no-pad-x m-b-20px">
-                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyOffer]="worbbyOffer"></worbbientWorbbyTaskActions>
+                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyOffer]="worbbyOffer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
                                 </div>
                             </div>                                  
                         </div>

@@ -52,6 +52,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
         private _worbbyTaskService: WorbbyTaskServiceProxy,
         private _appSessionService: AppSessionService,
         private _messageSignalrService: MessageSignalrService,
+        private _router: Router,
     ) {
         super(injector);
     }
@@ -206,5 +207,10 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
             let self = this;
             console.log("app.message.connected");
         });
+    }
+
+
+    actionReturn():void{
+        this._router.navigate(['/worbbior/my-worbby'])
     }
 }

@@ -43,6 +43,7 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
         private _activatedRoute: ActivatedRoute,
         private _worbbyTaskService: WorbbyTaskServiceProxy,
         private _messageSignalrService: MessageSignalrService,
+        private _router: Router,
     ) {
         super(injector);
     }
@@ -190,5 +191,9 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
 
     loadingMore():void{
         this.getWorbbyTaskMessages(true);
+    }
+
+    actionReturn():void{
+        this._router.navigate(['/worbbient/my-worbby'])
     }
 }

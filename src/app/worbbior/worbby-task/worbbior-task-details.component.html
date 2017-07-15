@@ -15,7 +15,7 @@
                                 <div class="col-xs-12 divider">
                                     <p class="cor-Botticelli small w-80 display-inline-block">{{worbbyTask.description}}</p>
                                     <p class="pull-right btn-config-sidemenu">
-                                        <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                        <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                     </p>
                                 </div>
                                 <div *ngIf="worbbyTask.interestCenter" class="col-xs-12 divider">
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 divider no-pad-x m-b-20px">
-                                    <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
+                                    <worbbiorWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                 </div>
                             </div>                                  
                         </div>

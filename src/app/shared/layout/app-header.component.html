@@ -109,7 +109,7 @@
                             </li>
                             <li headerNotifications class="hidden-xs dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></li>
                             <li class="nav-btn">
-                                <a id="PostTaskMobile" class="close-nav btn btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime': isWorbbior || (!isWorbbior && !isMobile), 'btn-prime-inverted': !isWorbbior && isMobile}" routerLink="/post-a-task">
+                                <a href="javascript:;" (click)="switchToWorbbientProfile()" id="PostTaskMobile" class="close-nav btn btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime': isWorbbior || (!isWorbbior && !isMobile), 'btn-prime-inverted': !isWorbbior && isMobile}" >
                                     {{l("PostATask")}}
                                     <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
                                     <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">

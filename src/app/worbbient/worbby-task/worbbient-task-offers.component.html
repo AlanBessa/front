@@ -137,6 +137,7 @@
                                                     <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
                                                     <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
                                                 </p> 
+                                                <p *ngIf="offer.scheduledDate">Data proposta: {{offer.scheduledDate | amDateFormat:'L'}}</p>
                                             </div>
                                             <div class="col-xs-2 col-md-2 text-right"> 
                                                 <worbbientWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="offer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>

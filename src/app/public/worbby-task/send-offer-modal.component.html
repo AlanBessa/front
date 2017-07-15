@@ -44,6 +44,15 @@
                       </ul>
                     </div>
                   </div>
+                  <div *ngIf="worbbyTask?.scheduleDateType == 1" class="form-group no-hint">                                    
+                      <div class="col-xs-12 no-pad-x">
+                          <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : showDataPicker}" (click)="scheduleDateFixeClick()">
+                              <i class="fa fa-calendar-o"></i>
+                              {{scheduleDateDisplay}}
+                          </button>
+                          <datepicker [showWeeks]="false" class="datepicker-custom" *ngIf="showDataPicker" name="ScheduleDate" [(ngModel)]="worbbyOffer.scheduledDate" (selectionDone)="scheduleDateDone($event)"></datepicker>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>

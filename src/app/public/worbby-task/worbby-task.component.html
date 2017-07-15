@@ -1,12 +1,30 @@
 ﻿<div [@routerTransition]>
-    <div class="container-fluid bg-Solititude bg-fluid-hidden">
+    <div class="container-fluid bg-Solititude bg-fluid-hidden" [ngClass]="{'bg-Sunglow': showRegisterOrLogin}">
         <div class="container">
-            <div class="row">
+            <div *ngIf="showRegisterOrLogin" class="row">
+                <div class="col-xs-12 m-t-sm m-b-sm">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="bg-White bg-shadow box">
+                                <a class="register-ancora btn-link visible-xs" (click)="goTo('cadastrar')">Cadastre-se</a>
+                                <loginComponent #loginComponent></loginComponent>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="bg-White bg-shadow box">
+                                <h3 class="text-center no-m-t" id="cadastrar">Não tem cadastro ainda? Registre-se</h3>
+                                <registerComponent #registerComponent></registerComponent>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!showRegisterOrLogin" class="row">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
                     <h3 class="m-t-sm m-b-xss">Detalhes da tarefa</h3>
                 </div>
             </div>
-            <div *ngIf="active" class="row card-profile bg-White wizard-container">
+            <div *ngIf="active && !showRegisterOrLogin" class="row card-profile bg-White wizard-container">
                 <div class="profile-details">
                     <div class="col-xs-12 p-xss">
                         <h3 class="task-title-detail no-m-y">
@@ -83,15 +101,14 @@
                     </div>                     
                 </div>                                  
             </div>
-            <div class="row wizard-container m-t-xs m-b-xss">
+            <div *ngIf="!showRegisterOrLogin" class="row wizard-container m-t-xs m-b-xss">
                 <div class="col-xs-12 col-md-4"> 
                     <a routerLink="/tarefas" class="btn btn-prime-inverted btn-block btn-around m-b-10px">Voltar</a>
                 </div>
                 <div class="col-xs-12 col-md-8">
-                    <button *ngIf="isLogged" (click)="openOfferModal()" type="button" class="btn btn-prime btn-block btn-around m-b-10px">Fazer um oferta</button>
-                    <button *ngIf="!isLogged" routerLink="/login" type="button" class="btn btn-prime btn-block btn-around white-space m-b-10px cor-Cinder">
+                    <button (click)="openOfferModal()" type="button" class="btn btn-prime btn-block btn-around white-space m-b-10px cor-Cinder">
                         Fazer um oferta
-                        <small class="btn-prime-sub">Login ou cadastre-se</small>
+                        <small *ngIf="!isLogged" class="btn-prime-sub">Login ou cadastre-se</small>
                     </button>
                 </div> 
             </div>

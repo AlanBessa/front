@@ -14,6 +14,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { MenuComponent } from '@app/shared/layout/menu.component';
 import { ChangePasswordModalComponent } from './profile/change-password-modal.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -51,6 +52,7 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         private profileServiceProxy: ProfileServiceProxy,
         private userLinkServiceProxy: UserLinkServiceProxy,
         private userServiceProxy: UserServiceProxy,
+        private router: Router,
         private _authService: AppAuthService
     ) {
         super(injector);
@@ -111,5 +113,23 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         abp.event.on('app.chat.connected', () => {
             this.chatConnected = true;
         });
+    }
+
+    switchToWorbbientProfile() {
+        if(this.currentRoleName == 'Worbbior')
+        {
+            this.message.confirm(
+            "", "Deseja  alterar o seu prefil para o worbbient?",
+            isConfirmed => {
+                if (isConfirmed) {
+                this.appSessionService.userRoleName = "Worbbient";
+                    location.href = "/post-a-task";
+                }
+            });  
+
+        }else if(this.currentRoleName == 'Worbbient'){
+             this.appSessionService.userRoleName = "Worbbient";
+            this.router.navigate(['/post-a-task']);
+        }
     }
 }

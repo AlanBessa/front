@@ -21,7 +21,10 @@
     UserActivityInputUnitMeasure, 
     AvailabilityDtoDayOfWeek, 
     UserActivityInputCancellationPolicy, 
-    WorbbyOfferDtoWorbbyOfferStatus
+    WorbbyOfferDtoWorbbyOfferStatus,
+    WorbbyTaskDtoTime,
+    
+    
 } from '@shared/service-proxies/service-proxies';
 import * as moment from "moment";
 
@@ -177,6 +180,15 @@ export enum WorbbyOfferStatus {
     Post = Number(WorbbyOfferDtoWorbbyOfferStatus._1), //Oferta postada
     Accepted = Number(WorbbyOfferDtoWorbbyOfferStatus._2), //Oferta postada
     Canceled = Number(WorbbyOfferDtoWorbbyOfferStatus._3), //Oferta cancelada
+}
+
+export enum TimeEnum
+{
+    AnyTime = Number(WorbbyTaskDtoTime._1), //Qualquer horário, contar como 0h
+    Morning = Number(WorbbyTaskDtoTime._2), //entre 8 e 12 contar como 8h
+    Afternoon = Number(WorbbyTaskDtoTime._3), //entre 12 e 18 contar como 12h
+    Night = Number(WorbbyTaskDtoTime._4), //após 18h contar como 18h
+    AllDay = Number(WorbbyTaskDtoTime._5) // Dia todo contar como 0h
 }
 
 export class AdministrativeAreas {

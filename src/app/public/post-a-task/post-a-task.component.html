@@ -377,26 +377,17 @@
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group no-hint">
                                                 <label class="control-label">Horário <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
-                                                <div class="dropdown">
-                                                    <button type="button" class="dropdown-toggle btn btn-prime-inverted select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                        {{currentTime}}
+                                                <div *ngIf="timeEnumOptions.length" class="dropdown">
+                                                    <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
+                                                        data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                        {{l(currentTimeEnumOptions)}}
                                                         <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a href="javascript:;" (click)="changeTime('Qualquer horário')">Qualquer horário</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;" (click)="changeTime('Manhã (08:00-12:00)')">Manhã (08:00-12:00)</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;" (click)="changeTime('Tarde (12:00-18:00)')">Tarde (12:00-18:00)</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;" (click)="changeTime('Noite (após as 18:00)')">Noite (após as 18:00)</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;" (click)="changeTime('O dia todo')">O dia todo</a>
+                                                        <li *ngFor="let name of timeEnumOptions">
+                                                        <a href="javascript:;" (click)="changeTime(name)">
+                                                            {{l(name)}}
+                                                        </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -409,13 +400,13 @@
                                     <div *ngIf="!isProposed" class="form-group no-hint m-b-xs">
                                         <div class="row">
                                             <div class="col-xs-12 col-md-5">
-                                                <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">Preço total</button>
+                                                <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="0" btnCheckboxFalse="1">Preço total</button>
                                             </div>                                            
                                             <div class="col-xs-12 col-md-2">
                                                 <div class="divOu">- ou -</div>
                                             </div>
                                             <div class="col-xs-12 col-md-5">
-                                                <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="0" btnCheckboxFalse="1">Preço unidade / Hora</button>
+                                                <button type="button" name="IsUnitPrice" class="btn btn-block btn-secondary btn-check" [(ngModel)]="isUnitPrice" (ngModelChange)="changeIsUnitPrice($event)" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">Preço unidade / Hora</button>
                                             </div>
                                         </div>
                                     </div>

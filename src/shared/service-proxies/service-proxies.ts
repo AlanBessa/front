@@ -4600,6 +4600,56 @@ export class EvaluationServiceProxy {
         }
         return Observable.of<EvaluationInput>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    getEvaluationByWorbbyTaskId(id: number): Observable<EvaluationDto> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetEvaluationByWorbbyTaskId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationByWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationByWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<EvaluationDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<EvaluationDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationByWorbbyTaskId(response: Response): Observable<EvaluationDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: EvaluationDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? EvaluationDto.fromJS(resultData200) : new EvaluationDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<EvaluationDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -26361,7 +26411,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
     unitPrice: number;
     isUnitPrice: boolean;
     totalPrice: number;
-    time: string;
+    time: WorbbyTaskDtoTime;
     scheduledDate: moment.Moment;
     scheduleDateType: WorbbyTaskDtoScheduleDateType;
     status: WorbbyTaskDtoStatus;
@@ -26494,7 +26544,7 @@ export interface IWorbbyTaskDto {
     unitPrice: number;
     isUnitPrice: boolean;
     totalPrice: number;
-    time: string;
+    time: WorbbyTaskDtoTime;
     scheduledDate: moment.Moment;
     scheduleDateType: WorbbyTaskDtoScheduleDateType;
     status: WorbbyTaskDtoStatus;
@@ -26677,6 +26727,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
     worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
     description: string;
     cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    scheduledDate: moment.Moment;
     id: number;
 
     constructor(data?: IWorbbyOfferDto) {
@@ -26698,6 +26749,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
             this.worbbyOfferStatus = data["worbbyOfferStatus"];
             this.description = data["description"];
             this.cancellationPolicy = data["cancellationPolicy"];
+            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -26718,6 +26770,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
         data["worbbyOfferStatus"] = this.worbbyOfferStatus;
         data["description"] = this.description;
         data["cancellationPolicy"] = this.cancellationPolicy;
+        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -26732,6 +26785,7 @@ export interface IWorbbyOfferDto {
     worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
     description: string;
     cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    scheduledDate: moment.Moment;
     id: number;
 }
 
@@ -27604,6 +27658,14 @@ export enum WorbbyTaskDtoCancellationPolicy {
     _2 = 2, 
     _3 = 3, 
     _4 = 4, 
+}
+
+export enum WorbbyTaskDtoTime {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
 }
 
 export enum WorbbyTaskDtoScheduleDateType {

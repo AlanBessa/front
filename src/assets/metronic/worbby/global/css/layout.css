@@ -872,6 +872,10 @@ a.invert{
     cursor: pointer;
 }
 
+.btn-check:focus{
+    background-color: #90A3B1 !important;
+}
+
 .btn-check label {
     font-size: 14px !important;
     padding: 1px 3px;

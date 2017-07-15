@@ -3018,7 +3018,7 @@ export class CieloServiceProxy {
     /**
      * @return Success
      */
-    getPaymentTransactionByWorbbyTaskId(worbbyTaskId: number): Observable<SaleOutput> {
+    getPaymentTransactionByWorbbyTaskId(worbbyTaskId: number): Observable<CieloSaleOutput> {
         let url_ = this.baseUrl + "/api/Cielo/GetPaymentTransactionByWorbbyTaskId";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3040,27 +3040,27 @@ export class CieloServiceProxy {
                 try {
                     return this.processGetPaymentTransactionByWorbbyTaskId(response_);
                 } catch (e) {
-                    return <Observable<SaleOutput>><any>Observable.throw(e);
+                    return <Observable<CieloSaleOutput>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<SaleOutput>><any>Observable.throw(response_);
+                return <Observable<CieloSaleOutput>><any>Observable.throw(response_);
         });
     }
 
-    protected processGetPaymentTransactionByWorbbyTaskId(response: Response): Observable<SaleOutput> {
+    protected processGetPaymentTransactionByWorbbyTaskId(response: Response): Observable<CieloSaleOutput> {
         const status = response.status; 
 
         if (status === 200) {
             const responseText = response.text();
-            let result200: SaleOutput = null;
+            let result200: CieloSaleOutput = null;
             let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? SaleOutput.fromJS(resultData200) : new SaleOutput();
+            result200 = resultData200 ? CieloSaleOutput.fromJS(resultData200) : new CieloSaleOutput();
             return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const responseText = response.text();
             return throwException("An unexpected server error occurred.", status, responseText);
         }
-        return Observable.of<SaleOutput>(<any>null);
+        return Observable.of<CieloSaleOutput>(<any>null);
     }
 
     /**
@@ -4599,6 +4599,56 @@ export class EvaluationServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<EvaluationInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getEvaluationByWorbbyTaskId(id: number): Observable<EvaluationDto> {
+        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetEvaluationByWorbbyTaskId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetEvaluationByWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetEvaluationByWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<EvaluationDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<EvaluationDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetEvaluationByWorbbyTaskId(response: Response): Observable<EvaluationDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: EvaluationDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? EvaluationDto.fromJS(resultData200) : new EvaluationDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<EvaluationDto>(<any>null);
     }
 }
 
@@ -12627,6 +12677,186 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
+    sendEmailWorbbiorAndWorbbient(input: WorbbyTaskWorbbiorWorbbientMessageInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/SendEmailWorbbiorAndWorbbient";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailWorbbiorAndWorbbient(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailWorbbiorAndWorbbient(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailWorbbiorAndWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelWorbbyTaskByAdmin(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskByAdmin";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelWorbbyTaskByAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelWorbbyTaskByAdmin(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelWorbbyTaskByAdmin(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    editCommissionWorbbyTaskByAdmin(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/EditCommissionWorbbyTaskByAdmin";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processEditCommissionWorbbyTaskByAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processEditCommissionWorbbyTaskByAdmin(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processEditCommissionWorbbyTaskByAdmin(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    captationAmountWorbbyTaskByAdmin(input: EntityDtoOfInt64): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CaptationAmountWorbbyTaskByAdmin";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCaptationAmountWorbbyTaskByAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCaptationAmountWorbbyTaskByAdmin(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCaptationAmountWorbbyTaskByAdmin(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getWorbbyTasksProposedByTargetUserId(id: number): Observable<ListResultDtoOfWorbbyTaskDto> {
         let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetWorbbyTasksProposedByTargetUserId?";
         if (id !== undefined)
@@ -17220,73 +17450,6 @@ export interface ICieloSaleOutput {
     merchantOrderId: string;
     customer: CustomerDto;
     payment: PaymentDto;
-}
-
-export class SaleOutput implements ISaleOutput {
-    worbbyTaskId: number;
-    paymentId: string;
-    type: string;
-    amount: number;
-    capturedAmount: number;
-    saleStatus: SaleOutputSaleStatus;
-    creationTime: moment.Moment;
-    lastModificationTime: moment.Moment;
-    id: number;
-
-    constructor(data?: ISaleOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.worbbyTaskId = data["worbbyTaskId"];
-            this.paymentId = data["paymentId"];
-            this.type = data["type"];
-            this.amount = data["amount"];
-            this.capturedAmount = data["capturedAmount"];
-            this.saleStatus = data["saleStatus"];
-            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): SaleOutput {
-        let result = new SaleOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["worbbyTaskId"] = this.worbbyTaskId;
-        data["paymentId"] = this.paymentId;
-        data["type"] = this.type;
-        data["amount"] = this.amount;
-        data["capturedAmount"] = this.capturedAmount;
-        data["saleStatus"] = this.saleStatus;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface ISaleOutput {
-    worbbyTaskId: number;
-    paymentId: string;
-    type: string;
-    amount: number;
-    capturedAmount: number;
-    saleStatus: SaleOutputSaleStatus;
-    creationTime: moment.Moment;
-    lastModificationTime: moment.Moment;
-    id: number;
 }
 
 export class CieloCaptureSaleOutput implements ICieloCaptureSaleOutput {
@@ -22353,6 +22516,73 @@ export interface ISaleInput {
     id: number;
 }
 
+export class SaleOutput implements ISaleOutput {
+    worbbyTaskId: number;
+    paymentId: string;
+    type: string;
+    amount: number;
+    capturedAmount: number;
+    saleStatus: SaleOutputSaleStatus;
+    creationTime: moment.Moment;
+    lastModificationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: ISaleOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.paymentId = data["paymentId"];
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.capturedAmount = data["capturedAmount"];
+            this.saleStatus = data["saleStatus"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): SaleOutput {
+        let result = new SaleOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["paymentId"] = this.paymentId;
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["capturedAmount"] = this.capturedAmount;
+        data["saleStatus"] = this.saleStatus;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ISaleOutput {
+    worbbyTaskId: number;
+    paymentId: string;
+    type: string;
+    amount: number;
+    capturedAmount: number;
+    saleStatus: SaleOutputSaleStatus;
+    creationTime: moment.Moment;
+    lastModificationTime: moment.Moment;
+    id: number;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
@@ -26181,7 +26411,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
     unitPrice: number;
     isUnitPrice: boolean;
     totalPrice: number;
-    time: string;
+    time: WorbbyTaskDtoTime;
     scheduledDate: moment.Moment;
     scheduleDateType: WorbbyTaskDtoScheduleDateType;
     status: WorbbyTaskDtoStatus;
@@ -26314,7 +26544,7 @@ export interface IWorbbyTaskDto {
     unitPrice: number;
     isUnitPrice: boolean;
     totalPrice: number;
-    time: string;
+    time: WorbbyTaskDtoTime;
     scheduledDate: moment.Moment;
     scheduleDateType: WorbbyTaskDtoScheduleDateType;
     status: WorbbyTaskDtoStatus;
@@ -26497,6 +26727,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
     worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
     description: string;
     cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    scheduledDate: moment.Moment;
     id: number;
 
     constructor(data?: IWorbbyOfferDto) {
@@ -26518,6 +26749,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
             this.worbbyOfferStatus = data["worbbyOfferStatus"];
             this.description = data["description"];
             this.cancellationPolicy = data["cancellationPolicy"];
+            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -26538,6 +26770,7 @@ export class WorbbyOfferDto implements IWorbbyOfferDto {
         data["worbbyOfferStatus"] = this.worbbyOfferStatus;
         data["description"] = this.description;
         data["cancellationPolicy"] = this.cancellationPolicy;
+        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -26552,6 +26785,7 @@ export interface IWorbbyOfferDto {
     worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
     description: string;
     cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    scheduledDate: moment.Moment;
     id: number;
 }
 
@@ -26987,6 +27221,53 @@ export interface IWorbbyTaskMessageDto {
     id: number;
 }
 
+export class WorbbyTaskWorbbiorWorbbientMessageInput implements IWorbbyTaskWorbbiorWorbbientMessageInput {
+    email: string;
+    name: string;
+    message: string;
+    check: string;
+
+    constructor(data?: IWorbbyTaskWorbbiorWorbbientMessageInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.email = data["email"];
+            this.name = data["name"];
+            this.message = data["message"];
+            this.check = data["check"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyTaskWorbbiorWorbbientMessageInput {
+        let result = new WorbbyTaskWorbbiorWorbbientMessageInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["name"] = this.name;
+        data["message"] = this.message;
+        data["check"] = this.check;
+        return data; 
+    }
+}
+
+export interface IWorbbyTaskWorbbiorWorbbientMessageInput {
+    email: string;
+    name: string;
+    message: string;
+    check: string;
+}
+
 export class WorbbyTaskInput implements IWorbbyTaskInput {
     worbbyTask: WorbbyTaskDto;
     address: AddressDto;
@@ -27191,18 +27472,6 @@ export enum PaymentDtoStatus {
     _20 = 20, 
 }
 
-export enum SaleOutputSaleStatus {
-    _0 = 0, 
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
-    _10 = 10, 
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _20 = 20, 
-}
-
 export enum EndorsementDtoEndorsementState {
     _0 = 0, 
     _1 = 1, 
@@ -27325,6 +27594,18 @@ export enum SaleInputSaleStatus {
     _20 = 20, 
 }
 
+export enum SaleOutputSaleStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
+}
+
 export enum TenantLoginInfoDtoPaymentPeriodType {
     _30 = 30, 
     _365 = 365, 
@@ -27377,6 +27658,14 @@ export enum WorbbyTaskDtoCancellationPolicy {
     _2 = 2, 
     _3 = 3, 
     _4 = 4, 
+}
+
+export enum WorbbyTaskDtoTime {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
 }
 
 export enum WorbbyTaskDtoScheduleDateType {

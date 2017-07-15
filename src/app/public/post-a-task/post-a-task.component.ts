@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { WorbbiorProfileDto, UserActivityInput, ActivityServiceProxy, WorbbiorDto, WorbbiorServiceProxy, WorbbyTaskDto, WorbbyTaskInput, AddressDto, InterestCenterDto, InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, WorbbyTaskServiceProxy } from '@shared/service-proxies/service-proxies';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { CancellationPolicy, ScheduleDateType, Countries, AdministrativeAreas, KeyValueItem, KeyValueAddress, UnitMeasure, WorbbyTaskStatus } from '@shared/AppEnums';
+import { TimeEnum, CancellationPolicy, ScheduleDateType, Countries, AdministrativeAreas, KeyValueItem, KeyValueAddress, UnitMeasure, WorbbyTaskStatus } from '@shared/AppEnums';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { AppConsts } from '@shared/AppConsts';
 import { MapsAPILoader } from '@agm/core';
@@ -56,6 +56,9 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
     public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
+    public TimeEnum: typeof TimeEnum = TimeEnum;
+    public timeEnumOptions: string[];
+    public currentTimeEnumOptions: string = "";
     public scheduleDateDisplay:string = "Fixa";
 
     public countries: Countries = new Countries();
@@ -89,6 +92,12 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     }
 
     ngOnInit(): void {
+        var arrayTimeEnumOptions = Object.keys(TimeEnum);
+        this.timeEnumOptions = arrayTimeEnumOptions.slice(arrayTimeEnumOptions.length / 2);
+        this.currentTimeEnumOptions = this.timeEnumOptions[0];
+
+
+
         moment.locale('pt-br');
         this.administrativeAreas.items = this.administrativeAreas.items.filter(x => x.id == "RJ");
         if (abp.session.userId) 
@@ -106,7 +115,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.worbbyTask.unitPrice = 0;
         this.worbbyTask.amount = 0;
         this.worbbyTask.totalPrice = 0;
-        this.worbbyTask.time = this.currentTime;
+        this.worbbyTask.time = TimeEnum[this.currentTime];;
 
         if(this.activityUserId){
             this._activitiesService.getUserActivity(this.activityUserId).subscribe(result => {
@@ -318,11 +327,6 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.worbbyTask.unitMeasure = UnitMeasure[name];
     }
 
-    changeTime(value:string):void {
-        this.worbbyTask.time = value;
-        this.currentTime = value;
-    }
-
     showRegister():void{        
         this.register = true;
     }
@@ -355,4 +359,9 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
             });
         });
     }    
+
+    changeTime(name: string): void {
+        this.currentTimeEnumOptions = name;
+        this.worbbyTask.time = TimeEnum[name];
+    }
 }

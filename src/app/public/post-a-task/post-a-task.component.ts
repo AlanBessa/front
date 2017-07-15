@@ -25,7 +25,6 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     @ViewChild('stepThreeForm') stepThreeForm;
 
     @ViewChild('btnScheduleDateType1') btnScheduleDateType1; 
-    @ViewChild('btnScheduleDateType2') btnScheduleDateType2;
 
     public saving:boolean = false;
     public activeStep:number = 1;
@@ -72,8 +71,6 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();
 
-    public currentTime:string = "Qualquer horário";
-
     private completeAddress:string = "";
 
     public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
@@ -94,7 +91,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     ngOnInit(): void {
         var arrayTimeEnumOptions = Object.keys(TimeEnum);
         this.timeEnumOptions = arrayTimeEnumOptions.slice(arrayTimeEnumOptions.length / 2);
-        this.currentTimeEnumOptions = this.timeEnumOptions[0];
+        this.currentTimeEnumOptions = TimeEnum[this.timeEnumOptions[0]];
 
 
 
@@ -115,7 +112,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.worbbyTask.unitPrice = 0;
         this.worbbyTask.amount = 0;
         this.worbbyTask.totalPrice = 0;
-        this.worbbyTask.time = TimeEnum[this.currentTime];;
+        this.worbbyTask.time = TimeEnum[this.currentTimeEnumOptions];
 
         if(this.activityUserId){
             this._activitiesService.getUserActivity(this.activityUserId).subscribe(result => {

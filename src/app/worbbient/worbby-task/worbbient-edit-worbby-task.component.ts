@@ -4,7 +4,7 @@ import { InterestCenterServiceProxy, WorbbyTaskServiceProxy, WorbbyTaskDto, List
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { AdministrativeAreas, KeyValueAddress, ScheduleDateType, UnitMeasure, WorbbyTaskStatus, Countries, KeyValueItem } from "shared/AppEnums";
+import { TimeEnum, AdministrativeAreas, KeyValueAddress, ScheduleDateType, UnitMeasure, WorbbyTaskStatus, Countries, KeyValueItem } from "shared/AppEnums";
 import { MapsAPILoader } from "@agm/core";
 import * as _ from 'lodash';
 import * as moment from "moment"
@@ -17,7 +17,6 @@ import 'moment/min/locales';
 export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implements AfterViewInit {
   
     @ViewChild('btnScheduleDateType1') btnScheduleDateType1;
-    @ViewChild('btnScheduleDateType2') btnScheduleDateType2;
 
     public active: boolean = false;
     public saving: boolean = false;
@@ -52,7 +51,9 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
     public administrativeAreas: AdministrativeAreas = new AdministrativeAreas();
     public currentAdministrativeArea: KeyValueAddress;
 
-    public currentTime: string = "Qualquer horário";
+    public TimeEnum: typeof TimeEnum = TimeEnum;
+    public timeEnumOptions: string[];
+    public currentTimeEnumOptions: string = "";
     
     constructor(
         injector: Injector,
@@ -66,6 +67,11 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
     }
 
     ngOnInit(): void {
+        var arrayTimeEnumOptions = Object.keys(TimeEnum);
+        this.timeEnumOptions = arrayTimeEnumOptions.slice(arrayTimeEnumOptions.length / 2);
+        this.currentTimeEnumOptions = TimeEnum[this.timeEnumOptions[0]];
+
+
         moment.locale('pt-br');
         this.administrativeAreas.items = this.administrativeAreas.items.filter(x => x.id == "RJ");
         
@@ -81,7 +87,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
         this.worbbyTask.unitPrice = 0;
         this.worbbyTask.amount = 0;
         this.worbbyTask.totalPrice = 0;
-        this.worbbyTask.time = this.currentTime;
+        this.worbbyTask.time = TimeEnum[this.currentTimeEnumOptions];
 
         this.currentAdministrativeArea = this.administrativeAreas.items[0];
         this.address.administrativeArea = this.currentAdministrativeArea.id;
@@ -102,7 +108,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
             this.address = result.address;
             this.isUnitPrice = this.worbbyTask.isUnitPrice ? "1" : "0";
             this.currentUnitMeasureOptions = UnitMeasure[result.unitMeasure].toString();
-            this.currentTime = result.time;
+            this.currentTimeEnumOptions = TimeEnum[result.time];
 
             if(result.scheduledDate) this.scheduleDateDisplay = result.scheduledDate.format('L');
 
@@ -189,9 +195,9 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
         this.worbbyTask.unitMeasure = UnitMeasure[name];
     }
 
-    changeTime(value:string):void {
-        this.worbbyTask.time = value;
-        this.currentTime = value;
+    changeTime(name:string):void {
+        this.currentTimeEnumOptions = name;
+        this.worbbyTask.time = TimeEnum[name];
     }
 
     scheduleDateWhenPossibleChange():void {

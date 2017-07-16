@@ -44,7 +44,9 @@
                       </ul>
                     </div>
                   </div>
-                  <div *ngIf="worbbyTask?.scheduleDateType == 1" class="form-group no-hint">                                    
+                  <div *ngIf="worbbyTask?.scheduleDateType == 1" class="form-group no-hint">    
+                    <label>Selecione uma data</label>     
+                    <p>O worbbient deixou em aberto a data da tarefa. Você precisa selecionar uma data  em que você poderá fazer a tarefa.</p>                           
                       <div class="col-xs-12 no-pad-x">
                           <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : showDataPicker}" (click)="scheduleDateFixeClick()">
                               <i class="fa fa-calendar-o"></i>

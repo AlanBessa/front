@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ScheduleDateType, UnitMeasure, CancellationPolicy } from '@shared/AppEnums';
+import { WorbbyTaskStatus, TimeEnum, ScheduleDateType, UnitMeasure, CancellationPolicy } from '@shared/AppEnums';
 import { AppConsts } from '@shared/AppConsts';
 import * as _ from 'lodash';
 import * as moment from "moment";
@@ -21,8 +21,10 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
     public scheduleDateDisplay: string;
 
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
+    public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public AppConsts: typeof AppConsts = AppConsts;
+    public TimeEnum: typeof TimeEnum = TimeEnum;
     public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
 
     public tooltipPoliticaCancelamento: string = "Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
@@ -59,5 +61,88 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
             });
             this.active = true;
         }); 
+    }
+
+    get worbbyTaskStatusString ():string {
+        var statusString = "";
+        if(this.isOfferAcceptedByWorbbient){
+            statusString = "Aguardando confirmação do Worbbior";
+        }else if(this.isOfferConfirmedByWorbbior){
+            statusString = "Aguardando contratação";
+        }else if(this.isWorbbyTaskProposed){
+            statusString = "Aguardando aceite do Worbbior";
+        }else if(this.isWorbbyTaskProposedAccepted){
+            statusString = "Aguardando contratação";
+        }else if(this.isPendingOffer){
+            statusString = "Aguardando você selecionar uma oferta";
+        }else if(this.isWorbbyTaskHired){
+            statusString = "Tarefa em progresso";
+        }else if(this.isWorbbyTaskDelivered){
+            statusString = "Tarefa entregue, aguardando liberação do pagamento";
+        }else if(this.isWorbbyTaskStart){
+            statusString = "Tarefa iniciada";
+        }
+
+        return statusString;
+    }
+
+
+    get isOfferAcceptedByWorbbient(): boolean {
+        //console.log(this.worbbyTask);
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferAcceptedByWorbbient) &&
+            !this.isNullOrEmpty(this.worbbyTask.offerId) &&
+            !this.isNullOrEmpty(this.worbbyTask.targetUserId) &&
+            this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isOfferConfirmedByWorbbior(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferConfirmedByWorbbior) &&
+            !this.isNullOrEmpty(this.worbbyTask.offerId) &&
+            !this.isNullOrEmpty(this.worbbyTask.targetUserId) &&
+            this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isWorbbyTaskProposed(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) &&
+            !this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isWorbbyTaskProposedAccepted(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.WorbbyTaskProposalAcceptedByWorbbior) &&
+            !this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isPendingOffer(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) &&
+            this.isNullOrEmpty(this.worbbyTask.activityUserId) &&
+            this.isNullOrEmpty(this.worbbyTask.offerId)
+        )
+    }
+
+    get isWorbbyTaskHired() {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Hired)
+        )
+    }
+
+    get isWorbbyTaskDelivered() {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Delivered)
+        )
+    }
+
+    get isWorbbyTaskStart() {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Start)
+        )
     }
 }

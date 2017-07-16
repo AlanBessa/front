@@ -36,7 +36,7 @@ import { ViewDocumentModalComponent } from '@app/worbbior/edit-profile/view-docu
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.component';
-
+import { WorbbiorScheduleDateModalComponent } from './worbby-task/worbbior-task-scheduledate-modal.component';
 
 @NgModule({
     imports: [
@@ -85,7 +85,8 @@ import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.c
         PaidPaymentWorbbiorComponent,
         ViewDocumentModalComponent,
         PdfViewerComponent,
-        WorbbiorWorbbyTaskActions
+        WorbbiorWorbbyTaskActions,
+        WorbbiorScheduleDateModalComponent
     ],
     providers: [
         AppRouteGuard

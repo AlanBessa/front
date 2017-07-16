@@ -69,7 +69,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
     ngOnInit(): void {
         var arrayTimeEnumOptions = Object.keys(TimeEnum);
         this.timeEnumOptions = arrayTimeEnumOptions.slice(arrayTimeEnumOptions.length / 2);
-        this.currentTimeEnumOptions = TimeEnum[this.timeEnumOptions[0]];
+        this.currentTimeEnumOptions = this.timeEnumOptions[0];
 
 
         moment.locale('pt-br');

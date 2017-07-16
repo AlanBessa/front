@@ -89,9 +89,9 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     }
 
     ngOnInit(): void {
-        var arrayTimeEnumOptions = Object.keys(TimeEnum);
-        this.timeEnumOptions = arrayTimeEnumOptions.slice(arrayTimeEnumOptions.length / 2);
-        this.currentTimeEnumOptions = TimeEnum[this.timeEnumOptions[0]];
+        var timeEnumOptions = Object.keys(TimeEnum);
+        this.timeEnumOptions = timeEnumOptions.slice(timeEnumOptions.length / 2);
+        this.currentTimeEnumOptions = this.timeEnumOptions[0];
 
 
 

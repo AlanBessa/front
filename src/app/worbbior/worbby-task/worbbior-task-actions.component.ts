@@ -2,8 +2,9 @@ import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter } f
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { EntityDtoOfInt64, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WorbbyTaskStatus } from '@shared/AppEnums';
+import { WorbbyTaskStatus, ScheduleDateType } from '@shared/AppEnums';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
+import { WorbbiorScheduleDateModalComponent } from './worbbior-task-scheduledate-modal.component';
 
 @Component({
     selector: 'worbbiorWorbbyTaskActions',
@@ -19,8 +20,11 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     @Output() actionReturn: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
+    @ViewChild('worbbiorTaskScheduleDateModal') worbbiorTaskScheduleDateModal: WorbbiorScheduleDateModalComponent;
 
-    public active:boolean = false;
+    public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
+
+    public active: boolean = false;
 
     constructor(
         injector: Injector,
@@ -32,65 +36,65 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     }
 
     ngOnInit(): void {
-        if(this.worbbyOffer){
+        if (this.worbbyOffer) {
             this.worbbyTask = this.worbbyOffer.worbbyTask;
         }
     }
 
-    get isOfferAcceptedByWorbbient():boolean{
+    get isOfferAcceptedByWorbbient(): boolean {
         //console.log(this.worbbyTask);
         return (
-            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferAcceptedByWorbbient) && 
-            !this.isNullOrEmpty(this.worbbyTask.offerId) && 
-            !this.isNullOrEmpty(this.worbbyTask.targetUserId) && 
+            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferAcceptedByWorbbient) &&
+            !this.isNullOrEmpty(this.worbbyTask.offerId) &&
+            !this.isNullOrEmpty(this.worbbyTask.targetUserId) &&
             this.isNullOrEmpty(this.worbbyTask.activityUserId)
         )
     }
 
-    get isOfferConfirmedByWorbbior():boolean{
+    get isOfferConfirmedByWorbbior(): boolean {
         return (
-            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferConfirmedByWorbbior) && 
-            !this.isNullOrEmpty(this.worbbyTask.offerId) && 
-            !this.isNullOrEmpty(this.worbbyTask.targetUserId) && 
+            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferConfirmedByWorbbior) &&
+            !this.isNullOrEmpty(this.worbbyTask.offerId) &&
+            !this.isNullOrEmpty(this.worbbyTask.targetUserId) &&
             this.isNullOrEmpty(this.worbbyTask.activityUserId)
         )
     }
 
-    get isWorbbyTaskProposed():boolean{
+    get isWorbbyTaskProposed(): boolean {
         return (
-            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) && 
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) &&
             !this.isNullOrEmpty(this.worbbyTask.activityUserId)
         )
     }
 
-    get isWorbbyTaskProposedAccepted():boolean {
+    get isWorbbyTaskProposedAccepted(): boolean {
         return (
-            this.worbbyTask.status == Number(WorbbyTaskStatus.WorbbyTaskProposalAcceptedByWorbbior) && 
+            this.worbbyTask.status == Number(WorbbyTaskStatus.WorbbyTaskProposalAcceptedByWorbbior) &&
             !this.isNullOrEmpty(this.worbbyTask.activityUserId)
         )
     }
 
-    get isPendingOffer():boolean{
+    get isPendingOffer(): boolean {
         return (
-            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) && 
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) &&
             this.isNullOrEmpty(this.worbbyTask.activityUserId) &&
             this.isNullOrEmpty(this.worbbyTask.offerId)
         )
     }
 
-    get isWorbbyTaskHired(){
+    get isWorbbyTaskHired() {
         return (
             this.worbbyTask.status == Number(WorbbyTaskStatus.Hired)
         )
     }
 
-    get isWorbbyTaskDelivered(){
+    get isWorbbyTaskDelivered() {
         return (
             this.worbbyTask.status == Number(WorbbyTaskStatus.Delivered)
         )
     }
 
-    get isWorbbyTaskStart(){
+    get isWorbbyTaskStart() {
         return (
             this.worbbyTask.status == Number(WorbbyTaskStatus.Start)
         )
@@ -106,7 +110,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
                     this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
                 });
             });
-    }    
+    }
 
     refusedOfferAccepted(): void {
         var entityDto = new EntityDtoOfInt64(this.worbbyTask);
@@ -115,29 +119,40 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.offerCanceledByWorbbior(entityDto)
-                    .finally(() => {
-                    })
-                    .subscribe(() => {
-                        this.message.custom('', 'Oferta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            this.actionReturn.emit(null);
-                        });                        
-                    });
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.custom('', 'Oferta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                                this.actionReturn.emit(null);
+                            });
+                        });
                 }
             }
         );
     }
 
     acceptWorbbyTaskProposed(): void {
-        var entityDto: EntityDtoOfInt64 = new EntityDtoOfInt64(this.worbbyTask);
 
-        this._worbbyTaskService.worbbyTaskProposalAcceptedByWorbbior(entityDto)
-            .finally(() => {
-            })
-            .subscribe(() => {
-                this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                    this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
-                });
-            });
+        if (this.worbbyTask.scheduleDateType == Number(ScheduleDateType.WhenPossible) && this.isNullOrEmpty(this.worbbyTask.scheduledDate)) {
+            this.worbbiorTaskScheduleDateModal.show(this.worbbyTask);
+        }else{
+            this.message.confirm(
+                '', 'Deseja aceitar essa proposta?',
+                isConfirmed => {
+                    if (isConfirmed) {
+                        this._worbbyTaskService.worbbyTaskProposalAcceptedByWorbbior(this.worbbyTask)
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                                this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
+                            });
+                        });
+                    }
+                }
+            );
+            
+        }
     }
 
     refusedWorbbyTaskProposed(): void {
@@ -147,22 +162,22 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.worbbyTaskProposalRefusedByWorbbior(new EntityDtoOfInt64(entityDto))
-                    .finally(() => {
-                    })
-                    .subscribe(() => {
-                        this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            this.actionReturn.emit(null);
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                                this.actionReturn.emit(null);
+                            });
                         });
-                    });
                 }
             }
         );
     }
 
     viewWorbbyTask(): void {
-        if(this.worbbyOffer){
+        if (this.worbbyOffer) {
             this._router.navigate(['/worbbior/worbby-task-offer', this.worbbyOffer.id]);
-        }else{
+        } else {
             this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
         }
     }
@@ -174,51 +189,51 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.offerUnboundCanceledByWorbbior(new EntityDtoOfInt64(entityDto))
-                    .finally(() => {
-                    })
-                    .subscribe(() => {
-                        this.message.custom('', 'Oferta cancelada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                            this.actionReturn.emit(null);
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.custom('', 'Oferta cancelada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                                this.actionReturn.emit(null);
+                            });
                         });
-                    });
                 }
             }
         );
     }
 
-    cancelWorbbyTaskHired():void{
+    cancelWorbbyTaskHired(): void {
         this.message.confirm(
             '', 'Tem certeza que quer cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
-                    .finally(() => {
-                    })
-                    .subscribe(() => {
-                        this.message.success("Sua tarefa foi cancelada com sucesso!");
-                        this.actionReturn.emit(null);
-                    }, (error) => {
-                        console.log(error);
-                    });
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.success("Sua tarefa foi cancelada com sucesso!");
+                            this.actionReturn.emit(null);
+                        }, (error) => {
+                            console.log(error);
+                        });
                 }
             }
         );
     }
 
-    WorbbyTaskDelivered():void{
+    WorbbyTaskDelivered(): void {
         this.message.confirm(
             'Você entregou esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
-                    .finally(() => {
-                    })
-                    .subscribe(() => {
-                        this.message.success("O Worbbient será notificado para que possa liberar o pagamento.", "Confirmada a entrega da tarefa!");
-                        this.actionReturn.emit(null);
-                    }, (error) => {
-                        console.log(error);
-                    });
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.success("O Worbbient será notificado para que possa liberar o pagamento.", "Confirmada a entrega da tarefa!");
+                            this.actionReturn.emit(null);
+                        }, (error) => {
+                            console.log(error);
+                        });
                 }
             }
         );

@@ -21,6 +21,7 @@
                             <div class="profile-details">                                
                                 <div class="col-xs-12 m-t-sm">
                                     <h3>{{worbbyOffer.worbbyTask.title}}</h3>
+                                    <p class="small cor-CaribbeanGreen"><i>{{worbbyTaskStatusString}}</i></p>
                                 </div>
                                 <div class="col-xs-12 divider">
                                     <p class="cor-Botticelli small">{{worbbyOffer.worbbyTask.description}}</p>
@@ -45,7 +46,7 @@
                                             <p class="small cor-Botticelli text-right">Data</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">{{worbbyOffer.worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible ? "Quando possível" : scheduleDateDisplay}}</p>
+                                            <p class="inline">{{worbbyOffer.worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible && !worbbyOffer.worbbyTask.scheduledDate ? "Quando possível" : scheduleDateDisplay}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +56,7 @@
                                             <p class="small cor-Botticelli text-right">Horário</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">{{worbbyOffer.worbbyTask.time}}</p>
+                                            <p class="inline">{{l(TimeEnum[worbbyOffer.worbbyTask.time.toString()])}}</p>
                                         </div>
                                     </div>
                                 </div>

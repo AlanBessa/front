@@ -86,6 +86,11 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                         });
                     } 
                 });
+                element.evaluation.evaluations.items.forEach(element => {
+                    this.getPictureByGuid(element.profilePictureId).then((result) => {
+                        element.userPicture = result;
+                    });
+                })
             });
             this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName); 
             
@@ -122,6 +127,11 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                         });
                     } 
                 });
+                element.evaluation.evaluations.items.forEach(element => {
+                    this.getPictureByGuid(element.profilePictureId).then((result) => {
+                        element.userPicture = result;
+                    });
+                })
             });
             
             this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName); 
@@ -136,10 +146,11 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     }
 
     getLocation(): void {
-        setInterval(
+        let self = this;
+        setTimeout(
             function(){ 
-                 this._activatedRoute.fragment.subscribe(f => {
-                    this.goTo(f);
+                 self._activatedRoute.fragment.subscribe(f => {
+                    self.goTo(f);
                     console.log(f);
                 }); 
             },

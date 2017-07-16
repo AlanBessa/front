@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, WorbbyTaskMessageDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CancellationPolicy, WorbbyTaskStatus, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
+import { TimeEnum, CancellationPolicy, WorbbyTaskStatus, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
 import { AppConsts } from '@shared/AppConsts';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -29,6 +29,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public WorbbyTaskMessageReadState: typeof WorbbyTaskMessageReadState = WorbbyTaskMessageReadState;
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
     public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
+    public TimeEnum: typeof TimeEnum = TimeEnum;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public AppConsts: typeof AppConsts = AppConsts;
     public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
@@ -212,5 +213,88 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
 
     actionReturn():void{
         this._router.navigate(['/worbbior/my-worbby'])
+    }
+
+    get worbbyTaskStatusString ():string {
+        var statusString = "";
+        if(this.isOfferAcceptedByWorbbient){
+            statusString = "Aguardando sua confirmação";
+        }else if(this.isOfferConfirmedByWorbbior){
+            statusString = "Aguardando contratação pelo Worbbient";
+        }else if(this.isWorbbyTaskProposed){
+            statusString = "Aguardando o seu aceite";
+        }else if(this.isWorbbyTaskProposedAccepted){
+            statusString = "Aguardando contratação pelo Worbbient";
+        }else if(this.isPendingOffer){
+            statusString = "Aguardando Worbbient selecionar uma oferta";
+        }else if(this.isWorbbyTaskHired){
+            statusString = "Tarefa em progresso";
+        }else if(this.isWorbbyTaskDelivered){
+            statusString = "Tarefa entregue, aguardando liberação do pagamento";
+        }else if(this.isWorbbyTaskStart){
+            statusString = "Tarefa iniciada";
+        }
+
+        return statusString;
+    }
+
+
+    get isOfferAcceptedByWorbbient(): boolean {
+        //console.log(this.worbbyTask);
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferAcceptedByWorbbient) &&
+            !this.isNullOrEmpty(this.worbbyTask.offerId) &&
+            !this.isNullOrEmpty(this.worbbyTask.targetUserId) &&
+            this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isOfferConfirmedByWorbbior(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.OfferConfirmedByWorbbior) &&
+            !this.isNullOrEmpty(this.worbbyTask.offerId) &&
+            !this.isNullOrEmpty(this.worbbyTask.targetUserId) &&
+            this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isWorbbyTaskProposed(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) &&
+            !this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isWorbbyTaskProposedAccepted(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.WorbbyTaskProposalAcceptedByWorbbior) &&
+            !this.isNullOrEmpty(this.worbbyTask.activityUserId)
+        )
+    }
+
+    get isPendingOffer(): boolean {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Post) &&
+            this.isNullOrEmpty(this.worbbyTask.activityUserId) &&
+            this.isNullOrEmpty(this.worbbyTask.offerId)
+        )
+    }
+
+    get isWorbbyTaskHired() {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Hired)
+        )
+    }
+
+    get isWorbbyTaskDelivered() {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Delivered)
+        )
+    }
+
+    get isWorbbyTaskStart() {
+        return (
+            this.worbbyTask.status == Number(WorbbyTaskStatus.Start)
+        )
     }
 }

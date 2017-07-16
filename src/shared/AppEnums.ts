@@ -182,8 +182,7 @@ export enum WorbbyOfferStatus {
     Canceled = Number(WorbbyOfferDtoWorbbyOfferStatus._3), //Oferta cancelada
 }
 
-export enum TimeEnum
-{
+export enum TimeEnum {
     AnyTime = Number(WorbbyTaskDtoTime._1), //Qualquer horário, contar como 0h
     Morning = Number(WorbbyTaskDtoTime._2), //entre 8 e 12 contar como 8h
     Afternoon = Number(WorbbyTaskDtoTime._3), //entre 12 e 18 contar como 12h

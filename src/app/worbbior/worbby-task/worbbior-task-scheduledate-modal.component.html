@@ -1,0 +1,37 @@
+<div bsModal #scheduleDateModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="scheduleDateModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <form *ngIf="active" #scheduleDateForm="ngForm" (ngSubmit)="save()">
+            <div class="modal-header">
+              <button type="button" class="close" (click)="close()" aria-label="Close">
+                <i class="fa fa-remove"></i>
+              </button>
+              <h3 class="modal-title m-t-xs m-b-xxs text-center">Selecione uma data</h3>
+              <p>O worbbient deixou em aberto a data da tarefa. Você precisa selecionar uma data  em que você poderá fazer a tarefa proposta.</p>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div *ngIf="worbbyTask?.scheduleDateType == 1" class="form-group no-hint">                                    
+                      <div class="col-xs-12 no-pad-x">
+                          <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : showDataPicker}" (click)="scheduleDateFixeClick()">
+                              <i class="fa fa-calendar-o"></i>
+                              {{scheduleDateDisplay}}
+                          </button>
+                          <datepicker required [showWeeks]="false" class="datepicker-custom" *ngIf="showDataPicker" name="ScheduleDate" [(ngModel)]="worbbyTask.scheduledDate" (selectionDone)="scheduleDateDone($event)"></datepicker>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around pull-left" (click)="close()">{{l("Cancel")}}</button>
+              <button type="submit" class="btn btn-prime btn-around" [disabled]="!scheduleDateForm.form.valid" [buttonBusy]="sending" [busyText]="l('SendWithThreeDot')">
+                <span>Aceitar Proposta</span>
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>

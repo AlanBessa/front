@@ -73,7 +73,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
 
     private completeAddress:string = "";
 
-    public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
+    public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
     constructor(
         injector: Injector,
@@ -118,6 +118,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
             this._activitiesService.getUserActivity(this.activityUserId).subscribe(result => {
                 this.userActivity = result;
                 this.worbbyTask.unitPrice = this.userActivity.price;
+                this.worbbyTask.isUnitPrice = true;
                 this.worbbyTask.unitMeasure = Number(this.userActivity.unitMeasure);
                 this.currentUnitMeasureOptions = UnitMeasure[this.worbbyTask.unitMeasure];
                 this.isProposed = true;

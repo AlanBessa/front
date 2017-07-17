@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
 import { SlickSliderComponent } from '@shared/slick-slider.component';
-import { ListResultDtoOfInterestCenterDto, InterestCenterServiceProxy, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, WorbbyPagedResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
+import { ListResultDtoOfInterestCenterDto, InterestCenterServiceProxy, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, ListResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
 import { UnitMeasure } from '@shared/AppEnums';
 import {AppConsts} from '@shared/AppConsts';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -169,11 +169,12 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
     getTalents(): void {
         this.carregado = false;
         this.checkFiltersActive();
-        this._activitiesService.getWorbbiorActivities(this.filter, this.currentInterestCenterTopLevel.id, this.currentInterestCenterChild.id, undefined, this.address, this.orderby, this.latitude, this.longitude, this.page).subscribe((result: WorbbyPagedResultDtoOfWorbbiorActivityDto) => {
+        this._activitiesService.getWorbbiorActivities(this.filter, this.currentInterestCenterTopLevel.id, this.currentInterestCenterChild.id, undefined, this.address, this.orderby, this.latitude, this.longitude, this.page).subscribe((result: ListResultDtoOfWorbbiorActivityDto) => {
             this.carregado = true;
-            this.worbbiorActivities.push.apply(this.worbbiorActivities, result.items);
-            result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
-            this.totalWorbbiorActivities = result.totalCount;
+            this.worbbiorActivities = result.items;
+            // this.worbbiorActivities.push.apply(this.worbbiorActivities, result.items);
+            // result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
+            // this.totalWorbbiorActivities = result.totalCount;
 
             this.worbbiorActivities.forEach(element => {
                 this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {

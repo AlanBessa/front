@@ -42,7 +42,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public worbbientId: number = 0;
     public taskId: number = 0;
 
-    public tooltipPoliticaCancelamento: string = "Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
+    public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
     //private messagesTimer:any;
     //private subscriptionMessagesTimer: any;
@@ -212,6 +212,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
 
 
     actionReturn():void{
+        console.log("actionReturn");
         this._router.navigate(['/worbbior/my-worbby'])
     }
 

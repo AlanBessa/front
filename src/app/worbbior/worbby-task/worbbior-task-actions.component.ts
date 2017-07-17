@@ -254,4 +254,8 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     sendReport(): void {
         this.sendReportModal.show();
     }
+
+    modalSave():void{
+        this.actionReturn.emit(null);
+    }
 }

@@ -78,4 +78,4 @@
 </div>
 
 <sendReportModal #sendReportModal [inputId]="worbbyTask.worbbient.id" [inputType]="'worbbient'" [inputIdTask]="worbbyTask.id"></sendReportModal>
-<worbbiorTaskScheduleDateModal #worbbiorTaskScheduleDateModal></worbbiorTaskScheduleDateModal>
+<worbbiorTaskScheduleDateModal #worbbiorTaskScheduleDateModal (modalSave)="modalSave()"></worbbiorTaskScheduleDateModal>

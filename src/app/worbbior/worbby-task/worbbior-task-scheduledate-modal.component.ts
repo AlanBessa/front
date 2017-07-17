@@ -55,9 +55,8 @@ export class WorbbiorScheduleDateModalComponent extends AppComponentBase {
         })
         .subscribe(() => {
             this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                //this.modalSave.emit(null);
+                this.modalSave.emit(null);
                 this.close();
-                this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
             });
         });
     }

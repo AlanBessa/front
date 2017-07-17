@@ -103,7 +103,7 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
             this.activities.push.apply(this.activities, result.items);
             result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
             this.totalActivities = result.totalCount;
-        });
+        }); 
     }
 
     loadingMore(): void {

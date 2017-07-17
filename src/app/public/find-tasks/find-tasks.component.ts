@@ -2,7 +2,7 @@ import { Component, Injector, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
-import { FindWorbbyTaskInput, WorbbyTaskDto, InterestCenterDto, WorbbyTaskServiceProxy, InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, ListResultDtoOfWorbbyTaskDto } from '@shared/service-proxies/service-proxies';
+import { FindWorbbyTaskInput, WorbbyTaskDto, InterestCenterDto, WorbbyTaskServiceProxy, InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, ListResultDtoOfWorbbyTaskDto, WorbbyPagedResultDtoOfWorbbyTaskDto } from '@shared/service-proxies/service-proxies';
 import { UnitMeasure } from '@shared/AppEnums';
 
 @Component({
@@ -24,6 +24,10 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
     public orderByDistance: boolean = false;
     public filtersActive: boolean = false;
     public carregado: boolean = false;
+
+    public page: number = 1;
+    public totalWorbbyTask: number = 0; 
+    public showButtonMore = false;
 
     public findWorbbyTaskInput: FindWorbbyTaskInput = new FindWorbbyTaskInput();    
 
@@ -114,11 +118,19 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
 
     getWorbbyTasks(): void {
         this.carregado = false;
+        this.findWorbbyTaskInput.page = this.page;
         this.checkFiltersActive();
-        this._worbbyTaskService.findWorbbyTasks(this.findWorbbyTaskInput).subscribe((result: ListResultDtoOfWorbbyTaskDto) => {
+        this._worbbyTaskService.findWorbbyTasks(this.findWorbbyTaskInput).subscribe((result: WorbbyPagedResultDtoOfWorbbyTaskDto) => {
             this.carregado = true;
-            this.worbbyTasks = result.items;
+            this.worbbyTasks.push.apply(this.worbbyTasks, result.items);
+            result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
+            this.totalWorbbyTask = result.totalCount;
         });
+    }
+
+    loadingMore(): void {
+        this.page++;
+        this.getWorbbyTasks();
     }
 
     orderbyPrice(): void {

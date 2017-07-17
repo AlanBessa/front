@@ -527,9 +527,9 @@
                                             </div>
                                             <div class="col-xs-12 m-t-xxs m-b-xxs">
                                                 <div class="row" *ngIf="worbbiorActivities.length > 0 && carregado">
-                                                    <div *ngFor="let worbbiorActivity of worbbiorActivities">
-                                                        <a [routerLink]="['/worbbior/pagina', worbbiorActivity.worbbior.slug]" fragment="atividade-{{worbbiorActivity.userActivity.id}}" class="card-talents w-100">
-                                                            <div class="col-xs-12">
+                                                    <div class="col-xs-12">
+                                                        <div *ngFor="let worbbiorActivity of worbbiorActivities">
+                                                            <a [routerLink]="['/worbbior/pagina', worbbiorActivity.worbbior.slug]" fragment="atividade-{{worbbiorActivity.userActivity.id}}" class="card-talents w-100">
                                                                 <!-- card -->
                                                                 <div class="card-simple p-xxs">
                                                                     <div class="row">
@@ -577,8 +577,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- card : fim -->
-                                                            </div>
-                                                        </a>
+                                                            </a>
+                                                        </div>
+                                                        <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-t-xs" (click)="loadingMore()">Carregar mais...</button>
                                                     </div>
                                                 </div>
                                                 <div class="well well-lg bg-White" *ngIf="worbbiorActivities.length == 0 && carregado">

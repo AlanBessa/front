@@ -198,7 +198,7 @@
                                                             </div>
                                                         </div> 
                                                         <div class="col-xs-6 col-sm-3 activity-comments no-pad-x">
-                                                            <div class="card-default text-center p-y-xxs m-xxs">
+                                                            <div (click)="commentsOnClick($event)" class="card-default text-center p-y-xxs m-xxs">
                                                                 <svg width="50px" height="24px" viewBox="0 0 50 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                     <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
                                                                     <title>icon-reviews</title>
@@ -229,7 +229,7 @@
                                                                         </g>
                                                                     </g>
                                                                 </svg>
-                                                                <div (click)="commentsOnClick($event)">
+                                                                <div>
                                                                     <p class="small">{{activityUser.evaluation.evaluations.items.length}} comentários</p>
                                                                 </div>
                                                                 <div class="arrow-nav"></div>

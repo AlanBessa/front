@@ -37,6 +37,9 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
         this.getInterestCenters();
+        this.activatedRoute.fragment.subscribe(f => {
+            this.goTo(f);
+        });
     } 
 
     ngOnInit() {
@@ -113,12 +116,8 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
         this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
             this.interestCenters = result.items;
 
-            this.activatedRoute.fragment.subscribe(f => {
-                this.goTo(f);
-            });
-
             if(this._appSessionService.firstAccess){
-                this.showReleaseModal();
+                //this.showReleaseModal();
                 this._appSessionService.firstAccess = false;
             }
             

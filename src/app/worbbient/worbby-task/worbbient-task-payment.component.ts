@@ -80,14 +80,13 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
 
     ngOnInit(): void {
         this.worbbyTaskId = Number(this._activatedRoute.snapshot.params['worbbyTaskId']);
+        this.getMonths();
+        this.getYears();
+        this.getWorbbyTask();
     }
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
-
-        this.getMonths();
-        this.getYears();
-        this.getWorbbyTask();
     }
 
     // capturePayment():void{        

@@ -80,12 +80,12 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         new UserMenuItem("PostTask", "Pages.Worbbient.PostTask", "Worbbient", "", "/worbbient/post-task"),
         new UserMenuItem("TasksHistory", "Pages.Worbbient.TasksHistory", "Worbbient", "", "/worbbient/tasks-history"),
         new UserMenuItem("EditProfile", "Pages.Worbbient.EditProfile", "Worbbient", "", "/worbbient/edit-profile"),
-        new UserMenuItem("Messages", "Pages.Worbbient.Messages", "", "Worbbient", "/worbbient/messages"),
+        //new UserMenuItem("Messages", "Pages.Worbbient.Messages", "", "Worbbient", "/worbbient/messages"),
 
         new UserMenuItem("MyWorbby", "Pages.Worbbior.MyWorbby", "Worbbior", "", "/worbbior/my-worbby"),
         new UserMenuItem("TasksHistory", "Pages.Worbbior.TasksHistory", "Worbbior", "", "/worbbior/tasks-history"),
         new UserMenuItem("EditProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/edit-profile"),
-        new UserMenuItem("Messages", "Pages.Worbbior.Messages", "Worbbior", "", "/worbbior/messages"),
+        //new UserMenuItem("Messages", "Pages.Worbbior.Messages", "Worbbior", "", "/worbbior/messages"),
         //new UserMenuItem("DiscoverYourTalents", "", "Worbbior", "", "/worbbior/talent-questionnaire"),
         new UserMenuItem("ViewProfile", "", "Worbbior", "", "/worbbior/page/", this._appSessionService.worbbiorSlug ? this._appSessionService.worbbiorSlug : ""),
     ]);
@@ -144,11 +144,19 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
 
     switchToWorbbiorProfile() {
         this._appSessionService.userRoleName = "Worbbior";
-        location.href = "/";
+        setTimeout(
+            function(){ 
+                location.href = "/";
+            },
+        500);
     }
 
     switchToWorbbientProfile() {
         this._appSessionService.userRoleName = "Worbbient";
-        location.href = "/";
+        setTimeout(
+            function(){ 
+                location.href = "/";
+            },
+        500);
     }
 }

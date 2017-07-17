@@ -25,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div headerNotifications class="pull-right hidden-sm hidden-lg hidden-md dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></div>
+                <div *ngIf="isMobile" headerNotifications class="pull-right hidden-sm hidden-lg hidden-md dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></div>
                 <a class="site-logo hidden-sm" routerLink="/home">
                     <img class="logo-topo" *ngIf="currentRoleName == 'Worbbient'" src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Logo Worbby">
                     <img class="logo-topo" *ngIf="currentRoleName == 'Worbbior'" src="/assets/metronic/worbby/global/img/logo-worbbior-beta.svg" alt="Logo Worbby">
@@ -107,9 +107,9 @@
                             <li class="nav-item">
                                 <a class="close-nav" routerLink="/find-a-tasks">Tarefas postadas</a>
                             </li>
-                            <li headerNotifications class="hidden-xs dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></li>
+                            <li *ngIf="!isMobile" headerNotifications class="hidden-xs dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></li>
                             <li class="nav-btn">
-                                <a href="javascript:;" (click)="switchToWorbbientProfile()" id="PostTaskMobile" class="close-nav btn btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime': isWorbbior || (!isWorbbior && !isMobile), 'btn-prime-inverted': !isWorbbior && isMobile}" >
+                                <a href="javascript:;" (click)="postWorbbyTask()" id="PostTaskMobile" class="close-nav btn btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime': isWorbbior || (!isWorbbior && !isMobile), 'btn-prime-inverted': !isWorbbior && isMobile}" >
                                     {{l("PostATask")}}
                                     <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
                                     <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">

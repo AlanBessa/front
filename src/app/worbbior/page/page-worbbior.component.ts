@@ -89,7 +89,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                 
                 element.evaluation.evaluations.items.forEach(element => {
                     this.getPictureByGuid(element.profilePictureId).then((result) => {
-                        element.userPicture = result;
+                        element.userPicture = result ? result : AppConsts.defaultProfilePicture;;
                     });
                 })
             });
@@ -167,7 +167,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     commentsOnClick(event): void {
         var target = event.target || event.srcElement || event.currentTarget;
         $(target).toggleClass("active");
-        $(target).parent().parent().parent().parent().find(".activity-comments-list").toggle();
+        $(target).parent().parent().parent().parent().parent().find(".activity-comments-list").toggle();
         $(target).parent().parent().parent().parent().parent().find(".activity-comments").toggleClass("active-card");
         // $(target).parent().parent().find(".activity-comments-list").toggle();
 
@@ -193,7 +193,25 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
 
             });
         }else{
-            this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
+            if(this._appSessionService.userRoleName == 'Worbbior')
+            {
+                this.message.confirm(
+                "", "Deseja  alterar o seu prefil para o worbbient?",
+                isConfirmed => {
+                    if (isConfirmed) {
+                    this._appSessionService.userRoleName = "Worbbient";
+                    setTimeout(
+                        function(){ 
+                            location.href = "/postar-tarefa/" + activityUser.id;
+                        },
+                    500);
+                    }
+                });
+
+            }else if(this._appSessionService.userRoleName == 'Worbbient'){
+                this._appSessionService.userRoleName = "Worbbient";
+                this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
+            }
         }        
     }
 

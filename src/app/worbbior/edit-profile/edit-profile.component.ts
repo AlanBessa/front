@@ -95,12 +95,12 @@ export class EditProfileWorbbiorComponent extends AppComponentBase implements Af
         new UserMenuItem("PostTask", "Pages.Worbbient.PostTask", "Worbbient", "", "/worbbient/post-task"),
         new UserMenuItem("TasksHistory", "Pages.Worbbient.TasksHistory", "Worbbient", "", "/worbbient/tasks-history"),
         new UserMenuItem("PaymentsHistory", "Pages.Worbbient.PaymentsHistory", "Worbbient", "", "/worbbient/payments-history"),
-        new UserMenuItem("Messages", "Pages.Worbbient.Messages", "", "Worbbient", "/worbbient/messages"),
+        //new UserMenuItem("Messages", "Pages.Worbbient.Messages", "", "Worbbient", "/worbbient/messages"),
 
         new UserMenuItem("MyWorbby", "Pages.Worbbior.MyWorbby", "Worbbior", "", "/worbbior/my-worbby"),
         new UserMenuItem("TasksHistory", "Pages.Worbbior.TasksHistory", "Worbbior", "", "/worbbior/tasks-history"),
         new UserMenuItem("PaymentsHistory", "Pages.Worbbior.PaymentsHistory", "Worbbior", "", "/worbbior/payments-history"),
-        new UserMenuItem("Messages", "Pages.Worbbior.Messages", "Worbbior", "", "/worbbior/messages"),
+        //new UserMenuItem("Messages", "Pages.Worbbior.Messages", "Worbbior", "", "/worbbior/messages"),
         //new UserMenuItem("DiscoverYourTalents", "", "Worbbior", "", "/worbbior/talent-questionnaire"),
         new UserMenuItem("ViewProfile", "", "Worbbior", "", "/worbbior/page/", this._appSessionService.worbbiorSlug ? this._appSessionService.worbbiorSlug : ""),
     ]);
@@ -261,12 +261,20 @@ export class EditProfileWorbbiorComponent extends AppComponentBase implements Af
 
     switchToWorbbiorProfile() {
         this._appSessionService.userRoleName = "Worbbior";
-        location.href = "/";
+        setTimeout(
+            function(){ 
+                location.href = "/";
+            },
+        500);
     }
 
     switchToWorbbientProfile() {
         this._appSessionService.userRoleName = "Worbbient";
-        location.href = "/";
+        setTimeout(
+            function(){ 
+                location.href = "/";
+            },
+        500);
     }
 
     getAddresDefault(): void {

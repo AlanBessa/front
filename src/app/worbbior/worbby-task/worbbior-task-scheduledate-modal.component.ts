@@ -19,7 +19,7 @@ import * as _ from "lodash";
 })
 export class WorbbiorScheduleDateModalComponent extends AppComponentBase {
 
-    @ViewChild('createOrEditModal') modal: ModalDirective;
+    @ViewChild('scheduleDateModal') modal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 

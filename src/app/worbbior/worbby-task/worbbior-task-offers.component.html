@@ -61,9 +61,15 @@
                                         <div class="display-cell">
                                             <p class="small cor-Botticelli text-right">Localização</p>
                                         </div>
-                                        <div class="display-cell">
-                                            <p class="inline">{{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}</p>
-                                        </div>
+                                        <p class="inline">
+                                            <span 
+                                            *ngIf="worbbyTask.status == WorbbyTaskStatus.Delivered || 
+                                            worbbyTask.status == WorbbyTaskStatus.Hired || 
+                                            worbbyTask.status == WorbbyTaskStatus.Paid">
+                                                {{worbbyTask.address.thoroughfare}}, {{worbbyTask.address.thoroughfareNumber}} {{worbbyTask.address.premise}} - 
+                                            </span>
+                                            {{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}
+                                        </p>
                                     </div>
                                 </div>
                                 <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 divider">

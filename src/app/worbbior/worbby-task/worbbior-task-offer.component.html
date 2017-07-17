@@ -75,9 +75,15 @@
                                         <div class="display-cell">
                                             <p class="small cor-Botticelli text-right">{{worbbyOffer.worbbyTask.unitMeasure == UnitMeasure.Hour ? "Duração" : "Quantidade"}}</p>
                                         </div>
-                                        <div class="display-cell">
-                                            <p class="inline">{{worbbyOffer.worbbyTask.amount}} {{worbbyOffer.worbbyTask.unitMeasure == UnitMeasure.Hour ? "hora(s)" : "unidade(s)"}}</p>
-                                        </div>
+                                        <p class="inline">
+                                            <span 
+                                            *ngIf="worbbyTask.status == WorbbyTaskStatus.Delivered || 
+                                            worbbyTask.status == WorbbyTaskStatus.Hired || 
+                                            worbbyTask.status == WorbbyTaskStatus.Paid">
+                                                {{worbbyOffer.worbbyTask.address.thoroughfare}}, {{worbbyOffer.worbbyTask.address.thoroughfareNumber}} {{worbbyOffer.worbbyTask.address.premise}} - 
+                                            </span>
+                                            {{worbbyOffer.worbbyTask.address.subLocality}} - {{worbbyOffer.worbbyTask.address.locality}} - {{worbbyOffer.worbbyTask.address.administrativeArea}}
+                                        </p>
                                     </div>
                                 </div>
                                 <div *ngIf="worbbyOffer.worbbyTask.isUnitPrice" class="col-xs-12 divider">

@@ -108,7 +108,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.unitMeasureOptions = unitMeasureOptions.slice(unitMeasureOptions.length / 2);
         this.currentUnitMeasureOptions = this.unitMeasureOptions[0];
         this.worbbyTask.unitMeasure = UnitMeasure[this.currentUnitMeasureOptions];
-        this.worbbyTask.isUnitPrice = true;
+        this.worbbyTask.isUnitPrice = false;
         this.worbbyTask.unitPrice = 0;
         this.worbbyTask.amount = 0;
         this.worbbyTask.totalPrice = 0;

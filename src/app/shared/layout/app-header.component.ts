@@ -115,17 +115,21 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         });
     }
 
-    switchToWorbbientProfile() {
+    postWorbbyTask() {
         if(this.currentRoleName == 'Worbbior')
         {
             this.message.confirm(
             "", "Deseja  alterar o seu prefil para o worbbient?",
             isConfirmed => {
                 if (isConfirmed) {
-                this.appSessionService.userRoleName = "Worbbient";
-                    location.href = "/post-a-task";
+                    this.appSessionService.userRoleName = "Worbbient";
+                    setTimeout(
+                        function(){ 
+                            location.href = "/post-a-task";
+                        },
+                    500);                
                 }
-            });  
+            });
 
         }else if(this.currentRoleName == 'Worbbient'){
              this.appSessionService.userRoleName = "Worbbient";

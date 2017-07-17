@@ -88,12 +88,20 @@ export class MenuComponent extends AppComponentBase implements OnInit {
 
     switchToWorbbiorProfile(){
         this.appSessionService.userRoleName = "Worbbior";
-        location.href = "/";
+        setTimeout(
+            function(){ 
+                location.href = "/";
+            },
+        500);        
     }
 
     switchToWorbbientProfile() {
         this.appSessionService.userRoleName = "Worbbient";
-        location.href = "/";
+        setTimeout(
+            function(){ 
+                location.href = "/";
+            },
+        500);
     }
 
     ngOnInit() {

@@ -97,7 +97,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
 
-            this.scheduleDateDisplay = moment(result.creationTime).format('L');
+            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
             this.worbbientId = this.worbbyTask.userId;
             this.taskId = this.worbbyTask.id;
 

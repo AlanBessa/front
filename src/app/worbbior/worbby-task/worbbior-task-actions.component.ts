@@ -101,15 +101,27 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     }
 
     confirmOfferAccepted(): void {
+        let self = this;
         var entityDto = new EntityDtoOfInt64(this.worbbyTask);
-        this._worbbyTaskService.offerConfirmedByWorbbior(entityDto)
-            .finally(() => {
-            })
-            .subscribe(() => {
-                this.message.custom('', 'Oferta confirmada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                    this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
-                });
-            });
+        this.message.confirm(
+            '', 'Deseja confirmar essa oferta aceita?',
+            isConfirmed => {
+                if (isConfirmed) {
+                    self._worbbyTaskService.offerConfirmedByWorbbior(entityDto)
+                    .finally(() => {
+                    })
+                    .subscribe(() => {
+                        self.message.custom('', 'Oferta confirmada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
+                            if(self.pageType == "page"){
+                                self.actionReturn.emit(null);
+                            }else{
+                                self._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
+                            }
+                        });
+                    });
+                }
+            }
+        );        
     }
 
     refusedOfferAccepted(): void {
@@ -145,8 +157,8 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
                         })
                         .subscribe(() => {
                             this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                                this._router.navigate(['/worbbior/worbby-task-details', this.worbbyTask.id]);
                             });
+                            this.actionReturn.emit(null);
                         });
                     }
                 }
@@ -166,8 +178,8 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
                         })
                         .subscribe(() => {
                             this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
-                                this.actionReturn.emit(null);
                             });
+                            this.actionReturn.emit(null);
                         });
                 }
             }
@@ -220,12 +232,12 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         );
     }
 
-    WorbbyTaskDelivered(): void {
+    worbbyTaskDelivered(): void {
         this.message.confirm(
             'Você entregou esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
-                    this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
+                    this._worbbyTaskService.worbbyTaskDelivered(new EntityDtoOfInt64(this.worbbyTask))
                         .finally(() => {
                         })
                         .subscribe(() => {

@@ -145,27 +145,6 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
         this._authService.logout();
     }
 
-    removeOfferSelected(worbbyTask: WorbbyTaskDto): void {
-        var entityDto = new EntityDtoOfInt64();
-        entityDto.id = worbbyTask.id;
-        this.message.confirm(
-            'Você tem certeza em desistir dessa oferta?', 'Ops!',
-            isConfirmed => {
-                if (isConfirmed) {
-                    this._worbbyTaskService.offerCanceledByWorbbient(entityDto)
-                        .finally(() => {
-                            this.saving = false;
-                        })
-                        .subscribe(() => {
-                            this.message.info('Oferta cancelada!', 'Cancelamento')
-                                .done(() => {
-                                });
-                        });
-                }
-            }
-        );
-    }
-
     getGetWorbbyTasksInProgress(): void {
         this._worbbyTaskService.getWorbbyTasksInProgressByUserId(abp.session.userId).subscribe(result => {
             this.worbbyTasksInProgress = result.items;

@@ -24,7 +24,7 @@
         <li *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart">
             <a [routerLink]="['/worbbient/worbby-task-submit-payment', worbbyTask.id]">Finalizar e Avaliar</a>
         </li>
-        <li *ngIf="isPublicWorbbyTasks && !worbbyOffer">
+        <li *ngIf="isPublicWorbbyTasks && !worbbyOffer && pageType == 'list'">
             <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" >
                 Ver ofertas
             </a>
@@ -53,7 +53,7 @@
                 Cancelar                            
             </a> 
         </li>
-        <li *ngIf="isWorbbyTasksOffersAccepted">
+        <li *ngIf="isWorbbyTasksOffersAccepted || isWorbbyTaskOfferConfirmed">
             <a (click)="removeOfferSelected()">Desistir da oferta selecionada</a>
         </li>
         <li *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart">
@@ -76,7 +76,7 @@
             <a [routerLink]="['/worbbient/worbby-task-payment', worbbyTask.id]" class="btn btn-prime btn-block">Contratar</a>                                                                       
         </div>
 
-        <div *ngIf="isPublicWorbbyTasks && !worbbyOffer" class="col-xs-12">
+        <div *ngIf="isPublicWorbbyTasks && !worbbyOffer && pageType == 'list'" class="col-xs-12">
             <a [routerLink]="['/worbbient/worbby-task-offers', worbbyTask.id]" class="btn btn-prime btn-block">Ver Ofertas</a>                                                                       
         </div>
         <div *ngIf="isWorbbyTaskHired || isWorbbyTaskDelivered || isWorbbyTaskStart" class="col-xs-12">                                                                        

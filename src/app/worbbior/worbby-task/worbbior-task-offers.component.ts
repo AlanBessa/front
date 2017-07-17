@@ -40,7 +40,7 @@ export class WorbbiorTaskOffersComponent extends AppComponentBase implements Aft
         this._worbbyTaskService.getWorbbyTaskWithOffers(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
 
-            this.scheduleDateDisplay = moment(result.creationTime).format('L');
+            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
 
             this.worbbyTask.offersList.items.forEach(element => {
                 this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {

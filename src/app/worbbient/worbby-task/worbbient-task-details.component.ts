@@ -91,7 +91,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
             
-            this.scheduleDateDisplay = moment(result.creationTime).format('L');
+            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
 
             this.getPictureByGuid(this.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;

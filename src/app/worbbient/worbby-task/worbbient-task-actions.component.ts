@@ -141,6 +141,27 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
         );
     }
 
+    removeOfferSelected(): void {
+        var entityDto = new EntityDtoOfInt64();
+        entityDto.id = this.worbbyTask.id;
+        this.message.confirm(
+            'Você tem certeza em desistir dessa oferta?', 'Ops!',
+            isConfirmed => {
+                if (isConfirmed) {
+                    this._worbbyTaskService.offerCanceledByWorbbient(entityDto)
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.info('Oferta cancelada!', 'Cancelamento')
+                                .done(() => {
+                                });
+                                this.actionReturn.emit(null);
+                        });
+                }
+            }
+        );
+    }
+
     viewWorbbyTask():void{
         if(this.worbbyOffer){
             this._router.navigate(['/worbbient/worbby-task-offer', this.worbbyOffer.id]);
@@ -156,6 +177,7 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
         })
         .subscribe((result) => {
             this.currentDate = result.currentDate;
+            console.log(this.currentDate);
             var hours = this.worbbyTask.scheduledDate.diff(this.currentDate) / 3600000;
 
             var cancellationPolicyTax = this.getWorbbyTaskCancellationPolicyTax(hours);
@@ -210,25 +232,29 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
 
         switch(this.worbbyTask.cancellationPolicy) { 
             case Number(CancellationPolicy.Flex): { 
-                if(hours >= 24){
+                if(hours < 24){
                     tax = 100;
                 }
                 break; 
             } 
             case Number(CancellationPolicy.Moderate): { 
-                if(hours >= 48){
+                if(hours < 48){
+                    tax = 100;
+                }else if(hours >= 48){
                     tax = 50;
                 }
                 break; 
             } 
             case Number(CancellationPolicy.Strict): { 
-                if(hours >= 120){
+                if(hours < 120){
+                    tax = 100;
+                }else if(hours >= 120){
                     tax = 50;
                 }
                 break; 
             } 
             case Number(CancellationPolicy.SuperFlex): { 
-                if(hours >= 4){
+                if(hours < 4){
                     tax = 100;
                 }
                 break; 

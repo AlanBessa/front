@@ -86,6 +86,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                         });
                     } 
                 });
+                
                 element.evaluation.evaluations.items.forEach(element => {
                     this.getPictureByGuid(element.profilePictureId).then((result) => {
                         element.userPicture = result;

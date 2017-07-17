@@ -26,7 +26,7 @@
                                 <div class="col-xs-12 divider">
                                     <p class="cor-Botticelli small w-80 display-inline-block">{{worbbyTask.description}}</p>
                                     <p class="pull-right btn-config-sidemenu">
-                                        <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbientWorbbyTaskActions>
+                                        <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask"  (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
                                     </p>
                                 </div>
                                 <div *ngIf="worbbyTask.interestCenter" class="col-xs-12 divider">
@@ -83,7 +83,7 @@
                                             <p class="small cor-Botticelli text-right">Localização</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">{{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}</p>
+                                            <p class="inline"><span class="cor-Botticelli">{{worbbyTask.address.thoroughfare}}, {{worbbyTask.address.thoroughfareNumber}} {{worbbyTask.address.premise}}</span> - {{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 divider no-pad-x m-b-20px">
-                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbientWorbbyTaskActions>
+                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"  (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
                                 </div>
                             </div>                                  
                         </div>

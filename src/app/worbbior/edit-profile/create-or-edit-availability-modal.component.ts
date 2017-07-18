@@ -82,15 +82,15 @@ export class CreateOrEditAvailabilityModalComponent extends AppComponentBase {
 
                 this.angulartics2.eventTrack.next({ 
                     action: "SUCESSO", 
-                    properties: { category: 'Cadastrar disponibilidade: Editar Perfil - Disponibilidade', 
+                    properties: { category: 'Cadastro de disponibilidade', 
                     label: this._appSessionService.user.emailAddress} 
                 });
             }, (error) => {
-                let filters = "FALHA | Erros: " + error.error.details;
+                let filters = "FALHA";
                 this.angulartics2.eventTrack.next({ 
                     action: filters, 
-                    properties: { category: 'Falha ao cadastrar disponibilidade: Editar Perfil - Disponibilidade', 
-                    label: this._appSessionService.user.emailAddress } 
+                    properties: { category: 'Cadastro de disponibilidade', 
+                    label: this._appSessionService.user.emailAddress + " | Erros: " + error.error.details  } 
                 });
             });
     }

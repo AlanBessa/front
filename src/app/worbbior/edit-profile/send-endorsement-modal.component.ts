@@ -55,8 +55,8 @@ export class SendEndorsementModalComponent extends AppComponentBase {
             this.message.error('Você não pode utilizar seu próprio e-mail para solicitar uma recomendação!', 'Solicitação de Recomendação!').done(() => {});
 
             this.angulartics2.eventTrack.next({ 
-                action: "FALHA | Erros: Usar seu próprio email para solicitar uma recomendação", 
-                properties: { category: 'Falha ao tentar enviar recomendação: Editar Perfil - Endosso/Recomendação', 
+                action: "Erros: Usar seu próprio email para solicitar uma recomendação", 
+                properties: { category: 'Solicitar Recomendação', 
                 label: labelText } 
             });
         }
@@ -71,14 +71,14 @@ export class SendEndorsementModalComponent extends AppComponentBase {
 
                     this.angulartics2.eventTrack.next({ 
                         action: "SUCESSO", 
-                        properties: { category: 'Enviar recomendação: Editar Perfil - Endosso/Recomendação', 
+                        properties: { category: 'Solicitar Recomendação', 
                         label: labelText} 
                     });
                 }, (error) => {
-                    let filters = "FALHA | Erros: " + error.error.details;
+                    let filters = "Erros: " + error.error.details;
                     this.angulartics2.eventTrack.next({ 
                         action: filters, 
-                        properties: { category: 'Falha ao tentar enviar recomendação: Editar Perfil - Endosso/Recomendação', 
+                        properties: { category: 'Solicitar Recomendação', 
                         label: labelText } 
                     });
                 }

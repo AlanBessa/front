@@ -99,7 +99,9 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
             this._accountService.register(this.model)
                 .finally(() => { this.saving = false; })
                 .subscribe((result) => {
-                    this.angulartics2.eventTrack.next({ action: this.roleName + " - " + this.currentAdministrativeArea[0].text, properties: { category: 'Cadastro', label: this.model.emailAddress }});
+                    this.angulartics2.eventTrack.next({ 
+                        action: this.roleName + " - " + this.currentAdministrativeArea[0].text, properties: 
+                        { category: 'Cadastro', label: this.model.emailAddress }});
                     if (!result.canLogin) {
                         if(result.isEmailConfirmationRequiredSend){
                             this.message.success('Cadastro realizado com sucesso! Abra o e-mail que acabamos de enviar para você (cheque se ele não está na sua caixa de spam) e clique no botão “Confirmar e-mail”. Se você não receber esse e-mail em alguns minutos, clique no link "Ativação de e-mail" na área de cadastro do site Worbby.', 'Ativar e-mail').done(() => {
@@ -135,11 +137,10 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
             });
             self.saving = false;
 
-            let filters = "FALHA | Erros: Não aceitou os termos de uso";
             this.angulartics2.eventTrack.next({ 
-                action: filters, 
-                properties: { category: 'Registro: Botão Social', 
-                label: provider.name } 
+                action: this.roleName + " - " + this.currentAdministrativeArea[0].text, 
+                properties: { category: 'Tentativa de cadastro', 
+                label: provider.name + ": Erros: Não aceitou os termos de uso" } 
             });
         }else{
             this.loginService.externalAuthenticate(provider, this.roleName, this.administrativeArea, this.model.worbbiorRegisterCode, () => { 

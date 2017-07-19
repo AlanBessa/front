@@ -21,7 +21,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     public showRegisterOrLogin:boolean = false;
     public worbbyTaskId: number;
     public worbbyTask: WorbbyTaskDto;
-    public scheduleDateDisplay: string;
+    public scheduleDateDisplay: string; 
 
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;

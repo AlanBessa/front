@@ -101,7 +101,7 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
         this._activitiesService.getActivities(this.filter, this.currentInterestCenterTopLevel.id, this.currentInterestCenterChild.id, undefined, undefined, undefined, undefined, undefined, this.page).subscribe((result: WorbbyPagedResultDtoOfActivityDto) => {
             this.carregado = true;
             this.activities.push.apply(this.activities, result.items);
-            result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
+            result.items.length == 10 ? this.showButtonMore = true : this.showButtonMore = false;
             this.totalActivities = result.totalCount;
         }); 
     }

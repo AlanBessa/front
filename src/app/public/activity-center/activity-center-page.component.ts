@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, WorbbyPagedResultDtoOfActivityDto, ActivityDto, EntityDtoOfInt64, WorbbiorServiceProxy, WorbbyTaskServiceProxy, ListResultDtoOfWorbbyTaskDto, FindWorbbyTaskInput, WorbbyTaskDto, ListResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
+import { InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, WorbbyPagedResultDtoOfActivityDto, ActivityDto, EntityDtoOfInt64, WorbbiorServiceProxy, WorbbyTaskServiceProxy, ListResultDtoOfWorbbyTaskDto, FindWorbbyTaskInput, WorbbyTaskDto, WorbbyPagedResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -125,7 +125,7 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
 
     private getTopWorbbiorByInterestCenter(): void {
         this.carregado = false;
-        this._activitiesService.getWorbbiorActivities(undefined, this.interestCenterId, undefined, undefined, undefined, undefined, undefined, undefined, undefined).subscribe((result: ListResultDtoOfWorbbiorActivityDto) => {
+        this._activitiesService.getWorbbiorActivities(undefined, this.interestCenterId, undefined, undefined, undefined, undefined, undefined, undefined, undefined).subscribe((result: WorbbyPagedResultDtoOfWorbbiorActivityDto) => {
             this.worbbiorTopTalentList = result.items;            
             this.carregado = true;
              this.worbbiorTopTalentList.forEach(element => {

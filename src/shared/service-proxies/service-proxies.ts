@@ -732,7 +732,7 @@ export class ActivityServiceProxy {
     /**
      * @return Success
      */
-    getWorbbiorActivities(filter: string, interestCenterTopLevelId: number, interestCenterChildId: number, userId: number, address: string, orderBy: string, latitude: string, longitude: string, page: number): Observable<ListResultDtoOfWorbbiorActivityDto> {
+    getWorbbiorActivities(filter: string, interestCenterTopLevelId: number, interestCenterChildId: number, userId: number, address: string, orderBy: string, latitude: string, longitude: string, page: number): Observable<WorbbyPagedResultDtoOfWorbbiorActivityDto> {
         let url_ = this.baseUrl + "/api/services/app/Activity/GetWorbbiorActivities?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -772,27 +772,27 @@ export class ActivityServiceProxy {
                 try {
                     return this.processGetWorbbiorActivities(response_);
                 } catch (e) {
-                    return <Observable<ListResultDtoOfWorbbiorActivityDto>><any>Observable.throw(e);
+                    return <Observable<WorbbyPagedResultDtoOfWorbbiorActivityDto>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<ListResultDtoOfWorbbiorActivityDto>><any>Observable.throw(response_);
+                return <Observable<WorbbyPagedResultDtoOfWorbbiorActivityDto>><any>Observable.throw(response_);
         });
     }
 
-    protected processGetWorbbiorActivities(response: Response): Observable<ListResultDtoOfWorbbiorActivityDto> {
+    protected processGetWorbbiorActivities(response: Response): Observable<WorbbyPagedResultDtoOfWorbbiorActivityDto> {
         const status = response.status; 
 
         if (status === 200) {
             const responseText = response.text();
-            let result200: ListResultDtoOfWorbbiorActivityDto = null;
+            let result200: WorbbyPagedResultDtoOfWorbbiorActivityDto = null;
             let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? ListResultDtoOfWorbbiorActivityDto.fromJS(resultData200) : new ListResultDtoOfWorbbiorActivityDto();
+            result200 = resultData200 ? WorbbyPagedResultDtoOfWorbbiorActivityDto.fromJS(resultData200) : new WorbbyPagedResultDtoOfWorbbiorActivityDto();
             return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const responseText = response.text();
             return throwException("An unexpected server error occurred.", status, responseText);
         }
-        return Observable.of<ListResultDtoOfWorbbiorActivityDto>(<any>null);
+        return Observable.of<WorbbyPagedResultDtoOfWorbbiorActivityDto>(<any>null);
     }
 
     /**
@@ -14978,7 +14978,6 @@ export interface IPagedResultDtoOfCreateOrEditActivityDto {
 }
 
 export class WorbbyPagedResultDtoOfActivityDto implements IWorbbyPagedResultDtoOfActivityDto {
-    parcialCount: number;
     totalCount: number;
     items: ActivityDto[];
 
@@ -14993,7 +14992,6 @@ export class WorbbyPagedResultDtoOfActivityDto implements IWorbbyPagedResultDtoO
 
     init(data?: any) {
         if (data) {
-            this.parcialCount = data["parcialCount"];
             this.totalCount = data["totalCount"];
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
@@ -15011,7 +15009,6 @@ export class WorbbyPagedResultDtoOfActivityDto implements IWorbbyPagedResultDtoO
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["parcialCount"] = this.parcialCount;
         data["totalCount"] = this.totalCount;
         if (this.items && this.items.constructor === Array) {
             data["items"] = [];
@@ -15023,7 +15020,6 @@ export class WorbbyPagedResultDtoOfActivityDto implements IWorbbyPagedResultDtoO
 }
 
 export interface IWorbbyPagedResultDtoOfActivityDto {
-    parcialCount: number;
     totalCount: number;
     items: ActivityDto[];
 }
@@ -15209,10 +15205,11 @@ export interface IInterestCenterForActivityDto {
     id: number;
 }
 
-export class ListResultDtoOfWorbbiorActivityDto implements IListResultDtoOfWorbbiorActivityDto {
+export class WorbbyPagedResultDtoOfWorbbiorActivityDto implements IWorbbyPagedResultDtoOfWorbbiorActivityDto {
+    totalCount: number;
     items: WorbbiorActivityDto[];
 
-    constructor(data?: IListResultDtoOfWorbbiorActivityDto) {
+    constructor(data?: IWorbbyPagedResultDtoOfWorbbiorActivityDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -15223,6 +15220,7 @@ export class ListResultDtoOfWorbbiorActivityDto implements IListResultDtoOfWorbb
 
     init(data?: any) {
         if (data) {
+            this.totalCount = data["totalCount"];
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
                 for (let item of data["items"])
@@ -15231,14 +15229,15 @@ export class ListResultDtoOfWorbbiorActivityDto implements IListResultDtoOfWorbb
         }
     }
 
-    static fromJS(data: any): ListResultDtoOfWorbbiorActivityDto {
-        let result = new ListResultDtoOfWorbbiorActivityDto();
+    static fromJS(data: any): WorbbyPagedResultDtoOfWorbbiorActivityDto {
+        let result = new WorbbyPagedResultDtoOfWorbbiorActivityDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
         if (this.items && this.items.constructor === Array) {
             data["items"] = [];
             for (let item of this.items)
@@ -15248,7 +15247,8 @@ export class ListResultDtoOfWorbbiorActivityDto implements IListResultDtoOfWorbb
     }
 }
 
-export interface IListResultDtoOfWorbbiorActivityDto {
+export interface IWorbbyPagedResultDtoOfWorbbiorActivityDto {
+    totalCount: number;
     items: WorbbiorActivityDto[];
 }
 
@@ -26853,7 +26853,6 @@ export interface IFindWorbbyTaskInput {
 }
 
 export class WorbbyPagedResultDtoOfWorbbyTaskDto implements IWorbbyPagedResultDtoOfWorbbyTaskDto {
-    parcialCount: number;
     totalCount: number;
     items: WorbbyTaskDto[];
 
@@ -26868,7 +26867,6 @@ export class WorbbyPagedResultDtoOfWorbbyTaskDto implements IWorbbyPagedResultDt
 
     init(data?: any) {
         if (data) {
-            this.parcialCount = data["parcialCount"];
             this.totalCount = data["totalCount"];
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
@@ -26886,7 +26884,6 @@ export class WorbbyPagedResultDtoOfWorbbyTaskDto implements IWorbbyPagedResultDt
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["parcialCount"] = this.parcialCount;
         data["totalCount"] = this.totalCount;
         if (this.items && this.items.constructor === Array) {
             data["items"] = [];
@@ -26898,7 +26895,6 @@ export class WorbbyPagedResultDtoOfWorbbyTaskDto implements IWorbbyPagedResultDt
 }
 
 export interface IWorbbyPagedResultDtoOfWorbbyTaskDto {
-    parcialCount: number;
     totalCount: number;
     items: WorbbyTaskDto[];
 }
@@ -27080,7 +27076,6 @@ export interface IWorbbyTaskMessageListDto {
 }
 
 export class WorbbyPagedResultDtoOfWorbbyTaskMessageDto implements IWorbbyPagedResultDtoOfWorbbyTaskMessageDto {
-    parcialCount: number;
     totalCount: number;
     items: WorbbyTaskMessageDto[];
 
@@ -27095,7 +27090,6 @@ export class WorbbyPagedResultDtoOfWorbbyTaskMessageDto implements IWorbbyPagedR
 
     init(data?: any) {
         if (data) {
-            this.parcialCount = data["parcialCount"];
             this.totalCount = data["totalCount"];
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
@@ -27113,7 +27107,6 @@ export class WorbbyPagedResultDtoOfWorbbyTaskMessageDto implements IWorbbyPagedR
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["parcialCount"] = this.parcialCount;
         data["totalCount"] = this.totalCount;
         if (this.items && this.items.constructor === Array) {
             data["items"] = [];
@@ -27125,7 +27118,6 @@ export class WorbbyPagedResultDtoOfWorbbyTaskMessageDto implements IWorbbyPagedR
 }
 
 export interface IWorbbyPagedResultDtoOfWorbbyTaskMessageDto {
-    parcialCount: number;
     totalCount: number;
     items: WorbbyTaskMessageDto[];
 }

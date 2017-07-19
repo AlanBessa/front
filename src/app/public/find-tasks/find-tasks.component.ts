@@ -102,7 +102,7 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
 
         this.currentInterestCenterChild = interestCenter;
         this.findWorbbyTaskInput.interestCenterChildId = this.currentInterestCenterChild.id;
-        this.getWorbbyTasks();
+        this.getWorbbyTasksByFilter();
     }
 
     changeInterestCenterTopLevel(interestCenter: InterestCenterDto): void {
@@ -116,14 +116,23 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
         this.getInterestCentersChidren(this.currentInterestCenterTopLevel);
     }
 
-    getWorbbyTasks(): void {
+    private getWorbbyTasksByFilter(): void {
         this.carregado = false;
+        this.checkFiltersActive();
+        this.worbbyTasks = [];
+        this.page = 1;
+        this.totalWorbbyTask = 0;
+        this.getWorbbyTasks();
+    }
+
+    getWorbbyTasks(): void {
+        
         this.findWorbbyTaskInput.page = this.page;
         this.checkFiltersActive();
         this._worbbyTaskService.findWorbbyTasks(this.findWorbbyTaskInput).subscribe((result: WorbbyPagedResultDtoOfWorbbyTaskDto) => {
             this.carregado = true;
             this.worbbyTasks.push.apply(this.worbbyTasks, result.items);
-            result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
+            result.items.length == 10 ? this.showButtonMore = true : this.showButtonMore = false;
             this.totalWorbbyTask = result.totalCount;
         });
     }
@@ -137,10 +146,10 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
         this.orderByDistance = false;
         if (this.orderByPrice == true) {
             this.findWorbbyTaskInput.orderBy = "Price";
-            this.getWorbbyTasks();
+            this.getWorbbyTasksByFilter();
         }else{
             this.findWorbbyTaskInput.orderBy = "";
-            this.getWorbbyTasks();
+            this.getWorbbyTasksByFilter();
         }
     }
 
@@ -148,16 +157,16 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
         this.orderByPrice = false;
         if (this.orderByDistance == true) {
             this.findWorbbyTaskInput.orderBy = "Distance";
-            this.getWorbbyTasks();
+            this.getWorbbyTasksByFilter();
         }else{
             this.findWorbbyTaskInput.orderBy = "";
-            this.getWorbbyTasks();
+            this.getWorbbyTasksByFilter();
         }
     }
 
 
     findByTerm(): void {
-        this.getWorbbyTasks();
+        this.getWorbbyTasksByFilter();
     }
 
     showMobileFilter():void{
@@ -170,18 +179,18 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
             navigator.geolocation.getCurrentPosition((position) => {
                 this.findWorbbyTaskInput.latitude = position.coords.latitude.toString();
                 this.findWorbbyTaskInput.longitude = position.coords.longitude.toString();
-                this.getWorbbyTasks();
+                this.getWorbbyTasksByFilter();
             },(error) => {
-                this.getWorbbyTasks();
+                this.getWorbbyTasksByFilter();
             });
         }else{
-            this.getWorbbyTasks();
+            this.getWorbbyTasksByFilter();
         }
     }
 
     cleanTermFilter():void{
         this.findWorbbyTaskInput.filter = "";
-        this.getWorbbyTasks();
+        this.getWorbbyTasksByFilter();
     }
 
     cleanInterestCenterTopLevelFilter():void{
@@ -194,19 +203,19 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
 
     cleanAddresFilter():void{
         this.findWorbbyTaskInput.address = "";
-        this.getWorbbyTasks();
+        this.getWorbbyTasksByFilter();
     }
 
     cleanOrderFilter():void{
         this.orderByDistance = false;
         this.orderByPrice = false;
         this.findWorbbyTaskInput.orderBy = "";
-        this.getWorbbyTasks();
+        this.getWorbbyTasksByFilter();
     }
 
     onKeyUp(event: any):void{
         if (event.keyCode == 13){
-            this.getWorbbyTasks();
+            this.getWorbbyTasksByFilter();
         }
     }
 

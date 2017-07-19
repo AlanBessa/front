@@ -66,7 +66,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     }
 
     modalOfferSuccess():void{
-        this.message.custom('Se sua oferta for aceita, você será notificado! Você também pode acompanha-la em seu perfil.', 'Oferta enviada!', 'assets/common/images/default-profile-picture.png').done(() => {
+        this.message.custom('Se sua oferta for aceita, você receberá uma notificação. Acompanhe as ofertas feitas para a sua tarefa em Meu Worbby.', 'Oferta enviada!', 'assets/common/images/default-profile-picture.png').done(() => {
             this._router.navigate(['/worbbior/my-worbby']);
         });
     }

@@ -71,7 +71,7 @@ export class WorbbientTaskSubmitPaymentComponent extends AppComponentBase implem
             console.log("teste");
         })
         .subscribe((result) => {
-            this.message.success("Seu pagamento foi liberado com sucesso!", "Pagamento").done(() => {
+            this.message.success(" ", "Pagamento liberado com sucesso!").done(() => {
                 this._router.navigate(['/worbbient/evaluate-worbbior', this.worbbyTask.id]);
             });     
         });

@@ -105,7 +105,7 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
 
     cancelPublicWorbbyTask():void{
         this.message.confirm(
-            'Deseja cancelar essa tarefa?', 'Ops!',
+            '', 'Tem certeza que deseja cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.cancelPublicWorbbyTask(new EntityDtoOfInt64(this.worbbyTask))
@@ -124,7 +124,7 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
 
     cancelProposedWorbbyTask():void{
         this.message.confirm(
-            'Deseja cancelar essa tarefa?', 'Ops!',
+            '', 'Tem certeza que deseja cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.cancelProposedWorbbyTask(new EntityDtoOfInt64(this.worbbyTask))
@@ -221,7 +221,7 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
         .finally(() => {
         })
         .subscribe(() => {
-            this.message.custom('Oferta aceita.', 'Sucesso!', 'assets/common/images/default-profile-picture.png').done(() => {
+            this.message.custom('Aguarde a confirmação do worbbior para você realizar a contratação.', 'Oferta aceita!', 'assets/common/images/default-profile-picture.png').done(() => {
              });
             this._router.navigate(['/worbbient/worbby-task-details', this.worbbyOffer.worbbyTaskId]);
         });

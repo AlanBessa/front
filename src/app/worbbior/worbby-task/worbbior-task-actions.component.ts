@@ -104,7 +104,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         let self = this;
         var entityDto = new EntityDtoOfInt64(this.worbbyTask);
         this.message.confirm(
-            '', 'Deseja confirmar essa oferta aceita?',
+            '', 'Deseja confirmar a sua oferta para esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     self._worbbyTaskService.offerConfirmedByWorbbior(entityDto)
@@ -233,8 +233,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
     }
 
     worbbyTaskDelivered(): void {
-        this.message.confirm(
-            'Você entregou esta tarefa?',
+        this.message.confirm('','Deseja confirmar a entrega desta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     this._worbbyTaskService.worbbyTaskDelivered(new EntityDtoOfInt64(this.worbbyTask))

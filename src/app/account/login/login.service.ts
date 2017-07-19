@@ -187,15 +187,17 @@ export class LoginService {
         if (redirectUrl) {
             location.href = redirectUrl;
         } else {
+            console.log(location.pathname);
             var initialUrl = decodeURIComponent(location.href);
             if (initialUrl.indexOf('/login') > 0 ||
             initialUrl.indexOf('/register') > 0 ||
             initialUrl.indexOf('/entrar') > 0 ||
             initialUrl.indexOf('/registrar') > 0) {
                 initialUrl = AppConsts.appBaseUrl;
+                location.href = initialUrl;
+            }else{
+                location.reload()
             }
-
-            location.href = initialUrl;
         }
     }
 
@@ -291,7 +293,7 @@ export class LoginService {
 
                                     self.angulartics2.eventTrack.next({ 
                                         action: filter, 
-                                        properties: { category: 'Cadastro', label: 'Facebook - Esperando ativação de email: response.email' }
+                                        properties: { category: 'Cadastro', label: 'Facebook - Esperando ativação de email:' + response.email }
                                     });
 
                                     return;
@@ -300,7 +302,7 @@ export class LoginService {
                                 if(model.administrativeArea != 'RJ'){
                                     self.angulartics2.eventTrack.next({ 
                                         action: filter, 
-                                        properties: { category: 'Tentativa de cadastro', label: 'Facebook: ' + response.email }
+                                        properties: { category: 'Tentativa de cadastro', label: 'Facebook: Erros: Selecionou o estado: ' + model.administrativeArea + " - " + response.email }
                                     });
 
                                     self._messageService.info('Estamos atuando, no momento, apenas no RJ. Você será avisado quando a Worbby for lançada em seu estado.', 'O cadastro para o estado de(a) ' + model.administrativeArea + ' não esta disponível').done(() => {});
@@ -338,7 +340,7 @@ export class LoginService {
                                     let filter = model.roleName + " - " + model.administrativeArea;
                                     self.angulartics2.eventTrack.next({ 
                                         action: filter, 
-                                        properties: { category: 'Tentativa de cadastro', label: 'Facebook - Erro durante a autenticação: ' + response.email + " - " + error.error.details }
+                                        properties: { category: 'Tentativa de cadastro', label: 'Facebook: Erros: erro durante a autenticação: ' + response.email + " - " + error.error.details }
                                     });
                                 }else{
                                     self.angulartics2.eventTrack.next({ 
@@ -390,7 +392,7 @@ export class LoginService {
                         if(model.administrativeArea != 'RJ') {
                             self.angulartics2.eventTrack.next({ 
                                 action: filter, 
-                                properties: { category: 'Tentativa de cadastro', label: 'Google: ' + userEmail }
+                                properties: { category: 'Tentativa de cadastro', label: 'Google: Erros: Selecionou o estado: ' + model.administrativeArea + " - " + userEmail  }
                             });
 
                             self._messageService.info('Estamos atuando, no momento, apenas no RJ. Você será avisado quando a Worbby for lançada em seu estado.', 'O cadastro para o estado de(a) ' + model.administrativeArea + ' não esta disponível').done(() => {});
@@ -410,7 +412,7 @@ export class LoginService {
                         let filter = model.roleName + " - " + model.administrativeArea;
                         self.angulartics2.eventTrack.next({ 
                             action: filter, 
-                            properties: { category: 'Tentativa de cadastro', label: 'Google - Erro durante a autenticação: ' + userEmail + " | " + error.error.details }
+                            properties: { category: 'Tentativa de cadastro', label: 'Google: Erros: erro durante a autenticação: ' + userEmail + " | " + error.error.details }
                         });
                     }else{
                         self.angulartics2.eventTrack.next({ 

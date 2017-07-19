@@ -31,6 +31,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     public galleryImages: GalleryActivityDto[];
     public isMobile:boolean = AppConsts.isMobile;
     public whatsappLink:SafeUrl = "";
+    public showLoginRegister:boolean = false;
 
     public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
@@ -187,32 +188,36 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     }
 
     offertTask(activityUser: UserActivityInput): void {
-        if(activityUser.userId == abp.session.userId){
-            this.message.error('Você não pode ofertar uma tarefa para si mesmo!', 'Ops! Algo deu errado.')
-            .done(() => {
+        if(abp.session.userId){
+            if(activityUser.userId == abp.session.userId){
+                this.message.error('Você não pode ofertar uma tarefa para si mesmo!', 'Ops! Algo deu errado.')
+                .done(() => {
 
-            });
-        }else{
-            if(this._appSessionService.userRoleName == 'Worbbior')
-            {
-                this.message.confirm(
-                "", "Deseja  alterar o seu prefil para o worbbient?",
-                isConfirmed => {
-                    if (isConfirmed) {
-                    this._appSessionService.userRoleName = "Worbbient";
-                    setTimeout(
-                        function(){ 
-                            location.href = "/postar-tarefa/" + activityUser.id;
-                        },
-                    500);
-                    }
                 });
+            }else{
+                if(this._appSessionService.userRoleName == 'Worbbior')
+                {
+                    this.message.confirm(
+                    "", "Deseja  alterar o seu prefil para o worbbient?",
+                    isConfirmed => {
+                        if (isConfirmed) {
+                        this._appSessionService.userRoleName = "Worbbient";
+                        setTimeout(
+                            function(){ 
+                                location.href = "/postar-tarefa/" + activityUser.id;
+                            },
+                        500);
+                        }
+                    });
 
-            }else if(this._appSessionService.userRoleName == 'Worbbient'){
-                this._appSessionService.userRoleName = "Worbbient";
-                this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
-            }
-        }        
+                }else if(this._appSessionService.userRoleName == 'Worbbient'){
+                    this._appSessionService.userRoleName = "Worbbient";
+                    this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
+                }
+            }    
+        }else{
+            this.showLoginRegister = true;
+        }    
     }
 
     

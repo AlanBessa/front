@@ -4,11 +4,25 @@
             <div class="row">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div *ngIf="showLoginRegister" class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="bg-White bg-shadow box">
+                                    <a class="register-ancora btn-link visible-xs" (click)="goTo('cadastrar')">Cadastre-se</a>
+                                    <loginComponent #loginComponent></loginComponent>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="bg-White bg-shadow box">
+                                    <h3 class="text-center no-m-t" id="cadastrar">Não tem cadastro ainda? Registre-se</h3>
+                                    <registerComponent #registerComponent></registerComponent>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="!showLoginRegister" class="col-xs-12">
                             <h3 class="visible-xs titulo-WorbbiorProfile">{{l("WorbbiorProfile")}}</h3>
                         </div>
                         <!-- menu perfil : inicio -->
-                        <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
+                        <div *ngIf="!showLoginRegister" class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
                             <div class="card-profile">
                                 <div class="col-xs-12">
                                     <div class="sidebar-header m-t-sm p-b-sm">
@@ -132,7 +146,7 @@
                         </div>
                         <!-- menu perfil : Fim -->
                         <!-- Conteudo perfil : inicio -->
-                        <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                        <div *ngIf="!showLoginRegister" class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
                             <h3 class="hidden-xs m-b-xss">{{l("WorbbiorProfile")}}</h3>
                             <div>
                                 <h4 class="cor-Botticelli hidden-xs m-b-20px">Os talentos de {{worbbiorProfile.worbbior.displayName}}</h4>

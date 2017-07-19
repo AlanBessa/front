@@ -37,6 +37,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.component';
 import { WorbbiorScheduleDateModalComponent } from './worbby-task/worbbior-task-scheduledate-modal.component';
+import { LoginService } from "app/account/login/login.service";
 
 @NgModule({
     imports: [
@@ -89,7 +90,8 @@ import { WorbbiorScheduleDateModalComponent } from './worbby-task/worbbior-task-
         WorbbiorScheduleDateModalComponent
     ],
     providers: [
-        AppRouteGuard
+        AppRouteGuard,
+        LoginService
     ]
 })
 export class WorbbiorModule { }

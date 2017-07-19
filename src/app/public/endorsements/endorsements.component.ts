@@ -7,6 +7,7 @@ import { EndorsementState } from '@shared/AppEnums';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { AbpSessionService } from '@abp/session/abp-session.service';
 import { AppConsts } from '@shared/AppConsts';
+import { Angulartics2 } from 'angulartics2';
 import * as _ from 'lodash';
 
 
@@ -58,6 +59,7 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
         private _activitiesService: ActivityServiceProxy,
         public appSessionService: AppSessionService,
         private sessionService: AbpSessionService,
+        private angulartics2: Angulartics2
     ) {
         super(injector);
     }
@@ -170,18 +172,6 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
             }
 
             this.active = true;
-
-            // console.log(">>>>>>>>>>>");
-            // console.log("isLogged:" + this.isLogged);
-            // console.log("register:" + this.register);
-            // console.log("active:" + this.active);
-            // console.log("saving:" + this.saving);
-            // console.log("notFound:" + this.notFound);
-            // console.log("yourself:" + this.yourself);
-            // console.log("notCurrentUser:" + this.notCurrentUser);
-            // console.log("otherEndorsementExists:" + this.otherEndorsementExists);
-
-
         });
     }
 
@@ -206,55 +196,8 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
     getUserAcitivities(userId: number, endorsementId:number):void {
         this._endorsementService.getUserActivitiesByUserId(userId, endorsementId).subscribe((result: ListResultDtoOfActivityEndorsementDto) => {
             this.worbbiorActivities = result.items;
-            //this.getInterestCentersTopLevel();
         });
     }
-
-    // private getActivitiesByFilter(): void {
-    //     this._activitiesService.getActivities(this.filter, this.currentInterestCenterTopLevel.id, this.currentInterestCenterChild.id, undefined, undefined, undefined, undefined, undefined, this.page).subscribe((result: WorbbyPagedResultDtoOfActivityDto) => {
-    //         this.activities = result.items;
-    //     });
-    // }
-
-    // changeInterestCenterChildren(interestCenter: InterestCenterDto): void {
-    //     if(interestCenter == null){
-    //         interestCenter = new InterestCenterDto();
-    //         interestCenter.displayName = "Selecione";       
-    //     }           
-
-    //     this.currentInterestCenterChild = interestCenter;
-    //     this.getActivitiesByFilter();
-    // }
-
-    // changeInterestCenterTopLevel(interestCenter: InterestCenterDto): void {
-    //     if(interestCenter == null){
-    //         interestCenter = new InterestCenterDto();
-    //         interestCenter.displayName = "Selecione";
-    //     }           
-
-    //     this.currentInterestCenterTopLevel = interestCenter;
-    //     this.getInterestCentersChidren(this.currentInterestCenterTopLevel);
-    //     this.getActivitiesByFilter();
-    // }
-
-    // private getInterestCentersTopLevel(): void {
-    //     this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-    //         this.interestCentersTopLevel = result.items;
-    //         this.currentInterestCenterTopLevel.displayName = "Selecione";
-    //         this.currentInterestCenterChild.displayName = "Selecione";
-    //         this.getActivitiesByFilter();
-    //         this.active = true;
-    //     });
-    // }
-
-    // private getInterestCentersChidren(interestCenter: InterestCenterDto): void {
-    //     this.changeInterestCenterChildren(null);
-    //     this._interestCenterService.getInterestCentersChildrenById(interestCenter.id).subscribe((result: ListResultDtoOfInterestCenterDto) => {
-    //         this.interestCentersChidren = result.items;
-    //         this.currentInterestCenterChild = new InterestCenterDto();
-    //         this.currentInterestCenterChild.displayName = "Selecione";
-    //     });
-    // }
 
     private getSuggestAcitivities():void {
         this._activitiesService.getSuggestActivitiesByEndorsementUserId(this.worbbior.userId, abp.session.userId).subscribe((result: ListResultDtoOfUserActivityInput) => {
@@ -288,7 +231,16 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
                 this.saving = false; 
             })
             .subscribe(() => {
+                this.angulartics2.eventTrack.next({ 
+                    action: "SUCESSO",
+                    properties: { category: 'Recomendação', label: this.appSessionService.user.emailAddress + " recomendou o Worbbior " + this.worbbior.displayName }
+                });
                 this._router.navigate(['/endosso-sucesso']);
+            },(error) => {
+                this.angulartics2.eventTrack.next({ 
+                    action: "ERRO",
+                    properties: { category: 'Recomendação', label: this.appSessionService.user.emailAddress + " tentou recomendar o Worbbior " + this.worbbior.displayName + " - Erros: " + error.error.details }
+                });
             });
     }
 

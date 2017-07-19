@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ScheduleDateType, UnitMeasure } from '@shared/AppEnums';
+import { TimeEnum, ScheduleDateType, UnitMeasure } from '@shared/AppEnums';
 import { AppConsts } from '@shared/AppConsts';
 import { SendOfferModalComponent } from './send-offer-modal.component';
 import * as _ from 'lodash';
@@ -21,10 +21,11 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     public showRegisterOrLogin:boolean = false;
     public worbbyTaskId: number;
     public worbbyTask: WorbbyTaskDto;
-    public scheduleDateDisplay: string;
+    public scheduleDateDisplay: string; 
 
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
+    public TimeEnum: typeof TimeEnum = TimeEnum;
     public AppConsts: typeof AppConsts = AppConsts;
     public isLogged:boolean = false;
 

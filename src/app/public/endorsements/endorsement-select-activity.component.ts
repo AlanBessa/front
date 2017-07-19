@@ -101,7 +101,7 @@ export class EndorsementSelectActivityComponent extends AppComponentBase impleme
                 this.carregado = true;
             });
             this.activities.push.apply(this.activities, result.items);
-            result.parcialCount == 10 ? this.showButtonMore = true : this.showButtonMore = false;
+            result.items.length == 10 ? this.showButtonMore = true : this.showButtonMore = false;
             this.totalActivities = result.totalCount;
         });
     }

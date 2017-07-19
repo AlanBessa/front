@@ -206,7 +206,7 @@
                                         <h1 class="cor-Tangerine">Oops!</h1>
                                     </div> 
                                     <h3>Você já realizou uma outra recomendação para este usuário!</h3>
-                                    <a class="cursor-pointer btn-link" [routerLink]="['/endorsement', { 'endorsement.id': originalEndorsement.id }]">Clique aqui para acessar a recomendação correta</a>
+                                    <a class="cursor-pointer btn-link" [routerLink]="['/endorsement', { 'endorsementId': originalEndorsement.id }]">Clique aqui para acessar a recomendação correta</a>
                                 </div>
                                 <div *ngIf="notFound && !yourself && !notCurrentUser && !otherEndorsementExists" class="text-center m-b-sm m-t-xs">
                                     <div class="icone m-b-sm">

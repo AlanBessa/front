@@ -19,7 +19,7 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
     @ViewChild('homeReleaseModal') homeReleaseModal: HomeReleaseModalComponent; 
 
     public interestCenters: InterestCenterDto[] = [];
-    public filter:string;
+    public filter:string = "";
     public imagemBanner: string = "";
     public isPublic: boolean = false; 
 

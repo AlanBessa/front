@@ -35,6 +35,8 @@ export class UserNotificationHelper extends AppComponentBase {
                 return '/app/admin/users?filterText=' + userNotification.notification.data.properties.emailAddress;
             case 'App.NewTenantRegistered':
                 return '/admin/tenants?filterText=' + userNotification.notification.data.properties.tenancyName;
+            case 'App.SimpleMessage':
+                return userNotification.notification.data.properties.url;
             //Add your custom notification names to navigate to a URL when user clicks to a notification.
         }
 

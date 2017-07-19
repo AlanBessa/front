@@ -276,9 +276,9 @@
                                                 <div *ngIf="interestCentersTopLevel.length" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ic-top-dropdown-select">
                                                     <div class="form-group no-hint">
                                                         <label class="control-label">{{l("ChooseMainInterest")}} <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
-                                                        <div class="dropdown">
+                                                        <div class="dropdown" (click)="selectInterestCenterTopLevel()">
                                                             <button type="button" class="dropdown-toggle btn btn-prime-inverted select-dropdown-toggle">
-                                                                <div (click)="selectInterestCenterTopLevel()">
+                                                                <div>
                                                                     <img *ngIf="currentInterestCenterTopLevel.interestCenterPicture" class="ico-btn-dropdown" [src]="currentInterestCenterTopLevel.interestCenterPicture"
                                                                         alt="{{currentInterestCenterTopLevel.displayName}}" />
                                                                         {{currentInterestCenterTopLevel.displayName}}
@@ -588,7 +588,7 @@
                                 </div>
                                 <div class="row m-t-xs">    
                                     <div class="col-xs-12">
-                                        <p class="cor-Botticelli text-center">Para sua segurança, somente o bairro e a cidade ficarão visíveis.</p>
+                                        <p class="cor-Botticelli text-center small">Para sua segurança, somente o bairro e a cidade ficarão visíveis.</p>
                                     </div>
                                 </div>
                                 <div class="row m-t-20px"> 

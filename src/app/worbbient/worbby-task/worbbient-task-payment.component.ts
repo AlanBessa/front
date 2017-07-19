@@ -212,8 +212,18 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
                     this._router.navigate(['/worbbient/worbby-task-details', this.worbbyTask.id]);
                 });
             }, (error) => {
+                this.clearFormData();
                 //this.message.error("Pagamento recusado, use um outro cartão").done(() => {});            
             });
+    }
+
+    clearFormData():void {
+        this.sale.payment.creditCard.cardNumber = "";
+        this.sale.payment.creditCard.expirationDate = "";
+        this.sale.payment.creditCard.holder = "";
+        this.sale.payment.creditCard.securityCode = "";
+        this.month = [this.monthList[0]];
+        this.year = [this.yearList[1]];
     }
 
     validateBrandClick(): void {
@@ -221,9 +231,9 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
     }
 
     validateBrandBlur(): void{
-         if(!this.brandValid)
-         {
-             this.brandValid = true;
-         }
+        //  if(this.brandValid)
+        //  {
+        //      this.brandValid = true;
+        //  }
     }
 }

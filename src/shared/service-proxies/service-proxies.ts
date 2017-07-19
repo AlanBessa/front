@@ -8353,6 +8353,51 @@ export class SaleServiceProxy {
         }
         return Observable.of<SaleOutput>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    sendEmailForConfirmedPayment(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForConfirmedPayment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailForConfirmedPayment(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailForConfirmedPayment(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailForConfirmedPayment(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -22583,6 +22628,417 @@ export interface ISaleOutput {
     id: number;
 }
 
+export class WorbbyTaskDto implements IWorbbyTaskDto {
+    title: string;
+    description: string;
+    interestCenterId: number;
+    interestCenter: InterestCenterForWorbbyTaskDto;
+    userId: number;
+    worbbient: WorbbientDto;
+    offerId: number;
+    offerDto: WorbbyOfferDto;
+    offersList: ListResultDtoOfWorbbyOfferDto;
+    countOffers: number;
+    countWorbbyTaskMessagesUnread: number;
+    tenantId: number;
+    targetUserId: number;
+    worbbior: WorbbiorDto;
+    activityUserId: number;
+    userActivity: UserActivityInput;
+    addressId: number;
+    address: AddressDto;
+    distance: number;
+    unitMeasure: WorbbyTaskDtoUnitMeasure;
+    cancellationPolicy: WorbbyTaskDtoCancellationPolicy;
+    amount: number;
+    unitPrice: number;
+    isUnitPrice: boolean;
+    totalPrice: number;
+    time: WorbbyTaskDtoTime;
+    scheduledDate: moment.Moment;
+    scheduleDateType: WorbbyTaskDtoScheduleDateType;
+    status: WorbbyTaskDtoStatus;
+    hiredDate: moment.Moment;
+    startDate: moment.Moment;
+    deliveredDate: moment.Moment;
+    canceledDate: moment.Moment;
+    paymentDate: moment.Moment;
+    creationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: IWorbbyTaskDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.title = data["title"];
+            this.description = data["description"];
+            this.interestCenterId = data["interestCenterId"];
+            this.interestCenter = data["interestCenter"] ? InterestCenterForWorbbyTaskDto.fromJS(data["interestCenter"]) : <any>undefined;
+            this.userId = data["userId"];
+            this.worbbient = data["worbbient"] ? WorbbientDto.fromJS(data["worbbient"]) : <any>undefined;
+            this.offerId = data["offerId"];
+            this.offerDto = data["offerDto"] ? WorbbyOfferDto.fromJS(data["offerDto"]) : <any>undefined;
+            this.offersList = data["offersList"] ? ListResultDtoOfWorbbyOfferDto.fromJS(data["offersList"]) : <any>undefined;
+            this.countOffers = data["countOffers"];
+            this.countWorbbyTaskMessagesUnread = data["countWorbbyTaskMessagesUnread"];
+            this.tenantId = data["tenantId"];
+            this.targetUserId = data["targetUserId"];
+            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
+            this.activityUserId = data["activityUserId"];
+            this.userActivity = data["userActivity"] ? UserActivityInput.fromJS(data["userActivity"]) : <any>undefined;
+            this.addressId = data["addressId"];
+            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
+            this.distance = data["distance"];
+            this.unitMeasure = data["unitMeasure"];
+            this.cancellationPolicy = data["cancellationPolicy"];
+            this.amount = data["amount"];
+            this.unitPrice = data["unitPrice"];
+            this.isUnitPrice = data["isUnitPrice"];
+            this.totalPrice = data["totalPrice"];
+            this.time = data["time"];
+            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
+            this.scheduleDateType = data["scheduleDateType"];
+            this.status = data["status"];
+            this.hiredDate = data["hiredDate"] ? moment(data["hiredDate"].toString()) : <any>undefined;
+            this.startDate = data["startDate"] ? moment(data["startDate"].toString()) : <any>undefined;
+            this.deliveredDate = data["deliveredDate"] ? moment(data["deliveredDate"].toString()) : <any>undefined;
+            this.canceledDate = data["canceledDate"] ? moment(data["canceledDate"].toString()) : <any>undefined;
+            this.paymentDate = data["paymentDate"] ? moment(data["paymentDate"].toString()) : <any>undefined;
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyTaskDto {
+        let result = new WorbbyTaskDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["interestCenterId"] = this.interestCenterId;
+        data["interestCenter"] = this.interestCenter ? this.interestCenter.toJSON() : <any>undefined;
+        data["userId"] = this.userId;
+        data["worbbient"] = this.worbbient ? this.worbbient.toJSON() : <any>undefined;
+        data["offerId"] = this.offerId;
+        data["offerDto"] = this.offerDto ? this.offerDto.toJSON() : <any>undefined;
+        data["offersList"] = this.offersList ? this.offersList.toJSON() : <any>undefined;
+        data["countOffers"] = this.countOffers;
+        data["countWorbbyTaskMessagesUnread"] = this.countWorbbyTaskMessagesUnread;
+        data["tenantId"] = this.tenantId;
+        data["targetUserId"] = this.targetUserId;
+        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
+        data["activityUserId"] = this.activityUserId;
+        data["userActivity"] = this.userActivity ? this.userActivity.toJSON() : <any>undefined;
+        data["addressId"] = this.addressId;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["distance"] = this.distance;
+        data["unitMeasure"] = this.unitMeasure;
+        data["cancellationPolicy"] = this.cancellationPolicy;
+        data["amount"] = this.amount;
+        data["unitPrice"] = this.unitPrice;
+        data["isUnitPrice"] = this.isUnitPrice;
+        data["totalPrice"] = this.totalPrice;
+        data["time"] = this.time;
+        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
+        data["scheduleDateType"] = this.scheduleDateType;
+        data["status"] = this.status;
+        data["hiredDate"] = this.hiredDate ? this.hiredDate.toISOString() : <any>undefined;
+        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
+        data["deliveredDate"] = this.deliveredDate ? this.deliveredDate.toISOString() : <any>undefined;
+        data["canceledDate"] = this.canceledDate ? this.canceledDate.toISOString() : <any>undefined;
+        data["paymentDate"] = this.paymentDate ? this.paymentDate.toISOString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbyTaskDto {
+    title: string;
+    description: string;
+    interestCenterId: number;
+    interestCenter: InterestCenterForWorbbyTaskDto;
+    userId: number;
+    worbbient: WorbbientDto;
+    offerId: number;
+    offerDto: WorbbyOfferDto;
+    offersList: ListResultDtoOfWorbbyOfferDto;
+    countOffers: number;
+    countWorbbyTaskMessagesUnread: number;
+    tenantId: number;
+    targetUserId: number;
+    worbbior: WorbbiorDto;
+    activityUserId: number;
+    userActivity: UserActivityInput;
+    addressId: number;
+    address: AddressDto;
+    distance: number;
+    unitMeasure: WorbbyTaskDtoUnitMeasure;
+    cancellationPolicy: WorbbyTaskDtoCancellationPolicy;
+    amount: number;
+    unitPrice: number;
+    isUnitPrice: boolean;
+    totalPrice: number;
+    time: WorbbyTaskDtoTime;
+    scheduledDate: moment.Moment;
+    scheduleDateType: WorbbyTaskDtoScheduleDateType;
+    status: WorbbyTaskDtoStatus;
+    hiredDate: moment.Moment;
+    startDate: moment.Moment;
+    deliveredDate: moment.Moment;
+    canceledDate: moment.Moment;
+    paymentDate: moment.Moment;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class InterestCenterForWorbbyTaskDto implements IInterestCenterForWorbbyTaskDto {
+    parentId: number;
+    parentDisplayName: string;
+    parentPictureId: string;
+    parentPicture: string;
+    displayName: string;
+    description: string;
+    interestCenterPicture: string;
+    id: number;
+
+    constructor(data?: IInterestCenterForWorbbyTaskDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.parentId = data["parentId"];
+            this.parentDisplayName = data["parentDisplayName"];
+            this.parentPictureId = data["parentPictureId"];
+            this.parentPicture = data["parentPicture"];
+            this.displayName = data["displayName"];
+            this.description = data["description"];
+            this.interestCenterPicture = data["interestCenterPicture"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): InterestCenterForWorbbyTaskDto {
+        let result = new InterestCenterForWorbbyTaskDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["parentId"] = this.parentId;
+        data["parentDisplayName"] = this.parentDisplayName;
+        data["parentPictureId"] = this.parentPictureId;
+        data["parentPicture"] = this.parentPicture;
+        data["displayName"] = this.displayName;
+        data["description"] = this.description;
+        data["interestCenterPicture"] = this.interestCenterPicture;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IInterestCenterForWorbbyTaskDto {
+    parentId: number;
+    parentDisplayName: string;
+    parentPictureId: string;
+    parentPicture: string;
+    displayName: string;
+    description: string;
+    interestCenterPicture: string;
+    id: number;
+}
+
+export class WorbbientDto implements IWorbbientDto {
+    name: string;
+    surname: string;
+    userPictureId: string;
+    emailAddress: string;
+    userPicture: string;
+    id: number;
+
+    constructor(data?: IWorbbientDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.surname = data["surname"];
+            this.userPictureId = data["userPictureId"];
+            this.emailAddress = data["emailAddress"];
+            this.userPicture = data["userPicture"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbientDto {
+        let result = new WorbbientDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["surname"] = this.surname;
+        data["userPictureId"] = this.userPictureId;
+        data["emailAddress"] = this.emailAddress;
+        data["userPicture"] = this.userPicture;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbientDto {
+    name: string;
+    surname: string;
+    userPictureId: string;
+    emailAddress: string;
+    userPicture: string;
+    id: number;
+}
+
+export class WorbbyOfferDto implements IWorbbyOfferDto {
+    userId: number;
+    worbbior: WorbbiorDto;
+    tenantId: number;
+    worbbyTaskId: number;
+    worbbyTask: WorbbyTaskDto;
+    worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
+    description: string;
+    cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    scheduledDate: moment.Moment;
+    creationTime: moment.Moment;
+    id: number;
+
+    constructor(data?: IWorbbyOfferDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.worbbyTask = data["worbbyTask"] ? WorbbyTaskDto.fromJS(data["worbbyTask"]) : <any>undefined;
+            this.worbbyOfferStatus = data["worbbyOfferStatus"];
+            this.description = data["description"];
+            this.cancellationPolicy = data["cancellationPolicy"];
+            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): WorbbyOfferDto {
+        let result = new WorbbyOfferDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["worbbyTask"] = this.worbbyTask ? this.worbbyTask.toJSON() : <any>undefined;
+        data["worbbyOfferStatus"] = this.worbbyOfferStatus;
+        data["description"] = this.description;
+        data["cancellationPolicy"] = this.cancellationPolicy;
+        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IWorbbyOfferDto {
+    userId: number;
+    worbbior: WorbbiorDto;
+    tenantId: number;
+    worbbyTaskId: number;
+    worbbyTask: WorbbyTaskDto;
+    worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
+    description: string;
+    cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
+    scheduledDate: moment.Moment;
+    creationTime: moment.Moment;
+    id: number;
+}
+
+export class ListResultDtoOfWorbbyOfferDto implements IListResultDtoOfWorbbyOfferDto {
+    items: WorbbyOfferDto[];
+
+    constructor(data?: IListResultDtoOfWorbbyOfferDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(WorbbyOfferDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfWorbbyOfferDto {
+        let result = new ListResultDtoOfWorbbyOfferDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfWorbbyOfferDto {
+    items: WorbbyOfferDto[];
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
@@ -26386,409 +26842,6 @@ export interface IRequestWorbbiorRegisterCodeEmailDto {
     emailAddress: string;
 }
 
-export class WorbbyTaskDto implements IWorbbyTaskDto {
-    title: string;
-    description: string;
-    interestCenterId: number;
-    interestCenter: InterestCenterForWorbbyTaskDto;
-    userId: number;
-    worbbient: WorbbientDto;
-    offerId: number;
-    offersList: ListResultDtoOfWorbbyOfferDto;
-    countOffers: number;
-    countWorbbyTaskMessagesUnread: number;
-    tenantId: number;
-    targetUserId: number;
-    worbbior: WorbbiorDto;
-    activityUserId: number;
-    userActivity: UserActivityInput;
-    addressId: number;
-    address: AddressDto;
-    distance: number;
-    unitMeasure: WorbbyTaskDtoUnitMeasure;
-    cancellationPolicy: WorbbyTaskDtoCancellationPolicy;
-    amount: number;
-    unitPrice: number;
-    isUnitPrice: boolean;
-    totalPrice: number;
-    time: WorbbyTaskDtoTime;
-    scheduledDate: moment.Moment;
-    scheduleDateType: WorbbyTaskDtoScheduleDateType;
-    status: WorbbyTaskDtoStatus;
-    hiredDate: moment.Moment;
-    startDate: moment.Moment;
-    deliveredDate: moment.Moment;
-    canceledDate: moment.Moment;
-    paymentDate: moment.Moment;
-    creationTime: moment.Moment;
-    id: number;
-
-    constructor(data?: IWorbbyTaskDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.title = data["title"];
-            this.description = data["description"];
-            this.interestCenterId = data["interestCenterId"];
-            this.interestCenter = data["interestCenter"] ? InterestCenterForWorbbyTaskDto.fromJS(data["interestCenter"]) : <any>undefined;
-            this.userId = data["userId"];
-            this.worbbient = data["worbbient"] ? WorbbientDto.fromJS(data["worbbient"]) : <any>undefined;
-            this.offerId = data["offerId"];
-            this.offersList = data["offersList"] ? ListResultDtoOfWorbbyOfferDto.fromJS(data["offersList"]) : <any>undefined;
-            this.countOffers = data["countOffers"];
-            this.countWorbbyTaskMessagesUnread = data["countWorbbyTaskMessagesUnread"];
-            this.tenantId = data["tenantId"];
-            this.targetUserId = data["targetUserId"];
-            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
-            this.activityUserId = data["activityUserId"];
-            this.userActivity = data["userActivity"] ? UserActivityInput.fromJS(data["userActivity"]) : <any>undefined;
-            this.addressId = data["addressId"];
-            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
-            this.distance = data["distance"];
-            this.unitMeasure = data["unitMeasure"];
-            this.cancellationPolicy = data["cancellationPolicy"];
-            this.amount = data["amount"];
-            this.unitPrice = data["unitPrice"];
-            this.isUnitPrice = data["isUnitPrice"];
-            this.totalPrice = data["totalPrice"];
-            this.time = data["time"];
-            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
-            this.scheduleDateType = data["scheduleDateType"];
-            this.status = data["status"];
-            this.hiredDate = data["hiredDate"] ? moment(data["hiredDate"].toString()) : <any>undefined;
-            this.startDate = data["startDate"] ? moment(data["startDate"].toString()) : <any>undefined;
-            this.deliveredDate = data["deliveredDate"] ? moment(data["deliveredDate"].toString()) : <any>undefined;
-            this.canceledDate = data["canceledDate"] ? moment(data["canceledDate"].toString()) : <any>undefined;
-            this.paymentDate = data["paymentDate"] ? moment(data["paymentDate"].toString()) : <any>undefined;
-            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): WorbbyTaskDto {
-        let result = new WorbbyTaskDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["title"] = this.title;
-        data["description"] = this.description;
-        data["interestCenterId"] = this.interestCenterId;
-        data["interestCenter"] = this.interestCenter ? this.interestCenter.toJSON() : <any>undefined;
-        data["userId"] = this.userId;
-        data["worbbient"] = this.worbbient ? this.worbbient.toJSON() : <any>undefined;
-        data["offerId"] = this.offerId;
-        data["offersList"] = this.offersList ? this.offersList.toJSON() : <any>undefined;
-        data["countOffers"] = this.countOffers;
-        data["countWorbbyTaskMessagesUnread"] = this.countWorbbyTaskMessagesUnread;
-        data["tenantId"] = this.tenantId;
-        data["targetUserId"] = this.targetUserId;
-        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
-        data["activityUserId"] = this.activityUserId;
-        data["userActivity"] = this.userActivity ? this.userActivity.toJSON() : <any>undefined;
-        data["addressId"] = this.addressId;
-        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
-        data["distance"] = this.distance;
-        data["unitMeasure"] = this.unitMeasure;
-        data["cancellationPolicy"] = this.cancellationPolicy;
-        data["amount"] = this.amount;
-        data["unitPrice"] = this.unitPrice;
-        data["isUnitPrice"] = this.isUnitPrice;
-        data["totalPrice"] = this.totalPrice;
-        data["time"] = this.time;
-        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
-        data["scheduleDateType"] = this.scheduleDateType;
-        data["status"] = this.status;
-        data["hiredDate"] = this.hiredDate ? this.hiredDate.toISOString() : <any>undefined;
-        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
-        data["deliveredDate"] = this.deliveredDate ? this.deliveredDate.toISOString() : <any>undefined;
-        data["canceledDate"] = this.canceledDate ? this.canceledDate.toISOString() : <any>undefined;
-        data["paymentDate"] = this.paymentDate ? this.paymentDate.toISOString() : <any>undefined;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IWorbbyTaskDto {
-    title: string;
-    description: string;
-    interestCenterId: number;
-    interestCenter: InterestCenterForWorbbyTaskDto;
-    userId: number;
-    worbbient: WorbbientDto;
-    offerId: number;
-    offersList: ListResultDtoOfWorbbyOfferDto;
-    countOffers: number;
-    countWorbbyTaskMessagesUnread: number;
-    tenantId: number;
-    targetUserId: number;
-    worbbior: WorbbiorDto;
-    activityUserId: number;
-    userActivity: UserActivityInput;
-    addressId: number;
-    address: AddressDto;
-    distance: number;
-    unitMeasure: WorbbyTaskDtoUnitMeasure;
-    cancellationPolicy: WorbbyTaskDtoCancellationPolicy;
-    amount: number;
-    unitPrice: number;
-    isUnitPrice: boolean;
-    totalPrice: number;
-    time: WorbbyTaskDtoTime;
-    scheduledDate: moment.Moment;
-    scheduleDateType: WorbbyTaskDtoScheduleDateType;
-    status: WorbbyTaskDtoStatus;
-    hiredDate: moment.Moment;
-    startDate: moment.Moment;
-    deliveredDate: moment.Moment;
-    canceledDate: moment.Moment;
-    paymentDate: moment.Moment;
-    creationTime: moment.Moment;
-    id: number;
-}
-
-export class InterestCenterForWorbbyTaskDto implements IInterestCenterForWorbbyTaskDto {
-    parentId: number;
-    parentDisplayName: string;
-    parentPictureId: string;
-    parentPicture: string;
-    displayName: string;
-    description: string;
-    interestCenterPicture: string;
-    id: number;
-
-    constructor(data?: IInterestCenterForWorbbyTaskDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.parentId = data["parentId"];
-            this.parentDisplayName = data["parentDisplayName"];
-            this.parentPictureId = data["parentPictureId"];
-            this.parentPicture = data["parentPicture"];
-            this.displayName = data["displayName"];
-            this.description = data["description"];
-            this.interestCenterPicture = data["interestCenterPicture"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): InterestCenterForWorbbyTaskDto {
-        let result = new InterestCenterForWorbbyTaskDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["parentId"] = this.parentId;
-        data["parentDisplayName"] = this.parentDisplayName;
-        data["parentPictureId"] = this.parentPictureId;
-        data["parentPicture"] = this.parentPicture;
-        data["displayName"] = this.displayName;
-        data["description"] = this.description;
-        data["interestCenterPicture"] = this.interestCenterPicture;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IInterestCenterForWorbbyTaskDto {
-    parentId: number;
-    parentDisplayName: string;
-    parentPictureId: string;
-    parentPicture: string;
-    displayName: string;
-    description: string;
-    interestCenterPicture: string;
-    id: number;
-}
-
-export class WorbbientDto implements IWorbbientDto {
-    name: string;
-    surname: string;
-    userPictureId: string;
-    emailAddress: string;
-    userPicture: string;
-    id: number;
-
-    constructor(data?: IWorbbientDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.name = data["name"];
-            this.surname = data["surname"];
-            this.userPictureId = data["userPictureId"];
-            this.emailAddress = data["emailAddress"];
-            this.userPicture = data["userPicture"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): WorbbientDto {
-        let result = new WorbbientDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        data["surname"] = this.surname;
-        data["userPictureId"] = this.userPictureId;
-        data["emailAddress"] = this.emailAddress;
-        data["userPicture"] = this.userPicture;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IWorbbientDto {
-    name: string;
-    surname: string;
-    userPictureId: string;
-    emailAddress: string;
-    userPicture: string;
-    id: number;
-}
-
-export class ListResultDtoOfWorbbyOfferDto implements IListResultDtoOfWorbbyOfferDto {
-    items: WorbbyOfferDto[];
-
-    constructor(data?: IListResultDtoOfWorbbyOfferDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            if (data["items"] && data["items"].constructor === Array) {
-                this.items = [];
-                for (let item of data["items"])
-                    this.items.push(WorbbyOfferDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): ListResultDtoOfWorbbyOfferDto {
-        let result = new ListResultDtoOfWorbbyOfferDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (this.items && this.items.constructor === Array) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IListResultDtoOfWorbbyOfferDto {
-    items: WorbbyOfferDto[];
-}
-
-export class WorbbyOfferDto implements IWorbbyOfferDto {
-    userId: number;
-    worbbior: WorbbiorDto;
-    tenantId: number;
-    worbbyTaskId: number;
-    worbbyTask: WorbbyTaskDto;
-    worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
-    description: string;
-    cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
-    scheduledDate: moment.Moment;
-    id: number;
-
-    constructor(data?: IWorbbyOfferDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.userId = data["userId"];
-            this.worbbior = data["worbbior"] ? WorbbiorDto.fromJS(data["worbbior"]) : <any>undefined;
-            this.tenantId = data["tenantId"];
-            this.worbbyTaskId = data["worbbyTaskId"];
-            this.worbbyTask = data["worbbyTask"] ? WorbbyTaskDto.fromJS(data["worbbyTask"]) : <any>undefined;
-            this.worbbyOfferStatus = data["worbbyOfferStatus"];
-            this.description = data["description"];
-            this.cancellationPolicy = data["cancellationPolicy"];
-            this.scheduledDate = data["scheduledDate"] ? moment(data["scheduledDate"].toString()) : <any>undefined;
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): WorbbyOfferDto {
-        let result = new WorbbyOfferDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        data["worbbior"] = this.worbbior ? this.worbbior.toJSON() : <any>undefined;
-        data["tenantId"] = this.tenantId;
-        data["worbbyTaskId"] = this.worbbyTaskId;
-        data["worbbyTask"] = this.worbbyTask ? this.worbbyTask.toJSON() : <any>undefined;
-        data["worbbyOfferStatus"] = this.worbbyOfferStatus;
-        data["description"] = this.description;
-        data["cancellationPolicy"] = this.cancellationPolicy;
-        data["scheduledDate"] = this.scheduledDate ? this.scheduledDate.toISOString() : <any>undefined;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IWorbbyOfferDto {
-    userId: number;
-    worbbior: WorbbiorDto;
-    tenantId: number;
-    worbbyTaskId: number;
-    worbbyTask: WorbbyTaskDto;
-    worbbyOfferStatus: WorbbyOfferDtoWorbbyOfferStatus;
-    description: string;
-    cancellationPolicy: WorbbyOfferDtoCancellationPolicy;
-    scheduledDate: moment.Moment;
-    id: number;
-}
-
 export class FindWorbbyTaskInput implements IFindWorbbyTaskInput {
     filter: string;
     interestCenterTopLevelId: number;
@@ -27657,48 +27710,6 @@ export enum SaleOutputSaleStatus {
     _20 = 20, 
 }
 
-export enum TenantLoginInfoDtoPaymentPeriodType {
-    _30 = 30, 
-    _365 = 365, 
-}
-
-export enum RegisterTenantInputSubscriptionStartType {
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
-}
-
-export enum RegisterTenantInputGateway {
-    _1 = 1, 
-}
-
-export enum CreateUserDocumentsInfoInputWorbbiorState {
-    _0 = 0, 
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
-    _4 = 4, 
-    _5 = 5, 
-}
-
-export enum WorbbiorForEditDtoWorbbiorState {
-    _0 = 0, 
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
-    _4 = 4, 
-    _5 = 5, 
-}
-
-export enum RequestEditWorbbiorDtoWorbbiorState {
-    _0 = 0, 
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
-    _4 = 4, 
-    _5 = 5, 
-}
-
 export enum WorbbyTaskDtoUnitMeasure {
     _1 = 1, 
     _2 = 2, 
@@ -27750,6 +27761,48 @@ export enum WorbbyOfferDtoCancellationPolicy {
     _2 = 2, 
     _3 = 3, 
     _4 = 4, 
+}
+
+export enum TenantLoginInfoDtoPaymentPeriodType {
+    _30 = 30, 
+    _365 = 365, 
+}
+
+export enum RegisterTenantInputSubscriptionStartType {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+}
+
+export enum RegisterTenantInputGateway {
+    _1 = 1, 
+}
+
+export enum CreateUserDocumentsInfoInputWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+}
+
+export enum WorbbiorForEditDtoWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
+}
+
+export enum RequestEditWorbbiorDtoWorbbiorState {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+    _5 = 5, 
 }
 
 export enum WorbbyTaskMessageDtoSide {

@@ -14,6 +14,7 @@
     static googleAnalyticsId:string;
     static defaultProfilePicture: string = "/assets/common/images/default-profile-picture.png";
     static defaultPdfPicture: string = "/assets/metronic/worbby/global/img/icone-pdf.png";
+    static logoWorbby = "/assets/metronic/worbby/global/img/logo-worbby.png";
     static isMobile:boolean = false;
     static maxFileSizeUpload: number;
     static contactEmail: string;

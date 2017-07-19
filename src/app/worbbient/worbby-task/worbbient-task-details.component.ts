@@ -39,6 +39,8 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
     public worbbyTaskMessageId:number;
     public ehReverso: boolean = false;
     public showButtonMore:boolean = false;
+    public logoWorbby:string;
+    public worbbyOfferSide:string;
 
     public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
@@ -65,6 +67,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         this.ehReverso = window.screen.width > 768 ? false : true;
         this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;
+        this.logoWorbby = AppConsts.logoWorbby;
     }
 
     ngOnDestroy():void{
@@ -90,7 +93,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
     getWorbbyTask():void{
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
-            
+            this.worbbyOfferSide = this.worbbyTask.offerDto && this.worbbyTask.offerDto.userId == abp.session.userId ? "1" : "2";
             this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
 
             this.getPictureByGuid(this.worbbyTask.worbbient.userPictureId).then((result) => {

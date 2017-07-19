@@ -43,7 +43,7 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div *ngIf="brandValid" class="form-group">
+                                                <div *ngIf="!brandValid" class="form-group">
                                                     <ul class="help-block text-danger">
                                                         <li>Selecionar uma bandeira.</li>
                                                     </ul>
@@ -103,7 +103,7 @@
                                             <div class="col-xs-12 col-sm-4 m-b-xxxs">
                                                 <div class="form-group no-hint">
                                                     <label class="control-label">Código de segurança <i class="fa fa-asterisk cor-Botticelli"></i></label>
-                                                    <input class="form-control edited" type="text" name="Holder" [(ngModel)]="sale.payment.creditCard.securityCode" formControlName="securityCode" (blur)="validateBrandBlur()"/>
+                                                    <input class="form-control edited" type="number" name="Holder" [(ngModel)]="sale.payment.creditCard.securityCode" formControlName="securityCode" (blur)="validateBrandBlur()"/>
                                                 </div>
                                                 <div [hidden]="form.controls.securityCode.valid || form.controls.securityCode.pristine" class="form-group">
                                                     <ul class="help-block text-danger" *ngIf="form.controls.securityCode.errors">

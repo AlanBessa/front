@@ -780,6 +780,10 @@ a.invert{
     width: 100%;
 }
 
+.dropdown-menu {
+    width: 100% !important;
+}
+
 .btn-grey{
     background-color: #F3F3F5;
     border: 1px solid #90A3B1;
@@ -3465,6 +3469,7 @@ recaptcha {
 .datepicker-custom datepicker-inner table td .btn-sm,
 .datepicker-custom datepicker-inner table td .btn-default {
     border-color: #F9F9FA !important; 
+    font-size:  14px !important;
 }
 
 .datepicker-custom datepicker-inner table td .text-info {

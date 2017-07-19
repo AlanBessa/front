@@ -52,9 +52,9 @@
                                                 <div *ngIf="interestCentersTopLevel.length" class="col-xs-12 col-sm-5 ic-top-dropdown-select">
                                                     <div class="form-group no-hint">
                                                         <label class="control-label cor-Botticelli">{{l("ChooseMainInterest")}}</label>
-                                                        <div class="dropdown">
+                                                        <div class="dropdown" (click)="selectInterestCenterTopLevel()">
                                                             <button type="button" class="dropdown-toggle btn btn-prime-inverted select-dropdown-toggle">
-                                                                <div (click)="selectInterestCenterTopLevel()">
+                                                                <div>
                                                                     <img *ngIf="currentInterestCenterTopLevel.interestCenterPicture" class="ico-btn-dropdown" [src]="currentInterestCenterTopLevel.interestCenterPicture"
                                                                         alt="{{currentInterestCenterTopLevel.displayName}}" />
                                                                         {{currentInterestCenterTopLevel.displayName}}

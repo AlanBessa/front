@@ -7,7 +7,7 @@
 
 .blockOverlay::before {
     content: "";
-    background-image: url("/assets/metronic/worbby/global/img/pagina-espera-prelancamento-G.png");
+    background-image: url("/assets/metronic/worbby/global/img/loading-screen-G.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -22,6 +22,15 @@
 
 @media (max-width: 480px) {
     .blockOverlay::before {
-        background-image: url("/assets/metronic/worbby/global/img/pagina-espera-prelancamento-S.png") !important;
+        background-image: url("/assets/metronic/worbby/global/img/loading-screen-P.jpg") !important;
     }
+}
+
+/* LOADING */
+
+body > .spinner > div > div {
+    border-radius: 0 !important;
+    height: 3px !important;
+    background: rgb(255, 255, 255) !important;
+    width: 15px !important;
 }

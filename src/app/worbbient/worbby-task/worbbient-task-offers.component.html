@@ -43,7 +43,7 @@
                                 <div class="col-xs-12 divider">
                                     <div class="display-table">
                                         <div class="display-cell">
-                                            <p class="small cor-Botticelli text-right">Data</p>
+                                            <p class="small cor-Botticelli text-right">Data de entrega</p>
                                         </div>
                                         <div class="display-cell">
                                             <p class="inline">{{worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible && !worbbyTask.scheduledDate ? "Quando possível" : scheduleDateDisplay}}</p>
@@ -143,7 +143,7 @@
                                                     <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
                                                     <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
                                                 </p> 
-                                                <p *ngIf="offer.scheduledDate">Data proposta: {{offer.scheduledDate | amDateFormat:'L'}}</p>
+                                                <p *ngIf="offer.scheduledDate">Data de entrega: {{offer.scheduledDate | amDateFormat:'L'}}</p>
                                             </div>
                                             <div class="col-xs-2 col-md-2 text-right"> 
                                                 <worbbientWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="offer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>

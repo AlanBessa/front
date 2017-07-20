@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, WorbbyTaskMessageDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WorbbyTaskStatus, TimeEnum, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
+import { WorbbyTaskStatus, TimeEnum, ScheduleDateType,CancellationPolicy, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service';
 import { AppConsts } from '@shared/AppConsts';
 import { Observable } from 'rxjs/Rx';
@@ -36,6 +36,8 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
     public worbbyTaskMessageId:number;
     public ehReverso: boolean = false;
     public showButtonMore:boolean = false;
+    public worbbyOfferSide:string = '1';
+    public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
 
     //private messagesTimer:any;
     //private subscriptionMessagesTimer: any;
@@ -107,9 +109,8 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
     getWorbbyOffer():void{
         this._worbbyTaskService.getWorbbyOffer(this.worbbyOfferId).subscribe(result => {
             this.worbbyOffer = result;
-
+            this.worbbyOfferSide = this.worbbyOffer && this.worbbyOffer.userId == abp.session.userId ? "1" : "2";
             this.scheduleDateDisplay = result.worbbyTask.scheduledDate ? moment(result.worbbyTask.scheduledDate).format('L') : this.scheduleDateDisplay;
-
             this.getPictureByGuid(this.worbbyOffer.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyOffer.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;
             });
@@ -120,6 +121,7 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
             
             this.active = true;
             this.getWorbbyTaskMessages();
+   
         });
     }
 

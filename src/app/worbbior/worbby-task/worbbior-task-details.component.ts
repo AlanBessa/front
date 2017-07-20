@@ -41,6 +41,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     public showButtonMore:boolean = false;
     public worbbientId: number = 0;
     public taskId: number = 0;
+    public worbbyOfferSide:string = '1';
 
     public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
@@ -122,7 +123,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     getWorbbyTask():void{
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
-
+            this.worbbyOfferSide = this.worbbyTask.offerDto && this.worbbyTask.offerDto.userId == abp.session.userId ? "2" : "1";
             this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
             this.worbbientId = this.worbbyTask.userId;
             this.taskId = this.worbbyTask.id;

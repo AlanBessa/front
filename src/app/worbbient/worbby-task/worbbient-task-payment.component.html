@@ -5,39 +5,7 @@
                 <div class="container">
                     <div class="row">
                         <div *ngIf="worbbyTask" class="col-xs-12 p-xxs m-t-sm m-b-xs clearfix">
-                            <h3>Detalhe de pagamento</h3>        
-                            <div>
-                                <div class="card-talents w-100">                                                        
-                                    <!-- card -->
-                                    <div class="card-simple m-b-20px">
-                                        <div class="row">
-                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                <div *ngIf="worbbyTask.interestCenter" class="divProfile">
-                                                    <img alt="Photo Profile" class="img-responsive pro w-80" [src]="worbbyTask.interestCenter.parentPicture"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-9 col-md-7 card-simple-info m-b-xxs">
-                                                <p class="no-m-t m-b-xxxs">{{worbbyTask.title}}</p>
-                                                <p class="m-b-xxs small txt-small-tablet txt-small-only-mobile">Publicado: {{worbbyTask.creationTime | amDateFormat:'L'}}</p>
-                                                <p class="no-m-y cor-Botticelli small txt-small-tablet txt-small-only-mobile block-with-text">{{worbbyTask.description}}</p>
-                                            </div>
-                                            <div class="col-xs-12 col-md-3">
-                                                <div class="col-xs-6 col-md-12 text-right">
-                                                    <p class="cor-Denim txt-small-tablet">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</p>
-                                                </div>
-                                                <div class="text-right col-xs-6 col-md-12">
-                                                    <p class="txt-small-tablet" [ngClass]="{'cor-CaribbeanGreen': worbbyTask.countOffers > 0, 'cor-Botticelli': worbbyTask.countOffers == 0}">{{worbbyTask.countOffers}} oferta(s)</p>  
-                                                    <div *ngIf="worbbyTask.distance" class="txt-small-tablet">   
-                                                        {{worbbyTask.distance}} km
-                                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                                    </div>                                                                        
-                                                </div>   
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- card : fim -->                                                        
-                                </div>                                                
-                            </div>  
+                            <h3>Detalhe de pagamento</h3>         
                         </div>
                         <div class="col-xs-12 p-t-sm p-b-sm bg-White m-b-sm">
                             <div class="row">

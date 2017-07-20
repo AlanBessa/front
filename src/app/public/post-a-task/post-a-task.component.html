@@ -53,7 +53,7 @@
                                             <div class="col-xs-6 text-right">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-md-6 no-p-l">
-                                                        <p class="no-m-y inline small cor-Botticelli"> {{worbbiorProfile.worbbior.distance}} km <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                                        <p class="no-m-y inline small cor-Botticelli"> {{worbbiorProfile.worbbior.distance}} m <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
                                                     </div>
                                                     <div class="col-xs-12 col-md-6 no-p-l">
                                                         <p class="no-m-y small cor-Botticelli"> R$ <span class="cor-Denim">{{userActivity.price}}</span> por {{l(UnitMeasure[userActivity.unitMeasure.toString()])}}</p>
@@ -111,7 +111,7 @@
                                         <div class="form-group no-hint m-b-xs">
                                             <label class="control-label">Título da tarefa <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
                                             <input placeholder="Ex: Cupcakes decorados" 
-                                                   [ngClass]="{'borda-Flamingo cor-Flamingo': titulo.value.length > 120}" 
+                                                   [ngClass]="{'borda-Flamingo cor-Flamingo': titulo.value.length >120}" 
                                                    class="form-control m-b-xxxs" 
                                                    type="text" 
                                                    name="Title" 
@@ -145,7 +145,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 m-t-xs">
-                                        <button [disabled]="!stepOneForm.form.valid || description.value.length > 400 || titulo.value.length > 120" (click)="showStep2()" type="button" class="btn btn-prime btn-around btn-block">Próximo</button>
+                                        <button [disabled]="!stepOneForm.form.valid || description.value.length > 400 || titulo.value.length > 60" (click)="showStep2()" type="button" class="btn btn-prime btn-around btn-block">Próximo</button>
                                     </div>
                                 </div>
                             </form>

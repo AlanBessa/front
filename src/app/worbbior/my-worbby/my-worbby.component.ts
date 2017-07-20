@@ -69,7 +69,6 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
     ]);
 
     ngOnInit() {
-        this.registerToEvents();
         this.currentRoleName = this._appSessionService.userRoleName;
         this.switchRole = this.permission.isGranted("Pages.Worbbior.SwitchToWorbbientProfile");
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;
@@ -88,19 +87,6 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
-    }
-
-
-    registerToEvents() {
-        abp.event.on('abp.notifications.received', userNotification => {
-            console.log(userNotification);
-            this.getPendingOffers();
-            this.getTasksProposed();
-            this.getTasksProposedAcceptedByWorbbior();
-            this.getWorbbyTasksOffersAcceptedByWorbbient();
-            this.getWorbbyTasksOffersConfirmedByWorbbior();
-            this.getGetWorbbyTasksInProgress();
-        });
     }
 
     getProfilePicture(): void {

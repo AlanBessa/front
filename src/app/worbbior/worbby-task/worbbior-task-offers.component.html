@@ -1,33 +1,29 @@
 <div [@routerTransition]>
-    <div class="container-fluid bg-Solititude bg-fluid-hidden"> 
+    <div class="container-fluid bg-Solititude bg-fluid-hidden">
         <div class="row">
             <div class="container">
-                <div *ngIf="active" class="row">
+                <div *ngIf="active" class="row">  
                     <div class="col-xs-12 visible-xs"> 
                         <div class="row">
                             <div class="col-xs-9">
                                 <h3 class="titulo-WorbbiorProfile">Escolha uma oferta</h3>
                             </div>
                             <div class="col-xs-3">
-                                <a routerLink="/worbbient/my-worbby" class="btn btn-secondary m-t-20px">
+                                <a routerLink="/worbbior/my-worbby" class="btn btn-secondary m-t-20px">
                                     <i class="fa fa-chevron-left"></i>
                                     <span class="hidden-xs">Voltar</span>
                                 </a>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
-                        <div *ngIf="active" class="card-profile">
+                        <div *ngIf="active" class="row card-profile">
                             <div class="profile-details">                                
                                 <div class="col-xs-12 m-t-sm">
                                     <h3>{{worbbyTask.title}}</h3>
-                                    <p class="small cor-CaribbeanGreen"><i>{{worbbyTaskStatusString}}</i></p>
                                 </div>
                                 <div class="col-xs-12 divider">
                                     <p class="cor-Botticelli small">{{worbbyTask.description}}</p>
-                                    <p class="pull-right btn-config-sidemenu">
-                                        <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
-                                    </p>
                                 </div>
                                 <div class="col-xs-12 divider">
                                     <div class="display-table">
@@ -35,7 +31,7 @@
                                             <p class="small cor-Botticelli text-right">Centro de interesse</p>
                                         </div>
                                         <div class="display-cell">
-                                            <img alt="" class="img-circle img-icon-list" [src]="worbbyTask.interestCenter.interestCenterPicture" />
+                                            <img alt="" class="img-circle img-icon-list" [src]="worbbyTask.interestCenter.parentPicture" />
                                             <div class="p-y-xxxs">{{worbbyTask.interestCenter.parentDisplayName}} - {{worbbyTask.interestCenter.displayName}}</div>
                                         </div>
                                     </div>
@@ -46,7 +42,7 @@
                                             <p class="small cor-Botticelli text-right">Data de entrega</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">{{worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible && !worbbyTask.scheduledDate ? "Quando possível" : scheduleDateDisplay}}</p>
+                                            <p class="inline">{{worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible ? "Quando possível" : scheduleDateDisplay}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +52,7 @@
                                             <p class="small cor-Botticelli text-right">Horário</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline">{{l(TimeEnum[worbbyTask.time.toString()])}}</p>
+                                            <p class="inline">{{worbbyTask.time}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -65,9 +61,15 @@
                                         <div class="display-cell">
                                             <p class="small cor-Botticelli text-right">Localização</p>
                                         </div>
-                                        <div class="display-cell">
-                                            <p class="inline"><span class="cor-Botticelli">{{worbbyTask.address.thoroughfare}}, {{worbbyTask.address.thoroughfareNumber}} {{worbbyTask.address.premise}}</span> - {{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}</p>
-                                        </div>
+                                        <p class="inline">
+                                            <span 
+                                            *ngIf="worbbyTask.status == WorbbyTaskStatus.Delivered || 
+                                            worbbyTask.status == WorbbyTaskStatus.Hired || 
+                                            worbbyTask.status == WorbbyTaskStatus.Paid">
+                                                {{worbbyTask.address.thoroughfare}}, {{worbbyTask.address.thoroughfareNumber}} {{worbbyTask.address.premise}} - 
+                                            </span>
+                                            {{worbbyTask.address.subLocality}} - {{worbbyTask.address.locality}} - {{worbbyTask.address.administrativeArea}}
+                                        </p>
                                     </div>
                                 </div>
                                 <div *ngIf="worbbyTask.isUnitPrice" class="col-xs-12 divider">
@@ -86,7 +88,7 @@
                                             <p class="small cor-Botticelli text-right">{{worbbyTask.unitMeasure == UnitMeasure.Hour ? "Preço por hora" : "Preço unitário"}}</p>
                                         </div>
                                         <div class="display-cell">
-                                            <p class="inline"><span class="cor-Botticelli txt-small">R$</span> {{worbbyTask.unitPrice}}</p> 
+                                            <p class="inline">{{worbbyTask.unitPrice}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -100,9 +102,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 divider no-pad-x m-b-20px">
-                                    <worbbientWorbbyTaskActions [pageType]="'page'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
-                                </div>
                             </div>                                  
                         </div>
                     </div>
@@ -112,46 +111,33 @@
                                 <h3 class="titulo-WorbbiorProfile">Escolha uma oferta</h3>
                             </div>
                             <div class="col-xs-3 text-right">
-                                <a routerLink="/worbbient/my-worbby" class="btn btn-secondary m-t-xs txt-small">
+                                <a routerLink="/worbbior/my-worbby" class="btn btn-secondary m-t-xs txt-small">
                                     <i class="fa fa-chevron-left"></i>
                                     <span class="hidden-xs">Voltar</span>
                                 </a>
                             </div>
-                        </div>
-                        <div class="row m-b-xs" *ngIf="worbbyTask.offersList.items.length == 0">
-                            <div class="col-xs-12">
-                                <div class="well well-lg">
-                                    Nenhuma oferta foi realizada ainda
-                                </div>
-                            </div>                            
                         </div>
                         <div class="row m-b-xs" *ngFor="let offer of worbbyTask.offersList.items">                            
                             <div class="col-xs-12">
                                 <!-- card -->
                                 <div class="card-simple">
                                     <div class="row">
-                                        <div class="card-talents w-100">
+                                        <a [routerLink]="['/worbbient/worbby-task-offer', offer.id]" class="card-talents w-100">
                                             <div class="col-xs-3 col-md-2 no-p-r-xs">
                                                 <div class="divProfile">
                                                     <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="offer.worbbior.userPicture"/>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-7 col-md-8 card-simple-info">
+                                            <div class="col-xs-9 col-md-10 card-simple-info">
                                                 <p class="no-m-y">{{offer.description}}</p>
-                                                <p class="small cor-Botticelli">
-                                                    Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[offer.cancellationPolicy.toString()])}}</a>
-                                                    <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
-                                                    <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
-                                                </p> 
-                                                <p *ngIf="offer.scheduledDate">Data de entrega: {{offer.scheduledDate | amDateFormat:'L'}}</p>
-                                            </div>
-                                            <div class="col-xs-2 col-md-2 text-right"> 
-                                                <worbbientWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="offer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
+                                                <a class="btn btn-link" [routerLink]="['/worbbient/worbby-task-offer', offer.id]">
+                                                    <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
+                                                </a> 
                                             </div>
                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
                                                 <div class="row">
                                                     <div class="col-xs-6 col-md-3 p-y-xxxs">
-                                                    <p class="no-m-b small">{{offer.worbbior.displayName}}</p>
+                                                    <p class="no-m-b small">{{offer.worbbior.displaName}}</p>
                                                     </div>
                                                     <div class="text-right col-xs-6 col-md-3 p-y-xxxs">
                                                         <rating [(ngModel)]="offer.worbbior.averageEvaluations"
@@ -162,31 +148,21 @@
                                                             [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
                                                         </rating>
                                                     </div>
-                                                    <div class="text-left col-xs-6 col-md-3 p-y-xxxs">
-                                                        <p *ngIf="offer.worbbyTask.distance" class="no-m-b small">{{offer.worbbyTask.distance}} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                                    <div class="text-left col-xs-6 col-md-3 p-y-xxxs" *ngIf="worbbyTask.distance">
+                                                        <p class="no-m-b small">{{worbbyTask.distance}} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
                                                     </div>
-                                                    <div class="text-right p-y-xxxs col-xs-6 col-md-3">
+                                                    <div class="text-right p-y-xxxs" [ngClass]="{'col-md-3 col-xs-6': worbbyTask.distance, 'col-md-6 col-xs-12': !worbbyTask.distance}">
                                                         <p class="no-m-b cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
-                                            <worbbientWorbbyTaskActions [actionsType]="'buttons'" [worbbyOffer]="offer" (actionReturn)="actionReturn()"></worbbientWorbbyTaskActions>
-                                        </div>
-                                        <!--<div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <button type="button" class="btn btn-prime btn-block" (click)="acceptOffer(offer)">Aceitar Oferta</button>
-                                                </div> 
-                                            </div>
-                                        </div>-->
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- card : fim -->
                             </div>                            
                         </div>
-                    </div>
+                    </div>                    
                 </div>             
             </div>
         </div>

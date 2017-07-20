@@ -348,7 +348,7 @@
                                                 <button routerLink="/worbbient/my-worbby" type="button" class="btn btn-secondary btn-around btn-block">Voltar</button>
                                             </div>
                                             <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-4 m-b-xxs">
-                                                <button [disabled]="!taskForm.form.valid || description.value.length > 400 || titulo.value.length > 60" (click)="save()" [buttonBusy]="saving" [busyText]="Editando" type="button" class="btn btn-prime btn-around btn-block">Editar</button>
+                                                <button [disabled]="!taskForm.form.valid || description.value.length > 400 || titulo.value.length > 120" (click)="save()" [buttonBusy]="saving" [busyText]="Editando" type="button" class="btn btn-prime btn-around btn-block">Editar</button>
                                             </div>
                                         </div>                                        
                                     </form>

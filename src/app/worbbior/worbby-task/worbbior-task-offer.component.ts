@@ -53,6 +53,8 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     }
 
     ngOnInit(): void {
+        this.registerToEvents();
+        this.registerEvents();
         if(window.screen.width < 480) {
             $('.footer').hide();
             $('.container-fluid.bg-Solititude').addClass('p-b-lg');
@@ -60,7 +62,15 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
         this.ehReverso = window.screen.width > 768 ? false : true;
 
         this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId'];
-        this.worbbiorPremium = this._appSessionService.worbbiorPremium;        
+        this.worbbiorPremium = this._appSessionService.worbbiorPremium;      
+
+        this._activatedRoute.params.subscribe(params => {
+            this.worbbyOfferId = params['worbbyOfferId'];
+            this.getWorbbyOffer(); // based on new parameter this time
+        });     
+
+        
+        this.getWorbbyOffer();   
     }
 
     ngOnDestroy():void{
@@ -73,14 +83,30 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     }
 
     ngAfterViewInit(): void {
-        this.registerEvents();
-        this.getWorbbyOffer();
-        //this.getWorbbyTaskMessages();  
-        //this.messagesTimer = Observable.timer(2000,30000);
-        // this.subscriptionMessagesTimer = this.messagesTimer
-        // .subscribe(() => {
-        //     this.getWorbbyTaskMessages();
-        // });         
+        
+    }
+
+    registerToEvents() {
+        abp.event.on('abp.notifications.received', userNotification => {
+            console.log(userNotification);
+            this.updateWorbbyOffer();
+        });
+    }
+
+    updateWorbbyOffer():void{
+        this._worbbyTaskService.getWorbbyOffer(this.worbbyOfferId).subscribe(result => {
+            this.worbbyOffer = result;
+
+            this.scheduleDateDisplay = result.worbbyTask.scheduledDate ? moment(result.worbbyTask.scheduledDate).format('L') : this.scheduleDateDisplay;
+
+            this.getPictureByGuid(this.worbbyOffer.worbbyTask.worbbient.userPictureId).then((result) => {
+                this.worbbyOffer.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;
+            });
+
+            this.getPictureByGuid(this.worbbyOffer.worbbior.userPictureId).then((result) => {
+                this.worbbyOffer.worbbior.userPicture = result ? result : AppConsts.defaultProfilePicture;;
+            });
+        });
     }
 
     getWorbbyOffer():void{

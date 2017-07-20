@@ -61,14 +61,14 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
         }
         this.ehReverso = window.screen.width > 768 ? false : true;
 
-        this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId']; 
+        //this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId']; 
 
         this._activatedRoute.params.subscribe(params => {
             this.worbbyOfferId = params['worbbyOfferId'];
             this.getWorbbyOffer(); // based on new parameter this time
         });
         
-        this.getWorbbyOffer();
+        //this.getWorbbyOffer();
     }
 
     ngOnDestroy():void{

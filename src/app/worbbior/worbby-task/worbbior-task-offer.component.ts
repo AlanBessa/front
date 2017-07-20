@@ -64,7 +64,7 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
         }
         this.ehReverso = window.screen.width > 768 ? false : true;
 
-        this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId'];
+        //this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId'];
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;      
 
         this._activatedRoute.params.subscribe(params => {
@@ -72,7 +72,7 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
             this.getWorbbyOffer(); // based on new parameter this time
         });     
                 
-        this.getWorbbyOffer();
+        //this.getWorbbyOffer();
     }
 
     ngOnDestroy(): void {
@@ -114,7 +114,7 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     getWorbbyOffer(): void {
         this._worbbyTaskService.getWorbbyOffer(this.worbbyOfferId).subscribe(result => {
             this.worbbyOffer = result;
-            this.worbbyOfferSide = this.worbbyOffer && this.worbbyOffer.userId == abp.session.userId ? "2" : "1";
+            this.worbbyOfferSide = this.worbbyOffer && this.worbbyOffer.userId == abp.session.userId ? "1" : "2";
             this.scheduleDateDisplay = result.worbbyTask.scheduledDate ? moment(result.worbbyTask.scheduledDate).format('L') : this.scheduleDateDisplay;
 
             this.getPictureByGuid(this.worbbyOffer.worbbyTask.worbbient.userPictureId).then((result) => {

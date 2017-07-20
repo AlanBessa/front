@@ -68,7 +68,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
         }
         this.ehReverso = window.screen.width > 768 ? false : true;
         
-        this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
+        //this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;     
 
         this._activatedRoute.params.subscribe(params => {
@@ -77,7 +77,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
         });   
 
         
-        this.getWorbbyTask();
+        //this.getWorbbyTask();
     }
 
     ngOnDestroy():void{
@@ -123,7 +123,7 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     getWorbbyTask():void{
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
-            this.worbbyOfferSide = this.worbbyTask.offerDto && this.worbbyTask.offerDto.userId == abp.session.userId ? "2" : "1";
+            this.worbbyOfferSide = this.worbbyTask.offerDto && this.worbbyTask.offerDto.userId == abp.session.userId ? "1" : "2";
             this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
             this.worbbientId = this.worbbyTask.userId;
             this.taskId = this.worbbyTask.id;

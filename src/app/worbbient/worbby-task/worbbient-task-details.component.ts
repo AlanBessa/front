@@ -68,7 +68,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         }
 
         this.ehReverso = window.screen.width > 768 ? false : true;
-        this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
+        //this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;
         this.logoWorbby = AppConsts.logoWorbby;
 
@@ -78,7 +78,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
             this.getWorbbyTask(); // based on new parameter this time
         });
 
-        this.getWorbbyTask();
+        //this.getWorbbyTask();
     }
 
     ngOnDestroy():void{

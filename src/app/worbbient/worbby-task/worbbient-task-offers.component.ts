@@ -40,14 +40,14 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
 
     ngOnInit(): void {
         this.registerToEvents();
-        this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
+        //this.worbbyTaskId = this._activatedRoute.snapshot.params['worbbyTaskId'];
 
         this._activatedRoute.params.subscribe(params => {
             this.worbbyTaskId = params['worbbyTaskId'];
             this.getWorbbyTaskWithOffers(this.worbbyTaskId); // based on new parameter this time
         });
 
-        this.getWorbbyTaskWithOffers(this.worbbyTaskId);
+        //this.getWorbbyTaskWithOffers(this.worbbyTaskId);
     }
 
     ngAfterViewInit(): void {

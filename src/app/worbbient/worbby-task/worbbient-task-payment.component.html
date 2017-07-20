@@ -114,8 +114,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <button type="submit" class="btn btn-around btn-prime btn-block m-t-xs" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" [disabled]="!form.valid">Enviar</button>
-                                            </div>
+                                                <button type="submit" class="btn btn-around btn-prime btn-block m-t-xs" [buttonBusy]="saving" [busyText]="l('SendWithThreeDot')" [disabled]="!form.valid || saving">
+                                                    <i *ngIf="saving" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                                    <span>{{l("Send")}}</span>
+                                                </button>
+                                            </div> 
                                         </div>  
                                     </form>
                                 </div>

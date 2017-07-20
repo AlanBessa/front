@@ -27,7 +27,7 @@ export class EmailActivationComponent extends AppComponentBase {
 
     save(): void {
         this.saving = true;
-        this._accountService.sendEmailActivationLink(this.model)
+        this._accountService.sendEmailActivationLink(this.model) 
             .finally(() => { this.saving = false; })
             .subscribe(() => {
                 this.message.success(this.l('ActivationMailSentMessage'), this.l('MailSent')).done(() => {

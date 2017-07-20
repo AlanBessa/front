@@ -11,6 +11,9 @@ import { UtilsService } from '@abp/utils/utils.service';
 export class AppPreBootstrap {
 
     static run(callback: () => void): void {
+        // TODO: Retirar este código quando houver mais linguas disponiveis, pois pode ocorrer de a lingua ser definida pelo navegador
+        abp.utils.setCookieValue("Abp.Localization.CultureName", 'pt-BR');
+
         AppPreBootstrap.getApplicationConfig(() => {
             const queryStringObj = UrlHelper.getQueryParameters();
 

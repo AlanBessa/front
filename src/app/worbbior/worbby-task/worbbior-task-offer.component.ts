@@ -3,12 +3,12 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { UserLoginInfoDto, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, WorbbyTaskMessageDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WorbbyTaskStatus, TimeEnum, ScheduleDateType, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
+import { WorbbyTaskStatus, TimeEnum, ScheduleDateType,CancellationPolicy, UnitMeasure, WorbbyTaskMessageSide, WorbbyTaskMessageReadState } from '@shared/AppEnums';
 import { AppConsts } from '@shared/AppConsts';
 import { MessageSignalrService } from '@app/shared/common/message/message-signalr.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { Observable } from 'rxjs/Rx';
-import * as _ from 'lodash'; 
+import * as _ from 'lodash';
 import * as moment from "moment";
 
 @Component({
@@ -17,13 +17,13 @@ import * as moment from "moment";
 })
 export class WorbbiorTaskOfferComponent extends AppComponentBase implements AfterViewInit {
 
-    public active:boolean = false;
-    public sending:boolean = false;
+    public active: boolean = false;
+    public sending: boolean = false;
     public isOpenedInfo: boolean = false;
     public scheduleDateDisplay: string;
-    public worbbyOfferId:number;
-    public worbbyOffer:WorbbyOfferDto;
-    public worbbyTaskMessages:WorbbyTaskMessageDto[] = [];
+    public worbbyOfferId: number;
+    public worbbyOffer: WorbbyOfferDto;
+    public worbbyTaskMessages: WorbbyTaskMessageDto[] = [];
 
     public WorbbyTaskMessageSide: typeof WorbbyTaskMessageSide = WorbbyTaskMessageSide;
     public WorbbyTaskMessageReadState: typeof WorbbyTaskMessageReadState = WorbbyTaskMessageReadState;
@@ -32,12 +32,14 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     public AppConsts: typeof AppConsts = AppConsts;
     public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
     public TimeEnum: typeof TimeEnum = TimeEnum;
-    public worbbyTaskMessage:string;
+    public worbbyTaskMessage: string;
     public worbbiorPremium: boolean;
     public ehReverso: boolean = false;
     public currentLength: number = 0;
-    public worbbyTaskMessageId:number;
-    public showButtonMore:boolean = false;
+    public worbbyTaskMessageId: number;
+    public showButtonMore: boolean = false;
+    public worbbyOfferSide: string = '1';
+    public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
 
     //private messagesTimer:any;
     //private subscriptionMessagesTimer: any;
@@ -53,20 +55,20 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     }
 
     ngOnInit(): void {
-        if(window.screen.width < 480) {
+        if (window.screen.width < 480) {
             $('.footer').hide();
             $('.container-fluid.bg-Solititude').addClass('p-b-lg');
         }
         this.ehReverso = window.screen.width > 768 ? false : true;
 
         this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId'];
-        this.worbbiorPremium = this._appSessionService.worbbiorPremium;        
+        this.worbbiorPremium = this._appSessionService.worbbiorPremium;
     }
 
-    ngOnDestroy():void{
+    ngOnDestroy(): void {
         //console.log("ngOnDestroy");
         //this.subscriptionMessagesTimer.unsubscribe();
-        if(window.screen.width < 480) {
+        if (window.screen.width < 480) {
             $('.footer').show();
             $('.container-fluid.bg-Solititude').removeClass('p-b-lg');
         }
@@ -83,10 +85,10 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
         // });         
     }
 
-    getWorbbyOffer():void{
+    getWorbbyOffer(): void {
         this._worbbyTaskService.getWorbbyOffer(this.worbbyOfferId).subscribe(result => {
             this.worbbyOffer = result;
-
+            this.worbbyOfferSide = this.worbbyOffer && this.worbbyOffer.userId == abp.session.userId ? "2" : "1";
             this.scheduleDateDisplay = result.worbbyTask.scheduledDate ? moment(result.worbbyTask.scheduledDate).format('L') : this.scheduleDateDisplay;
 
             this.getPictureByGuid(this.worbbyOffer.worbbyTask.worbbient.userPictureId).then((result) => {
@@ -96,16 +98,16 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
             this.getPictureByGuid(this.worbbyOffer.worbbior.userPictureId).then((result) => {
                 this.worbbyOffer.worbbior.userPicture = result ? result : AppConsts.defaultProfilePicture;;
             });
-            
+
             this.active = true;
             this.getWorbbyTaskMessages();
         });
     }
 
-    getWorbbyTaskMessages(isMore:boolean = false):void{
+    getWorbbyTaskMessages(isMore: boolean = false): void {
         this._worbbyTaskService.getWorbbyTaskMessagesByOfferId(this.worbbyOfferId, this.currentLength, isMore, this.worbbyTaskMessageId).subscribe(result => {
-            if(isMore) {
-                this.worbbyTaskMessages = this.worbbyTaskMessages.concat(result.worbbyTaskMessages.items);                
+            if (isMore) {
+                this.worbbyTaskMessages = this.worbbyTaskMessages.concat(result.worbbyTaskMessages.items);
             }
             else {
                 this.worbbyTaskMessages = result.worbbyTaskMessages.items.concat(this.worbbyTaskMessages);
@@ -113,9 +115,9 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
 
             this.showButtonMore = result.worbbyTaskMessages.totalCount != this.worbbyTaskMessages.length;
 
-            this.worbbyTaskMessageId = this.worbbyTaskMessages.length > 0 ? this.worbbyTaskMessages[0].id : undefined; 
+            this.worbbyTaskMessageId = this.worbbyTaskMessages.length > 0 ? this.worbbyTaskMessages[0].id : undefined;
 
-            this.currentLength = this.worbbyTaskMessages.length;    
+            this.currentLength = this.worbbyTaskMessages.length;
 
             this.worbbyTaskMessages.forEach(element => {
                 element.side = (element.userId == abp.session.userId) ? Number(WorbbyTaskMessageSide.Sender) : Number(WorbbyTaskMessageSide.Receiver);
@@ -124,15 +126,15 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
                 });
             });
 
-            if(this.ehReverso) {
+            if (this.ehReverso) {
                 this.goTo('goToDown');
-            }  
+            }
         });
     }
 
-    sendMessage():void {
+    sendMessage(): void {
         var msg = this.worbbyTaskMessage.replace("\n", "");
-        if(!this.isNullOrEmpty(msg.trim())){
+        if (!this.isNullOrEmpty(msg.trim())) {
             this.sending = true;
             var worbbyMessage = new WorbbyTaskMessageDto();
             worbbyMessage.userId = abp.session.userId;
@@ -144,24 +146,24 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
             worbbyMessage.side = Number(WorbbyTaskMessageSide.Sender);
 
             this._worbbyTaskService.sendWorbbyTaskMassage(worbbyMessage).finally(() => {
-                this.sending = false;                   
+                this.sending = false;
             })
-            .subscribe(() => {
-                this.getWorbbyTaskMessages();
-                this.worbbyTaskMessage = "";
-            });
-        }else{
+                .subscribe(() => {
+                    this.getWorbbyTaskMessages();
+                    this.worbbyTaskMessage = "";
+                });
+        } else {
             this.worbbyTaskMessage = "";
         }
     }
 
     onKeyUp(event: any): void {
         if (event.keyCode == 13 && !event.shiftKey) {
-            this.sendMessage();            
+            this.sendMessage();
         }
     }
 
-    openDetails(opened:boolean): void {
+    openDetails(opened: boolean): void {
         this.isOpenedInfo = !opened;
     }
 
@@ -195,27 +197,27 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
         });
     }
 
-    loadingMore():void{
+    loadingMore(): void {
         this.getWorbbyTaskMessages(true);
     }
 
-    get worbbyTaskStatusString ():string {
+    get worbbyTaskStatusString(): string {
         var statusString = "";
-        if(this.isOfferAcceptedByWorbbient){
+        if (this.isOfferAcceptedByWorbbient) {
             statusString = "Aguardando sua confirmação";
-        }else if(this.isOfferConfirmedByWorbbior){
+        } else if (this.isOfferConfirmedByWorbbior) {
             statusString = "Aguardando contratação pelo Worbbient";
-        }else if(this.isWorbbyTaskProposed){
+        } else if (this.isWorbbyTaskProposed) {
             statusString = "Aguardando o seu aceite";
-        }else if(this.isWorbbyTaskProposedAccepted){
+        } else if (this.isWorbbyTaskProposedAccepted) {
             statusString = "Aguardando contratação pelo Worbbient";
-        }else if(this.isPendingOffer){
+        } else if (this.isPendingOffer) {
             statusString = "Aguardando Worbbient selecionar uma oferta";
-        }else if(this.isWorbbyTaskHired){
+        } else if (this.isWorbbyTaskHired) {
             statusString = "Tarefa em progresso";
-        }else if(this.isWorbbyTaskDelivered){
+        } else if (this.isWorbbyTaskDelivered) {
             statusString = "Tarefa entregue, aguardando liberação do pagamento";
-        }else if(this.isWorbbyTaskStart){
+        } else if (this.isWorbbyTaskStart) {
             statusString = "Tarefa iniciada";
         }
 

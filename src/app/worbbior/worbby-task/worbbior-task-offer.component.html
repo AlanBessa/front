@@ -43,7 +43,7 @@
                                 <div class="col-xs-12 divider">
                                     <div class="display-table">
                                         <div class="display-cell">
-                                            <p class="small cor-Botticelli text-right">Data</p>
+                                            <p class="small cor-Botticelli text-right">Data de entrega</p>
                                         </div>
                                         <div class="display-cell">
                                             <p class="inline">{{worbbyOffer.worbbyTask.scheduleDateType == ScheduleDateType.WhenPossible && !worbbyOffer.worbbyTask.scheduledDate ? "Quando possível" : scheduleDateDisplay}}</p>
@@ -77,9 +77,9 @@
                                         </div>
                                         <p class="inline">
                                             <span 
-                                            *ngIf="worbbyTask.status == WorbbyTaskStatus.Delivered || 
-                                            worbbyTask.status == WorbbyTaskStatus.Hired || 
-                                            worbbyTask.status == WorbbyTaskStatus.Paid">
+                                            *ngIf="worbbyOffer.worbbyTask.status == WorbbyTaskStatus.Delivered || 
+                                            worbbyOffer.worbbyTask.status == WorbbyTaskStatus.Hired || 
+                                            worbbyOffer.worbbyTask.status == WorbbyTaskStatus.Paid">
                                                 {{worbbyOffer.worbbyTask.address.thoroughfare}}, {{worbbyOffer.worbbyTask.address.thoroughfareNumber}} {{worbbyOffer.worbbyTask.address.premise}} - 
                                             </span>
                                             {{worbbyOffer.worbbyTask.address.subLocality}} - {{worbbyOffer.worbbyTask.address.locality}} - {{worbbyOffer.worbbyTask.address.administrativeArea}}
@@ -174,6 +174,29 @@
                         <div class="box-chat m-b-xss"> 
                             <!-- Mobile Version -->
                             <button *ngIf="showButtonMore" type="button" class="btn btn-secondary btn-block m-b-20px visible-xs" (click)="loadingMore()">Carregar mais...</button>                            
+                            <div class="clearfix m-b-xss visible-xs" [ngClass]="{'chat-baloon-right': worbbyOfferSide == 1, 'chat-baloon-left': worbbyOfferSide == 2}">                                
+                                <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyOfferSide == 2}">
+                                    <div class="divProfile divProfile-small">
+                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyOffer.worbbyTask.worbbient.userPicture" [ngClass]="{'img-profile-blue': worbbyOfferSide == 2, 'img-profile': worbbyOfferSide == 1}">
+                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10 col-xs-9" [ngClass]="{'col-xs-pull-3 col-sm-pull-2': worbbyOfferSide == 2}">
+                                    <div class="col-sm-offset-0 no-pad-left-lg">
+                                        <div class="card-chat" [ngClass]="{'arrow-right': worbbyOfferSide == 2, 'arrow-left': worbbyOfferSide == 1}">
+                                            <div class="arrow-chat"></div>
+                                            <div class="card-chat-content cor-Cinder">
+                                                <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyOfferSide == 1, 'cor-Sunglow': worbbyOfferSide == 2}">
+                                                   {{worbbyOffer.description}} - {{worbbyOffer.creationTime | date: 'dd/MM/yyyy'}}
+                                                </div>
+                                                Política de cancelamento:  {{l(CancellationPolicy[worbbyOffer.cancellationPolicy])}} <br /> <br />
+                                                <span *ngIf="worbbyOffer.scheduledDate">Data de entrega: {{worbbyOffer.scheduledDate | date: 'dd/MM/yyyy'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </div>                                
+                            </div>
+
                             <div class="clearfix m-b-xss visible-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages | reverse">                                
                                 <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyTaskMessage.side == 2}">
                                     <div class="divProfile divProfile-small">
@@ -189,13 +212,36 @@
                                                 <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 1, 'cor-Sunglow': worbbyTaskMessage.side == 2}">
                                                     {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'L HH:mm:ss'}}
                                                 </div>
-                                                {{worbbyTaskMessage.message}}
+                                               Política de cancelamento:  {{l(CancellationPolicy[worbbyOffer.cancellationPolicy])}} <br /> <br />
+                                                <span *ngIf="worbbyOffer.scheduledDate">Data de entrega: {{worbbyOffer.scheduledDate | date: 'dd/MM/yyyy'}}</span>
                                             </div>
                                         </div>
                                     </div>	
                                 </div>                                
                             </div>
                             <!-- Desktop Version -->
+                           <div class="clearfix m-b-xss hidden-xs" *ngIf="worbbyOffer"  [ngClass]="{'chat-baloon-right': worbbyOfferSide == 1, 'chat-baloon-left': worbbyOfferSide == 2}">                                
+                                <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyOfferSide == 2}">
+                                    <div class="divProfile divProfile-small">
+                                        <img alt="Photo Profile" class="img-responsive img-circle pro" [src]="worbbyOffer.worbbyTask.worbbient.userPicture" [ngClass]="{'img-profile-blue': worbbyOfferSide == 2, 'img-profile': worbbyOfferSide == 1}">
+                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10 col-xs-9" [ngClass]="{'col-xs-pull-3 col-sm-pull-2': worbbyOfferSide == 2}">
+                                    <div class="col-sm-offset-0 no-pad-left-lg">
+                                        <div class="card-chat" [ngClass]="{'arrow-right': worbbyOfferSide == 2, 'arrow-left': worbbyOfferSide == 1}">
+                                            <div class="arrow-chat"></div>
+                                            <div class="card-chat-content cor-Cinder">
+                                                <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyOfferSide == 1, 'cor-Sunglow': worbbyOfferSide == 2}">
+                                                    {{worbbyOffer.description}} - {{worbbyOffer.creationTime | date: 'dd/MM/yyyy'}}
+                                                </div>
+                                                Política de cancelamento:  {{l(CancellationPolicy[worbbyOffer.cancellationPolicy])}} <br /> <br />
+                                                <span *ngIf="worbbyOffer.scheduledDate">Data de entrega: {{worbbyOffer.scheduledDate | date: 'dd/MM/yyyy'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </div>                                
+                            </div>
                             <div class="clearfix m-b-xss hidden-xs" [ngClass]="{'chat-baloon-right': worbbyTaskMessage.side == 1, 'chat-baloon-left': worbbyTaskMessage.side == 2}" *ngFor="let worbbyTaskMessage of worbbyTaskMessages">                                
                                 <div class="col-sm-2 col-xs-3" [ngClass]="{'col-xs-push-9 col-sm-push-10': worbbyTaskMessage.side == 2}">
                                     <div class="divProfile divProfile-small">

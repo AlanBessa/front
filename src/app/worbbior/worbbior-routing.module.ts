@@ -10,7 +10,6 @@ import { TasksHistoryWorbbiorComponent } from './tasks-history/tasks-history.com
 import { SelectActivityComponent } from './edit-profile/select-activity.component';
 import { ComingSoonComponent } from '@app/public/coming-soon/coming-soon.component';
 import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.component';
-import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
 import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-details.component';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";

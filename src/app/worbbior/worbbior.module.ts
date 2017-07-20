@@ -22,7 +22,6 @@ import { PaymentsHistoryWorbbiorComponent } from './payments-history/payments-hi
 import { TasksHistoryWorbbiorComponent } from './tasks-history/tasks-history.component';
 import { TalentQuestionnaireComponent } from './edit-profile/talent-questionnaire.component';
 import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.component';
-import { WorbbiorTaskOffersComponent } from './worbby-task/worbbior-task-offers.component';
 import { WorbbiorTaskDetailsComponent } from './worbby-task/worbbior-task-details.component';
 import { MomentModule } from "angular2-moment";
 import { TextMaskModule } from 'angular2-text-mask';
@@ -76,7 +75,6 @@ import { LoginService } from "app/account/login/login.service";
         SelectActivityComponent,
         TalentQuestionnaireComponent,
         WorbbiorTaskOfferComponent,
-        WorbbiorTaskOffersComponent,
         WorbbiorTaskDetailsComponent,
         InfoTutorialCadastroModalComponent,
         CreateOrEditUserActivityModalComponent,

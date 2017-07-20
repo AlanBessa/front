@@ -84,6 +84,7 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
     ]);
 
     ngOnInit() {
+        this.registerToEvents();
         this.usuarioLogado = abp.session.userId;
         this.currentRoleName = this._appSessionService.userRoleName;
         this.switchRole = this.permission.isGranted("Pages.Worbbior.SwitchToWorbbientProfile");
@@ -103,6 +104,18 @@ export class MyWorbbyWorbbientComponent extends AppComponentBase implements Afte
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+    }
+
+    registerToEvents() {
+        abp.event.on('abp.notifications.received', userNotification => {
+            console.log(userNotification);
+            this.getPublicWorbbyTasks();
+            this.getProposedWorbbyTasks();
+            this.getWorbbyTasksProposedAccepted();
+            this.getGetWorbbyTasksInProgress();
+            this.getWorbbyTasksOffersAcceptedByWorbbient();
+            this.getWorbbyTasksOffersConfirmedByWorbbior();
+        });
     }
 
     getProfilePicture(): void {

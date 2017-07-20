@@ -53,18 +53,25 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
     }
 
     ngOnInit(): void {
+        this.registerToEvents();
+        this.registerEvents();
         if(window.screen.width < 480) {
             $('.footer').hide();
             $('.container-fluid.bg-Solititude').addClass('p-b-lg');
         }
         this.ehReverso = window.screen.width > 768 ? false : true;
 
-        this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId']; 
+        //this.worbbyOfferId = this._activatedRoute.snapshot.params['worbbyOfferId']; 
+
+        this._activatedRoute.params.subscribe(params => {
+            this.worbbyOfferId = params['worbbyOfferId'];
+            this.getWorbbyOffer(); // based on new parameter this time
+        });
+        
+        //this.getWorbbyOffer();
     }
 
     ngOnDestroy():void{
-        // console.log("ngOnDestroy");
-        // this.subscriptionMessagesTimer.unsubscribe();
         if(window.screen.width < 480) {
             $('.footer').show();
             $('.container-fluid.bg-Solititude').removeClass('p-b-lg');
@@ -72,14 +79,31 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
     }
 
     ngAfterViewInit(): void {
-        this.registerEvents();
-        this.getWorbbyOffer();
-        //this.getWorbbyTaskMessages();     
-        // this.messagesTimer = Observable.timer(2000,30000);
-        // this.subscriptionMessagesTimer = this.messagesTimer
-        // .subscribe(() => {
-        //     this.getWorbbyTaskMessages();
-        // });   
+        $("body").scrollTop(0);
+    }
+
+    registerToEvents() {
+        abp.event.on('abp.notifications.received', userNotification => {
+            console.log(userNotification);
+            this.updateWorbbyOffer();
+        });
+    }
+
+
+    updateWorbbyOffer():void{
+        this._worbbyTaskService.getWorbbyOffer(this.worbbyOfferId).subscribe(result => {
+            this.worbbyOffer = result;
+
+            this.scheduleDateDisplay = result.worbbyTask.scheduledDate ? moment(result.worbbyTask.scheduledDate).format('L') : this.scheduleDateDisplay;
+
+            this.getPictureByGuid(this.worbbyOffer.worbbyTask.worbbient.userPictureId).then((result) => {
+                this.worbbyOffer.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;
+            });
+
+            this.getPictureByGuid(this.worbbyOffer.worbbior.userPictureId).then((result) => {
+                this.worbbyOffer.worbbior.userPicture = result ? result : AppConsts.defaultProfilePicture;;
+            });
+        });
     }
 
     getWorbbyOffer():void{

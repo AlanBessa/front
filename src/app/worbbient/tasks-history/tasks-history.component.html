@@ -114,11 +114,11 @@
                                                         <div class="col-xs-6 text-right">
                                                             <div class="row">
                                                                 <div class="col-xs-12 col-md-6 no-p-l">
-                                                                    <p class="small profileName cor-Botticelli" *ngIf="status != 'Cancelado' && worbbyTask.deliveredDate != null">
-                                                                        {{worbbyTask.deliveredDate.format("L")}}
+                                                                    <p class="small profileName cor-Botticelli" *ngIf="worbbyTask.status ==  WorbbyTaskStatus.Paid">
+                                                                        {{worbbyTask.paymentDate| date: 'dd/MM/yyyy'}}
                                                                     </p>
-                                                                    <p class="small profileName cor-Botticelli" *ngIf="status == 'Cancelado' && worbbyTask.canceledDate != null">
-                                                                        {{worbbyTask.canceledDate.format("L")}}
+                                                                    <p class="small profileName cor-Botticelli" *ngIf="worbbyTask.status ==  WorbbyTaskStatus.Canceled">
+                                                                         {{worbbyTask.canceledDate | date: 'dd/MM/yyyy'}}
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-xs-12 col-md-6 no-p-l">

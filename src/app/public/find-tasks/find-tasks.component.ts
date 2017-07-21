@@ -125,7 +125,7 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
         this.getWorbbyTasks();
     }
 
-    getWorbbyTasks(): void {
+    getWorbbyTasks(): void { 
         
         this.findWorbbyTaskInput.page = this.page;
         this.checkFiltersActive();

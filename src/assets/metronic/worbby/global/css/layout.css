@@ -2448,14 +2448,11 @@ body {
 }
 
 .sidebar-notifications-list ul a > span {
-    text-decoration: underline;
-}
-
-.sidebar-notifications-list ul a:hover > span {
     text-decoration: none;
 }
 
-.sidebar-notifications-empty {
+.sidebar-notifications-list ul a:hover > span {
+    text-decoration: underline;
 }
 
 .sidebar-notifications-header {

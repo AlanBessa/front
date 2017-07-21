@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 p-l-md p-l-xss-sm">
                         <div class="input-group stylish-input-group">
-                            <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="filter" (keyup)="onKeyUp($event)" (blur)="getTalentsByFilter()"  placeholder="O que você precisa?">
+                            <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="filter" (keyup)="onKeyUp($event)" (blur)="getTalentOnBlur()"  placeholder="O que você precisa?">
                             <span class="input-group-addon">
                                 <button class="close-nav" type="button" (click)="findByTerm()">
                                     <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -642,7 +642,7 @@
                                                 </div>
                                             </div>
                                             <div class="input-group stylish-input-group">
-                                                <input type="text" class="form-control" name="Address" [(ngModel)]="address" (keyup)="onKeyUp($event)" (blur)="getTalentsByFilter()" placeholder="Localização...">
+                                                <input type="text" class="form-control" name="Address" [(ngModel)]="address" (keyup)="onKeyUp($event)" (blur)="getTalentOnBlur()" placeholder="Localização...">
                                                 <span class="input-group-addon">
                                                     <button type="button" (click)="getTalentsByFilter()">
                                                         <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

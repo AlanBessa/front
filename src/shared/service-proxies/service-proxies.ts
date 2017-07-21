@@ -2426,6 +2426,56 @@ export class BalanceTransferServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    getBalanceAvailableByUserId(id: number): Observable<BalanceAvailableOutput> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceAvailableByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBalanceAvailableByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBalanceAvailableByUserId(response_);
+                } catch (e) {
+                    return <Observable<BalanceAvailableOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<BalanceAvailableOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBalanceAvailableByUserId(response: Response): Observable<BalanceAvailableOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: BalanceAvailableOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? BalanceAvailableOutput.fromJS(resultData200) : new BalanceAvailableOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<BalanceAvailableOutput>(<any>null);
+    }
 }
 
 @Injectable()
@@ -3144,6 +3194,54 @@ export class CieloServiceProxy {
     }
 
     protected processCancelWorbbyTaskAndCapturePaymentTransaction(response: Response): Observable<CieloCaptureSaleOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CieloCaptureSaleOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CieloCaptureSaleOutput.fromJS(resultData200) : new CieloCaptureSaleOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CieloCaptureSaleOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    cancelWorbbyTaskPaymentTransaction(worbbyTaskId: number): Observable<CieloCaptureSaleOutput> {
+        let url_ = this.baseUrl + "/api/Cielo/CancelWorbbyTaskPaymentTransaction";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskId);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCancelWorbbyTaskPaymentTransaction(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCancelWorbbyTaskPaymentTransaction(response_);
+                } catch (e) {
+                    return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCancelWorbbyTaskPaymentTransaction(response: Response): Observable<CieloCaptureSaleOutput> {
         const status = response.status; 
 
         if (status === 200) {
@@ -16720,6 +16818,41 @@ export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
 
 export interface IEntityDtoOfInt64 {
     id: number;
+}
+
+export class BalanceAvailableOutput implements IBalanceAvailableOutput {
+    amount: number;
+
+    constructor(data?: IBalanceAvailableOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.amount = data["amount"];
+        }
+    }
+
+    static fromJS(data: any): BalanceAvailableOutput {
+        let result = new BalanceAvailableOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["amount"] = this.amount;
+        return data; 
+    }
+}
+
+export interface IBalanceAvailableOutput {
+    amount: number;
 }
 
 export class CreateBankAccountInput implements ICreateBankAccountInput {

@@ -81,7 +81,9 @@
                     <!-- menu perfil : Fim -->
                     <!-- Conteudo perfil : inicio -->
                     <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
-                        <div class="well well-lg bg-White">
+                        <div *ngIf="balanceAvailable" class="well well-lg bg-White">
+                            <button type="button" (click)="requestBalanceAvailable()">Solicitar Transferencia</button>
+                            {{balanceAvailable}}
                             Nenhum dado disponível no momento.
                         </div>
                     </div>

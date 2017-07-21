@@ -116,7 +116,7 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
         this.getInterestCentersChidren(this.currentInterestCenterTopLevel);
     }
 
-    private getWorbbyTasksByFilter(): void {
+    public getWorbbyTasksByFilter(): void {
         this.carregado = false;
         this.checkFiltersActive();
         this.worbbyTasks = [];

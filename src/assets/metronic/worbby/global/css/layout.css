@@ -4311,6 +4311,10 @@ recaptcha {
             color: #1E2225;
         }
 
+        .profile-menu-mobile .img-profile {
+            width: 40px;
+        }
+
         /*USER MENU*/
         .user-menu {
             text-align: left;
@@ -4347,7 +4351,7 @@ recaptcha {
 
         /*search-box*/
         .search-box {
-            margin: 18% 15px 6%;
+            margin: 8% 15px 6%;
         }
 
         /* BOX */

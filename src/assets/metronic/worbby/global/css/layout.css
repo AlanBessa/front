@@ -150,6 +150,8 @@
 
 .m-y-10px{margin-top: 10px; margin-bottom: 10px;}
 
+.m-y-5px{margin-top: 5px; margin-bottom: 5px;}
+
 .m-xxs{margin: 5px;}
 
 /*NO MARGIN*/
@@ -196,6 +198,8 @@
 
 .p-xss{padding: 20px !important;}
 .p-xxs{padding: 10px !important;}
+
+.p-15px{padding: 15px !important;}
 
 
 /*NO PADDING*/
@@ -4267,33 +4271,44 @@ recaptcha {
         }
 
         .header .navbar-collapse {
-            padding-top: 0;
+            padding: 0;
+            margin: 0;
             position: fixed;
             top: 0;
-            width: 100%;
+            right: -320px;
+            width: 320px;
             max-height: initial;
             z-index: 99999;
+            -webkit-transition: right 0.5s ease-out 0.1s;
+            transition: right 0.5s ease-out 0.1s;
         }
 
         /*menu aberto*/
         /*LOGOTIPO NO MENU ABERTO*/
-        .header-menu-aberto {
-            margin-top: 20px;
+        .close {
+            padding: 5px !important;
         }
 
-        .header-menu-aberto .site-logo img {
-            margin: 1px 0 0 -10px;
-            left: 0;
-            float: left;
+        .header .navbar-collapse.open {
+            right: 0;
         }
 
-        .header-menu-aberto .close {
-            background-image: url(/assets/metronic/worbby/global/img/icon-close-white.svg) !important;
-            width: 15px;
-            height: 15px;
-            background-size: 15px;
-            opacity: 1;
-            margin-right: -10px;
+        .menu-mobile {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #FFB247;
+        }
+
+        .menu-mobile li {
+            border-top: 1px solid #FFB247;
+        }
+
+        .menu-mobile li a {
+            display: block;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            color: #1E2225;
         }
 
         /*USER MENU*/
@@ -4320,10 +4335,7 @@ recaptcha {
             margin: 0 25px 0 auto !important;
         }
 
-        /*Login menu aberto*/
-        .additional-nav {
-        }
-         
+        /*Login menu aberto*/         
         .collapse.in .user-menu li a, .collapsing .user-menu li a {
             opacity: 1;
             color: #FFF;
@@ -4347,6 +4359,7 @@ recaptcha {
         /* conteiner criado para solucionar bug em animação do menu responsivo do bootstrap*/
         .header .navbar-collapse-container {
             height: 100vh;
+            border-left: 1px solid #FFB247;
             overflow: auto;
         }
 

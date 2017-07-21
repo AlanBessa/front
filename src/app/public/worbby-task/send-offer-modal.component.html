@@ -24,14 +24,14 @@
                     <p class="small">{{description.value.length}} / 450 caracteres usados.</p>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12" [ngClass]="{'col-sm-6' : worbbyTask?.scheduleDateType == 1}">
                   <div class="form-group no-hint">
                     <label>
                       Política de cancelamento
                       <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
                       <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
                     </label>
-                    <p class="small">O worbbient deixou em aberto a data da tarefa. Você precisa selecionar.</p>
+                    <p class="small">Selecione a política de cancelamento que você quer adotar para esta tarefa.</p>
                     <div *ngIf="cancellationPolicyOptions.length" class="dropdown">
                       <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
                         data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -48,10 +48,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-6">
-                  <div class="form-group no-hint">    
+                <div class="col-xs-12" [ngClass]="{'col-sm-6' : worbbyTask?.scheduleDateType == 1}">
+                  <div class="form-group no-hint" *ngIf="worbbyTask?.scheduleDateType == 1">    
                     <label>Selecione uma data</label>     
-                    <p class="small">O worbbient deixou em aberto a data da tarefa. Você precisa selecionar.</p>                           
+                    <p class="small">O worbbient deixou em aberto a data de entrega da tarefa. Você precisa determiná-la.</p>                           
                       <div class="col-xs-12 no-pad-x">
                           <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : showDataPicker}" (click)="scheduleDateFixeClick()">
                               <i class="fa fa-calendar-o"></i>

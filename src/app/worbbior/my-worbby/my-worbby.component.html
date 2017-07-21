@@ -102,21 +102,25 @@
                                                     <div class="card-simple">
                                                         <div class="row">
                                                             <div  class="card-talents w-100">
-                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                    <div class="divProfile">
-                                                                        <!--<span class="profile-online"></span>-->
-                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
-                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                <div class="col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                            <div class="divProfile">
+                                                                                <!--<span class="profile-online"></span>-->
+                                                                                <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                            <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                            <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                        </div>
+                                                                        <div class="col-xs-2 col-md-2 text-right">
+                                                                            <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-xs-7 col-md-8 card-simple-info">
-                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
-                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
-                                                                </div>
-                                                                <div class="col-xs-2 col-md-2 text-right">
-                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
-                                                                </div>
-                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                </div>                                                                
+                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
                                                                         <div class="col-xs-12">
                                                                             <table class="w-100">
@@ -156,49 +160,25 @@
                                                     <div class="card-simple">
                                                         <div class="row">
                                                             <div class="card-talents w-100">
-                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                    <div class="divProfile">
-                                                                        <!--<span class="profile-online"></span>-->
-                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
-                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                <div class="col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                            <div class="divProfile">
+                                                                                <!--<span class="profile-online"></span>-->
+                                                                                <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                            <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                            <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                        </div>
+                                                                        <div class="col-xs-2 col-md-2">
+                                                                            <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>                                                                    
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-7 col-md-8 card-simple-info">
-                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
-                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
-                                                                </div>
-                                                                <div class="col-xs-2 col-md-2">
-                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
-                                                                    <!--<div class="card-actions">
-                                                                        <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
-                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
-                                                                        </a>              
-                                                                        <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                                            <i class="fa fa-cog"></i>
-                                                                        </a> 
-                                                                        <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
-                                                                            <li class="arrow-up"></li>
-                                                                            <li>
-                                                                                <a (click)="viewWorbbyTask(worbbyTask)">
-                                                                                    Visualizar
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a (click)="acceptWorbbyTaskProposed(worbbyTask)">
-                                                                                    <i class="fa fa-check-square-o cor-CaribbeanGreen"></i>
-                                                                                    Aceitar                            
-                                                                                </a> 
-                                                                            </li>
-                                                                            <li>
-                                                                                <a (click)="refusedWorbbyTaskProposed(worbbyTask)">
-                                                                                    <i class="fa fa-trash cor-Flamingo"></i>
-                                                                                    Recusar                            
-                                                                                </a> 
-                                                                            </li>
-                                                                        </ul>                        
-                                                                    </div>-->
-                                                                </div>
-                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
                                                                         <div class="col-xs-12">
                                                                             <table class="w-100">
@@ -223,15 +203,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
-                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>
-                                                                <!--<div class="row">
-                                                                    <div class="col-xs-6">
-                                                                        <button type="button" class="btn btn-prime btn-block txt-small-only-mobile" (click)="acceptWorbbyTaskProposed(worbbyTask)">Aceitar</button>                                                                        
-                                                                    </div>
-                                                                    <div class="col-xs-6">
-                                                                        <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile" (click)="refusedWorbbyTaskProposed(worbbyTask)">Recusar</button>
-                                                                    </div>
-                                                                </div>-->
+                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask"></worbbiorWorbbyTaskActions>                                                              
                                                             </div>
                                                         </div>
                                                     </div>
@@ -248,21 +220,24 @@
                                                     <!-- card -->
                                                     <div class="card-simple">
                                                         <div class="row">
-                                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                <div class="divProfile">
-                                                                    <!--<span class="profile-online"></span>-->
-                                                                    <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
-                                                                    <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                            <div class="col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                        <div class="divProfile">
+                                                                            <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                            <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                        <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                        <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                    </div>
+                                                                    <div class="col-xs-2 col-md-2 text-right">
+                                                                        <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xs-7 col-md-8 card-simple-info">
-                                                                <p class="no-m-y">"{{worbbyTask.title}}"</p>
-                                                                <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
-                                                            </div>
-                                                            <div class="col-xs-2 col-md-2 text-right">
-                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                 <div class="row">
                                                                     <div class="col-xs-12">
                                                                         <table class="w-100">
@@ -298,43 +273,25 @@
                                                     <div class="card-simple">
                                                         <div class="row">
                                                             <div class="card-talents w-100">
-                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                    <div class="divProfile">
-                                                                        <!--<span class="profile-online"></span>-->
-                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
-                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                <div class="col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                            <div class="divProfile">
+                                                                                <!--<span class="profile-online"></span>-->
+                                                                                <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture ? worbbyTask.worbbient.userPicture : worbbientDefaultPicure" />
+                                                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                            <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                            <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
+                                                                        </div>
+                                                                        <div class="col-xs-2 col-md-2">
+                                                                            <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>                                                                    
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-7 col-md-8 card-simple-info">
-                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
-                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbient.name}} {{worbbyTask.worbbient.surname}}</p>
-                                                                </div>
-                                                                <div class="col-xs-2 col-md-2">
-                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
-                                                                    <!--<div class="card-actions">
-                                                                        <a class="btn-cog" (click)="viewWorbbyTask(worbbyTask)">
-                                                                            <img src="assets/metronic/worbby/global/img/icon-chat-blue.svg" />
-                                                                        </a>
-                                                                        <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                                            <i class="fa fa-cog"></i>
-                                                                        </a> 
-                                                                        <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
-                                                                            <li class="arrow-up"></li>
-                                                                            <li>
-                                                                                <a (click)="viewWorbbyTask(worbbyTask)">
-                                                                                    Visualizar
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a (click)="refusedOfferAccepted(worbbyTask)">
-                                                                                    <i class="fa fa-trash cor-Flamingo"></i>
-                                                                                    Recusar                            
-                                                                                </a> 
-                                                                            </li>
-                                                                        </ul>                    
-                                                                    </div>-->
-                                                                </div>
-                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
                                                                         <div class="col-xs-12">
                                                                             <table class="w-100">
@@ -370,22 +327,25 @@
                                                     <!-- card -->
                                                     <div class="card-simple">
                                                         <div class="row">
-                                                            <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                <div class="divProfile">
-                                                                    <!--<span class="profile-online"></span>-->
-                                                                    <img alt="Photo Profile" class="img-responsive w-70" [src]="worbbyOffer.worbbyTask.interestCenter.parentPicture" />
-                                                                  <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                            <div class="col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                        <div class="divProfile">
+                                                                            <!--<span class="profile-online"></span>-->
+                                                                            <img alt="Photo Profile" class="img-responsive w-70" [src]="worbbyOffer.worbbyTask.interestCenter.parentPicture" />
+                                                                        <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                        <p class="no-m-y">"{{worbbyOffer.worbbyTask.title}}"</p>
+                                                                        <p class="small profileName cor-Botticelli">{{worbbyOffer.worbbior.displayName}}</p>                                                            
+                                                                    </div>
+                                                                    <div class="col-xs-2 col-md-2">
+                                                                        <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xs-7 col-md-8 card-simple-info">
-                                                                <p class="no-m-y">"{{worbbyOffer.worbbyTask.title}}"</p>
-                                                                <p class="small profileName cor-Botticelli">{{worbbyOffer.worbbior.displayName}}</p>                                                            
-                                                            </div>
-                                                            <div class="col-xs-2 col-md-2">
-                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyOffer]="worbbyOffer" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
-                                                            </div>
-
-                                                            <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                 <div class="row">
                                                                     <div class="col-xs-12">
                                                                         <table class="w-100">
@@ -434,18 +394,22 @@
                                                     <div class="card-simple">
                                                         <div class="row">
                                                             <div class="card-talents w-100">
-                                                                <div class="col-xs-3 col-md-2 no-p-r-xs">
-                                                                    <div class="divProfile">
-                                                                        <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture" />
+                                                                <div class="col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-3 col-md-2 no-p-r-xs">
+                                                                            <div class="divProfile">
+                                                                                <img alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbyTask.worbbient.userPicture" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-7 col-md-8 card-simple-info">
+                                                                            <p class="no-m-y">"{{worbbyTask.title}}"</p>
+                                                                        </div>
+                                                                        <div class="col-xs-2 col-md-2 text-right">
+                                                                            <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-7 col-md-8 card-simple-info">
-                                                                    <p class="no-m-y">"{{worbbyTask.title}}"</p>
-                                                                </div>
-                                                                <div class="col-xs-2 col-md-2 text-right">
-                                                                    <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'options'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
-                                                                </div>
-                                                                <div class="col-xs-12 col-sm-9 col-md-10 col-divider-top p-t-xxs m-t-xxs">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
                                                                         <div class="col-xs-6">
                                                                             <div class="row">
@@ -457,7 +421,7 @@
                                                                         <div class="col-xs-6 text-right">
                                                                             <div class="row">
                                                                                 <div class="col-xs-12 col-md-6 no-p-l">
-                                                                                    <p *ngIf="worbbyTask.distance" class="inline small cor-Botticelli text-right"> {{worbbyTask.distance}} m <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                                                                    <p *ngIf="worbbyTask.distance" class="inline small cor-Botticelli text-right"> {{worbbyTask.distance}} km <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
                                                                                 </div>
                                                                                 <div class="col-xs-12 col-md-6 no-p-l">
                                                                                     <p class="no-m-y small cor-Botticelli text-right"><span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
@@ -466,6 +430,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-xs-12 col-divider-top p-t-xxs m-t-xxs">
+                                                                <worbbiorWorbbyTaskActions [pageType]="'list'" [actionsType]="'buttons'" [worbbyTask]="worbbyTask" (actionReturn)="actionReturn()"></worbbiorWorbbyTaskActions>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="findWorbbyTaskInput.filter" (keyup)="onKeyUp($event)" (blur)="getWorbbyTasks()"  placeholder="Encontre uma tarefa que você possa fazer...">
+                                    <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="findWorbbyTaskInput.filter" (keyup)="onKeyUp($event)" (blur)="getWorbbyTasksByFilter()"  placeholder="Encontre uma tarefa que você possa fazer...">
                                     <span class="input-group-addon">
                                         <button class="close-nav" type="button" (click)="findByTerm()">
                                             <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -93,7 +93,7 @@
                                                                     <div class="text-right col-xs-6 col-md-12">
                                                                         <p class="txt-small-tablet" [ngClass]="{'cor-CaribbeanGreen': worbbyTask.countOffers > 0, 'cor-Botticelli': worbbyTask.countOffers == 0}">{{worbbyTask.countOffers}} oferta(s)</p>  
                                                                         <div *ngIf="worbbyTask.distance" class="txt-small-tablet">   
-                                                                            {{worbbyTask.distance}} 
+                                                                            {{worbbyTask.distance}} km
                                                                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                                                                         </div>                                                                        
                                                                     </div>   
@@ -167,9 +167,9 @@
                                 </div>
                             </div>
                             <div class="input-group stylish-input-group">
-                                <input type="text" class="form-control" name="Address" [(ngModel)]="findWorbbyTaskInput.address" (keyup)="onKeyUp($event)" (blur)="getWorbbyTasks()" placeholder="Localização...">
+                                <input type="text" class="form-control" name="Address" [(ngModel)]="findWorbbyTaskInput.address" (keyup)="onKeyUp($event)" (blur)="getWorbbyTasksByFilter()" placeholder="Localização...">
                                 <span class="input-group-addon">
-                                    <button type="button" (click)="getWorbbyTasks()">
+                                    <button type="button" (click)="getWorbbyTasksByFilter()">
                                         <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                             <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
                                             <title>icon-search-inactive</title>
@@ -268,7 +268,7 @@
             <div class="input-group stylish-input-group">
                 <input type="text" class="form-control" name="Address" [(ngModel)]="findWorbbyTaskInput.address" placeholder="Localização...">
                 <span class="input-group-addon">
-                    <button type="button" (click)="getWorbbyTasks()">
+                    <button type="button" (click)="getWorbbyTasksByFilter()">
                         <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
                             <title>icon-search-inactive</title>

@@ -104,7 +104,8 @@ export abstract class AppComponentBase {
         dist = Math.acos(dist)
         dist = dist * 180 / Math.PI
         dist = dist * 60 * 1.1515
-        dist = dist * 1.609344 * 1000;
+        //dist = dist * 1.609344 * 1000; //metros
+        dist = dist * 1.609344; //kilometros
         return dist
     }
 

@@ -3,8 +3,8 @@
         <img *ngIf="profilePicture" alt="" class="img-circle img-profile m-r-xxs" [ngClass]="{'img-profile-blue': currentRoleName == 'Worbbient'}" [src]="profilePicture" />  
         <span>{{userName}}</span>
     </a> 
-    | 
-    <a href="javascript:;" (click)="logout()">{{l("Logout")}}</a>
+    <span>|</span> 
+    <a href="javascript:;" class="logout" (click)="logout()">{{l("Logout")}}</a>
         
     <ul class="dropdown-menu dropdown-menu-default box-user-menu">
         <li class="arrow-up"></li>

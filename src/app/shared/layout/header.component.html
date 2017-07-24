@@ -9,24 +9,6 @@
                     <li>
                         <a routerLink="/login" class="btnLoginRegisterModal">Entrar | Cadastre-se</a>
                     </li>
-<!--                    <li *ngIf="languages.length">
-                        <div class="btn-group dropdown">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i [class]="currentLanguage.icon"></i>
-                                <span class="langname">
-                                    {{currentLanguage.displayName}}
-                                </span>
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let language of languages">
-                                    <a href="javascript:;" (click)="changeLanguage(language.name)">
-                                        <i [class]="language.icon"></i> {{language.displayName}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>-->
                 </ul>
             </div>
         </div>
@@ -36,7 +18,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-top" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" (click)="showHideMenu()">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -46,45 +28,44 @@
                     <img class="logo-topo" src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Logo Worbby">
                 </a>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse-top">
+            <div class="navbar-collapse" [ngClass]="menuOpen">
                 <div class="navbar-collapse-container">
-                    <div class="col-xs-12 header-menu-aberto visible-xs">
-                        <button type="button" class="close close-nav">
-                            <img src="/assets/metronic/worbby/global/img/icon-close-white.svg" alt="Close" class="hidden-xs" />
-                        </button>
+                    <div class="visible-xs row bg-White p-15px">
+                        <div class="col-xs-8">
+                            <img src="/assets/metronic/worbby/global/img/logo-worbbient-beta.svg" alt="Close" class="m-y-5px" style="height: 30px;" />
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <button type="button" class="close close-nav">
+                                <img src="/assets/metronic/worbby/global/img/icon-filter-close-black.svg" alt="Close" />     
+                            </button>
+                        </div>                        
                     </div>
-                    <div class="col-xs-12 additional-nav user-menu hidden-sm hidden-md hidden-lg">
-
-                        <ul class="list-unstyled list-inline pull-left">
-                            <li>
-                                <a routerLink="/login" class="close-nav btnLoginRegisterModal">Entrar | Cadastre-se</a>
-                            </li>
-                            <!-- <li *ngIf="languages.length">
-                                <div class="btn-group dropdown idioma">
-                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i [class]="currentLanguage.icon"></i>
-                                        <span class="langname">
-                                            {{currentLanguage.displayName}}
-                                        </span>
-                                        <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li *ngFor="let language of languages">
-                                            <a class="close-nav" href="javascript:;" (click)="changeLanguage(language.name)">
-                                                <i [class]="language.icon"></i> {{language.displayName}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>-->
-                        </ul>
-                    </div>
+                    <ul class="visible-xs menu-mobile">
+                        <li>
+                            <a routerLink="/conta/entrar" (click)="showHideMenu()">{{l("Login")}}/{{l("SignIn")}}</a>
+                        </li>                        
+                        <li>
+                            <a routerLink="/sobre" (click)="showHideMenu()">{{l("AboutWorbby")}}</a>
+                        </li>
+                        <li>
+                            <a routerLink="/como-funciona" (click)="showHideMenu()">{{l("HowDoesItWork")}}</a>
+                        </li> 
+                        <li>
+                            <a routerLink="/seja-um-worbbior" (click)="showHideMenu()">{{l("BecomeWorbbior")}}</a>
+                        </li>                       
+                        <li>
+                            <a routerLink="/perguntas-frequentes" (click)="showHideMenu()">FAQ</a>
+                        </li>
+                        <li>
+                            <a routerLink="/fale-com-o-Worbby" (click)="showHideMenu()">{{l("Contact")}}</a>
+                        </li>
+                    </ul>
                     <div class="col-xs-12 visible-xs">
                         <div class="search-box">
-                            <h2>{{l("SearchWorbby")}}</h2>
+                            <h2 class="txt-small-tablet">{{l("SearchWorbby")}}</h2>
                             <form action="/WorbbyTask" method="post"><input name="__RequestVerificationToken" type="hidden" value="CHVWMRS59kKduGK5RwtTJcQ2Kqf8Rsc6mncaTqYQNASfXqqy17vYS4UBlgLaKyXy8OWxbFU0PKjmp3e4T2VhySEbnb0tq0LLj0gU4cmXjjU1">        
                                 <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control" name="Term" placeholder="O que você precisa?">
+                                    <input type="text" class="form-control txt-small-tablet" name="Term" placeholder="O que você precisa?">
                                     <span class="input-group-addon">
                                         <button class="close-nav" type="submit">
                                             <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -113,23 +94,21 @@
                             </form>
                         </div>
                     </div>                   
-                    <!--<div class="col-xs-12 col-sm-7 col-md-5 col-lg-8 menu-right">-->
-                        <ul class="nav navbar-nav menu-principal">
-                            <li class="nav-item">
-                                <a class="close-nav" routerLink="/find-a-talents">{{l("FindATalent")}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="close-nav" routerLink="/find-a-tasks">Tarefas postadas</a>
-                            </li>
-                            <li class="nav-btn">
-                                <a id="PostTaskMobile" class="close-nav btn btn-prime btn-around m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime-inverted': isMobile, 'btn-prime': !isMobile }" routerLink="/post-a-task">
-                                    {{l("PostATask")}}
-                                    <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
-                                    <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">
-                                </a>
-                            </li>
-                        </ul>
-                    <!--</div>-->
+                    <ul class="nav navbar-nav menu-principal">
+                        <li class="nav-item hidden-xs">
+                            <a class="close-nav" routerLink="/find-a-talents">{{l("FindATalent")}}</a>
+                        </li>
+                        <li class="nav-item hidden-xs">
+                            <a class="close-nav" routerLink="/find-a-tasks">Tarefas postadas</a>
+                        </li>
+                        <li class="nav-btn">
+                            <a id="PostTaskMobile" class="close-nav btn btn-prime btn-around m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime-inverted': isMobile, 'btn-prime': !isMobile }" routerLink="/post-a-task">
+                                {{l("PostATask")}}
+                                <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>
+                                <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

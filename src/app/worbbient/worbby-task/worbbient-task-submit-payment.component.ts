@@ -65,10 +65,11 @@ export class WorbbientTaskSubmitPaymentComponent extends AppComponentBase implem
         });
     }
 
-    capturePayment():void{        
+    capturePayment():void {
+        this.saving = true;
         this._cieloService.capturePaymentTransaction(this.worbbyTask.id)
         .finally(() => {
-            console.log("teste");
+            this.saving = false;
         })
         .subscribe((result) => {
             this.message.success(" ", "Pagamento liberado com sucesso!").done(() => {

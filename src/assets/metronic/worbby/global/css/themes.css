@@ -98,6 +98,10 @@ body.worbbior .pre-header a, body.worbbior .header a {
     color: #fff;
 }
 
+body.worbbior header .profile-menu-mobile a {
+    color: #90A3B1;
+}
+
 body.worbbior .pre-header a.btn,
 body.worbbior .header a.btn,
 body.worbbior .pre-header ul>li.dropdown>a,

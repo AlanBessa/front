@@ -100,6 +100,7 @@ export class TasksHistoryWorbbiorComponent extends AppComponentBase implements A
     private gethistoryTask(page): void {
         var skipCount = AppConsts.maxResultCount * (page - 1);
         this.carregado = false;
+
         this._worbbyTaskService.getWorbbyTasksCloseOrCanceledByTargetUserId(abp.session.userId, AppConsts.maxResultCount, skipCount).subscribe((result: PagedResultDtoOfWorbbyTaskDto) => {
             this.carregado = true;
             this.worbbyTasks = result.items;

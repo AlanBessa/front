@@ -113,7 +113,6 @@ export class TasksHistoryWorbbiorComponent extends AppComponentBase implements A
                   }else{
                       element.worbbient.userPicture = this.urlImg;
                   }
-                    this.status =  this.l(WorbbyTaskStatus[element.status])
                 });
             this.countList = this.worbbyTasks.length;
             this.pager.totalCount = result.totalCount;

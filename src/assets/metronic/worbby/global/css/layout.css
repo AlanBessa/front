@@ -4315,6 +4315,11 @@ recaptcha {
             width: 40px;
         }
 
+        .profile-menu-mobile .div-profile {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         /*USER MENU*/
         .user-menu {
             text-align: left;

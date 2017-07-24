@@ -38,7 +38,18 @@
                             <div class="profile-menu-mobile">
                                 <a title="{{userName}}">
                                     <img *ngIf="profilePicture" class="img-circle img-profile m-r-xxs" [ngClass]="{'img-profile-blue': currentRoleName == 'Worbbient'}" [src]="profilePicture" />  
-                                    <span>{{userName}}</span>
+                                    <div class="div-profile">
+                                        <span>{{userName}}</span>
+                                        <div *ngIf="currentRoleName == 'Worbbior'">       
+                                            <rating [(ngModel)]="worbbiorRate"
+                                                    max="5"
+                                                    required="true"
+                                                    [readonly]="true"
+                                                    stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                    [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                            </rating>
+                                        </div>
+                                    </div>
                                 </a> 
                             </div>
                         </div>
@@ -50,8 +61,8 @@
                     </div>
                     <ul class="visible-xs menu-mobile">
                         <ng-template ngFor let-menuItem [ngForOf]="menu.items" let-mainMenuItemIndex="index">
-                            <li class="close-nav" *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': mainMenuItemIndex == 0}">
-                                <a [routerLink]="menuItem.parameter != '' ? [menuItem.route + '/' + menuItem.parameter] : [menuItem.route]" *ngIf="!menuItem.items.length" (click)="showHideMenu()">
+                            <li *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': mainMenuItemIndex == 0}">
+                                <a *ngIf="!menuItem.items.length" (click)="showHideMenuAndRedirect(menuItem.parameter != '' ? [menuItem.route + '/' + menuItem.parameter] : [menuItem.route])">
                                     <i class="{{menuItem.icon}}"></i>
                                     <span class="title">{{l(menuItem.name)}}</span>
                                 </a>
@@ -120,7 +131,7 @@
                             <a class="close-nav" routerLink="/find-a-tasks">Tarefas postadas</a>
                         </li>
                         <li *ngIf="!isMobile" headerNotifications class="hidden-xs dropdown dropdown-extended dropdown-notification dropdown-dark notification-mobile" id="header_notification_bar"></li>
-                        <li class="nav-btn hidden-xs">
+                        <li class="nav-btn" [ngClass]="{'hidden-xs': currentRoleName == 'Worbbior'}">
                             <a href="javascript:;" (click)="postWorbbyTask()" id="PostTaskMobile" class="close-nav btn btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime': isWorbbior || (!isWorbbior && !isMobile), 'btn-prime-inverted': !isWorbbior && isMobile}" >
                                 {{l("PostATask")}}
                                 <small class="btn-prime-sub">{{l("AndReceiveOffersFromTalents")}}</small>

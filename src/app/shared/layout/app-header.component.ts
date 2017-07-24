@@ -56,6 +56,7 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
     public isWorbbior: boolean = false;
     public isMobile: boolean = false;
     public menuOpen:string = "";
+    public worbbiorRate:any;
 
     constructor(
         injector: Injector,
@@ -93,6 +94,10 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         this.userName = this.appSessionService.user.name;
         this.switchRole = this.permission.isGranted("Pages.Worbbior.SwitchToWorbbientProfile");
         this.toWorbbiorRegister = !this.switchRole ? true : false ;
+
+        if(this.isWorbbior) {
+            this.getWorbbiorProfile();
+        }
     }
 
     changeLanguage(languageName: string): void {
@@ -164,6 +169,12 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         }
     }
 
+    public showHideMenuAndRedirect(url: any): void {
+        this.menuOpen = "";
+        this.router.navigate(url);
+        return;
+    }
+
     menu: UserMenu = new UserMenu("UserMenu", "UserMenu", [
         new UserMenuItem("MyWorbby", "Pages.Worbbient.MyWorbby", "Worbbient", "", "/worbbient/my-worbby"),
         new UserMenuItem("TasksHistory", "Pages.Worbbient.TasksHistory", "Worbbient", "", "/worbbient/tasks-history"),
@@ -191,7 +202,9 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
             function(){ 
                 location.href = "/";
             },
-        500);        
+        500);
+
+        this.showHideMenu();
     }
 
     switchToWorbbientProfile() {
@@ -201,6 +214,8 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
                 location.href = "/";
             },
         500);
+
+        this.showHideMenu();
     }
 
     worbbientToWorbbior():void {
@@ -231,5 +246,13 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
 
     changePassword():void{
         abp.event.trigger("changePasswordModal");
+
+        this.showHideMenu();
+    }
+
+    public getWorbbiorProfile(): void {
+        this._worbbiorService.getWorbbiorProfile(this.appSessionService.worbbiorId).subscribe((result) => {
+            this.worbbiorRate = result.evaluation.averageEvaluations;            
+        });
     }
 }

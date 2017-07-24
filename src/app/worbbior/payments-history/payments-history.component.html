@@ -81,10 +81,13 @@
                     <!-- menu perfil : Fim -->
                     <!-- Conteudo perfil : inicio -->
                     <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
-                        <div *ngIf="balanceAvailable" class="well well-lg bg-White">
+                        <div *ngIf="balanceAvailable >= 0" class="well well-lg bg-White">
                             <button type="button" (click)="requestBalanceAvailable()">Solicitar Transferencia</button>
                             {{balanceAvailable}}
                             Nenhum dado disponível no momento.
+                            <button type="button" (click)="testConfirmRequest()">Confirmar transferência</button>
+                            <button type="button" (click)="testCancelRequest()">Cancelar transferência</button>
+                            <input type="number" [(ngModel)]="transferId"/>
                         </div>
                     </div>
                     <!--<div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">

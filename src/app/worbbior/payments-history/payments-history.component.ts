@@ -6,7 +6,7 @@ import { UserMenu } from "app/shared/layout/user-menu";
 import { UserMenuItem } from "app/shared/layout/user-menu-item";
 import { AppSessionService } from "shared/common/session/app-session.service";
 import { AppAuthService } from "app/shared/common/auth/app-auth.service";
-import { ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
+import { EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { WorbbiorState } from "shared/AppEnums";
 import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
@@ -46,6 +46,7 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
     public generalPaymentTabActive: boolean;
     public receivedPaymentTabActive: boolean;
     public paidPaymentPageTabActive: boolean;
+    public transferId:number;
 
     constructor(
         injector: Injector,
@@ -181,6 +182,30 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         input.bankAccountId = 1;
 
         this._balanceTransferService.requestBalanceTransfer(input)
+        .finally(() => { 
+
+         })
+        .subscribe(result => {
+        }, error => {
+            console.log(error);
+        });
+    }
+
+
+    testConfirmRequest():void{
+
+        this._balanceTransferService.confirmBalanceTransfer(new EntityDtoOfInt64({id: this.transferId}))
+        .finally(() => { 
+
+         })
+        .subscribe(result => {
+        }, error => {
+            console.log(error);
+        });
+    }
+
+    testCancelRequest():void{
+        this._balanceTransferService.cancelBalanceTransfer(new EntityDtoOfInt64({id: this.transferId}))
         .finally(() => { 
 
          })

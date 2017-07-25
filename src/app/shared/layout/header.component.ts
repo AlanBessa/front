@@ -32,6 +32,7 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
     chatConnected = false;
 
     public isMobile: boolean = false;
+    public menuOpen:string = "";
 
     constructor(
         injector: Injector,
@@ -55,5 +56,13 @@ export class HeaderComponent extends AppComponentBase implements OnInit {
     changeLanguage(languageName: string): void {
         abp.utils.setCookieValue("Abp.Localization.CultureName", languageName);
         location.reload();
+    }
+
+    showHideMenu(): void {
+        if (this.menuOpen == "") {
+            this.menuOpen = "open";
+        } else {
+            this.menuOpen = "";
+        }
     }
 }

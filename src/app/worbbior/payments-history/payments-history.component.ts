@@ -6,7 +6,7 @@ import { UserMenu } from "app/shared/layout/user-menu";
 import { UserMenuItem } from "app/shared/layout/user-menu-item";
 import { AppSessionService } from "shared/common/session/app-session.service";
 import { AppAuthService } from "app/shared/common/auth/app-auth.service";
-import { EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
+import { BalanceTransferOutput, EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { WorbbiorState } from "shared/AppEnums";
 import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
@@ -47,6 +47,7 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
     public receivedPaymentTabActive: boolean;
     public paidPaymentPageTabActive: boolean;
     public transferId:number;
+    public balanceTransfers:BalanceTransferOutput[] = [];
 
     constructor(
         injector: Injector,
@@ -79,6 +80,18 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
          })
         .subscribe(result => {
             this.balanceAvailable = result.amount;
+        }, error => {
+            console.log(error);
+        });
+
+
+        this._balanceTransferService.getBalanceTransfersByUserId(abp.session.userId)
+        .finally(() => { 
+
+         })
+        .subscribe(result => {
+            this.balanceTransfers = result.items;
+            console.log(this.balanceTransfers);
         }, error => {
             console.log(error);
         });

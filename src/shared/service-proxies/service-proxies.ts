@@ -2535,6 +2535,56 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
+    getBalanceTransfersByUserId(id: number): Observable<ListResultDtoOfBalanceTransferOutput> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBalanceTransfersByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBalanceTransfersByUserId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBalanceTransfersByUserId(response: Response): Observable<ListResultDtoOfBalanceTransferOutput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfBalanceTransferOutput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfBalanceTransferOutput.fromJS(resultData200) : new ListResultDtoOfBalanceTransferOutput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfBalanceTransferOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     requestBalanceTransfer(input: RequestBalanceTransferInput): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/RequestBalanceTransfer";
         url_ = url_.replace(/[?&]$/, "");
@@ -18810,6 +18860,237 @@ export interface IListResultDtoOfAvailabilityDto {
     items: AvailabilityDto[];
 }
 
+export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBalanceTransferOutput {
+    items: BalanceTransferOutput[];
+
+    constructor(data?: IListResultDtoOfBalanceTransferOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(BalanceTransferOutput.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfBalanceTransferOutput {
+        let result = new ListResultDtoOfBalanceTransferOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfBalanceTransferOutput {
+    items: BalanceTransferOutput[];
+}
+
+export class BalanceTransferOutput implements IBalanceTransferOutput {
+    balanceTransfer: BalanceTransferDto;
+    balanceTransfersHistory: ListResultDtoOfBalanceTransferHistoryDto;
+
+    constructor(data?: IBalanceTransferOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.balanceTransfer = data["balanceTransfer"] ? BalanceTransferDto.fromJS(data["balanceTransfer"]) : <any>undefined;
+            this.balanceTransfersHistory = data["balanceTransfersHistory"] ? ListResultDtoOfBalanceTransferHistoryDto.fromJS(data["balanceTransfersHistory"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): BalanceTransferOutput {
+        let result = new BalanceTransferOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["balanceTransfer"] = this.balanceTransfer ? this.balanceTransfer.toJSON() : <any>undefined;
+        data["balanceTransfersHistory"] = this.balanceTransfersHistory ? this.balanceTransfersHistory.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IBalanceTransferOutput {
+    balanceTransfer: BalanceTransferDto;
+    balanceTransfersHistory: ListResultDtoOfBalanceTransferHistoryDto;
+}
+
+export class BalanceTransferDto implements IBalanceTransferDto {
+    userId: number;
+    bankAccountId: number;
+    amount: number;
+    balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
+    id: number;
+
+    constructor(data?: IBalanceTransferDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.bankAccountId = data["bankAccountId"];
+            this.amount = data["amount"];
+            this.balanceTransferStatus = data["balanceTransferStatus"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BalanceTransferDto {
+        let result = new BalanceTransferDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["bankAccountId"] = this.bankAccountId;
+        data["amount"] = this.amount;
+        data["balanceTransferStatus"] = this.balanceTransferStatus;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBalanceTransferDto {
+    userId: number;
+    bankAccountId: number;
+    amount: number;
+    balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
+    id: number;
+}
+
+export class ListResultDtoOfBalanceTransferHistoryDto implements IListResultDtoOfBalanceTransferHistoryDto {
+    items: BalanceTransferHistoryDto[];
+
+    constructor(data?: IListResultDtoOfBalanceTransferHistoryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(BalanceTransferHistoryDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfBalanceTransferHistoryDto {
+        let result = new ListResultDtoOfBalanceTransferHistoryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfBalanceTransferHistoryDto {
+    items: BalanceTransferHistoryDto[];
+}
+
+export class BalanceTransferHistoryDto implements IBalanceTransferHistoryDto {
+    userId: number;
+    balanceTransferId: number;
+    bankAccountId: number;
+    amount: number;
+    balanceTransferStatus: BalanceTransferHistoryDtoBalanceTransferStatus;
+    reason: string;
+
+    constructor(data?: IBalanceTransferHistoryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.balanceTransferId = data["balanceTransferId"];
+            this.bankAccountId = data["bankAccountId"];
+            this.amount = data["amount"];
+            this.balanceTransferStatus = data["balanceTransferStatus"];
+            this.reason = data["reason"];
+        }
+    }
+
+    static fromJS(data: any): BalanceTransferHistoryDto {
+        let result = new BalanceTransferHistoryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["balanceTransferId"] = this.balanceTransferId;
+        data["bankAccountId"] = this.bankAccountId;
+        data["amount"] = this.amount;
+        data["balanceTransferStatus"] = this.balanceTransferStatus;
+        data["reason"] = this.reason;
+        return data; 
+    }
+}
+
+export interface IBalanceTransferHistoryDto {
+    userId: number;
+    balanceTransferId: number;
+    bankAccountId: number;
+    amount: number;
+    balanceTransferStatus: BalanceTransferHistoryDtoBalanceTransferStatus;
+    reason: string;
+}
+
 export class RequestBalanceTransferInput implements IRequestBalanceTransferInput {
     userId: number;
     bankAccountId: number;
@@ -24747,6 +25028,7 @@ export class SaleInput implements ISaleInput {
     returnMessage: string;
     isCancelWorbbyTask: boolean;
     cancellationTax: number;
+    capturedAmountDate: moment.Moment;
     id: number;
 
     constructor(data?: ISaleInput) {
@@ -24770,6 +25052,7 @@ export class SaleInput implements ISaleInput {
             this.returnMessage = data["returnMessage"];
             this.isCancelWorbbyTask = data["isCancelWorbbyTask"];
             this.cancellationTax = data["cancellationTax"];
+            this.capturedAmountDate = data["capturedAmountDate"] ? moment(data["capturedAmountDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -24792,6 +25075,7 @@ export class SaleInput implements ISaleInput {
         data["returnMessage"] = this.returnMessage;
         data["isCancelWorbbyTask"] = this.isCancelWorbbyTask;
         data["cancellationTax"] = this.cancellationTax;
+        data["capturedAmountDate"] = this.capturedAmountDate ? this.capturedAmountDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -24808,6 +25092,7 @@ export interface ISaleInput {
     returnMessage: string;
     isCancelWorbbyTask: boolean;
     cancellationTax: number;
+    capturedAmountDate: moment.Moment;
     id: number;
 }
 
@@ -29805,6 +30090,18 @@ export enum AvailabilityDtoDayOfWeek {
     _4 = 4, 
     _5 = 5, 
     _6 = 6, 
+}
+
+export enum BalanceTransferDtoBalanceTransferStatus {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+}
+
+export enum BalanceTransferHistoryDtoBalanceTransferStatus {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
 }
 
 export enum FriendDtoState {

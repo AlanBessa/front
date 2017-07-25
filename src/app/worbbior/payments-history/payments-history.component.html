@@ -80,48 +80,38 @@
                     </div>
                     <!-- menu perfil : Fim -->
                     <!-- Conteudo perfil : inicio -->
-                    <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
-                        <div *ngIf="balanceAvailable >= 0" class="well well-lg bg-White">
-                            <button type="button" (click)="requestBalanceAvailable()">Solicitar Transferencia</button>
-                            {{balanceAvailable}}
-                            Nenhum dado disponível no momento.
-                            <button type="button" (click)="testConfirmRequest()">Confirmar transferência</button>
-                            <button type="button" (click)="testCancelRequest()">Cancelar transferência</button>
-                            <input type="number" [(ngModel)]="transferId"/>
-                        </div>
-                    </div>
-                    <!--<div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
+                    <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
                         <ul class="nav nav-pills nav-justified sub-nav-worbby tab-menu-worbby" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#generalPaymentPage" class="generalPayment" aria-controls="generalPaymentPage" role="tab" data-toggle="tab">-->
+                                <a href="#generalPaymentPage" class="generalPayment" aria-controls="generalPaymentPage" role="tab" data-toggle="tab">
                                     <!-- Icone do Submenu : inicio -->
-                                    <!--<div class="sub-nav-icon">
+                                    <div class="sub-nav-icon">
 
-                                    </div>-->
+                                    </div>
                                     <!-- Icone do Submenu : Fim -->
-                                    <!--<span class="hidden-sm hidden-xs hidden-md">Resumo</span>
+                                    <span class="hidden-sm hidden-xs hidden-md">Resumo</span>
                                 </a>
                                 <div class="arrow-nav"></div>
                             </li>
                             <li role="presentation">
-                                <a href="#receivedPaymentPage" class="receivedPayment" aria-controls="receivedPaymentPage" role="tab" data-toggle="tab">-->
+                                <a href="#receivedPaymentPage" class="receivedPayment" aria-controls="receivedPaymentPage" role="tab" data-toggle="tab">
                                     <!-- Icone do Submenu : inicio -->
-                                    <!--<div class="sub-nav-icon">
+                                    <div class="sub-nav-icon">
 
-                                    </div>-->
+                                    </div>
                                     <!-- Icone do Submenu : Fim -->
-                                    <!--<span class="hidden-sm hidden-xs hidden-md">Recebidos</span>
+                                    <span class="hidden-sm hidden-xs hidden-md">Recebidos</span>
                                 </a>
                                 <div class="arrow-nav"></div>
                             </li>
                             <li role="presentation">
-                                <a href="#paidPaymentPage" class="paidPayment" aria-controls="paidPaymentPage" role="tab" data-toggle="tab">-->
+                                <a href="#paidPaymentPage" class="paidPayment" aria-controls="paidPaymentPage" role="tab" data-toggle="tab">
                                     <!-- Icone do Submenu : inicio -->
-                                    <!--<div class="sub-nav-icon">
+                                    <div class="sub-nav-icon">
 
-                                    </div>-->
+                                    </div>
                                     <!-- Icone do Submenu : Fim -->
-                                    <!--<span class="hidden-sm hidden-xs hidden-md">Pagos</span>
+                                    <span class="hidden-sm hidden-xs hidden-md">Pagos</span>
                                 </a>
                                 <div class="arrow-nav"></div>
                             </li>                           
@@ -137,7 +127,7 @@
                                 <paidPaymentWorbbiorComponent></paidPaymentWorbbiorComponent>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                     <!-- Conteudo perfil : Fim -->
                 </div>              
             </div>

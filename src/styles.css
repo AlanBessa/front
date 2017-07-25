@@ -24,6 +24,10 @@
     .blockOverlay::before {
         background-image: url("/assets/metronic/worbby/global/img/page-loading/loading-screen-P.jpg") !important;
     }
+
+    .blockPage .text-worbby {
+        font-size: 25px !important;
+    }
 }
 
 /* LOADING */
@@ -43,6 +47,7 @@ body > .spinner > div > div {
 
 .blockPage .logo-worbby {
     width: 33%;
+    max-width: 300px;
     display: block;
     margin: 0 auto;
 }
@@ -51,6 +56,6 @@ body > .spinner > div > div {
     font-size: 47px;
     text-align: center;
     position: fixed;
-    bottom: 226px;
+    bottom: 100px;
     width: 100%;
 }

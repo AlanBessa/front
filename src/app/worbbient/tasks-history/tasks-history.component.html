@@ -84,7 +84,7 @@
                         <h3 class="m-t-sm m-b-xss">Histórico de Tarefas</h3>
                         <div class="row" *ngIf="worbbyTasks.length > 0 && carregado">
                             <div *ngFor="let worbbyTask of worbbyTasks">
-                                <div class="card-talents w-100">
+                                <div (click)="getCieloSale(worbbyTask.id)" class="card-talents w-100">
                                     <div class="col-xs-12">
                                         <!-- card -->
                                         <div class="card-simple m-b-xss">

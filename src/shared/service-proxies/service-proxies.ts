@@ -454,54 +454,6 @@ export class AccountServiceProxy {
         }
         return Observable.of<SwitchToLinkedAccountOutput>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Account/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -1668,54 +1620,6 @@ export class ActivityServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Activity/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -2065,54 +1969,6 @@ export class AddressServiceProxy {
         }
         return Observable.of<AddressDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Address/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -2269,54 +2125,6 @@ export class AuditLogServiceProxy {
         }
         return Observable.of<FileDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/AuditLog/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -2471,54 +2279,6 @@ export class AvailabilityServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Availability/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -2530,56 +2290,6 @@ export class BalanceTransferServiceProxy {
     constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "";
-    }
-
-    /**
-     * @return Success
-     */
-    getBalanceTransfersByUserId(id: number): Observable<ListResultDtoOfBalanceTransferOutput> {
-        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersByUserId?";
-        if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetBalanceTransfersByUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetBalanceTransfersByUserId(response_);
-                } catch (e) {
-                    return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetBalanceTransfersByUserId(response: Response): Observable<ListResultDtoOfBalanceTransferOutput> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: ListResultDtoOfBalanceTransferOutput = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? ListResultDtoOfBalanceTransferOutput.fromJS(resultData200) : new ListResultDtoOfBalanceTransferOutput();
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<ListResultDtoOfBalanceTransferOutput>(<any>null);
     }
 
     /**
@@ -2716,104 +2426,6 @@ export class BalanceTransferServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getBalanceAvailableByUserId(id: number): Observable<BalanceAvailableOutput> {
-        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceAvailableByUserId?";
-        if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetBalanceAvailableByUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetBalanceAvailableByUserId(response_);
-                } catch (e) {
-                    return <Observable<BalanceAvailableOutput>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<BalanceAvailableOutput>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetBalanceAvailableByUserId(response: Response): Observable<BalanceAvailableOutput> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: BalanceAvailableOutput = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? BalanceAvailableOutput.fromJS(resultData200) : new BalanceAvailableOutput();
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<BalanceAvailableOutput>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -2920,54 +2532,6 @@ export class BankAccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<CreateBankAccountInput>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -3080,54 +2644,6 @@ export class BinaryObjectServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<Base64Dto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/BinaryObject/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -3278,54 +2794,6 @@ export class CachingServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Caching/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -3485,54 +2953,6 @@ export class ChatServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Chat/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -3724,54 +3144,6 @@ export class CieloServiceProxy {
     }
 
     protected processCancelWorbbyTaskAndCapturePaymentTransaction(response: Response): Observable<CieloCaptureSaleOutput> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: CieloCaptureSaleOutput = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? CieloCaptureSaleOutput.fromJS(resultData200) : new CieloCaptureSaleOutput();
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<CieloCaptureSaleOutput>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    cancelWorbbyTaskPaymentTransaction(worbbyTaskId: number): Observable<CieloCaptureSaleOutput> {
-        let url_ = this.baseUrl + "/api/Cielo/CancelWorbbyTaskPaymentTransaction";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(worbbyTaskId);
-        
-        let options_ = {
-            body: content_,
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processCancelWorbbyTaskPaymentTransaction(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processCancelWorbbyTaskPaymentTransaction(response_);
-                } catch (e) {
-                    return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<CieloCaptureSaleOutput>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processCancelWorbbyTaskPaymentTransaction(response: Response): Observable<CieloCaptureSaleOutput> {
         const status = response.status; 
 
         if (status === 200) {
@@ -3991,54 +3363,6 @@ export class CommonLookupServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<PagedResultDtoOfNameValueDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/CommonLookup/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -4300,54 +3624,6 @@ export class EditionServiceProxy {
         }
         return Observable.of<SubscribableEditionComboboxItemDto[]>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Edition/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -4404,54 +3680,6 @@ export class EmailingServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Emailing/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -5112,54 +4340,6 @@ export class EndorsementServiceProxy {
         }
         return Observable.of<PagedResultDtoOfEndorsementDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Endorsement/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -5470,54 +4650,6 @@ export class EvaluationServiceProxy {
         }
         return Observable.of<EvaluationDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Evaluation/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -5578,54 +4710,6 @@ export class EvaluationTypeServiceProxy {
         }
         return Observable.of<ListResultDtoOfEvaluationValueDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/EvaluationType/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -5682,54 +4766,6 @@ export class EvaluationValueServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/EvaluationValue/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -5974,54 +5010,6 @@ export class FriendshipServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Friendship/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -6175,54 +5163,6 @@ export class GalleryActivityServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<ListResultDtoOfGalleryActivityDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/GalleryActivity/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -6396,54 +5336,6 @@ export class HostDashboardServiceProxy {
         }
         return Observable.of<GetEditionTenantStatisticsOutput>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/HostDashboard/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -6593,54 +5485,6 @@ export class HostSettingsServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/HostSettings/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -7239,54 +6083,6 @@ export class InterestCenterServiceProxy {
         }
         return Observable.of<ListResultDtoOfInterestCenterDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/InterestCenter/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -7643,54 +6439,6 @@ export class LanguageServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Language/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -7939,54 +6687,6 @@ export class NotificationServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Notification/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -8437,54 +7137,6 @@ export class OrganizationUnitServiceProxy {
         }
         return Observable.of<boolean>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -8655,54 +7307,6 @@ export class PaymentServiceProxy {
         }
         return Observable.of<any>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Payment/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -8762,54 +7366,6 @@ export class PermissionServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<ListResultDtoOfFlatPermissionWithLevelDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Permission/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -9296,54 +7852,6 @@ export class ProfileServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Profile/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -9547,54 +8055,6 @@ export class RoleServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Role/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -9983,54 +8443,6 @@ export class SaleServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Sale/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -10138,54 +8550,6 @@ export class SessionServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<UpdateUserSignInTokenOutput>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Session/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -10639,54 +9003,6 @@ export class TenantServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Tenant/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -10997,54 +9313,6 @@ export class TenantDashboardServiceProxy {
         }
         return Observable.of<GetGeneralStatsOutput>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/TenantDashboard/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -11202,54 +9470,6 @@ export class TenantRegistrationServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<EditionSelectDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/TenantRegistration/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -11491,54 +9711,6 @@ export class TenantSettingsServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/TenantSettings/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -11654,54 +9826,6 @@ export class TimingServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<ComboboxItemDto[]>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Timing/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -12504,54 +10628,6 @@ export class UserServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/User/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -12898,54 +10974,6 @@ export class UserDocumentsInfoServiceProxy {
         }
         return Observable.of<CreateUserDocumentsInfoInput>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/UserDocumentsInfo/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -13150,54 +11178,6 @@ export class UserLinkServiceProxy {
         }
         return Observable.of<void>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/UserLink/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -13257,54 +11237,6 @@ export class UserLoginServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<ListResultDtoOfUserLoginAttemptDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/UserLogin/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -13413,54 +11345,6 @@ export class WebLogServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<FileDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/WebLog/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -14290,54 +12174,6 @@ export class WorbbiorServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Worbbior/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
     }
 }
 
@@ -16525,54 +14361,6 @@ export class WorbbyTaskServiceProxy {
         }
         return Observable.of<CurrentDateDto>(<any>null);
     }
-
-    /**
-     * @return Success
-     */
-    getCurrentUserId(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/GetCurrentUserId";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = "";
-        
-        let options_ = {
-            body: content_,
-            method: "get",
-            headers: new Headers({
-                "Content-Type": "application/json; charset=UTF-8", 
-                "Accept": "application/json; charset=UTF-8"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetCurrentUserId(response_);
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.processGetCurrentUserId(response_);
-                } catch (e) {
-                    return <Observable<number>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<number>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processGetCurrentUserId(response: Response): Observable<number> {
-        const status = response.status; 
-
-        if (status === 200) {
-            const responseText = response.text();
-            let result200: number = null;
-            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, responseText);
-        }
-        return Observable.of<number>(<any>null);
-    }
 }
 
 export class IsTenantAvailableInput implements IIsTenantAvailableInput {
@@ -17609,7 +15397,6 @@ export class WorbbiorDto implements IWorbbiorDto {
     address: AddressDto;
     distance: number;
     averageEvaluations: number;
-    worbbyTax: number;
     id: number;
 
     constructor(data?: IWorbbiorDto) {
@@ -17638,7 +15425,6 @@ export class WorbbiorDto implements IWorbbiorDto {
             this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
             this.distance = data["distance"];
             this.averageEvaluations = data["averageEvaluations"];
-            this.worbbyTax = data["worbbyTax"];
             this.id = data["id"];
         }
     }
@@ -17666,7 +15452,6 @@ export class WorbbiorDto implements IWorbbiorDto {
         data["address"] = this.address ? this.address.toJSON() : <any>undefined;
         data["distance"] = this.distance;
         data["averageEvaluations"] = this.averageEvaluations;
-        data["worbbyTax"] = this.worbbyTax;
         data["id"] = this.id;
         return data; 
     }
@@ -17688,7 +15473,6 @@ export interface IWorbbiorDto {
     address: AddressDto;
     distance: number;
     averageEvaluations: number;
-    worbbyTax: number;
     id: number;
 }
 
@@ -18860,237 +16644,6 @@ export interface IListResultDtoOfAvailabilityDto {
     items: AvailabilityDto[];
 }
 
-export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBalanceTransferOutput {
-    items: BalanceTransferOutput[];
-
-    constructor(data?: IListResultDtoOfBalanceTransferOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            if (data["items"] && data["items"].constructor === Array) {
-                this.items = [];
-                for (let item of data["items"])
-                    this.items.push(BalanceTransferOutput.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): ListResultDtoOfBalanceTransferOutput {
-        let result = new ListResultDtoOfBalanceTransferOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (this.items && this.items.constructor === Array) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IListResultDtoOfBalanceTransferOutput {
-    items: BalanceTransferOutput[];
-}
-
-export class BalanceTransferOutput implements IBalanceTransferOutput {
-    balanceTransfer: BalanceTransferDto;
-    balanceTransfersHistory: ListResultDtoOfBalanceTransferHistoryDto;
-
-    constructor(data?: IBalanceTransferOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.balanceTransfer = data["balanceTransfer"] ? BalanceTransferDto.fromJS(data["balanceTransfer"]) : <any>undefined;
-            this.balanceTransfersHistory = data["balanceTransfersHistory"] ? ListResultDtoOfBalanceTransferHistoryDto.fromJS(data["balanceTransfersHistory"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): BalanceTransferOutput {
-        let result = new BalanceTransferOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["balanceTransfer"] = this.balanceTransfer ? this.balanceTransfer.toJSON() : <any>undefined;
-        data["balanceTransfersHistory"] = this.balanceTransfersHistory ? this.balanceTransfersHistory.toJSON() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface IBalanceTransferOutput {
-    balanceTransfer: BalanceTransferDto;
-    balanceTransfersHistory: ListResultDtoOfBalanceTransferHistoryDto;
-}
-
-export class BalanceTransferDto implements IBalanceTransferDto {
-    userId: number;
-    bankAccountId: number;
-    amount: number;
-    balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
-    id: number;
-
-    constructor(data?: IBalanceTransferDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.userId = data["userId"];
-            this.bankAccountId = data["bankAccountId"];
-            this.amount = data["amount"];
-            this.balanceTransferStatus = data["balanceTransferStatus"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): BalanceTransferDto {
-        let result = new BalanceTransferDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        data["bankAccountId"] = this.bankAccountId;
-        data["amount"] = this.amount;
-        data["balanceTransferStatus"] = this.balanceTransferStatus;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IBalanceTransferDto {
-    userId: number;
-    bankAccountId: number;
-    amount: number;
-    balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
-    id: number;
-}
-
-export class ListResultDtoOfBalanceTransferHistoryDto implements IListResultDtoOfBalanceTransferHistoryDto {
-    items: BalanceTransferHistoryDto[];
-
-    constructor(data?: IListResultDtoOfBalanceTransferHistoryDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            if (data["items"] && data["items"].constructor === Array) {
-                this.items = [];
-                for (let item of data["items"])
-                    this.items.push(BalanceTransferHistoryDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): ListResultDtoOfBalanceTransferHistoryDto {
-        let result = new ListResultDtoOfBalanceTransferHistoryDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (this.items && this.items.constructor === Array) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IListResultDtoOfBalanceTransferHistoryDto {
-    items: BalanceTransferHistoryDto[];
-}
-
-export class BalanceTransferHistoryDto implements IBalanceTransferHistoryDto {
-    userId: number;
-    balanceTransferId: number;
-    bankAccountId: number;
-    amount: number;
-    balanceTransferStatus: BalanceTransferHistoryDtoBalanceTransferStatus;
-    reason: string;
-
-    constructor(data?: IBalanceTransferHistoryDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.userId = data["userId"];
-            this.balanceTransferId = data["balanceTransferId"];
-            this.bankAccountId = data["bankAccountId"];
-            this.amount = data["amount"];
-            this.balanceTransferStatus = data["balanceTransferStatus"];
-            this.reason = data["reason"];
-        }
-    }
-
-    static fromJS(data: any): BalanceTransferHistoryDto {
-        let result = new BalanceTransferHistoryDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        data["balanceTransferId"] = this.balanceTransferId;
-        data["bankAccountId"] = this.bankAccountId;
-        data["amount"] = this.amount;
-        data["balanceTransferStatus"] = this.balanceTransferStatus;
-        data["reason"] = this.reason;
-        return data; 
-    }
-}
-
-export interface IBalanceTransferHistoryDto {
-    userId: number;
-    balanceTransferId: number;
-    bankAccountId: number;
-    amount: number;
-    balanceTransferStatus: BalanceTransferHistoryDtoBalanceTransferStatus;
-    reason: string;
-}
-
 export class RequestBalanceTransferInput implements IRequestBalanceTransferInput {
     userId: number;
     bankAccountId: number;
@@ -19167,41 +16720,6 @@ export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
 
 export interface IEntityDtoOfInt64 {
     id: number;
-}
-
-export class BalanceAvailableOutput implements IBalanceAvailableOutput {
-    amount: number;
-
-    constructor(data?: IBalanceAvailableOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.amount = data["amount"];
-        }
-    }
-
-    static fromJS(data: any): BalanceAvailableOutput {
-        let result = new BalanceAvailableOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["amount"] = this.amount;
-        return data; 
-    }
-}
-
-export interface IBalanceAvailableOutput {
-    amount: number;
 }
 
 export class CreateBankAccountInput implements ICreateBankAccountInput {
@@ -25027,8 +22545,6 @@ export class SaleInput implements ISaleInput {
     returnCode: string;
     returnMessage: string;
     isCancelWorbbyTask: boolean;
-    cancellationTax: number;
-    capturedAmountDate: moment.Moment;
     id: number;
 
     constructor(data?: ISaleInput) {
@@ -25051,8 +22567,6 @@ export class SaleInput implements ISaleInput {
             this.returnCode = data["returnCode"];
             this.returnMessage = data["returnMessage"];
             this.isCancelWorbbyTask = data["isCancelWorbbyTask"];
-            this.cancellationTax = data["cancellationTax"];
-            this.capturedAmountDate = data["capturedAmountDate"] ? moment(data["capturedAmountDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -25074,8 +22588,6 @@ export class SaleInput implements ISaleInput {
         data["returnCode"] = this.returnCode;
         data["returnMessage"] = this.returnMessage;
         data["isCancelWorbbyTask"] = this.isCancelWorbbyTask;
-        data["cancellationTax"] = this.cancellationTax;
-        data["capturedAmountDate"] = this.capturedAmountDate ? this.capturedAmountDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -25091,8 +22603,6 @@ export interface ISaleInput {
     returnCode: string;
     returnMessage: string;
     isCancelWorbbyTask: boolean;
-    cancellationTax: number;
-    capturedAmountDate: moment.Moment;
     id: number;
 }
 
@@ -25199,8 +22709,6 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
     canceledDate: moment.Moment;
     paymentDate: moment.Moment;
     creationTime: moment.Moment;
-    worbbyTax: number;
-    cancellationTax: number;
     id: number;
 
     constructor(data?: IWorbbyTaskDto) {
@@ -25249,8 +22757,6 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
             this.canceledDate = data["canceledDate"] ? moment(data["canceledDate"].toString()) : <any>undefined;
             this.paymentDate = data["paymentDate"] ? moment(data["paymentDate"].toString()) : <any>undefined;
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.worbbyTax = data["worbbyTax"];
-            this.cancellationTax = data["cancellationTax"];
             this.id = data["id"];
         }
     }
@@ -25298,8 +22804,6 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
         data["canceledDate"] = this.canceledDate ? this.canceledDate.toISOString() : <any>undefined;
         data["paymentDate"] = this.paymentDate ? this.paymentDate.toISOString() : <any>undefined;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["worbbyTax"] = this.worbbyTax;
-        data["cancellationTax"] = this.cancellationTax;
         data["id"] = this.id;
         return data; 
     }
@@ -25341,8 +22845,6 @@ export interface IWorbbyTaskDto {
     canceledDate: moment.Moment;
     paymentDate: moment.Moment;
     creationTime: moment.Moment;
-    worbbyTax: number;
-    cancellationTax: number;
     id: number;
 }
 
@@ -29000,7 +26502,6 @@ export class WorbbiorForEditDto implements IWorbbiorForEditDto {
     saveRadius: boolean;
     creationTime: moment.Moment;
     lastModificationTime: moment.Moment;
-    worbbyTax: number;
     id: number;
 
     constructor(data?: IWorbbiorForEditDto) {
@@ -29029,7 +26530,6 @@ export class WorbbiorForEditDto implements IWorbbiorForEditDto {
             this.saveRadius = data["saveRadius"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
-            this.worbbyTax = data["worbbyTax"];
             this.id = data["id"];
         }
     }
@@ -29057,7 +26557,6 @@ export class WorbbiorForEditDto implements IWorbbiorForEditDto {
         data["saveRadius"] = this.saveRadius;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["worbbyTax"] = this.worbbyTax;
         data["id"] = this.id;
         return data; 
     }
@@ -29079,7 +26578,6 @@ export interface IWorbbiorForEditDto {
     saveRadius: boolean;
     creationTime: moment.Moment;
     lastModificationTime: moment.Moment;
-    worbbyTax: number;
     id: number;
 }
 
@@ -29593,7 +27091,6 @@ export class WorbbyHistoryTaskDto implements IWorbbyHistoryTaskDto {
     creationTime: moment.Moment;
     event: string;
     evaluationDescription: string;
-    lastModificationTime: moment.Moment;
     id: number;
 
     constructor(data?: IWorbbyHistoryTaskDto) {
@@ -29610,7 +27107,6 @@ export class WorbbyHistoryTaskDto implements IWorbbyHistoryTaskDto {
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.event = data["event"];
             this.evaluationDescription = data["evaluationDescription"];
-            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -29626,7 +27122,6 @@ export class WorbbyHistoryTaskDto implements IWorbbyHistoryTaskDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["event"] = this.event;
         data["evaluationDescription"] = this.evaluationDescription;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -29636,7 +27131,6 @@ export interface IWorbbyHistoryTaskDto {
     creationTime: moment.Moment;
     event: string;
     evaluationDescription: string;
-    lastModificationTime: moment.Moment;
     id: number;
 }
 
@@ -30090,18 +27584,6 @@ export enum AvailabilityDtoDayOfWeek {
     _4 = 4, 
     _5 = 5, 
     _6 = 6, 
-}
-
-export enum BalanceTransferDtoBalanceTransferStatus {
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
-}
-
-export enum BalanceTransferHistoryDtoBalanceTransferStatus {
-    _1 = 1, 
-    _2 = 2, 
-    _3 = 3, 
 }
 
 export enum FriendDtoState {

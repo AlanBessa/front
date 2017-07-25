@@ -71,9 +71,9 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
             self.tabFeaturesActive = $("#featured").hasClass("active");
             $("body").scrollTop(0);
             if(self.tabFeaturesActive){
-                //self.cleanFilters();
-            }else{
                 self.cleanFilters();
+            }else{
+                self.getTalentsByFilter();
             }           
             
         })
@@ -164,10 +164,10 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
 
         this.currentInterestCenterTopLevel = interestCenter;
         this.getInterestCentersChidren(this.currentInterestCenterTopLevel);
-        //this.getTalentsByFilter();
+        this.getTalentsByFilter();
     }
 
-    public getTalentsByFilter(): void {
+    private getTalentsByFilter(): void {
         this.carregado = false;
         this.checkFiltersActive();
         this.worbbiorActivities = [];
@@ -282,16 +282,12 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
         this.filter = "";
         this.address = "";
         this.changeInterestCenterTopLevel(null);
-        //this.changeInterestCenterChildren(null);
+        this.changeInterestCenterChildren(null);
     }
 
     onKeyUp(event: any):void{
         if (event.keyCode == 13){
             this.getTalentsByFilter();
         }
-    }
-
-    getTalentOnBlur():void{
-        this.getTalentsByFilter();
     }
 }

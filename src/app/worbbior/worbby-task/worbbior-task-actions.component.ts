@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { EntityDtoOfInt64, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, CieloServiceProxy } from '@shared/service-proxies/service-proxies';
+import { EntityDtoOfInt64, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorbbyTaskStatus, ScheduleDateType } from '@shared/AppEnums';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
@@ -30,8 +30,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
-        private _worbbyTaskService: WorbbyTaskServiceProxy,
-        private _cieloService: CieloServiceProxy
+        private _worbbyTaskService: WorbbyTaskServiceProxy
     ) {
         super(injector);
     }
@@ -219,27 +218,15 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             '', 'Tem certeza que quer cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
-                    this._cieloService.cancelWorbbyTaskPaymentTransaction(this.worbbyTask.id)
-                    .finally(() => {
-                    })
-                    .subscribe(() => {
-                        this.message.success("Sua tarefa foi cancelada com sucesso!");
-                        this.actionReturn.emit(null);
-                    }, (error) => {
-                        console.log(error);
-                    });
-
-
-
-                    // this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
-                    // .finally(() => {
-                    // })
-                    // .subscribe(() => {
-                    //     this.message.success("Sua tarefa foi cancelada com sucesso!");
-                    //     this.actionReturn.emit(null);
-                    // }, (error) => {
-                    //     console.log(error);
-                    // });
+                    this._worbbyTaskService.cancelWorbbyTaskAfterHiredByWorbbient(new EntityDtoOfInt64(this.worbbyTask))
+                        .finally(() => {
+                        })
+                        .subscribe(() => {
+                            this.message.success("Sua tarefa foi cancelada com sucesso!");
+                            this.actionReturn.emit(null);
+                        }, (error) => {
+                            console.log(error);
+                        });
                 }
             }
         );

@@ -6,7 +6,7 @@ import { UserMenu } from "app/shared/layout/user-menu";
 import { UserMenuItem } from "app/shared/layout/user-menu-item";
 import { AppSessionService } from "shared/common/session/app-session.service";
 import { AppAuthService } from "app/shared/common/auth/app-auth.service";
-import { BalanceTransferOutput, EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
+import { ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { WorbbiorState } from "shared/AppEnums";
 import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
@@ -41,13 +41,9 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
     public switchRole: boolean = false;
     public worbbiorStatusPerfil: string = "";
 
-    public balanceAvailable:number;
-
     public generalPaymentTabActive: boolean;
     public receivedPaymentTabActive: boolean;
     public paidPaymentPageTabActive: boolean;
-    public transferId:number;
-    public balanceTransfers:BalanceTransferOutput[] = [];
 
     constructor(
         injector: Injector,
@@ -56,8 +52,7 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         private _profileService: ProfileServiceProxy,
         private _authService: AppAuthService,
         private _activatedRoute: ActivatedRoute,
-        private router: Router,
-        private _balanceTransferService: BalanceTransferServiceProxy
+        private router: Router
     ) {
         super(injector);
     }
@@ -73,29 +68,6 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         if (this.hash) {
             this.setActiveTab(this.hash);
         }
-
-        this._balanceTransferService.getBalanceAvailableByUserId(abp.session.userId)
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-            this.balanceAvailable = result.amount;
-        }, error => {
-            console.log(error);
-        });
-
-
-        this._balanceTransferService.getBalanceTransfersByUserId(abp.session.userId)
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-            this.balanceTransfers = result.items;
-            console.log(this.balanceTransfers);
-        }, error => {
-            console.log(error);
-        });
-        
     }
 
     ngAfterViewInit(): void {
@@ -186,45 +158,5 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
                 location.href = "/";
             },
         500);
-    }
-
-    requestBalanceAvailable():void{
-        var input = new RequestBalanceTransferInput();
-        input.amount = this.balanceAvailable;
-        input.userId = abp.session.userId;
-        input.bankAccountId = 1;
-
-        this._balanceTransferService.requestBalanceTransfer(input)
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-        }, error => {
-            console.log(error);
-        });
-    }
-
-
-    testConfirmRequest():void{
-
-        this._balanceTransferService.confirmBalanceTransfer(new EntityDtoOfInt64({id: this.transferId}))
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-        }, error => {
-            console.log(error);
-        });
-    }
-
-    testCancelRequest():void{
-        this._balanceTransferService.cancelBalanceTransfer(new EntityDtoOfInt64({id: this.transferId}))
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-        }, error => {
-            console.log(error);
-        });
     }
 }

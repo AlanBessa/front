@@ -8,7 +8,7 @@ import { UserMenuItem } from '@app/shared/layout/user-menu-item';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { WorbbyTaskStatus } from '@shared/AppEnums';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
-import { CieloServiceProxy, PagedResultDtoOfWorbbyTaskDto, AddressDto, AddressServiceProxy, WorbbyTaskServiceProxy, WorbbyTaskDto, CurrentUserProfileEditDto, ProfileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PagedResultDtoOfWorbbyTaskDto, AddressDto, AddressServiceProxy, WorbbyTaskServiceProxy, WorbbyTaskDto, CurrentUserProfileEditDto, ProfileServiceProxy } from '@shared/service-proxies/service-proxies';
 import { UtilsService } from '@abp/utils/utils.service';
 
 
@@ -41,8 +41,7 @@ export class TasksHistoryWorbbientComponent extends AppComponentBase implements 
         private _profileService: ProfileServiceProxy,
         private _addressService: AddressServiceProxy,
         private _utilsService: UtilsService,
-        private _authService: AppAuthService,
-        private _cieloService: CieloServiceProxy
+        private _authService: AppAuthService
     ) {
         super(injector);
     }
@@ -148,16 +147,5 @@ export class TasksHistoryWorbbientComponent extends AppComponentBase implements 
         this._utilsService.deleteCookie("userRoleName");
         this._utilsService.deleteCookie("firstLoginUser");
         this._authService.logout();        
-    }
-
-    getCieloSale(id:number):void{
-        this._cieloService.getPaymentTransactionByWorbbyTaskId(id)
-        .finally(() => {
-        })
-        .subscribe((result) => {
-            console.log(result);
-        }, (error) => {
-            console.log(error);
-        });
     }
 }

@@ -45,8 +45,7 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.ActivityServiceProxy,
         ApiServiceProxies.AvailabilityServiceProxy,
         ApiServiceProxies.UserDocumentsInfoServiceProxy,
-        ApiServiceProxies.BankAccountServiceProxy,
-        ApiServiceProxies.BalanceTransferServiceProxy
+        ApiServiceProxies.BankAccountServiceProxy
 
     ]
 })

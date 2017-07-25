@@ -1,0 +1,141 @@
+<div [@routerTransition]>
+    <section class=" worbbior-edit-profile">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="container">
+                <div class="row">
+                    <!-- menu perfil : inicio -->
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="sidebar-header profile-sidebar-header m-t-sm p-b-sm">
+                                    <a class="visible-xs icon-menu-profile" role="button" data-toggle="collapse" href="#menuProfileLinks" aria-expanded="false"
+                                        aria-controls="menuProfileLinks">
+                                        <img class="" src="/assets/metronic/worbby/global/img/Yellow.png" alt="icon menu profile"/>
+                                    </a>
+                                    <div class="display-table">
+                                        <div class="divProfile">
+                                            <img *ngIf="active" id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="profilePicture"
+                                                (click)="changeProfilePicture()" title="clique para alterar Imagem" />
+                                            <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                        </div>
+                                        <div class="display-cell alignTop">
+                                            <h4 *ngIf="active" class="no-m-y m-b-xxxs">{{userDisplayName}}</h4>
+                                            <p *ngIf="defaultAddress" class="no-m-y cor-Botticelli small m-b-xxxs"><span *ngIf="defaultAddress.subLocality">{{defaultAddress.subLocality}},</span>                                                {{defaultAddress.administrativeArea}}</p>
+                                            <a class="visible-xs icon-msg-profile" role="button" href="#" id="chat" *ngIf="false">
+                                                <!-- Icone do chat : inicio -->
+                                                <svg width="26px" height="20px" viewBox="0 0 26 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+                                                    <title>icon chat</title>
+                                                    <desc>Chat icon</desc>
+                                                    <defs>
+                                                        <path d="M0,2.00585866 C0,0.898053512 0.894978851,0 1.99700466,0 L24.0029953,0 C25.1059106,0 26,0.897060126 26,2.00585866 L26,11.9941413 C26,13.1019465 25.1064574,14 23.9972399,14 L13,14 L6,20 L6,14 L1.99791312,14 C0.894496173,14 0,13.1029399 0,11.9941413 L0,2.00585866 Z"
+                                                            id="path-1"></path>
+                                                        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="26" height="20" fill="white">
+                                                            <use xlink:href="#path-1"></use>
+                                                        </mask>
+                                                    </defs>
+                                                    <g id="Edit-profile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="Edit-Profile-5" transform="translate(-20.000000, -100.000000)">
+                                                            <g id="icon-chat-blue" transform="translate(20.000000, 100.000000)">
+                                                                <g>
+                                                                    <use id="Rectangle" stroke="#1498CC" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+                                                                    <circle id="Oval-3" fill="#1498CC" cx="8" cy="7" r="1"></circle>
+                                                                    <circle id="Oval-3" fill="#1498CC" cx="13" cy="7" r="1"></circle>
+                                                                    <circle id="Oval-3" fill="#1498CC" cx="18" cy="7" r="1"></circle>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                                <!-- Icone do chat : Fim -->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menuProfileLinks" class="col-xs-12 collapse navbar-collapse">
+                                <ul class="nav m-t-sm m-b-sm menu-lateral-with-icons">
+                                    <ng-template ngFor let-menuItem [ngForOf]="menu.items" let-mainMenuItemIndex="index">
+                                        <li *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': mainMenuItemIndex == 0}">
+                                            <a [routerLink]="menuItem.parameter != '' ? [menuItem.route + '/' + menuItem.parameter] : [menuItem.route]" *ngIf="!menuItem.items.length">
+                                                {{l(menuItem.name)}}
+                                            </a>
+                                        </li>
+                                    </ng-template>
+                                    <li *ngIf="switchRole && currentRoleName == 'Worbbior'">
+                                        <a href="javascript:;" (click)="switchToWorbbientProfile()">{{l("SwitchToWorbbientProfile")}}</a>
+                                    </li>
+                                    <li *ngIf="switchRole && currentRoleName == 'Worbbient'">
+                                        <a href="javascript:;" (click)="switchToWorbbiorProfile()">{{l("SwitchToWorbbiorProfile")}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" (click)="logout()">
+                                            <i class="icon-logout close-nav icone"></i>
+                                            {{l("Logout")}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- menu perfil : Fim -->
+                    <!-- Conteudo perfil : inicio -->
+                    <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
+                        <div class="well well-lg bg-White">
+                            Nenhum dado disponível no momento.
+                        </div>
+                    </div>
+                    <!--<div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm">
+                        <ul class="nav nav-pills nav-justified sub-nav-worbby tab-menu-worbby" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#generalPaymentPage" class="generalPayment" aria-controls="generalPaymentPage" role="tab" data-toggle="tab">-->
+                                    <!-- Icone do Submenu : inicio -->
+                                    <!--<div class="sub-nav-icon">
+
+                                    </div>-->
+                                    <!-- Icone do Submenu : Fim -->
+                                    <!--<span class="hidden-sm hidden-xs hidden-md">Resumo</span>
+                                </a>
+                                <div class="arrow-nav"></div>
+                            </li>
+                            <li role="presentation">
+                                <a href="#receivedPaymentPage" class="receivedPayment" aria-controls="receivedPaymentPage" role="tab" data-toggle="tab">-->
+                                    <!-- Icone do Submenu : inicio -->
+                                    <!--<div class="sub-nav-icon">
+
+                                    </div>-->
+                                    <!-- Icone do Submenu : Fim -->
+                                    <!--<span class="hidden-sm hidden-xs hidden-md">Recebidos</span>
+                                </a>
+                                <div class="arrow-nav"></div>
+                            </li>
+                            <li role="presentation">
+                                <a href="#paidPaymentPage" class="paidPayment" aria-controls="paidPaymentPage" role="tab" data-toggle="tab">-->
+                                    <!-- Icone do Submenu : inicio -->
+                                    <!--<div class="sub-nav-icon">
+
+                                    </div>-->
+                                    <!-- Icone do Submenu : Fim -->
+                                    <!--<span class="hidden-sm hidden-xs hidden-md">Pagos</span>
+                                </a>
+                                <div class="arrow-nav"></div>
+                            </li>                           
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="generalPaymentPage">
+                                <generalPaymentWorbbiorComponent></generalPaymentWorbbiorComponent>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="receivedPaymentPage">
+                                <receivedPaymentWorbbiorComponent></receivedPaymentWorbbiorComponent>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="paidPaymentPage">
+                                <paidPaymentWorbbiorComponent></paidPaymentWorbbiorComponent>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!-- Conteudo perfil : Fim -->
+                </div>              
+            </div>
+        </div>
+    </section>
+</div>

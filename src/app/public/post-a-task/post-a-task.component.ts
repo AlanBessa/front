@@ -35,7 +35,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public showInterestCentersTopLevel:boolean = false;
     public public:boolean = true;
     public isProposed:boolean = false;
-    public isUnitPrice:string = "1";
+    public isUnitPrice:string = "0";
     public register:boolean = true;
     public activityUserId:number;
     public worbbiorProfile: WorbbiorProfileDto;

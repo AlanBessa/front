@@ -111,6 +111,10 @@
     margin-top: 24px;
 }
 
+.m-t-40px {
+    margin-top: 40px !important;
+}
+
 .m-r-xs{margin-right: 30px !important;}
 .m-r-xss{margin-right: 15px;}
 .m-r-xxs{margin-right: 10px;}
@@ -158,6 +162,7 @@
 .no-m-t{margin-top:0 !important;}
 .no-m-b{margin-bottom:0 !important;}
 .no-m-r{margin-right:0 !important;}
+.no-m-l{margin-left:0 !important;}
 
 .no-m-y{margin-top:0 !important; margin-bottom:0 !important;}
 .no-m-x{margin-left:0 !important; margin-right:0 !important;}
@@ -1954,15 +1959,12 @@ body {
 }
 
 .task-title-detail {
-    position: relative;
-    padding-right: 55px;
+    background-repeat: no-repeat !important;
+    background-position: center right !important;
+    background-size: contain !important;
+    padding-bottom: 10px !important;
 }
 
-.task-title-detail > img {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
 
 /* TERMO DE USO */
 

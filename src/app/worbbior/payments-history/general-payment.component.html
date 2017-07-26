@@ -1,5 +1,8 @@
 <h3 class="cor-Cinder profile-xs m-t-20px">Carteira</h3>
 
+                            <!--<button type="button" (click)="testConfirmRequest()">Confirmar transferência</button>
+                            <button type="button" (click)="testCancelRequest()">Cancelar transferência</button>
+                            <input type="number" [(ngModel)]="transferId"/>-->
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-clean">
@@ -11,7 +14,7 @@
                     <div class="col-xs-12">
                         <table class="table table-hover table-payment">
                             <tbody>
-                                <tr>
+                                <!--<tr>
                                     <td>
                                         <h5>
                                             Saldo Worbby disponível 
@@ -19,9 +22,9 @@
                                         </h5>
                                     </td>
                                     <td>
-                                        R$ <span>300,00</span>
+                                        {{balanceAvailable / 100 | currency:'BRL':true:'1.2-2'}}
                                     </td>
-                                </tr>
+                                </tr>-->
                                 <tr>
                                     <td>
                                         <h5>
@@ -30,7 +33,7 @@
                                         </h5>
                                     </td>
                                     <td>
-                                        R$ <span>100,00</span>
+                                        {{balanceAvailable / 100 | currency:'BRL':true:'1.2-2'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -39,7 +42,7 @@
                 </div>
                 <div class="row">                 
                     <div class="col-xs-12 text-center m-t-20px">
-                        <button class="btn btn-prime white-space" type="button" (click)="transferir()">Transferir saldo</button>
+                        <button class="btn btn-prime white-space" type="button" (click)="requestBalanceAvailable()">Transferir saldo</button>
                     </div>
                 </div>
             </div>
@@ -47,7 +50,7 @@
     </div>
 </div>
 
-<div class="row">
+<!--<div class="row">
     <div class="col-xs-12">
         <div class="panel panel-clean">
             <div class="panel-body p-xss"> 
@@ -127,7 +130,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <h3 class="cor-Cinder profile-xs m-t-20px">Transferências</h3>
 
@@ -155,30 +158,23 @@
                                 <tr>
                                     <th colspan="2">TOTAL</th>
                                     <th>
-                                        R$ <span>960,00</span>
+                                        R$ <span>{{balanceTransfersTotal / 100 | number:'1.2-2'}}</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>10/06/2017</td>
-                                    <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">Em andamento</i></small></td>
-                                    <td>R$ <span>960,00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>10/06/2017</td>
-                                    <td>Conta Itaú 123456</td>
-                                    <td>R$ <span class="cor-CaribbeanGreen">960,00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>10/06/2017</td>
-                                    <td>Conta Itaú 123456</td>
-                                    <td>R$ <span class="cor-Flamingo">4200,00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>10/06/2017</td>
-                                    <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">Cancelado</i></small></td>
-                                    <td>R$ <span class="cor-Botticelli">4200,00</span></td>
+                                <tr *ngFor="let balanceTransferOutput of balanceTransfers">
+                                    <td>{{balanceTransferOutput.balanceTransfer.lastModificationTime ? balanceTransferOutput.balanceTransfer.lastModificationTime : balanceTransferOutput.balanceTransfer.creationTime  | amDateFormat:'L'}}</td>
+                                    <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">{{l(BalanceTransferStatus[balanceTransferOutput.balanceTransfer.balanceTransferStatus.toString()])}}</i></small></td>
+                                    <td>R$ 
+                                        <span [ngClass]="{
+                                                'cor-CaribbeanGreen': balanceTransferOutput.balanceTransfer.balanceTransferStatus == BalanceTransferStatus.Credited,
+                                                'cor-Flamingo': balanceTransferOutput.balanceTransfer.balanceTransferStatus == BalanceTransferStatus.Canceled,
+                                                'cor-Botticelli': balanceTransferOutput.balanceTransfer.balanceTransferStatus == BalanceTransferStatus.Requested
+                                            }">
+                                            {{balanceTransferOutput.balanceTransfer.amount / 100 | number:'1.2-2'}}
+                                        </span>
+                                    </td>
                                 </tr>
                             </tbody>
                             <tfoot>

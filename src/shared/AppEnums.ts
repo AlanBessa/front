@@ -23,9 +23,8 @@
     UserActivityInputCancellationPolicy,
     WorbbyOfferDtoWorbbyOfferStatus,
     WorbbyTaskDtoTime,
-    SaleInputSaleStatus
-
-
+    SaleInputSaleStatus,
+    BalanceTransferDtoBalanceTransferStatus
 } from '@shared/service-proxies/service-proxies';
 import * as moment from "moment";
 
@@ -203,6 +202,11 @@ export enum TimeEnum {
     AllDay = Number(WorbbyTaskDtoTime._5) // Dia todo contar como 0h
 }
 
+export enum BalanceTransferStatus {
+    Requested = Number(BalanceTransferDtoBalanceTransferStatus._1),
+    Credited = Number(BalanceTransferDtoBalanceTransferStatus._2),
+    Canceled = Number(BalanceTransferDtoBalanceTransferStatus._3)
+}
 export class AdministrativeAreas {
     items: KeyValueAddress[];
 

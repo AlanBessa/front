@@ -6,7 +6,7 @@ import { UserMenu } from "app/shared/layout/user-menu";
 import { UserMenuItem } from "app/shared/layout/user-menu-item";
 import { AppSessionService } from "shared/common/session/app-session.service";
 import { AppAuthService } from "app/shared/common/auth/app-auth.service";
-import { ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto } from "shared/service-proxies/service-proxies";
+import { BalanceTransferOutput, EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { WorbbiorState } from "shared/AppEnums";
 import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
@@ -44,6 +44,7 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
     public generalPaymentTabActive: boolean;
     public receivedPaymentTabActive: boolean;
     public paidPaymentPageTabActive: boolean;
+    
 
     constructor(
         injector: Injector,
@@ -52,7 +53,8 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         private _profileService: ProfileServiceProxy,
         private _authService: AppAuthService,
         private _activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private _balanceTransferService: BalanceTransferServiceProxy
     ) {
         super(injector);
     }
@@ -67,7 +69,7 @@ export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implement
         this.hash = this._activatedRoute.snapshot.params['hash'];
         if (this.hash) {
             this.setActiveTab(this.hash);
-        }
+        }        
     }
 
     ngAfterViewInit(): void {

@@ -16,8 +16,7 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     public isOpenedSubActivities: boolean = false;
     public interestCenter: InterestCenterDto;
     public findWorbbyTaskInput: FindWorbbyTaskInput = new FindWorbbyTaskInput(); 
-
-    public interestCenters: InterestCenterDto[] = [];
+    
     public subActivitiesList: InterestCenterDto[] = [];
     public worbbiorTopTalentList: WorbbiorActivityDto[] = [];
     public suggestedActivitiesList: ActivityDto[] = [];
@@ -115,9 +114,9 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     }
 
     private getInterestCenters(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCenters = result.items;
-        });
+        if(this.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLeve();
+        }
     }
 
     private getInterestCentersChidren(): void {

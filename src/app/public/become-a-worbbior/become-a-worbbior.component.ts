@@ -12,7 +12,6 @@ import { InterestCenterServiceProxy, InterestCenterDto, ListResultDtoOfInterestC
 })
 export class BecomeWorbbiorComponent extends AppComponentBase implements AfterViewInit {
 
-    public interestCenters: InterestCenterDto[] = [];
     public filter:string;
 
     constructor(
@@ -38,12 +37,12 @@ export class BecomeWorbbiorComponent extends AppComponentBase implements AfterVi
 
 
     private getInterestCenters(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCenters = result.items;
+        if(this.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLeve();
             this.activatedRoute.fragment.subscribe(f => {
                 this.goTo(f);
-            })            
-        });
+            })   
+        }
     }
 
     becomeWorbbior():void{

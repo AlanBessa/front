@@ -8,7 +8,7 @@ import { SettingService } from '@abp/settings/setting.service';
 import { MessageService } from '@abp/message/message.service';
 import { AbpMultiTenancyService } from '@abp/multi-tenancy/abp-multi-tenancy.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
-import { BinaryObjectServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BinaryObjectServiceProxy, InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, InterestCenterDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
 
 export abstract class AppComponentBase {
@@ -26,6 +26,8 @@ export abstract class AppComponentBase {
     storageService: BinaryObjectServiceProxy;
     activatedRoute: ActivatedRoute;
     mediaQuery: string;
+    interestCenterService: InterestCenterServiceProxy;
+    public interestCentersTopLevel: InterestCenterDto[] = [];
 
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
@@ -38,6 +40,7 @@ export abstract class AppComponentBase {
         this.appSession = injector.get(AppSessionService);
         this.storageService = injector.get(BinaryObjectServiceProxy);
         this.activatedRoute = injector.get(ActivatedRoute);
+        this.interestCenterService = injector.get(InterestCenterServiceProxy);
     }
 
     ngOnInit() {
@@ -222,5 +225,11 @@ export abstract class AppComponentBase {
         } else if (window.innerWidth >= 1200) {
             this.mediaQuery = "lg";
         }
+    }
+
+    public getInterestCentersTopLeve(): void {
+        this.interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
+            this.interestCentersTopLevel = result.items;
+        });
     }
 }

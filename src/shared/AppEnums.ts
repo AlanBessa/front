@@ -11,20 +11,21 @@
     CreatePaymentDtoPaymentPeriodType,
     CreatePaymentDtoSubscriptionPaymentGatewayType,
     SalesSummaryDatePeriod,
-    WorbbyTaskMessageDtoSide, 
-    WorbbyTaskMessageDtoReadState, 
-    WorbbyTaskDtoStatus, 
-    WorbbyTaskDtoScheduleDateType, 
-    WorbbiorDtoWorbbiorState, 
-    EndorsementDtoEndorsementState, 
-    UserActivityInputActivityState, 
-    UserActivityInputUnitMeasure, 
-    AvailabilityDtoDayOfWeek, 
-    UserActivityInputCancellationPolicy, 
+    WorbbyTaskMessageDtoSide,
+    WorbbyTaskMessageDtoReadState,
+    WorbbyTaskDtoStatus,
+    WorbbyTaskDtoScheduleDateType,
+    WorbbiorDtoWorbbiorState,
+    EndorsementDtoEndorsementState,
+    UserActivityInputActivityState,
+    UserActivityInputUnitMeasure,
+    AvailabilityDtoDayOfWeek,
+    UserActivityInputCancellationPolicy,
     WorbbyOfferDtoWorbbyOfferStatus,
     WorbbyTaskDtoTime,
-    
-    
+    SaleInputSaleStatus
+
+
 } from '@shared/service-proxies/service-proxies';
 import * as moment from "moment";
 
@@ -86,7 +87,7 @@ export class AppEditionExpireAction {
     static AssignToAnotherEdition: string = "AssignToAnotherEdition";
 }
 
-export class PaymentPeriodType  {
+export class PaymentPeriodType {
     static Monthly: number = CreatePaymentDtoPaymentPeriodType._30;
     static Annual: number = CreatePaymentDtoPaymentPeriodType._365;
 }
@@ -166,12 +167,24 @@ export enum WorbbyTaskStatus {
     WorbbyTaskProposalRefusedByWorbbior = Number(WorbbyTaskDtoStatus._12) //* Tarefa proposta recusada pelo Worbbior
 }
 
-export enum WorbbyTaskMessageReadState{
+export enum SaleStatus {
+    NotFinished = Number(SaleInputSaleStatus._0), //Falha ao processar o pagamento
+    Authorized = Number(SaleInputSaleStatus._1), //Meio de pagamento apto a ser capturado ou pago(Boleto)
+    PaymentConfirmed = Number(SaleInputSaleStatus._2),  //Pagamento confirmado e finalizado
+    Denied = Number(SaleInputSaleStatus._3), //Negado
+    Voided = Number(SaleInputSaleStatus._10), //Pagamento cancelado
+    Refunded = Number(SaleInputSaleStatus._11), //Pagamento Cancelado/Estornado
+    Pending = Number(SaleInputSaleStatus._12), //Esperando retorno da instituição financeira
+    Aborted = Number(SaleInputSaleStatus._13), //Pagamento cancelado por falha no processamento
+    Scheduled = Number(SaleInputSaleStatus._20), //Recorrência agendada
+}
+
+export enum WorbbyTaskMessageReadState {
     Unread = Number(WorbbyTaskMessageDtoReadState._1),
     Read = Number(WorbbyTaskMessageDtoReadState._2),
 }
 
-export enum WorbbyTaskMessageSide{
+export enum WorbbyTaskMessageSide {
     Sender = Number(WorbbyTaskMessageDtoSide._1),
     Receiver = Number(WorbbyTaskMessageDtoSide._2),
 }

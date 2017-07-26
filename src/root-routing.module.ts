@@ -143,9 +143,11 @@ export class RootRoutingModule {
     // Shows and hides the loading spinner during RouterEvent changes
     navigationInterceptor(event: RouterEvent): void {
         if (event instanceof NavigationStart) {
+            $("body").scrollTop(0);
             $(".page-loading").show();
         }
         if (event instanceof NavigationEnd) {
+            $(".page-loading").hide();
             //$(".page-loading").show();
         }
 

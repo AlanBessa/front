@@ -41,10 +41,10 @@ import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { AgmCoreModule } from '@agm/core';
 import { LoginService } from "app/account/login/login.service";
 import { UtilsModule } from '@shared/utils/utils.module';
-import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { Ng2ImageGalleryModule } from 'ng2-image-gallery';
 import { MomentModule } from 'angular2-moment';
 import { TextMaskModule } from 'angular2-text-mask';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 
 @NgModule({
     imports: [
@@ -60,12 +60,12 @@ import { TextMaskModule } from 'angular2-text-mask';
         ButtonsModule.forRoot(),
         TooltipModule.forRoot(),
         DatepickerModule.forRoot(),
+        ShareButtonsModule.forRoot(),
         AbpModule,
         ServiceProxyModule,
         PublicRoutingModule,
         RatingModule,
         UtilsModule,
-        ShareButtonsModule,
         AppCommonModule,
         Ng2ImageGalleryModule,
         MomentModule,

@@ -85,7 +85,8 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
     }
 
     ngAfterViewInit(): void {
-        
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     registerToEvents() {

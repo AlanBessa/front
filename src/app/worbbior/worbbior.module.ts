@@ -37,6 +37,7 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.component';
 import { WorbbiorScheduleDateModalComponent } from './worbby-task/worbbior-task-scheduledate-modal.component';
 import { LoginService } from "app/account/login/login.service";
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ import { LoginService } from "app/account/login/login.service";
         ButtonsModule.forRoot(),
         DatepickerModule.forRoot(),
         RatingModule.forRoot(),
+        ShareButtonsModule.forRoot(),
         WorbbiorRoutingModule,
         UtilsModule,
         AppCommonModule,

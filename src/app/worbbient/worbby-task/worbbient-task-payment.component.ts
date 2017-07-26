@@ -87,6 +87,7 @@ export class WorbbientTaskPaymentComponent extends AppComponentBase implements A
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     // capturePayment():void{        

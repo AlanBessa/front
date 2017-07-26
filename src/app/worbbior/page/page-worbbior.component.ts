@@ -60,7 +60,8 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     }
 
     ngAfterViewInit(): void {
-        $("body").scrollTop(0);       
+        $("body").scrollTop(0);
+        $(".page-loading").hide();    
     }
 
     getWorbbiorProfile():void{

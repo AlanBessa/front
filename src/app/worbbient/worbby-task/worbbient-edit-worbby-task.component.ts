@@ -97,6 +97,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
         
         this.getInterestCentersTopLevel();
         this.getWorbbyTaskDetails();

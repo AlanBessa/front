@@ -128,6 +128,8 @@ export class EditProfileWorbbiorComponent extends AppComponentBase implements Af
     }
 
     ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
         let self = this;
         this._profileService.getCurrentUserProfileForEdit().subscribe((result) => {
             this.user = result;

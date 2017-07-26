@@ -60,6 +60,8 @@ export class WorbbiorTaskDetailsComponent extends AppComponentBase implements Af
     }
 
     ngOnInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
         this.registerToEvents();
         this.registerEvents();
         if(window.screen.width < 480) {

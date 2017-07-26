@@ -52,6 +52,7 @@ export class WorbbientTaskOffersComponent extends AppComponentBase implements Af
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     registerToEvents() {

@@ -52,6 +52,7 @@ export class TasksHistoryWorbbiorComponent extends AppComponentBase implements A
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
         
         this._profileService.getCurrentUserProfileForEdit().subscribe((result) => {
             this.user = result

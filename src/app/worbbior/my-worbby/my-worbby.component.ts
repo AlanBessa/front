@@ -88,6 +88,7 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
 

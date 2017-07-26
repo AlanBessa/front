@@ -138,7 +138,7 @@
                                 <img class="ico-btn visible-md visible-lg" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">
                             </a>
                         </li>
-                        <li class="nav-btn" [ngClass]="{'visible-xs': currentRoleName == 'Worbbior', 'hidden-xs': currentRoleName == 'Worbbient'}">
+                        <li class="nav-btn" [ngClass]="{'visible-xs': currentRoleName == 'Worbbior', 'hidden-xs hidden-sm hidden-md hidden-lg': currentRoleName == 'Worbbient'}">
                             <a routerLink="/find-a-tasks" id="PostTaskMobile" class="close-nav btn btn-around cor-Cinder m-l-xss m-r-xxs p-x-xs width-sm-210px width-320px" [ngClass]="{'btn-prime': isWorbbior || (!isWorbbior && !isMobile), 'btn-prime-inverted': !isWorbbior && isMobile}" >
                                 Tarefas postadas
                             </a>

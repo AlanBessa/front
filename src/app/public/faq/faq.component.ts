@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AccordionConfig } from 'ngx-bootstrap/accordion';
@@ -30,12 +30,17 @@ export class FaqComponent extends AppComponentBase implements AfterViewInit {
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
 
         this.activatedRoute.fragment.subscribe(f => {
             this.goToFaqItem(f);
         })
     }
 
+    ngOnDestroy(): void {
+        
+    }
+    
     public callAnalytics(question: string): void {
 
         let info = "Pergunta: " + question;

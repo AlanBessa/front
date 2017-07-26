@@ -9942,8 +9942,10 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    sendEmailForCancelledPayment(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPayment";
+    sendEmailForCancelledPaymentByWorbbientFromWorbbior(worbbyTaskDto: WorbbyTaskDto, tax: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbientFromWorbbior?";
+        if (tax !== undefined)
+            url_ += "tax=" + encodeURIComponent("" + tax) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
@@ -9958,11 +9960,11 @@ export class SaleServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processSendEmailForCancelledPayment(response_);
+            return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbior(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processSendEmailForCancelledPayment(response_);
+                    return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbior(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -9971,7 +9973,144 @@ export class SaleServiceProxy {
         });
     }
 
-    protected processSendEmailForCancelledPayment(response: Response): Observable<void> {
+    protected processSendEmailForCancelledPaymentByWorbbientFromWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendEmailForCancelledPaymentByWorbbientFromWorbbient(worbbyTaskDto: WorbbyTaskDto, tax: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbientFromWorbbient?";
+        if (tax !== undefined)
+            url_ += "tax=" + encodeURIComponent("" + tax) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbient(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbient(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailForCancelledPaymentByWorbbientFromWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendEmailForCancelledPaymentByWorbbiorFromWorbbient(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbiorFromWorbbient";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbient(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbient(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailForCancelledPaymentByWorbbiorFromWorbbient(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendEmailForCancelledPaymentByWorbbiorFromWorbbior(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbiorFromWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailForCancelledPaymentByWorbbiorFromWorbbior(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {
@@ -14976,15 +15115,17 @@ export class WorbbyTaskServiceProxy {
     /**
      * @return Success
      */
-    cancelWorbbyTaskByAdmin(input: EntityDtoOfInt64): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/CancelWorbbyTaskByAdmin";
+    deleteWorbbyTaskByAdmin(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/WorbbyTask/DeleteWorbbyTaskByAdmin?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        const content_ = "";
         
         let options_ = {
             body: content_,
-            method: "post",
+            method: "delete",
             headers: new Headers({
                 "Content-Type": "application/json; charset=UTF-8", 
                 "Accept": "application/json; charset=UTF-8"
@@ -14992,11 +15133,11 @@ export class WorbbyTaskServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processCancelWorbbyTaskByAdmin(response_);
+            return this.processDeleteWorbbyTaskByAdmin(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processCancelWorbbyTaskByAdmin(response_);
+                    return this.processDeleteWorbbyTaskByAdmin(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -15005,7 +15146,7 @@ export class WorbbyTaskServiceProxy {
         });
     }
 
-    protected processCancelWorbbyTaskByAdmin(response: Response): Observable<void> {
+    protected processDeleteWorbbyTaskByAdmin(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {
@@ -18947,6 +19088,8 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     bankAccountId: number;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
+    lastModificationTime: moment.Moment;
+    creationTime: moment.Moment;
     id: number;
 
     constructor(data?: IBalanceTransferDto) {
@@ -18964,6 +19107,8 @@ export class BalanceTransferDto implements IBalanceTransferDto {
             this.bankAccountId = data["bankAccountId"];
             this.amount = data["amount"];
             this.balanceTransferStatus = data["balanceTransferStatus"];
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -18980,6 +19125,8 @@ export class BalanceTransferDto implements IBalanceTransferDto {
         data["bankAccountId"] = this.bankAccountId;
         data["amount"] = this.amount;
         data["balanceTransferStatus"] = this.balanceTransferStatus;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -18990,6 +19137,8 @@ export interface IBalanceTransferDto {
     bankAccountId: number;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
+    lastModificationTime: moment.Moment;
+    creationTime: moment.Moment;
     id: number;
 }
 
@@ -25027,6 +25176,7 @@ export class SaleInput implements ISaleInput {
     returnCode: string;
     returnMessage: string;
     isCancelWorbbyTask: boolean;
+    isCancelByWorbbient: boolean;
     cancellationTax: number;
     capturedAmountDate: moment.Moment;
     id: number;
@@ -25051,6 +25201,7 @@ export class SaleInput implements ISaleInput {
             this.returnCode = data["returnCode"];
             this.returnMessage = data["returnMessage"];
             this.isCancelWorbbyTask = data["isCancelWorbbyTask"];
+            this.isCancelByWorbbient = data["isCancelByWorbbient"];
             this.cancellationTax = data["cancellationTax"];
             this.capturedAmountDate = data["capturedAmountDate"] ? moment(data["capturedAmountDate"].toString()) : <any>undefined;
             this.id = data["id"];
@@ -25074,6 +25225,7 @@ export class SaleInput implements ISaleInput {
         data["returnCode"] = this.returnCode;
         data["returnMessage"] = this.returnMessage;
         data["isCancelWorbbyTask"] = this.isCancelWorbbyTask;
+        data["isCancelByWorbbient"] = this.isCancelByWorbbient;
         data["cancellationTax"] = this.cancellationTax;
         data["capturedAmountDate"] = this.capturedAmountDate ? this.capturedAmountDate.toISOString() : <any>undefined;
         data["id"] = this.id;
@@ -25091,6 +25243,7 @@ export interface ISaleInput {
     returnCode: string;
     returnMessage: string;
     isCancelWorbbyTask: boolean;
+    isCancelByWorbbient: boolean;
     cancellationTax: number;
     capturedAmountDate: moment.Moment;
     id: number;

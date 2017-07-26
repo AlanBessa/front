@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ActivityEndorsementForCreateUpdate, ListResultDtoOfUserActivityInput, WorbbyPagedResultDtoOfActivityDto, ListResultDtoOfInterestCenterDto, InterestCenterServiceProxy, WorbbiorServiceProxy, EndorsementServiceProxy, UserActivityInput, EndorsementDto, ActivityDto, InterestCenterDto, WorbbiorDto, ActivityServiceProxy, ActivityEndorsementDto, ListResultDtoOfActivityEndorsementDto } from '@shared/service-proxies/service-proxies';
@@ -111,6 +111,15 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
         }
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
+    ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
+    }
+
     private checkRoute():void{
         if(this.endorsementId){
             if(this._router.url.match(/endorsement.*/)){
@@ -123,10 +132,6 @@ export class EndorsementsComponent extends AppComponentBase implements AfterView
         }else{
             this.notFound = true;
         }  
-    }
-
-    ngAfterViewInit(): void {
-        $("body").scrollTop(0);
     }
 
     getEndorsement(endorsementId: number): void {

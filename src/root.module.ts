@@ -6,8 +6,6 @@ import { AbpModule, ABP_HTTP_PROVIDER } from '@abp/abp.module';
 
 import { ModalModule, TooltipModule, AccordionModule, ButtonsModule, RatingModule } from 'ngx-bootstrap';
 
-import { AccoutModule } from './app/account/account.module';
-import { PublicModule } from '@app/public/public.module';
 import { CommonModule } from '@shared/common/common.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { RootRoutingModule } from './root-routing.module';
@@ -15,6 +13,8 @@ import { RootRoutingModule } from './root-routing.module';
 import { FormsModule } from '@angular/forms';
 
 import { HttpModule, JsonpModule } from '@angular/http';
+
+import { BinaryObjectServiceProxy }  from '@shared/service-proxies/service-proxies';
 
 import { AppConsts } from '@shared/AppConsts';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -127,7 +127,6 @@ function handleLogoutRequest(authService: AppAuthService) {
         BrowserModule,
         BrowserAnimationsModule,
         CommonModule.forRoot(),
-        PublicModule,
         AbpModule,
         ServiceProxyModule,
         RootRoutingModule,
@@ -162,6 +161,8 @@ function handleLogoutRequest(authService: AppAuthService) {
         Angulartics2Module
     ],
     providers: [
+        AppAuthService,
+        BinaryObjectServiceProxy,
         MessageSignalrService,
         UserNotificationHelper,
         ABP_HTTP_PROVIDER,

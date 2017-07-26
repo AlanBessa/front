@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ActivityEndorsementForCreateUpdate, InterestCenterForActivityDto, InterestCenterServiceProxy, WorbbyPagedResultDtoOfActivityDto, ListResultDtoOfInterestCenterDto, ListResultDtoOfUserActivityInput, UserActivityInput, InterestCenterDto, ActivityServiceProxy, ActivityDto } from '@shared/service-proxies/service-proxies';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -57,7 +57,13 @@ export class EndorsementSelectActivityComponent extends AppComponentBase impleme
     }
 
     ngAfterViewInit(): void {
-        this.getInterestCentersTopLevel();
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
+        this.getInterestCentersTopLevel();        
+    }
+
+    ngOnDestroy(): void {
+        
     }
 
     ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Router } from '@angular/router';
@@ -22,6 +22,11 @@ export class ComingSoonComponent extends AppComponentBase implements AfterViewIn
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
+    }
+
+    ngOnDestroy(): void {
+        
     }
 
     findByTerm(): void {

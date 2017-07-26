@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { TokenAuthServiceProxy, SendTwoFactorAuthCodeModel, AuthenticateModel, AuthenticateResultModel } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -24,8 +24,13 @@ export class SendTwoFactorCodeComponent extends AppComponentBase implements CanA
         super(injector);
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     canActivate(): boolean {

@@ -28,6 +28,7 @@ export class ValidateTwoFactorCodeComponent extends AppComponentBase implements 
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     canActivate(): boolean {
@@ -53,6 +54,7 @@ export class ValidateTwoFactorCodeComponent extends AppComponentBase implements 
     }
 
     ngOnDestroy(): void {
+        
         if (this.timerSubscription) {
             this.timerSubscription.unsubscribe();
             this.timerSubscription = null;

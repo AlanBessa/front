@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { WorbbiorProfileDto, UserActivityInput, ActivityServiceProxy, WorbbiorDto, WorbbiorServiceProxy, WorbbyTaskDto, WorbbyTaskInput, AddressDto, InterestCenterDto, InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, WorbbyTaskServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -145,8 +145,13 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
         //this.setValidSteps();
         this.getInterestCentersTopLevel();    
+    }
+
+    ngOnDestroy(): void {
+        
     }
 
     private getInterestCentersTopLevel(): void {

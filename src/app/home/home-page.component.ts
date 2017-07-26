@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -10,11 +10,11 @@ import { Angulartics2 } from 'angulartics2';
 
 
 @Component({
-    templateUrl: './home.component.html',
+    templateUrl: './home-page.component.html',
     animations: [appModuleAnimation()]
 })
 
-export class HomeComponent extends AppComponentBase implements AfterViewInit {
+export class HomePageComponent extends AppComponentBase implements AfterViewInit {
 
     @ViewChild('homeReleaseModal') homeReleaseModal: HomeReleaseModalComponent; 
 
@@ -36,11 +36,16 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
         this.getInterestCenters();
         this.activatedRoute.fragment.subscribe(f => {
             this.goTo(f);
         });
     } 
+
+    ngOnDestroy(): void {
+        
+    }
 
     ngOnInit() {
         this.isPublic = this.appSession.userId == null;

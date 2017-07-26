@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, ViewChild, Inject } from '@angular/core';
+import { Component, Injector, AfterViewInit, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
@@ -66,6 +66,9 @@ export class EditProfileWorbbientComponent extends AppComponentBase implements A
     ]);
 
     ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
+
         this._profileService.getCurrentUserProfileForEdit().subscribe((result) => {
             this.user = result;
             this._initialTimezone = result.timezone;
@@ -74,6 +77,10 @@ export class EditProfileWorbbientComponent extends AppComponentBase implements A
             this.getProfilePicture();
             this.getAddresDefault();
         });
+    }
+
+    ngOnDestroy(): void {
+        
     }
 
     getProfilePicture(): void {

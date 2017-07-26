@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Injector, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InterestCenterServiceProxy, ListResultDtoOfInterestCenterDto, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, WorbbyPagedResultDtoOfActivityDto, ActivityDto, EntityDtoOfInt64, WorbbiorServiceProxy, WorbbyTaskServiceProxy, ListResultDtoOfWorbbyTaskDto, FindWorbbyTaskInput, WorbbyTaskDto, WorbbyPagedResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -16,8 +16,7 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     public isOpenedSubActivities: boolean = false;
     public interestCenter: InterestCenterDto;
     public findWorbbyTaskInput: FindWorbbyTaskInput = new FindWorbbyTaskInput(); 
-
-    public interestCenters: InterestCenterDto[] = [];
+    
     public subActivitiesList: InterestCenterDto[] = [];
     public worbbiorTopTalentList: WorbbiorActivityDto[] = [];
     public suggestedActivitiesList: ActivityDto[] = [];
@@ -55,9 +54,13 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
         this.worbbiorPremium = this._appSessionService.worbbiorPremium;
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
-
+        $(".page-loading").hide();
         this.loadingInfoPage();
         this.getInterestCenters();
     }
@@ -111,9 +114,9 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     }
 
     private getInterestCenters(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCenters = result.items;
-        });
+        if(this.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLeve();
+        }
     }
 
     private getInterestCentersChidren(): void {

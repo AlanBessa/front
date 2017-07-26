@@ -1,24 +1,23 @@
-import { Component, Injector, AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { SlickSliderComponent } from '@shared/slick-slider.component';
 import { AppSessionService } from '@shared/common/session/app-session.service';
-import { InterestCenterServiceProxy, InterestCenterDto, ListResultDtoOfInterestCenterDto, WorbbiorServiceProxy, EntityDtoOfInt64 } from '@shared/service-proxies/service-proxies';
+import { WorbbiorServiceProxy, EntityDtoOfInt64 } from '@shared/service-proxies/service-proxies';
 import { HomeReleaseModalComponent } from './home-release-modal.component';
 import { Angulartics2 } from 'angulartics2';
 
 
 @Component({
-    templateUrl: './home.component.html',
+    templateUrl: './home-page.component.html',
     animations: [appModuleAnimation()]
 })
 
-export class HomeComponent extends AppComponentBase implements AfterViewInit {
+export class HomePageComponent extends AppComponentBase implements AfterViewInit {
 
     @ViewChild('homeReleaseModal') homeReleaseModal: HomeReleaseModalComponent; 
 
-    public interestCenters: InterestCenterDto[] = [];
     public filter:string = "";
     public imagemBanner: string = "";
     public isPublic: boolean = false; 
@@ -26,7 +25,6 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
     constructor(
         injector: Injector,
         private router: Router,
-        private _interestCenterService: InterestCenterServiceProxy,
         private _appSessionService: AppSessionService,
         private _worbbiorService: WorbbiorServiceProxy,
         private angulartics2: Angulartics2
@@ -36,11 +34,21 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
         this.getInterestCenters();
         this.activatedRoute.fragment.subscribe(f => {
             this.goTo(f);
         });
+        
+        if(this._appSessionService.firstAccess){
+            //this.showReleaseModal();
+            this._appSessionService.firstAccess = false;
+        }
     } 
+
+    ngOnDestroy(): void {
+        
+    }
 
     ngOnInit() {
         this.isPublic = this.appSession.userId == null;
@@ -113,15 +121,9 @@ export class HomeComponent extends AppComponentBase implements AfterViewInit {
     }
 
     private getInterestCenters(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCenters = result.items;
-
-            if(this._appSessionService.firstAccess){
-                //this.showReleaseModal();
-                this._appSessionService.firstAccess = false;
-            }
-            
-        });
+        if(this.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLeve();
+        }
     }
 
     public findByTerm(): void {

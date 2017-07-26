@@ -60,7 +60,6 @@ export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements
     }
 
     ngAfterViewInit(): void {
-
     }
 
     requestBalanceAvailable():void{

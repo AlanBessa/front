@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 //PUBLIC CONTENT
-import { HomeComponent } from './home/home.component';
 import { AboutWorbbyComponent } from './about-worbby/about-worbby.component';
 import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
@@ -58,28 +57,13 @@ import { PublicComponent } from './public.component';
                       }
 
                     },
-                    { path: 'endorsement-success', redirectTo: 'endosso/sucesso', pathMatch: 'full' },
-                    { path: 'suggest-activities', redirectTo: 'sugerir-atividades', pathMatch: 'full' },
+                    { path: 'endorsement-success', redirectTo: '/publico/endosso/sucesso', pathMatch: 'full' },
+                    { path: 'suggest-activities', redirectTo: '/publico/sugerir-atividades', pathMatch: 'full' },
                     {
                       path: 'sugerir-atividades', component: EndorsementSelectActivityComponent, data: {
                         meta: {
                           title: 'Worbby',
                           description: ''
-                        }
-                      }
-                    },
-                    {
-                      path: '', component: HomeComponent, data: {
-                        meta: {
-                          title: 'WORBBY conecta você com talentos para facilitar a sua vida',
-                          description: 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:title': 'WORBBY conecta você com talentos para facilitar a sua vida',
-                          'og:description': 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:url': 'http://www.worbby.com/home',
-                          'og:image': 'http://www.worbby.com/images/home-temporario_2.jpg',
-                          'og:image:type': 'image/jpeg',
-                          'og:image:width': '800',
-                          'og:image:height': '600'
                         }
                       }
                     },
@@ -106,7 +90,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'about-worbby', redirectTo: 'sobre', pathMatch: 'full' },
+                    { path: 'about-worbby', redirectTo: '/publico/sobre', pathMatch: 'full' },
 
                     {
                       path: 'fale-com-o-Worbby', component: ContactComponent, data: {
@@ -123,7 +107,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'contact', redirectTo: 'fale-com-o-Worbby', pathMatch: 'full' },
+                    { path: 'contact', redirectTo: '/publico/fale-com-o-Worbby', pathMatch: 'full' },
 
                     {
                       path: 'perguntas-frequentes', component: FaqComponent, data: {
@@ -140,7 +124,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'faq', redirectTo: 'perguntas-frequentes', pathMatch: 'full' },
+                    { path: 'faq', redirectTo: '/publico/perguntas-frequentes', pathMatch: 'full' },
 
                     {
                       path: 'perguntas-frequentes/:tab', component: FaqComponent, data: {
@@ -157,7 +141,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'faq/:tab', redirectTo: 'perguntas-frequentes/:tab', pathMatch: 'full' },
+                    { path: 'faq/:tab', redirectTo: '/publico/perguntas-frequentes/:tab', pathMatch: 'full' },
 
                     {
                       path: 'como-funciona', component: HowDoesItWorkComponent, data: {
@@ -174,7 +158,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'how-does-it-work', redirectTo: 'como-funciona', pathMatch: 'full' },
+                    { path: 'how-does-it-work', redirectTo: '/publico/como-funciona', pathMatch: 'full' },
 
                     {
                       path: 'como-funciona-w', component: HowDoesItWorkWorbbiorComponent, data: {
@@ -191,7 +175,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'how-does-it-work-w', redirectTo: 'como-funciona-w', pathMatch: 'full' },
+                    { path: 'how-does-it-work-w', redirectTo: '/publico/como-funciona-w', pathMatch: 'full' },
 
                     {
                       path: 'seguro', component: InsuranceComponent, data: {
@@ -208,7 +192,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'insurance', redirectTo: 'seguro', pathMatch: 'full' },
+                    { path: 'insurance', redirectTo: '/publico/seguro', pathMatch: 'full' },
                     {
                       path: 'postar-tarefa', component: PostTaskComponent, data: {
                         meta: {
@@ -224,9 +208,9 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'post-a-task', redirectTo: 'postar-tarefa', pathMatch: 'full' },
+                    { path: 'post-a-task', redirectTo: '/publico/postar-tarefa', pathMatch: 'full' },
 
-                    { path: 'post-a-task/:activityUserId', redirectTo: 'postar-tarefa', pathMatch: 'full' },
+                    { path: 'post-a-task/:activityUserId', redirectTo: '/publico/postar-tarefa', pathMatch: 'full' },
                     {
                       path: 'postar-tarefa/:activityUserId', component: PostTaskComponent, data: {
                         meta: {
@@ -258,7 +242,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'support', redirectTo: 'suporte', pathMatch: 'full' },
+                    { path: 'support', redirectTo: '/publico/suporte', pathMatch: 'full' },
 
                     {
                       path: 'termos-de-uso', component: TermsAndConditionsComponent, data: {
@@ -275,7 +259,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'terms-and-conditions', redirectTo: 'termos-de-uso', pathMatch: 'full' },
+                    { path: 'terms-and-conditions', redirectTo: '/publico/termos-de-uso', pathMatch: 'full' },
 
                     {
                       path: 'tarefas', component: FindTasksComponent, data: {
@@ -292,7 +276,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'find-a-tasks', redirectTo: 'tarefas', pathMatch: 'full' },
+                    { path: 'find-a-tasks', redirectTo: '/publico/tarefas', pathMatch: 'full' },
 
                     {
                       path: 'talentos', component: FindTalentComponent, data: {
@@ -309,7 +293,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'find-a-talents', redirectTo: 'talentos', pathMatch: 'full' },
+                    { path: 'find-a-talents', redirectTo: '/publico/talentos', pathMatch: 'full' },
 
                     {
                       path: 'talentos/:interestCenterId', component: FindTalentComponent, data: {
@@ -326,7 +310,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'find-a-talents/:interestCenterId', redirectTo: 'talentos/:interestCenterId', pathMatch: 'full' }, 
+                    { path: 'find-a-talents/:interestCenterId', redirectTo: '/publico/talentos/:interestCenterId', pathMatch: 'full' }, 
 
                     {
                       path: 'talentos-t/:filter', component: FindTalentComponent, data: {
@@ -343,7 +327,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'find-a-talents-t/:filter', redirectTo: 'talentos-t/:filter', pathMatch: 'full' },
+                    { path: 'find-a-talents-t/:filter', redirectTo: '/publico/talentos-t/:filter', pathMatch: 'full' },
 
                     {
                       path: 'talentos-f/:feature', component: FindTalentComponent, data: {
@@ -360,7 +344,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'find-a-talents-f/:feature', redirectTo: 'talentos-f/:feature', pathMatch: 'full' },
+                    { path: 'find-a-talents-f/:feature', redirectTo: '/publico/talentos-f/:feature', pathMatch: 'full' },
 
                     {
                       path: 'seja-um-worbbior', component: BecomeWorbbiorComponent, data: {
@@ -377,7 +361,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'become-a-worbbior', redirectTo: 'seja-um-worbbior', pathMatch: 'full' },
+                    { path: 'become-a-worbbior', redirectTo: '/publico/seja-um-worbbior', pathMatch: 'full' },
 
                     {
                       path: 'worbbior/pagina/:worbbiorId', component: PageWorbbiorComponent, data: {
@@ -387,7 +371,7 @@ import { PublicComponent } from './public.component';
                         }
                       }
                     },
-                    { path: 'worbbior/page/:worbbiorId', redirectTo: 'worbbior/pagina/:worbbiorId', pathMatch: 'full' }
+                    { path: 'worbbior/page/:worbbiorId', redirectTo: '/publico/worbbior/pagina/:worbbiorId', pathMatch: 'full' }
                 ]
             }
         ])

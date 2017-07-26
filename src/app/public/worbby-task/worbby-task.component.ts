@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbiorProfileDto } from '@shared/service-proxies/service-proxies';
@@ -57,8 +57,13 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
         this.isMobile = window.screen.width < 768;
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
     ngAfterViewInit(): void {
-        $("body").scrollTop(0); 
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     openOfferModal():void {

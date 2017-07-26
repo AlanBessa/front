@@ -59,6 +59,8 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
     }
 
     ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
         this.getInterestCentersTopLevel();
     }
 

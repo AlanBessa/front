@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AccountServiceProxy, ResetPasswordInput, ResetPasswordOutput } from '@shared/service-proxies/service-proxies';
@@ -29,8 +29,13 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
         super(injector);
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     ngOnInit(): void {      

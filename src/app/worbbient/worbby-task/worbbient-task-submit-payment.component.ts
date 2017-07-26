@@ -48,7 +48,8 @@ export class WorbbientTaskSubmitPaymentComponent extends AppComponentBase implem
     }
 
     ngAfterViewInit(): void {
-        $("body").scrollTop(0);      
+        $("body").scrollTop(0);
+        $(".page-loading").hide();    
     }
 
     getWorbbyTask():void{

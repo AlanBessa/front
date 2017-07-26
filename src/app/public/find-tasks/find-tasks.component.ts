@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
@@ -41,14 +41,20 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
     }
 
     ngAfterViewInit(): void {
+
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
+
         this.findWorbbyTaskInput.interestCenterTopLevelId = this._activatedRoute.snapshot.params['interestCenterTopLevelId'];
         this.findWorbbyTaskInput.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
         this.findWorbbyTaskInput.filter = this._activatedRoute.snapshot.params['filter'];
 
-        $("body").scrollTop(0);
-
         this.getInterestCentersTopLevel();
         this.getLocation();
+    }
+
+    ngOnDestroy(): void {
+        
     }
 
 

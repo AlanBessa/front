@@ -66,6 +66,8 @@ export class PaymentsHistoryWorbbientComponent extends AppComponentBase implemen
     }
 
     ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
         this.getWorbbior();
         this.getAddresDefault();
     }

@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { TokenAuthServiceProxy, AuthenticateModel, AuthenticateResultModel } from '@shared/service-proxies/service-proxies';
@@ -22,7 +22,12 @@ export class LoginPageComponent extends AppComponentBase {
         super(injector);
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 }

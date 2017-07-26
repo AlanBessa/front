@@ -80,6 +80,7 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
     }
 
     registerToEvents() {

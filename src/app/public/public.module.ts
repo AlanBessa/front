@@ -13,21 +13,9 @@ import { PublicRoutingModule } from './public-routing.module';
 
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 
-import { UtilsModule } from '@shared/utils/utils.module';
-
-import { ShareButtonsModule } from 'ngx-sharebuttons';
-
-import { TextMaskModule } from 'angular2-text-mask';
-import { Ng2ImageGalleryModule } from 'ng2-image-gallery';
-
-import { MomentModule } from 'angular2-moment';
-
 import { PublicComponent } from './public.component';
 
-import { BinaryObjectServiceProxy }  from '@shared/service-proxies/service-proxies';
-
 //PUBLIC CONTENT
-import { HomeComponent } from './home/home.component';
 
 import { AboutWorbbyComponent } from './about-worbby/about-worbby.component';
 import { ContactComponent } from './contact/contact.component';
@@ -47,13 +35,16 @@ import { EndorsementSelectActivityComponent } from './endorsements/endorsement-s
 import { EndorsementSuccessComponent } from './endorsements/endorsement-success.component';
 import { WorbbyTaskComponent } from './worbby-task/worbby-task.component';
 import { SendOfferModalComponent } from './worbby-task/send-offer-modal.component';
-import { HomeReleaseModalComponent } from './home/home-release-modal.component';
-import { SlickSliderComponent } from 'shared/slick-slider.component';
 import { ActivityCenterComponent } from "./activity-center/activity-center-page.component";
 import { SideMenuComponent } from '@app/shared/layout/side-menu.component';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
 import { AgmCoreModule } from '@agm/core';
 import { LoginService } from "app/account/login/login.service";
+import { UtilsModule } from '@shared/utils/utils.module';
+import { Ng2ImageGalleryModule } from 'ng2-image-gallery';
+import { MomentModule } from 'angular2-moment';
+import { TextMaskModule } from 'angular2-text-mask';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 
 @NgModule({
     imports: [
@@ -67,25 +58,24 @@ import { LoginService } from "app/account/login/login.service";
         TabsModule.forRoot(),
         AccordionModule.forRoot(),
         ButtonsModule.forRoot(),
-        DatepickerModule.forRoot(),
         TooltipModule.forRoot(),
-        Ng2ImageGalleryModule,
+        DatepickerModule.forRoot(),
+        ShareButtonsModule.forRoot(),
         AbpModule,
-        UtilsModule,
         ServiceProxyModule,
         PublicRoutingModule,
         RatingModule,
-        ShareButtonsModule.forRoot(),
-        TextMaskModule,
-        MomentModule,
+        UtilsModule,
         AppCommonModule,
+        Ng2ImageGalleryModule,
+        MomentModule,
+        TextMaskModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDmAf99svQmS-Oi0BDl2Zpn0YtMGccRZRM'
         }),
     ],
     declarations: [
         PublicComponent,
-        HomeComponent,
         AboutWorbbyComponent,
         ContactComponent,
         FaqComponent,
@@ -97,7 +87,6 @@ import { LoginService } from "app/account/login/login.service";
         FindTalentComponent,
         PageWorbbiorComponent,
         BecomeWorbbiorComponent,
-        SlickSliderComponent,
         HowDoesItWorkWorbbiorComponent,
         FindTasksComponent,
         PostTaskComponent,
@@ -106,13 +95,10 @@ import { LoginService } from "app/account/login/login.service";
         EndorsementSuccessComponent,
         WorbbyTaskComponent,
         ActivityCenterComponent,
-        HomeReleaseModalComponent,
         SideMenuComponent
     ],
     providers: [
-        LoginService,
-        BinaryObjectServiceProxy,
-        AppAuthService
+        LoginService
     ]
 })
 export class PublicModule {

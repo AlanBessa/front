@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
@@ -50,7 +50,14 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
         super(injector);
     }
 
+    ngOnDestroy(): void {
+        
+    }
+
     ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
+
         let self = this;
         this.interestCenterId = this._activatedRoute.snapshot.params['interestCenterId'];
         this.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
@@ -64,8 +71,6 @@ export class FindTalentComponent extends AppComponentBase implements AfterViewIn
         } 
 
         this.tabFeaturesActive = $("#featured").hasClass("active"); 
-        
-        $("body").scrollTop(0);
         
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             self.tabFeaturesActive = $("#featured").hasClass("active");

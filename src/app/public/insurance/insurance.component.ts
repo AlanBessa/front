@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AccordionConfig } from 'ngx-bootstrap/accordion';
@@ -30,11 +30,16 @@ export class InsuranceComponent extends AppComponentBase implements AfterViewIni
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
+        $(".page-loading").hide();
 
         if(this.tab){
             $("accordion #" + this.tab + " .accordion-toggle").click();            
             $("body").animate({scrollTop: $("accordion #" + this.tab + " .accordion-toggle").offset().top + 100},'slow');
         }
+    }
+
+    ngOnDestroy(): void {
+        
     }
 
     public callAnalytics(question: string): void {

@@ -36,9 +36,15 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button [disabled]="sending" type="button" class="btn btn-prime-inverted btn-around pull-left" (click)="close()">{{l("Cancel")}}</button>
-          <button type="submit" class="btn btn-prime btn-around" [disabled]="!sendReportForm.form.valid || sending" [buttonBusy]="sending" [busyText]="l('SendWithThreeDot')"><span>{{l("Send")}}</span></button>
+        <div class="modal-footer">          
+          <div class="row">
+              <div class="col-xs-12 col-md-4">
+                  <button [disabled]="sending" type="button" class="btn btn-prime-inverted btn-around btn-block" [ngClass]="{'m-b-10px': isMobile}" (click)="close()">{{l("Cancel")}}</button>
+              </div>
+              <div class="col-xs-12 col-md-4 col-md-offset-4">
+                  <button type="submit" class="btn btn-prime btn-around btn-block" [disabled]="!sendReportForm.form.valid || sending" [buttonBusy]="sending" [busyText]="l('SendWithThreeDot')"><span>{{l("Send")}}</span></button>
+              </div>
+          </div>
         </div>
       </form>
     </div>

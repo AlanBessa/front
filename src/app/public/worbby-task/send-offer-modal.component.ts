@@ -1,4 +1,4 @@
-import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, OnInit } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { WorbbyTaskDto, WorbbyTaskServiceProxy, WorbbyOfferDto} from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -12,7 +12,7 @@ import * as _ from "lodash";
     selector: 'sendOfferModal',
     templateUrl: './send-offer-modal.component.html'
 })
-export class SendOfferModalComponent extends AppComponentBase {
+export class SendOfferModalComponent extends AppComponentBase implements OnInit {
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
 
@@ -23,6 +23,8 @@ export class SendOfferModalComponent extends AppComponentBase {
     public worbbyTask:WorbbyTaskDto;
     public showDataPicker:boolean = false;
     public scheduleDateDisplay:string = "Selecione uma data";
+    public saving: boolean = false;
+    public isMobile: boolean = false;
 
     CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
     WorbbyOfferStatus: typeof WorbbyOfferStatus = WorbbyOfferStatus;
@@ -39,12 +41,15 @@ export class SendOfferModalComponent extends AppComponentBase {
         super(injector);
     }
 
+    ngOnInit(): void {
+        this.isMobile = window.screen.width < 768;
+    }
+
     show(worbbyTask: WorbbyTaskDto): void {
         this.worbbyTask = worbbyTask;
         var cancellationPolicyOptions = Object.keys(CancellationPolicy);
         this.cancellationPolicyOptions = cancellationPolicyOptions.slice(cancellationPolicyOptions.length / 2);
-        this.currentCancellationPolicyOptions = this.cancellationPolicyOptions[0];
-        
+        this.currentCancellationPolicyOptions = this.cancellationPolicyOptions[0];        
         
         this.worbbyOffer = new WorbbyOfferDto();
         this.worbbyOffer.worbbyTaskId = worbbyTask.id;
@@ -55,13 +60,15 @@ export class SendOfferModalComponent extends AppComponentBase {
         this.modal.show();
     }
 
-
     onShown(): void {
     }
    
     save(): void {  
+        this.saving = true;
+
         this._worbbyTaskService.createOrUpdateWorbbyOffer(this.worbbyOffer).subscribe(result => {            
             this.modalSave.emit(null);
+            this.saving = false;
             this.close();
         });
     }
@@ -69,7 +76,6 @@ export class SendOfferModalComponent extends AppComponentBase {
     close(): void {
         this.modal.hide();
     }
-
 
     changeCancellationPolicy(name: string): void {
         this.currentCancellationPolicyOptions = name;

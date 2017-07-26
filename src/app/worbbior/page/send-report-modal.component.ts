@@ -1,4 +1,4 @@
-import { Component, ViewChild, Injector, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ViewChild, Injector, Input, Output, EventEmitter, ElementRef, OnInit } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ReportEmailDto, WorbbiorServiceProxy, ReportWorbbintEmailDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -14,7 +14,7 @@ import * as _ from "lodash";
         }`
     ]
 })
-export class SendReportModalComponent extends AppComponentBase {
+export class SendReportModalComponent extends AppComponentBase implements OnInit {
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
 
@@ -28,12 +28,17 @@ export class SendReportModalComponent extends AppComponentBase {
     public reportEmailDto: ReportEmailDto = new ReportEmailDto();
     public reportWorbbientEmailDto: ReportWorbbintEmailDto = new ReportWorbbintEmailDto();
     public worbbyId: number;
+    public isMobile: boolean = false;
 
     constructor(
         injector: Injector,
         private _worbbiorService: WorbbiorServiceProxy,
     ) {
         super(injector);
+    }
+    
+    ngOnInit(): void {
+        this.isMobile = window.screen.width < 768;
     }
 
     show(): void {

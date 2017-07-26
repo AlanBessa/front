@@ -19088,6 +19088,8 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     bankAccountId: number;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
+    lastModificationTime: moment.Moment;
+    creationTime: moment.Moment;
     id: number;
 
     constructor(data?: IBalanceTransferDto) {
@@ -19105,6 +19107,8 @@ export class BalanceTransferDto implements IBalanceTransferDto {
             this.bankAccountId = data["bankAccountId"];
             this.amount = data["amount"];
             this.balanceTransferStatus = data["balanceTransferStatus"];
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -19121,6 +19125,8 @@ export class BalanceTransferDto implements IBalanceTransferDto {
         data["bankAccountId"] = this.bankAccountId;
         data["amount"] = this.amount;
         data["balanceTransferStatus"] = this.balanceTransferStatus;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -19131,6 +19137,8 @@ export interface IBalanceTransferDto {
     bankAccountId: number;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
+    lastModificationTime: moment.Moment;
+    creationTime: moment.Moment;
     id: number;
 }
 

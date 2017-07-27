@@ -20,8 +20,44 @@
                 </div>
             </div>
             <div *ngIf="!showRegisterOrLogin" class="row">
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
-                    <h3 class="m-t-sm m-b-xss">Detalhes da tarefa</h3>
+                <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2" [ngClass]="{'text-center': isMobile}">
+                    <h3 class="m-t-sm" [ngClass]="{'m-l-xss m-b-xss': !isMobile}">Detalhes da tarefa</h3>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="social-list no-m-b" [ngClass]="{'m-t-sm': !isMobile}">
+                        <ul class="list-unstyled list-inline no-m-l no-m-b">
+                            <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}"> 
+                                <a (click)="sharedFacebook()">
+                                    <img class="" src="/assets/metronic/worbby/global/img/social-fb.svg" alt="icon Facebook" />
+                                </a>
+                            </li>
+                            <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}">
+                                <a [shareButton]="'twitter'">
+                                    <img class="" src="/assets/metronic/worbby/global/img/social-twitter.svg" alt="icon Twitter" />
+                                </a>
+                            </li>
+                            <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}">
+                                <a [shareButton]="'googleplus'">
+                                    <img class="" src="/assets/metronic/worbby/global/img/social-gplus.svg" alt="icon G+" />
+                                </a>
+                            </li>
+                            <li class="m-r-xxs m-b-xxs" *ngIf="isMobile">
+                                <a [attr.href]="whatsappLink" target="_blank">
+                                    <img class="" src="/assets/metronic/worbby/global/img/social-whatsapp5.svg" alt="icon Whatsapp" />
+                                </a>
+                            </li>
+                            <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}">
+                                <a [shareButton]="'pinterest'">
+                                    <img class="" src="/assets/metronic/worbby/global/img/social-pin.svg" alt="icon Pintrest" />
+                                </a>
+                            </li>
+                            <li class="" [ngClass]="{'m-b-xxs': isMobile}">
+                                <a [shareButton]="'linkedIn'">
+                                    <img class="" src="/assets/metronic/worbby/global/img/social-in.svg" alt="icon LinkedIn" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div *ngIf="active && !showRegisterOrLogin" class="row card-profile bg-White wizard-container">
@@ -29,42 +65,7 @@
                     <div class="col-xs-12 p-xss">
                         <h3 class="task-title-detail no-m-y" [style.background]="'url(' + worbbyTask.interestCenter.parentPicture + ')'">
                             {{worbbyTask.title}}
-                        </h3>
-                        <p class="cor-Botticelli m-b-10px small">Compartilhe:</p>
-                        <div class="social-list no-m-b">
-                            <ul class="list-unstyled list-inline no-m-l no-m-b">
-                                <li class="m-r-xss" [ngClass]="{'m-b-xxs': isMobile}">
-                                    <a (click)="sharedFacebook()">
-                                        <img class="" src="/assets/metronic/worbby/global/img/social-fb.svg" alt="icon Facebook" />
-                                    </a>
-                                </li>
-                                <li class="m-r-xss" [ngClass]="{'m-b-xxs': isMobile}">
-                                    <a [shareButton]="'twitter'">
-                                        <img class="" src="/assets/metronic/worbby/global/img/social-twitter.svg" alt="icon Twitter" />
-                                    </a>
-                                </li>
-                                <li class="m-r-xss" [ngClass]="{'m-b-xxs': isMobile}">
-                                    <a [shareButton]="'googleplus'">
-                                        <img class="" src="/assets/metronic/worbby/global/img/social-gplus.svg" alt="icon G+" />
-                                    </a>
-                                </li>
-                                <li class="m-r-xss m-b-xxs" *ngIf="isMobile">
-                                    <a [attr.href]="whatsappLink" target="_blank">
-                                        <img class="" src="/assets/metronic/worbby/global/img/social-whatsapp5.svg" alt="icon Whatsapp" />
-                                    </a>
-                                </li>
-                                <li class="m-r-xss" [ngClass]="{'m-b-xxs': isMobile}">
-                                    <a [shareButton]="'pinterest'">
-                                        <img class="" src="/assets/metronic/worbby/global/img/social-pin.svg" alt="icon Pintrest" />
-                                    </a>
-                                </li>
-                                <li class="" [ngClass]="{'m-b-xxs': isMobile}">
-                                    <a [shareButton]="'linkedIn'">
-                                        <img class="" src="/assets/metronic/worbby/global/img/social-in.svg" alt="icon LinkedIn" />
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        </h3>                        
                     </div>
                     <div class="col-xs-12 divider p-xss">
                         <p class="cor-Botticelli no-m-b">{{worbbyTask.description}}</p>

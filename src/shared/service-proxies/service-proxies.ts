@@ -10126,6 +10126,74 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
+    getPaymentsAdmin(filter: string, permission: string, paymentStateCombo: number, typePayment: string, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentsAdmin?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (paymentStateCombo !== undefined)
+            url_ += "PaymentStateCombo=" + encodeURIComponent("" + paymentStateCombo) + "&"; 
+        if (typePayment !== undefined)
+            url_ += "TypePayment=" + encodeURIComponent("" + typePayment) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentsAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentsAdmin(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPaymentsGridAdminDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPaymentsGridAdminDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentsAdmin(response: Response): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfPaymentsGridAdminDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPaymentsGridAdminDto.fromJS(resultData200) : new PagedResultDtoOfPaymentsGridAdminDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfPaymentsGridAdminDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getCurrentUserId(): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Sale/GetCurrentUserId";
         url_ = url_.replace(/[?&]$/, "");
@@ -25735,6 +25803,140 @@ export interface IListResultDtoOfWorbbyOfferDto {
     items: WorbbyOfferDto[];
 }
 
+export class PagedResultDtoOfPaymentsGridAdminDto implements IPagedResultDtoOfPaymentsGridAdminDto {
+    totalCount: number;
+    items: PaymentsGridAdminDto[];
+
+    constructor(data?: IPagedResultDtoOfPaymentsGridAdminDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PaymentsGridAdminDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPaymentsGridAdminDto {
+        let result = new PagedResultDtoOfPaymentsGridAdminDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPaymentsGridAdminDto {
+    totalCount: number;
+    items: PaymentsGridAdminDto[];
+}
+
+export class PaymentsGridAdminDto implements IPaymentsGridAdminDto {
+    idSale: number;
+    capturedAmountDate: moment.Moment;
+    nameWorbbior: string;
+    surnameWorbbior: string;
+    emailWorbbior: string;
+    nameWorbbient: string;
+    surnameWorbbient: string;
+    emailWorbbient: string;
+    worbbyTaskId: number;
+    type: string;
+    amount: number;
+    worbbyTax: number;
+    status: PaymentsGridAdminDtoStatus;
+    paymentId: number;
+
+    constructor(data?: IPaymentsGridAdminDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.idSale = data["idSale"];
+            this.capturedAmountDate = data["capturedAmountDate"] ? moment(data["capturedAmountDate"].toString()) : <any>undefined;
+            this.nameWorbbior = data["nameWorbbior"];
+            this.surnameWorbbior = data["surnameWorbbior"];
+            this.emailWorbbior = data["emailWorbbior"];
+            this.nameWorbbient = data["nameWorbbient"];
+            this.surnameWorbbient = data["surnameWorbbient"];
+            this.emailWorbbient = data["emailWorbbient"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.worbbyTax = data["worbbyTax"];
+            this.status = data["status"];
+            this.paymentId = data["paymentId"];
+        }
+    }
+
+    static fromJS(data: any): PaymentsGridAdminDto {
+        let result = new PaymentsGridAdminDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["idSale"] = this.idSale;
+        data["capturedAmountDate"] = this.capturedAmountDate ? this.capturedAmountDate.toISOString() : <any>undefined;
+        data["nameWorbbior"] = this.nameWorbbior;
+        data["surnameWorbbior"] = this.surnameWorbbior;
+        data["emailWorbbior"] = this.emailWorbbior;
+        data["nameWorbbient"] = this.nameWorbbient;
+        data["surnameWorbbient"] = this.surnameWorbbient;
+        data["emailWorbbient"] = this.emailWorbbient;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["worbbyTax"] = this.worbbyTax;
+        data["status"] = this.status;
+        data["paymentId"] = this.paymentId;
+        return data; 
+    }
+}
+
+export interface IPaymentsGridAdminDto {
+    idSale: number;
+    capturedAmountDate: moment.Moment;
+    nameWorbbior: string;
+    surnameWorbbior: string;
+    emailWorbbior: string;
+    nameWorbbient: string;
+    surnameWorbbient: string;
+    emailWorbbient: string;
+    worbbyTaskId: number;
+    type: string;
+    amount: number;
+    worbbyTax: number;
+    status: PaymentsGridAdminDtoStatus;
+    paymentId: number;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
@@ -30469,6 +30671,18 @@ export enum WorbbyOfferDtoCancellationPolicy {
     _2 = 2, 
     _3 = 3, 
     _4 = 4, 
+}
+
+export enum PaymentsGridAdminDtoStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
 }
 
 export enum TenantLoginInfoDtoPaymentPeriodType {

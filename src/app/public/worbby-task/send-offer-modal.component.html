@@ -42,7 +42,7 @@
                         <div class="col-xs-12" [ngClass]="{'col-sm-6' : worbbyTask?.scheduleDateType == 1}">
                             <div class="form-group no-hint" *ngIf="worbbyTask?.scheduleDateType == 1">
                                 <label>Selecione uma data</label>
-                                <p class="small">O worbbient deixou em aberto a data de entrega da tarefa. Você precisa determiná-la.</p>
+                                <p class="small">O worbbient deixou em aberto a data de entrega. Você precisa determiná-la.</p>
                                 <div class="col-xs-12 no-pad-x">
                                     <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : showDataPicker}" (click)="scheduleDateFixeClick()"><i class="fa fa-calendar-o"></i>{{scheduleDateDisplay}}</button>
                                     <datepicker [showWeeks]="false" class="datepicker-custom" *ngIf="showDataPicker" name="ScheduleDate" [(ngModel)]="worbbyOffer.scheduledDate" (selectionDone)="scheduleDateDone($event)"></datepicker>

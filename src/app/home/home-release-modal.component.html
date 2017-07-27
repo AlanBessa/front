@@ -1,29 +1,65 @@
 <div bsModal #homeReleaseModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="homeReleaseModal"
   aria-hidden="true" [config]="{backdrop: 'static'}">
-  <div class="modal-dialog">
-    <div class="modal-content home-release">
-        <div class="modal-header">
-            <button type="button" class="close" (click)="close()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="text-center">
-                        <img src="/assets/common/images/icon-rocket@2x.png" />
+  <div class="modal-dialog modal-dialog-full-width">
+    <div class="modal-content">
+        <div class="modal-body no-p-x no-p-y">
+            <div class="table-wrapper">
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <img src="/assets/metronic/worbby/global/img/icon-close-white.svg" alt="Close" width="30px" />
+                </button>
+                <div class="table-cell bg-Sunglow">
+                    <div class="table-cell-container">
+                        <div class="text-center">
+                            <svg width="80px" class="m-b-20px icon-white" height="80px" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                                <title>icon-general-account</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Desktop-About-Worbby" transform="translate(-315.000000, -427.000000)">
+                                        <g id="photo-about-banner" transform="translate(265.000000, 380.000000)">
+                                            <g id="icon-general-account" transform="translate(50.000000, 47.000000)">
+                                                <path d="M28,37.6 C33.3019336,37.6 37.6,33.3019336 37.6,28 C37.6,22.6980664 33.3019336,18.4 28,18.4 C22.6980664,18.4 18.4,22.6980664 18.4,28 C18.4,33.3019336 22.6980664,37.6 28,37.6 Z M28,40 C21.372583,40 16,34.627417 16,28 C16,21.372583 21.372583,16 28,16 C34.627417,16 40,21.372583 40,28 C40,34.627417 34.627417,40 28,40 Z" id="Oval-2" fill="#1E2225"></path>
+                                                <path d="M1.2,2.4 L24,2.4 C24.6627417,2.4 25.2,1.8627417 25.2,1.2 C25.2,0.5372583 24.6627417,0 24,0 L1.2,0 C0.5372583,0 0,0.5372583 0,1.2 C0,1.8627417 0.5372583,2.4 1.2,2.4 Z" id="Path-3" fill="#1E2225"></path>
+                                                <path d="M1.19999998,7.9 L23.9999998,7.9 C24.6627415,7.9 25.1999998,7.3627417 25.1999998,6.7 C25.1999998,6.0372583 24.6627415,5.5 23.9999998,5.5 L1.19999998,5.5 C0.537258293,5.5 0,6.0372583 0,6.7 C0,7.3627417 0.537258293,7.9 1.19999998,7.9 Z" id="Path-3" fill="#1E2225"></path>
+                                                <path d="M1.2,13.9 L11,13.9 C11.6627417,13.9 12.2,13.3627417 12.2,12.7 C12.2,12.0372583 11.6627417,11.5 11,11.5 L1.2,11.5 C0.5372583,11.5 0,12.0372583 0,12.7 C0,13.3627417 0.5372583,13.9 1.2,13.9 Z" id="Path-3" fill="#1E2225"></path>
+                                                <path d="M1.2,18.9 L6,18.9 C6.6627417,18.9 7.2,18.3627417 7.2,17.7 C7.2,17.0372583 6.6627417,16.5 6,16.5 L1.2,16.5 C0.5372583,16.5 0,17.0372583 0,17.7 C0,18.3627417 0.5372583,18.9 1.2,18.9 Z" id="Path-3" fill="#1E2225"></path>
+                                                <path d="M24.96,28.08 C24.562355,27.5498066 23.8101934,27.442355 23.28,27.84 C22.7498066,28.237645 22.642355,28.9898066 23.04,29.52 L25.44,32.72 C25.9298732,33.3731643 26.9148719,33.3570211 27.3830783,32.6881548 L32.9830783,24.6881548 C33.3631357,24.1452157 33.231094,23.3969791 32.6881548,23.0169217 C32.1452157,22.6368643 31.3969791,22.768906 31.0169217,23.3118452 L26.3664897,29.9553195 L24.96,28.08 Z" id="Path-2" fill="#1E2225"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="text-center">Eu tenho uma tarefa que precisa ser feita com amor e paixão. Pode o Worbby ajudar-me à achar a pessoa certa?</p>
+                        <div class="m-b-20px m-t-20px">
+                            <a routerLink="/publico/tarefas" class="btn btn-block btn-prime-inverted btn-around">
+                                Sim! Poste sua tarefa agora
+                                <img class="ico-btn hidden-xs" src="/assets/metronic/worbby/global/img/icon-pen.svg" alt="Post a Task">
+                            </a>
+                        </div>
+                        <div class="text-center cor-White">
+                            <a routerLink="/publico/como-funciona" class="">Como funciona?</a>
+                        </div>
                     </div>
-                    <h2 class="text-center cor-White">Cadastre seus talentos agora</h2>
-                    <h4 class="text-center cor-White">Falta pouco para o lançamento da versão completa</h4>
-                    <h3 class="text-center cor-White">em 17/07/2017</h3>
-                    <p class="text-center cor-White">
-                        Vantagens para os primeiros
-                    </p>
+                </div>
+                <div class="table-cell bg-Cinder">
+                    <div class="table-cell-container">
+                        <div class="text-center">
+                            <img class="icon-white m-b-20px" src="/assets/metronic/worbby/global/img/icon-worbbior-white.svg" alt="Talentos" />
+                        </div>
+                        <p class="text-center cor-White">Eu sou bom e adoro fazer certos serviços. Posso ganhar dinheiro oferecendo-os no Worbby?</p>
+                        <div class="m-b-20px m-t-20px">
+                            <a routerLink="/publico/seja-um-worbbior" class="btn btn-block btn-prime btn-around">
+                                Sim! Seja um Worbbior
+                            </a>
+                        </div>
+                        <div class="text-center cor-White">
+                            <a routerLink="/publico/como-funciona-w" class="">Como funciona?</a>
+                        </div>
+                    </div>
                 </div>
             </div>            
-        </div>
-        <div class="modal-footer text-center">
-            <button type="button" class="btn btn-prime btn-block" (click)="close()">Continue</button>
         </div>
     </div>
   </div>

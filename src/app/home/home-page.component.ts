@@ -40,10 +40,11 @@ export class HomePageComponent extends AppComponentBase implements AfterViewInit
             this.goTo(f);
         });
         
-        if(this._appSessionService.firstAccess){
-            //this.showReleaseModal();
+        if(this._appSessionService.firstAccess){            
             this._appSessionService.firstAccess = false;
         }
+
+        if(this.appSession.userId == null) this.showReleaseModal();
     } 
 
     ngOnDestroy(): void {

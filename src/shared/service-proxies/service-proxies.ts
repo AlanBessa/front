@@ -2535,10 +2535,18 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
-    getBalanceTransfersByUserId(id: number): Observable<ListResultDtoOfBalanceTransferOutput> {
+    getBalanceTransfersByUserId(id: number, startDate: moment.Moment, endDate: moment.Moment, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferOutput> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersByUserId?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = "";
@@ -2559,27 +2567,27 @@ export class BalanceTransferServiceProxy {
                 try {
                     return this.processGetBalanceTransfersByUserId(response_);
                 } catch (e) {
-                    return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(e);
+                    return <Observable<PagedResultDtoOfBalanceTransferOutput>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(response_);
+                return <Observable<PagedResultDtoOfBalanceTransferOutput>><any>Observable.throw(response_);
         });
     }
 
-    protected processGetBalanceTransfersByUserId(response: Response): Observable<ListResultDtoOfBalanceTransferOutput> {
+    protected processGetBalanceTransfersByUserId(response: Response): Observable<PagedResultDtoOfBalanceTransferOutput> {
         const status = response.status; 
 
         if (status === 200) {
             const responseText = response.text();
-            let result200: ListResultDtoOfBalanceTransferOutput = null;
+            let result200: PagedResultDtoOfBalanceTransferOutput = null;
             let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? ListResultDtoOfBalanceTransferOutput.fromJS(resultData200) : new ListResultDtoOfBalanceTransferOutput();
+            result200 = resultData200 ? PagedResultDtoOfBalanceTransferOutput.fromJS(resultData200) : new PagedResultDtoOfBalanceTransferOutput();
             return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const responseText = response.text();
             return throwException("An unexpected server error occurred.", status, responseText);
         }
-        return Observable.of<ListResultDtoOfBalanceTransferOutput>(<any>null);
+        return Observable.of<PagedResultDtoOfBalanceTransferOutput>(<any>null);
     }
 
     /**
@@ -10121,6 +10129,74 @@ export class SaleServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPaymentsAdmin(filter: string, permission: string, paymentStateCombo: number, typePayment: string, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentsAdmin?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (paymentStateCombo !== undefined)
+            url_ += "PaymentStateCombo=" + encodeURIComponent("" + paymentStateCombo) + "&"; 
+        if (typePayment !== undefined)
+            url_ += "TypePayment=" + encodeURIComponent("" + typePayment) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentsAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentsAdmin(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPaymentsGridAdminDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPaymentsGridAdminDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentsAdmin(response: Response): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfPaymentsGridAdminDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPaymentsGridAdminDto.fromJS(resultData200) : new PagedResultDtoOfPaymentsGridAdminDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfPaymentsGridAdminDto>(<any>null);
     }
 
     /**
@@ -19001,10 +19077,11 @@ export interface IListResultDtoOfAvailabilityDto {
     items: AvailabilityDto[];
 }
 
-export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBalanceTransferOutput {
+export class PagedResultDtoOfBalanceTransferOutput implements IPagedResultDtoOfBalanceTransferOutput {
+    totalCount: number;
     items: BalanceTransferOutput[];
 
-    constructor(data?: IListResultDtoOfBalanceTransferOutput) {
+    constructor(data?: IPagedResultDtoOfBalanceTransferOutput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -19015,6 +19092,7 @@ export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBal
 
     init(data?: any) {
         if (data) {
+            this.totalCount = data["totalCount"];
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
                 for (let item of data["items"])
@@ -19023,14 +19101,15 @@ export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBal
         }
     }
 
-    static fromJS(data: any): ListResultDtoOfBalanceTransferOutput {
-        let result = new ListResultDtoOfBalanceTransferOutput();
+    static fromJS(data: any): PagedResultDtoOfBalanceTransferOutput {
+        let result = new PagedResultDtoOfBalanceTransferOutput();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
         if (this.items && this.items.constructor === Array) {
             data["items"] = [];
             for (let item of this.items)
@@ -19040,7 +19119,8 @@ export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBal
     }
 }
 
-export interface IListResultDtoOfBalanceTransferOutput {
+export interface IPagedResultDtoOfBalanceTransferOutput {
+    totalCount: number;
     items: BalanceTransferOutput[];
 }
 
@@ -25735,6 +25815,140 @@ export interface IListResultDtoOfWorbbyOfferDto {
     items: WorbbyOfferDto[];
 }
 
+export class PagedResultDtoOfPaymentsGridAdminDto implements IPagedResultDtoOfPaymentsGridAdminDto {
+    totalCount: number;
+    items: PaymentsGridAdminDto[];
+
+    constructor(data?: IPagedResultDtoOfPaymentsGridAdminDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PaymentsGridAdminDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPaymentsGridAdminDto {
+        let result = new PagedResultDtoOfPaymentsGridAdminDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPaymentsGridAdminDto {
+    totalCount: number;
+    items: PaymentsGridAdminDto[];
+}
+
+export class PaymentsGridAdminDto implements IPaymentsGridAdminDto {
+    idSale: number;
+    capturedAmountDate: moment.Moment;
+    nameWorbbior: string;
+    surnameWorbbior: string;
+    emailWorbbior: string;
+    nameWorbbient: string;
+    surnameWorbbient: string;
+    emailWorbbient: string;
+    worbbyTaskId: number;
+    type: string;
+    amount: number;
+    worbbyTax: number;
+    status: PaymentsGridAdminDtoStatus;
+    paymentId: number;
+
+    constructor(data?: IPaymentsGridAdminDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.idSale = data["idSale"];
+            this.capturedAmountDate = data["capturedAmountDate"] ? moment(data["capturedAmountDate"].toString()) : <any>undefined;
+            this.nameWorbbior = data["nameWorbbior"];
+            this.surnameWorbbior = data["surnameWorbbior"];
+            this.emailWorbbior = data["emailWorbbior"];
+            this.nameWorbbient = data["nameWorbbient"];
+            this.surnameWorbbient = data["surnameWorbbient"];
+            this.emailWorbbient = data["emailWorbbient"];
+            this.worbbyTaskId = data["worbbyTaskId"];
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.worbbyTax = data["worbbyTax"];
+            this.status = data["status"];
+            this.paymentId = data["paymentId"];
+        }
+    }
+
+    static fromJS(data: any): PaymentsGridAdminDto {
+        let result = new PaymentsGridAdminDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["idSale"] = this.idSale;
+        data["capturedAmountDate"] = this.capturedAmountDate ? this.capturedAmountDate.toISOString() : <any>undefined;
+        data["nameWorbbior"] = this.nameWorbbior;
+        data["surnameWorbbior"] = this.surnameWorbbior;
+        data["emailWorbbior"] = this.emailWorbbior;
+        data["nameWorbbient"] = this.nameWorbbient;
+        data["surnameWorbbient"] = this.surnameWorbbient;
+        data["emailWorbbient"] = this.emailWorbbient;
+        data["worbbyTaskId"] = this.worbbyTaskId;
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["worbbyTax"] = this.worbbyTax;
+        data["status"] = this.status;
+        data["paymentId"] = this.paymentId;
+        return data; 
+    }
+}
+
+export interface IPaymentsGridAdminDto {
+    idSale: number;
+    capturedAmountDate: moment.Moment;
+    nameWorbbior: string;
+    surnameWorbbior: string;
+    emailWorbbior: string;
+    nameWorbbient: string;
+    surnameWorbbient: string;
+    emailWorbbient: string;
+    worbbyTaskId: number;
+    type: string;
+    amount: number;
+    worbbyTax: number;
+    status: PaymentsGridAdminDtoStatus;
+    paymentId: number;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
@@ -30469,6 +30683,18 @@ export enum WorbbyOfferDtoCancellationPolicy {
     _2 = 2, 
     _3 = 3, 
     _4 = 4, 
+}
+
+export enum PaymentsGridAdminDtoStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
 }
 
 export enum TenantLoginInfoDtoPaymentPeriodType {

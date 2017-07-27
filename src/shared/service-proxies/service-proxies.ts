@@ -10134,7 +10134,7 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    getPaymentsAdmin(filter: string, permission: string, paymentStateCombo: number, typePaymentCombo: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
+    getPaymentsAdmin(filter: string, permission: string, paymentStateCombo: number, typePayment: string, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
         let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentsAdmin?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -10142,8 +10142,8 @@ export class SaleServiceProxy {
             url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
         if (paymentStateCombo !== undefined)
             url_ += "PaymentStateCombo=" + encodeURIComponent("" + paymentStateCombo) + "&"; 
-        if (typePaymentCombo !== undefined)
-            url_ += "TypePaymentCombo=" + encodeURIComponent("" + typePaymentCombo) + "&"; 
+        if (typePayment !== undefined)
+            url_ += "TypePayment=" + encodeURIComponent("" + typePayment) + "&"; 
         if (startDate !== undefined)
             url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
         if (endDate !== undefined)
@@ -19441,7 +19441,6 @@ export class CreateBankAccountInput implements ICreateBankAccountInput {
     holderName: string;
     holderCpf: string;
     tenantId: number;
-    id: number;
 
     constructor(data?: ICreateBankAccountInput) {
         if (data) {
@@ -19461,7 +19460,6 @@ export class CreateBankAccountInput implements ICreateBankAccountInput {
             this.holderName = data["holderName"];
             this.holderCpf = data["holderCpf"];
             this.tenantId = data["tenantId"];
-            this.id = data["id"];
         }
     }
 
@@ -19480,7 +19478,6 @@ export class CreateBankAccountInput implements ICreateBankAccountInput {
         data["holderName"] = this.holderName;
         data["holderCpf"] = this.holderCpf;
         data["tenantId"] = this.tenantId;
-        data["id"] = this.id;
         return data; 
     }
 }
@@ -19493,7 +19490,6 @@ export interface ICreateBankAccountInput {
     holderName: string;
     holderCpf: string;
     tenantId: number;
-    id: number;
 }
 
 export class BinaryObjectDto implements IBinaryObjectDto {

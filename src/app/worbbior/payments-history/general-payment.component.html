@@ -140,13 +140,15 @@
             <div class="panel-body p-xss"> 
                 <div class="row m-b-20px">
                     <div class="col-xs-12 col-sm-offset-5 col-sm-5 text-right payment-date-picker m-b-10px">
-                        <date-range-picker [(startDate)]="filtroDataTransferencia.de" 
-                                           [(endDate)]="filtroDataTransferencia.ate"
-                                           [dateRangePickerOptions]="{'opens': 'left'}">
+                        <date-range-picker 
+                            [(startDate)]="filterBalanceTransferDate.start" 
+                            [(endDate)]="filterBalanceTransferDate.end"
+                            [dateRangePickerOptions]="{'opens': 'left'}"
+                            (applyClick)="getBalanceTransfers(1)">
                         </date-range-picker>
                     </div>
                     <div class="col-xs-12 col-sm-2 payment-date-picker m-b-10px">
-                        <button class="btn btn-prime btn-block">
+                        <button (click)="getBalanceTransfers(1)" class="btn btn-prime btn-block">
                             <i class="fa fa-filter"></i>
                         </button>
                     </div>
@@ -164,7 +166,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let balanceTransferOutput of balanceTransfers">
-                                    <td>{{balanceTransferOutput.balanceTransfer.lastModificationTime ? balanceTransferOutput.balanceTransfer.lastModificationTime : balanceTransferOutput.balanceTransfer.creationTime  | amDateFormat:'L'}}</td>
+                                    <td>{{balanceTransferOutput.balanceTransfer.lastModificationTime ? (balanceTransferOutput.balanceTransfer.lastModificationTime | amDateFormat:'L')  : (balanceTransferOutput.balanceTransfer.creationTime | amDateFormat:'L')}}</td>
                                     <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">{{l(BalanceTransferStatus[balanceTransferOutput.balanceTransfer.balanceTransferStatus.toString()])}}</i></small></td>
                                     <td>R$ 
                                         <span [ngClass]="{
@@ -181,27 +183,27 @@
                                 <tr>
                                     <td colspan="3">
                                         <div class="text-center">
-                                            <ul class="pagination no-m-b">
+                                            <ul *ngIf="pager.totalPages?.length > 1" class="pagination">
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getBalanceTransfers(1)" [ngClass]="{disabled:pager.currentPage === 1}">
                                                         <i class="fa fa-angle-double-left"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getBalanceTransfers(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a>
                                                 </li>
-                                                <li class="active">
-                                                    <a href="#">1</a>
+                                                <li *ngFor="let page of pager.totalPages" [ngClass]="{active:pager.currentPage === page}">
+                                                    <a (click)="getBalanceTransfers(page)">{{page}}</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getBalanceTransfers(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getBalanceTransfers(pager.totalPages?.length)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
                                                         <i class="fa fa-angle-double-right"></i>
                                                     </a>
                                                 </li>

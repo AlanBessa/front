@@ -24,6 +24,7 @@ export class DateRangePickerComponent extends AppComponentBase implements AfterV
 
     @Output() startDateChange = new EventEmitter();
     @Output() endDateChange = new EventEmitter();
+    @Output() applyClick: EventEmitter<any> = new EventEmitter<any>();
 
     @Input()
     get startDate() {
@@ -53,6 +54,7 @@ export class DateRangePickerComponent extends AppComponentBase implements AfterV
     }
 
     ngAfterViewInit(): void {
+        let self = this;
         const $element = $(this.dateRangePickerElement.nativeElement);
 
         var _selectedDateRange = {
@@ -67,10 +69,14 @@ export class DateRangePickerComponent extends AppComponentBase implements AfterV
         }
       
         $element.daterangepicker(
-            $.extend(true, this.createDateRangePickerOptions(), this.dateRangePickerOptions, _selectedDateRange), (start, end, label) => {
-                this.startDate = start;
-                this.endDate = end;
-            });
+        $.extend(true, this.createDateRangePickerOptions(), this.dateRangePickerOptions, _selectedDateRange), (start, end, label) => {
+            this.startDate = start;
+            this.endDate = end;
+        });
+
+        $element.on('apply.daterangepicker', function(ev, picker) {
+            self.applyClick.emit(null);
+        });
     }
 
     createDateRangePickerOptions(): any {

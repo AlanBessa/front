@@ -286,11 +286,11 @@ export class KeyValueAddress {
 }
 
 export class DateFilter {
-    public de: moment.Moment;
-    public ate: moment.Moment;
+    public start: moment.Moment;
+    public end: moment.Moment;
 
-    constructor(pDe: moment.Moment, pAte: moment.Moment) {
-        this.de = pDe;
-        this.ate = pAte;
+    constructor(pStart: moment.Moment, pEnd: moment.Moment) {
+        this.start = pStart;
+        this.end = pEnd;
     }
 }

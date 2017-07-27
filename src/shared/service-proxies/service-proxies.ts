@@ -2535,10 +2535,18 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
-    getBalanceTransfersByUserId(id: number): Observable<ListResultDtoOfBalanceTransferOutput> {
+    getBalanceTransfersByUserId(id: number, startDate: moment.Moment, endDate: moment.Moment, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferOutput> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersByUserId?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = "";
@@ -2559,27 +2567,27 @@ export class BalanceTransferServiceProxy {
                 try {
                     return this.processGetBalanceTransfersByUserId(response_);
                 } catch (e) {
-                    return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(e);
+                    return <Observable<PagedResultDtoOfBalanceTransferOutput>><any>Observable.throw(e);
                 }
             } else
-                return <Observable<ListResultDtoOfBalanceTransferOutput>><any>Observable.throw(response_);
+                return <Observable<PagedResultDtoOfBalanceTransferOutput>><any>Observable.throw(response_);
         });
     }
 
-    protected processGetBalanceTransfersByUserId(response: Response): Observable<ListResultDtoOfBalanceTransferOutput> {
+    protected processGetBalanceTransfersByUserId(response: Response): Observable<PagedResultDtoOfBalanceTransferOutput> {
         const status = response.status; 
 
         if (status === 200) {
             const responseText = response.text();
-            let result200: ListResultDtoOfBalanceTransferOutput = null;
+            let result200: PagedResultDtoOfBalanceTransferOutput = null;
             let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
-            result200 = resultData200 ? ListResultDtoOfBalanceTransferOutput.fromJS(resultData200) : new ListResultDtoOfBalanceTransferOutput();
+            result200 = resultData200 ? PagedResultDtoOfBalanceTransferOutput.fromJS(resultData200) : new PagedResultDtoOfBalanceTransferOutput();
             return Observable.of(result200);
         } else if (status !== 200 && status !== 204) {
             const responseText = response.text();
             return throwException("An unexpected server error occurred.", status, responseText);
         }
-        return Observable.of<ListResultDtoOfBalanceTransferOutput>(<any>null);
+        return Observable.of<PagedResultDtoOfBalanceTransferOutput>(<any>null);
     }
 
     /**
@@ -19069,10 +19077,11 @@ export interface IListResultDtoOfAvailabilityDto {
     items: AvailabilityDto[];
 }
 
-export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBalanceTransferOutput {
+export class PagedResultDtoOfBalanceTransferOutput implements IPagedResultDtoOfBalanceTransferOutput {
+    totalCount: number;
     items: BalanceTransferOutput[];
 
-    constructor(data?: IListResultDtoOfBalanceTransferOutput) {
+    constructor(data?: IPagedResultDtoOfBalanceTransferOutput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -19083,6 +19092,7 @@ export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBal
 
     init(data?: any) {
         if (data) {
+            this.totalCount = data["totalCount"];
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
                 for (let item of data["items"])
@@ -19091,14 +19101,15 @@ export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBal
         }
     }
 
-    static fromJS(data: any): ListResultDtoOfBalanceTransferOutput {
-        let result = new ListResultDtoOfBalanceTransferOutput();
+    static fromJS(data: any): PagedResultDtoOfBalanceTransferOutput {
+        let result = new PagedResultDtoOfBalanceTransferOutput();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
         if (this.items && this.items.constructor === Array) {
             data["items"] = [];
             for (let item of this.items)
@@ -19108,7 +19119,8 @@ export class ListResultDtoOfBalanceTransferOutput implements IListResultDtoOfBal
     }
 }
 
-export interface IListResultDtoOfBalanceTransferOutput {
+export interface IPagedResultDtoOfBalanceTransferOutput {
+    totalCount: number;
     items: BalanceTransferOutput[];
 }
 

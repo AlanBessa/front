@@ -10000,8 +10000,8 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    sendEmailForCancelledPaymentByWorbbientFromWorbbior(worbbyTaskDto: WorbbyTaskDto, tax: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbientFromWorbbior?";
+    sendEmailForCancelledPaymentByWorbbientToWorbbior(worbbyTaskDto: WorbbyTaskDto, tax: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbientToWorbbior?";
         if (tax !== undefined)
             url_ += "tax=" + encodeURIComponent("" + tax) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -10018,11 +10018,11 @@ export class SaleServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbior(response_);
+            return this.processSendEmailForCancelledPaymentByWorbbientToWorbbior(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbior(response_);
+                    return this.processSendEmailForCancelledPaymentByWorbbientToWorbbior(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -10031,7 +10031,7 @@ export class SaleServiceProxy {
         });
     }
 
-    protected processSendEmailForCancelledPaymentByWorbbientFromWorbbior(response: Response): Observable<void> {
+    protected processSendEmailForCancelledPaymentByWorbbientToWorbbior(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {
@@ -10047,8 +10047,8 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    sendEmailForCancelledPaymentByWorbbientFromWorbbient(worbbyTaskDto: WorbbyTaskDto, tax: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbientFromWorbbient?";
+    sendEmailForCancelledPaymentByWorbbientToWorbbient(worbbyTaskDto: WorbbyTaskDto, tax: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbientToWorbbient?";
         if (tax !== undefined)
             url_ += "tax=" + encodeURIComponent("" + tax) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -10065,11 +10065,11 @@ export class SaleServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbient(response_);
+            return this.processSendEmailForCancelledPaymentByWorbbientToWorbbient(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processSendEmailForCancelledPaymentByWorbbientFromWorbbient(response_);
+                    return this.processSendEmailForCancelledPaymentByWorbbientToWorbbient(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -10078,7 +10078,7 @@ export class SaleServiceProxy {
         });
     }
 
-    protected processSendEmailForCancelledPaymentByWorbbientFromWorbbient(response: Response): Observable<void> {
+    protected processSendEmailForCancelledPaymentByWorbbientToWorbbient(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {
@@ -10094,8 +10094,8 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    sendEmailForCancelledPaymentByWorbbiorFromWorbbient(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbiorFromWorbbient";
+    sendEmailForCancelledPaymentByWorbbiorToWorbbient(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbiorToWorbbient";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
@@ -10110,11 +10110,11 @@ export class SaleServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbient(response_);
+            return this.processSendEmailForCancelledPaymentByWorbbiorToWorbbient(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbient(response_);
+                    return this.processSendEmailForCancelledPaymentByWorbbiorToWorbbient(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -10123,7 +10123,7 @@ export class SaleServiceProxy {
         });
     }
 
-    protected processSendEmailForCancelledPaymentByWorbbiorFromWorbbient(response: Response): Observable<void> {
+    protected processSendEmailForCancelledPaymentByWorbbiorToWorbbient(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {
@@ -10139,8 +10139,8 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    sendEmailForCancelledPaymentByWorbbiorFromWorbbior(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbiorFromWorbbior";
+    sendEmailForCancelledPaymentByWorbbiorToWorbbior(worbbyTaskDto: WorbbyTaskDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/SendEmailForCancelledPaymentByWorbbiorToWorbbior";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(worbbyTaskDto ? worbbyTaskDto.toJSON() : null);
@@ -10155,11 +10155,11 @@ export class SaleServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbior(response_);
+            return this.processSendEmailForCancelledPaymentByWorbbiorToWorbbior(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processSendEmailForCancelledPaymentByWorbbiorFromWorbbior(response_);
+                    return this.processSendEmailForCancelledPaymentByWorbbiorToWorbbior(response_);
                 } catch (e) {
                     return <Observable<void>><any>Observable.throw(e);
                 }
@@ -10168,7 +10168,7 @@ export class SaleServiceProxy {
         });
     }
 
-    protected processSendEmailForCancelledPaymentByWorbbiorFromWorbbior(response: Response): Observable<void> {
+    protected processSendEmailForCancelledPaymentByWorbbiorToWorbbior(response: Response): Observable<void> {
         const status = response.status; 
 
         if (status === 200) {

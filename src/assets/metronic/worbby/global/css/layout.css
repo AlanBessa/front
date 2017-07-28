@@ -878,9 +878,9 @@ a.invert{
 
 /* Page Loading */
 
-.page-container {
+.page-content {
     min-height: 300px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 
 .page-loading {
@@ -888,7 +888,7 @@ a.invert{
     width: 100%;
     z-index: 9999;
     background: rgba(255,255,255,0.7);
-    min-height: 300px;
+    height:100%;
 }
 
 /* LOADING (SPIN) */
@@ -3331,6 +3331,8 @@ recaptcha {
 /*FOOTER*/
 .footer{
     min-height: 100px;
+    position: relative;
+    z-index: 9999;
 }
 .footer .site-logo{
     float: left;

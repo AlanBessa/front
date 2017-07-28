@@ -2883,8 +2883,8 @@ export class BankAccountServiceProxy {
     /**
      * @return Success
      */
-    getBankAccountByUserId(id: number): Observable<CreateBankAccountInput> {
-        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountByUserId?";
+    getBankAccountForEditProfileByUserId(id: number): Observable<CreateBankAccountInput> {
+        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountForEditProfileByUserId?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -2901,11 +2901,11 @@ export class BankAccountServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetBankAccountByUserId(response_);
+            return this.processGetBankAccountForEditProfileByUserId(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processGetBankAccountByUserId(response_);
+                    return this.processGetBankAccountForEditProfileByUserId(response_);
                 } catch (e) {
                     return <Observable<CreateBankAccountInput>><any>Observable.throw(e);
                 }
@@ -2914,7 +2914,7 @@ export class BankAccountServiceProxy {
         });
     }
 
-    protected processGetBankAccountByUserId(response: Response): Observable<CreateBankAccountInput> {
+    protected processGetBankAccountForEditProfileByUserId(response: Response): Observable<CreateBankAccountInput> {
         const status = response.status; 
 
         if (status === 200) {
@@ -2928,6 +2928,56 @@ export class BankAccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<CreateBankAccountInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getBankAccountForRequestBalanceTransferfileByUserId(id: number): Observable<BankAccountDto> {
+        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountForRequestBalanceTransferfileByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBankAccountForRequestBalanceTransferfileByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBankAccountForRequestBalanceTransferfileByUserId(response_);
+                } catch (e) {
+                    return <Observable<BankAccountDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<BankAccountDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBankAccountForRequestBalanceTransferfileByUserId(response: Response): Observable<BankAccountDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: BankAccountDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? BankAccountDto.fromJS(resultData200) : new BankAccountDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<BankAccountDto>(<any>null);
     }
 
     /**
@@ -10197,6 +10247,56 @@ export class SaleServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<PagedResultDtoOfPaymentsGridAdminDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPaymentDetailAdmin(id: number): Observable<PaymentDetailAdminDto> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentDetailAdmin?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentDetailAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentDetailAdmin(response_);
+                } catch (e) {
+                    return <Observable<PaymentDetailAdminDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PaymentDetailAdminDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentDetailAdmin(response: Response): Observable<PaymentDetailAdminDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PaymentDetailAdminDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PaymentDetailAdminDto.fromJS(resultData200) : new PaymentDetailAdminDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PaymentDetailAdminDto>(<any>null);
     }
 
     /**
@@ -19324,6 +19424,7 @@ export class RequestBalanceTransferInput implements IRequestBalanceTransferInput
     userId: number;
     bankAccountId: number;
     amount: number;
+    bankAccount: BankAccountDto;
 
     constructor(data?: IRequestBalanceTransferInput) {
         if (data) {
@@ -19339,6 +19440,7 @@ export class RequestBalanceTransferInput implements IRequestBalanceTransferInput
             this.userId = data["userId"];
             this.bankAccountId = data["bankAccountId"];
             this.amount = data["amount"];
+            this.bankAccount = data["bankAccount"] ? BankAccountDto.fromJS(data["bankAccount"]) : <any>undefined;
         }
     }
 
@@ -19353,6 +19455,7 @@ export class RequestBalanceTransferInput implements IRequestBalanceTransferInput
         data["userId"] = this.userId;
         data["bankAccountId"] = this.bankAccountId;
         data["amount"] = this.amount;
+        data["bankAccount"] = this.bankAccount ? this.bankAccount.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -19361,6 +19464,70 @@ export interface IRequestBalanceTransferInput {
     userId: number;
     bankAccountId: number;
     amount: number;
+    bankAccount: BankAccountDto;
+}
+
+export class BankAccountDto implements IBankAccountDto {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+    id: number;
+
+    constructor(data?: IBankAccountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.bank = data["bank"];
+            this.agency = data["agency"];
+            this.currentAccount = data["currentAccount"];
+            this.holderName = data["holderName"];
+            this.holderCpf = data["holderCpf"];
+            this.tenantId = data["tenantId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BankAccountDto {
+        let result = new BankAccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["bank"] = this.bank;
+        data["agency"] = this.agency;
+        data["currentAccount"] = this.currentAccount;
+        data["holderName"] = this.holderName;
+        data["holderCpf"] = this.holderCpf;
+        data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBankAccountDto {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+    id: number;
 }
 
 export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
@@ -25953,6 +26120,159 @@ export interface IPaymentsGridAdminDto {
     paymentId: number;
 }
 
+export class PaymentDetailAdminDto implements IPaymentDetailAdminDto {
+    type: string;
+    amount: number;
+    serviceTaxAmount: string;
+    paymentId: string;
+    capturedAmount: number;
+    status: PaymentDetailAdminDtoStatus;
+    worbbyTaskDto: WorbbyTaskDto;
+    paymentHistory: ListResultDtoOfPaymentHistoryDto;
+    id: number;
+
+    constructor(data?: IPaymentDetailAdminDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.type = data["type"];
+            this.amount = data["amount"];
+            this.serviceTaxAmount = data["serviceTaxAmount"];
+            this.paymentId = data["paymentId"];
+            this.capturedAmount = data["capturedAmount"];
+            this.status = data["status"];
+            this.worbbyTaskDto = data["worbbyTaskDto"] ? WorbbyTaskDto.fromJS(data["worbbyTaskDto"]) : <any>undefined;
+            this.paymentHistory = data["paymentHistory"] ? ListResultDtoOfPaymentHistoryDto.fromJS(data["paymentHistory"]) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PaymentDetailAdminDto {
+        let result = new PaymentDetailAdminDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["type"] = this.type;
+        data["amount"] = this.amount;
+        data["serviceTaxAmount"] = this.serviceTaxAmount;
+        data["paymentId"] = this.paymentId;
+        data["capturedAmount"] = this.capturedAmount;
+        data["status"] = this.status;
+        data["worbbyTaskDto"] = this.worbbyTaskDto ? this.worbbyTaskDto.toJSON() : <any>undefined;
+        data["paymentHistory"] = this.paymentHistory ? this.paymentHistory.toJSON() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPaymentDetailAdminDto {
+    type: string;
+    amount: number;
+    serviceTaxAmount: string;
+    paymentId: string;
+    capturedAmount: number;
+    status: PaymentDetailAdminDtoStatus;
+    worbbyTaskDto: WorbbyTaskDto;
+    paymentHistory: ListResultDtoOfPaymentHistoryDto;
+    id: number;
+}
+
+export class ListResultDtoOfPaymentHistoryDto implements IListResultDtoOfPaymentHistoryDto {
+    items: PaymentHistoryDto[];
+
+    constructor(data?: IListResultDtoOfPaymentHistoryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PaymentHistoryDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfPaymentHistoryDto {
+        let result = new ListResultDtoOfPaymentHistoryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfPaymentHistoryDto {
+    items: PaymentHistoryDto[];
+}
+
+export class PaymentHistoryDto implements IPaymentHistoryDto {
+    type: string;
+    lastModificationTime: moment.Moment;
+    status: PaymentHistoryDtoStatus;
+
+    constructor(data?: IPaymentHistoryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.type = data["type"];
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.status = data["status"];
+        }
+    }
+
+    static fromJS(data: any): PaymentHistoryDto {
+        let result = new PaymentHistoryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["type"] = this.type;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["status"] = this.status;
+        return data; 
+    }
+}
+
+export interface IPaymentHistoryDto {
+    type: string;
+    lastModificationTime: moment.Moment;
+    status: PaymentHistoryDtoStatus;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user: UserLoginInfoDto;
     tenant: TenantLoginInfoDto;
@@ -30690,6 +31010,30 @@ export enum WorbbyOfferDtoCancellationPolicy {
 }
 
 export enum PaymentsGridAdminDtoStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
+}
+
+export enum PaymentDetailAdminDtoStatus {
+    _0 = 0, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _10 = 10, 
+    _11 = 11, 
+    _12 = 12, 
+    _13 = 13, 
+    _20 = 20, 
+}
+
+export enum PaymentHistoryDtoStatus {
     _0 = 0, 
     _1 = 1, 
     _2 = 2, 

@@ -92,7 +92,7 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
             this.companyRegistrationUploader = this.initFileUploader("companyRegistrationFileName");
             this.proofOfAddressUploader = this.initFileUploader("proofOfAddressFileName");
             this.userDocumentsInfo.isCompany = this.userDocumentsInfo.isCompany ? this.userDocumentsInfo.isCompany : false;
-            this._bankAccountService.getBankAccountByUserId(abp.session.userId).subscribe((result) => {
+            this._bankAccountService.getBankAccountForEditProfileByUserId(abp.session.userId).subscribe((result) => {
                 this.userBankAccount = result;
 
                 if (!this.userBankAccount.userId) {

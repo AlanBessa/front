@@ -25,7 +25,6 @@ import { InsuranceComponent } from './insurance/insurance.component';
 import { SupportComponent } from './support/support.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { EndorsementsComponent } from './endorsements/endorsements.component';
-import { FindTalentComponent } from './find-talent/find-talent.component';
 import { PageWorbbiorComponent } from '@app/worbbior/page/page-worbbior.component';
 import { BecomeWorbbiorComponent } from './become-a-worbbior/become-a-worbbior.component';
 import { HowDoesItWorkWorbbiorComponent } from './how-does-it-work-worbbior/how-does-it-work-worbbior.component';
@@ -84,7 +83,6 @@ import { ShareButtonsModule } from 'ngx-sharebuttons';
         SupportComponent,
         TermsAndConditionsComponent,
         EndorsementsComponent,
-        FindTalentComponent,
         PageWorbbiorComponent,
         BecomeWorbbiorComponent,
         HowDoesItWorkWorbbiorComponent,

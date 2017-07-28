@@ -33,7 +33,7 @@
             </div>
             <div class="navbar-collapse" [ngClass]="menuOpen">
                 <div class="navbar-collapse-container">
-                    <div class="visible-xs row bg-White p-15px">                        
+                    <div class="visible-xs row bg-White p-x-xss p-y-12px">                        
                         <div class="col-xs-8">
                             <div class="profile-menu-mobile">
                                 <a title="{{userName}}">
@@ -91,7 +91,7 @@
                     </ul>
                     <div class="col-xs-12" [ngClass]="{'hidden-xs hidden-sm hidden-md hidden-lg': currentRoleName == 'Worbbior', 'visible-xs': currentRoleName == 'Worbbient'}"> 
                         <div class="search-box">
-                            <h2 class="txt-small-tablet">{{l("SearchWorbby")}}</h2>
+                            <h2 class="txt-small-tablet">BUSCAR POR TALENTOS</h2>
                             <form action="/WorbbyTask" method="post"><input name="__RequestVerificationToken" type="hidden" value="CHVWMRS59kKduGK5RwtTJcQ2Kqf8Rsc6mncaTqYQNASfXqqy17vYS4UBlgLaKyXy8OWxbFU0PKjmp3e4T2VhySEbnb0tq0LLj0gU4cmXjjU1">        
                                 <div class="input-group stylish-input-group">
                                     <input type="text" class="form-control txt-small-tablet" name="Term" placeholder="o que você precisa?" />

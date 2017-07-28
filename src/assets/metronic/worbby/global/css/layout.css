@@ -204,7 +204,7 @@
 .p-xss{padding: 20px !important;}
 .p-xxs{padding: 10px !important;}
 
-.p-15px{padding: 15px !important;}
+.p-y-12px{padding-top: 12px !important; padding-bottom: 12px !important;}
 
 
 /*NO PADDING*/
@@ -878,18 +878,23 @@ a.invert{
 
 /* Page Loading */
 
+.page-container {
+    min-height: 300px;
+    margin-top: 10px;
+}
+
 .page-loading {
     position: absolute;
     width: 100%;
     z-index: 9999;
     background: rgba(255,255,255,0.7);
-    height: 100%;
+    min-height: 300px;
 }
 
 /* LOADING (SPIN) */
 
 .sk-fading-circle {
-  margin: 100px auto;
+  margin: 125px auto;
   width: 40px;
   height: 40px;
   position: relative;
@@ -907,8 +912,8 @@ a.invert{
   content: '';
   display: block;
   margin: 0 auto;
-  width: 10%;
-  height: 30%;
+  width: 5%;
+  height: 28%;
   background-color: #FFB247;
   -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
           animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
@@ -2213,6 +2218,64 @@ body {
 /* LANDING PAGE */
 .btn-landing-cadastro {
     padding: 2px 60px !important;
+}
+
+/* MODAL INICIAL */
+
+.modal-dialog.modal-dialog-full-width {
+    width: 100%;
+    margin: auto;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal-dialog.modal-dialog-full-width .modal-content {
+    height: 100%;
+    border-radius: 0;
+}
+
+.modal-dialog.modal-dialog-full-width .modal-content .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px !important;
+    z-index: 100;
+}
+
+.modal-dialog.modal-dialog-full-width .modal-content .modal-body {
+    height: 100%;
+}
+
+.modal-dialog.modal-dialog-full-width .modal-content .table-wrapper {
+    height: 100%;
+    display: table;
+    width: 100%;
+}
+
+.table-wrapper .table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+    text-align: center;
+}
+
+.table-wrapper .table-cell .table-cell-container {
+    display: inline-block;
+    padding: 0 60px;
+    width: 60%;
+}
+
+.table-wrapper .table-cell .table-cell-container .btn {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    position: relative;
+}
+
+.icon-white path {
+    fill: #fff;
 }
 
 /* TUTORIAL MODAL */
@@ -3990,6 +4053,12 @@ recaptcha {
 /* -------------------------------------------------------------------------
     RESPONSIVIDADE
 ------------------------------------------------------------------------- */
+    @media (max-width: 1599px) {
+        .table-wrapper .table-cell .table-cell-container {
+            width: 80%;
+        }
+    }
+
     /*SMALL DESKTOP*/
     @media (max-width: 1199px) {
         .footer .site-logo{
@@ -4029,7 +4098,11 @@ recaptcha {
 
         .box {
             min-height: 918px !important;
-        }        
+        }  
+        
+        .table-wrapper .table-cell .table-cell-container {
+            width: 90%;
+        }
     }
 
     @media (max-width: 1098px) {
@@ -4155,6 +4228,17 @@ recaptcha {
 
         .w-80.display-inline-block {
             width: 78%;
+        }
+
+        /* MODAL INICIAL MOBILE */
+        .table-wrapper .table-cell {
+            display: table-row;
+            height: 50%;
+        }
+
+        .table-wrapper .table-cell .table-cell-container {
+            display: table-cell;
+            vertical-align: middle;
         }
     }
 
@@ -5142,6 +5226,20 @@ recaptcha {
         /* LANDING PAGE */
         .btn-landing-cadastro {
             padding: 2px 15px !important;
+        }
+
+        /* MODAL INICIAL MOBILE */
+        .table-wrapper .table-cell {
+            display: table-row;
+            height: 50%;
+        }
+
+        .table-wrapper .table-cell .table-cell-container {
+            padding: 0 20px;
+        }
+
+        .table-cell-container .icon-white {
+            height: 50px;
         }
     }    
 

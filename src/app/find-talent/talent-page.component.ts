@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
@@ -50,14 +50,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         super(injector);
     }
 
-    ngOnDestroy(): void {
-        
-    }
-
-    ngAfterViewInit(): void {
-        $("body").scrollTop(0);
-        $(".page-loading").hide();
-
+    ngOnInit(){
         let self = this;
         this.interestCenterId = this._activatedRoute.snapshot.params['interestCenterId'];
         this.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
@@ -84,7 +77,15 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         })
 
         this.getLocation();
+    }
 
+    ngOnDestroy(): void {
+        
+    }
+
+    ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
         // if(!self.tabFeaturesActive){
         //     this.getInterestCentersTopLevel();
         // }               

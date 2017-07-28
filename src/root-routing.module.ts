@@ -110,14 +110,14 @@ const routes: Routes = [
     //{ path: 'talentos', redirectTo: '/publico/talentos', pathMatch: 'full' },
     { path: 'find-a-talents', redirectTo: 'talentos', pathMatch: 'full' },
 
-    { path: 'talentos/:interestCenterId', redirectTo: '/publico/talentos/:interestCenterId', pathMatch: 'full' },
-    { path: 'find-a-talents/:interestCenterId', redirectTo: '/publico/talentos/:interestCenterId', pathMatch: 'full' },
+    { path: 'talentos/:interestCenterId', redirectTo: '/talentos/:interestCenterId', pathMatch: 'full' },
+    { path: 'find-a-talents/:interestCenterId', redirectTo: '/talentos/:interestCenterId', pathMatch: 'full' },
 
-    { path: 'talentos-t/:filter', redirectTo: '/publico/talentos-t/:filter', pathMatch: 'full' },
-    { path: 'find-a-talents-t/:filter', redirectTo: '/publico/talentos-t/:filter', pathMatch: 'full' },
+    { path: 'talentos-t/:filter', redirectTo: '/talentos/t/:filter', pathMatch: 'full' },
+    { path: 'find-a-talents-t/:filter', redirectTo: '/talentos/t/:filter', pathMatch: 'full' },
 
-    { path: 'talentos-f/:feature', redirectTo: '/publico/talentos-f/:feature', pathMatch: 'full' },
-    { path: 'find-a-talents-f/:feature', redirectTo: '/publico/talentos-f/:feature', pathMatch: 'full' },
+    { path: 'talentos-f/:feature', redirectTo: '/talentos/f/:feature', pathMatch: 'full' },
+    { path: 'find-a-talents-f/:feature', redirectTo: '/talentos/f/:feature', pathMatch: 'full' },
 
     { path: 'seja-um-worbbior', redirectTo: '/publico/seja-um-worbbior', pathMatch: 'full' },
     { path: 'become-a-worbbior', redirectTo: '/publico/seja-um-worbbior', pathMatch: 'full' },

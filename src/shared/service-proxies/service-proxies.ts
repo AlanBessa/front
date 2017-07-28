@@ -26045,6 +26045,7 @@ export class PaymentsGridAdminDto implements IPaymentsGridAdminDto {
     worbbyTaskId: number;
     type: string;
     amount: number;
+    capturedAmount: number;
     worbbyTax: number;
     status: PaymentsGridAdminDtoStatus;
     paymentId: number;
@@ -26071,6 +26072,7 @@ export class PaymentsGridAdminDto implements IPaymentsGridAdminDto {
             this.worbbyTaskId = data["worbbyTaskId"];
             this.type = data["type"];
             this.amount = data["amount"];
+            this.capturedAmount = data["capturedAmount"];
             this.worbbyTax = data["worbbyTax"];
             this.status = data["status"];
             this.paymentId = data["paymentId"];
@@ -26096,6 +26098,7 @@ export class PaymentsGridAdminDto implements IPaymentsGridAdminDto {
         data["worbbyTaskId"] = this.worbbyTaskId;
         data["type"] = this.type;
         data["amount"] = this.amount;
+        data["capturedAmount"] = this.capturedAmount;
         data["worbbyTax"] = this.worbbyTax;
         data["status"] = this.status;
         data["paymentId"] = this.paymentId;
@@ -26115,6 +26118,7 @@ export interface IPaymentsGridAdminDto {
     worbbyTaskId: number;
     type: string;
     amount: number;
+    capturedAmount: number;
     worbbyTax: number;
     status: PaymentsGridAdminDtoStatus;
     paymentId: number;

@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
@@ -10,10 +10,10 @@ import { AppSessionService } from '@shared/common/session/app-session.service';
 import { Angulartics2 } from 'angulartics2';
 
 @Component({
-    templateUrl: './talent-page.component.html',
+    templateUrl: './find-talent.component.html',
     animations: [appModuleAnimation()]
 })
-export class TalentPageComponent extends AppComponentBase implements AfterViewInit {
+export class FindTalentComponent extends AppComponentBase implements AfterViewInit {
 
     worbbiorActivities: WorbbiorActivityDto[] = [];
     public active: boolean = false;
@@ -50,7 +50,14 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         super(injector);
     }
 
-    ngOnInit(){
+    ngOnDestroy(): void {
+        
+    }
+
+    ngAfterViewInit(): void {
+        $("body").scrollTop(0);
+        $(".page-loading").hide();
+
         let self = this;
         this.interestCenterId = this._activatedRoute.snapshot.params['interestCenterId'];
         this.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
@@ -77,15 +84,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         })
 
         this.getLocation();
-    }
 
-    ngOnDestroy(): void {
-        
-    }
-
-    ngAfterViewInit(): void {
-        $("body").scrollTop(0);
-        $(".page-loading").hide();
         // if(!self.tabFeaturesActive){
         //     this.getInterestCentersTopLevel();
         // }               

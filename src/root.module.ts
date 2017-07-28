@@ -1,6 +1,7 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, Injector, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
+import { NgModule, Injector, APP_INITIALIZER } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { AbpModule, ABP_HTTP_PROVIDER } from '@abp/abp.module';
 
 import { ModalModule, TooltipModule, AccordionModule, ButtonsModule, RatingModule } from 'ngx-bootstrap';

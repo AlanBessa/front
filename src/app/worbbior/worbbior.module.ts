@@ -38,7 +38,6 @@ import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.c
 import { WorbbiorScheduleDateModalComponent } from './worbby-task/worbbior-task-scheduledate-modal.component';
 import { LoginService } from "app/account/login/login.service";
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-history/confirm-balance-transfer-modal.component';
 
 @NgModule({
     imports: [
@@ -88,8 +87,7 @@ import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-hist
         ViewDocumentModalComponent,
         PdfViewerComponent,
         WorbbiorWorbbyTaskActions,
-        WorbbiorScheduleDateModalComponent,
-        ConfirmBalanceTransferModalComponent
+        WorbbiorScheduleDateModalComponent
     ],
     providers: [
         AppRouteGuard,

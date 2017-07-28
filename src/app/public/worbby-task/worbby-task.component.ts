@@ -84,7 +84,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
         FB.ui({
             method: 'feed',
             link: AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName,
-            picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/facebok-share.jpg',
+            picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
             name: 'Veja as habilidades de ' + this.worbbiorProfile.worbbior.displayName,
             description: 'Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.'
         }, function(response){

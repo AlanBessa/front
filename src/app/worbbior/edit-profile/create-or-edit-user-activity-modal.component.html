@@ -128,7 +128,7 @@
               <div *ngFor="let galleryImage of galleryImages; let i = index" class="gallery col-xs-4">                
                 <label [attr.for]="i" class="cursor-pointer">
                   <span class="btn-image">
-                      <img class="img-responsive" [src]="galleryImage.fileBase64">                      
+                      <img class="img-responsive" [src]="galleryImage.thumbnail">                      
                   </span>
                 </label>
                 <input type="file" style="display:none;" [attr.id]="i" [attr.name]="i" *ngIf="active" (change)="fileSelect($event, galleryImage)"/>

@@ -39,6 +39,8 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
     public totalWorbbiorActivities: number = 0; 
     public showButtonMore = false;
 
+    public setSubcategoryClick:boolean = false;
+
     constructor(
         injector: Injector,
         private _activitiesService: ActivityServiceProxy,
@@ -70,10 +72,11 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
             $("body").scrollTop(0);
             if(self.tabFeaturesActive){
                 //self.cleanFilters();
+            }else if(self.setSubcategoryClick){
+                self.setSubcategoryClick = false;
             }else{
                 self.cleanFilters();
-            }           
-            
+            }            
         })
 
         this.getLocation();
@@ -140,6 +143,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
     }
 
     setSubcategory(parentId: number, id: number): void {
+        this.setSubcategoryClick = true;
         var interestCenterTopLevel = this.interestCentersTopLevel.filter(x => x.id == parentId)[0];
         this.currentInterestCenterTopLevel = interestCenterTopLevel;
         this._interestCenterService.getInterestCentersChildrenById(parentId).subscribe((result: ListResultDtoOfInterestCenterDto) => {

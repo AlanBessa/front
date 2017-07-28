@@ -181,7 +181,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
 
     endorse(): void {
         //var stringRoute = '/endorsement'
-        this.router.navigate(['/endorsement', { 'userId': this.worbbiorProfile.worbbior.userId }]);
+        this.router.navigate(['/publico/endosso', { 'userId': this.worbbiorProfile.worbbior.userId }]);
     }
 
     task(): void {

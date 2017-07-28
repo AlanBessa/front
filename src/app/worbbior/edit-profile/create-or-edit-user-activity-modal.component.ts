@@ -93,10 +93,13 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                     this.galleryImages.forEach(element => {
                         if (element.galleryPictureId) {
                             this.getPictureByGuid(element.galleryPictureId).then((result) => {
-                                element.fileBase64 = result;
+                                //element.fileBase64 = result;
+                                element.thumbnail = result;
+                                element.image = result;
                             });
                         } else {
-                            element.fileBase64 = AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/icone-add-photo.gif";
+                            element.thumbnail = AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/icone-add-photo.gif";
+                            element.image = AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/icone-add-photo.gif";
                         }
                     });
                     this.active = true;
@@ -143,6 +146,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         uploader.onBeforeUploadItem = (item) => {
             self.galleryImages[index].fileName = "";
             self.galleryImages[index].fileBase64 = "/assets/metronic/worbby/global/img/loading2.gif";
+            self.galleryImages[index].image = "/assets/metronic/worbby/global/img/loading2.gif";
+            self.galleryImages[index].thumbnail = "/assets/metronic/worbby/global/img/loading2.gif";
         };
 
         uploader.onSuccessItem = (item, response, status) => {
@@ -153,6 +158,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                 reader.onload = function () {
                     self.galleryImages[index].fileBase64 = reader.result;
                     self.galleryImages[index].fileName = resp.result.fileName;
+                    self.galleryImages[index].image = reader.result;
+                    self.galleryImages[index].thumbnail = reader.result;
                 };
                 reader.onerror = function (error) {
                     //console.log('Error: ', error);
@@ -171,10 +178,11 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     removeImageGallery(id: number): void {
         this._galleryActivityService.removeOneImageGalleryActivity(id).finally(() => { this.saving = false; })
             .subscribe(() => {
-                this.remove = true;
+                //this.remove = true;
+                this.show(this.activityUser);
                 this.message.success("Removido com sucesso!");
-                this.close();
-                this.modalSave.emit(null);
+                // this.close();
+                // this.modalSave.emit(null);
             });
     }
 
@@ -201,11 +209,11 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         this._activityService.addActivityToUser(this.activityUser)
             .finally(() => { this.saving = false; })
             .subscribe(() => {
-                if (!this.remove) {
+                //if (!this.remove) {
                     this.message.success(this.l('SavedSuccessfully'));
                     this.close();
                     this.modalSave.emit(null);
-                }
+                //}
             });
     }
 
@@ -250,6 +258,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                 var dataurl = canvas.toDataURL("image/png");
 
                 galleryActivity.fileBase64 = dataurl;
+                galleryActivity.image = dataurl;
+                galleryActivity.thumbnail = dataurl;
                 galleryActivity.fileName = file.name;
             }
 

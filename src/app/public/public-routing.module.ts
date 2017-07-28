@@ -10,7 +10,6 @@ import { InsuranceComponent } from './insurance/insurance.component';
 import { SupportComponent } from './support/support.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { EndorsementsComponent } from './endorsements/endorsements.component';
-import { FindTalentComponent } from './find-talent/find-talent.component';
 import { PageWorbbiorComponent } from '@app/worbbior/page/page-worbbior.component';
 import { BecomeWorbbiorComponent } from './become-a-worbbior/become-a-worbbior.component';
 import { HowDoesItWorkWorbbiorComponent } from './how-does-it-work-worbbior/how-does-it-work-worbbior.component';
@@ -277,75 +276,6 @@ import { PublicComponent } from './public.component';
                       }
                     },
                     { path: 'find-a-tasks', redirectTo: '/publico/tarefas', pathMatch: 'full' },
-
-                    {
-                      path: 'talentos', component: FindTalentComponent, data: {
-                        meta: {
-                          title: 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          description: 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:title': 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          'og:description': 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:url': '',
-                          'og:image': 'http://www.worbby.com/images/home-temporario_2.jpg',
-                          'og:image:type': 'image/jpeg',
-                          'og:image:width': '800',
-                          'og:image:height': '600'
-                        }
-                      }
-                    },
-                    { path: 'find-a-talents', redirectTo: '/publico/talentos', pathMatch: 'full' },
-
-                    {
-                      path: 'talentos/:interestCenterId', component: FindTalentComponent, data: {
-                        meta: {
-                          title: 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          description: 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:title': 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          'og:description': 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:url': '',
-                          'og:image': 'http://www.worbby.com/images/home-temporario_2.jpg',
-                          'og:image:type': 'image/jpeg',
-                          'og:image:width': '800',
-                          'og:image:height': '600'
-                        }
-                      }
-                    },
-                    { path: 'find-a-talents/:interestCenterId', redirectTo: '/publico/talentos/:interestCenterId', pathMatch: 'full' }, 
-
-                    {
-                      path: 'talentos-t/:filter', component: FindTalentComponent, data: {
-                        meta: {
-                          title: 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          description: 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:title': 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          'og:description': 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:url': '',
-                          'og:image': 'http://www.worbby.com/images/home-temporario_2.jpg',
-                          'og:image:type': 'image/jpeg',
-                          'og:image:width': '800',
-                          'og:image:height': '600'
-                        }
-                      }
-                    },
-                    { path: 'find-a-talents-t/:filter', redirectTo: '/publico/talentos-t/:filter', pathMatch: 'full' },
-
-                    {
-                      path: 'talentos-f/:feature', component: FindTalentComponent, data: {
-                        meta: {
-                          title: 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          description: 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:title': 'Encontre talentos para realizar tarefas para você | WORBBY',
-                          'og:description': 'Contrate pessoas habilidosas e apaixonadas pelo que fazem para tarefas domésticas, administrativas ou gastronômicas; reformas; festas; aulas e muito mais.',
-                          'og:url': '',
-                          'og:image': 'http://www.worbby.com/images/home-temporario_2.jpg',
-                          'og:image:type': 'image/jpeg',
-                          'og:image:width': '800',
-                          'og:image:height': '600'
-                        }
-                      }
-                    },
-                    { path: 'find-a-talents-f/:feature', redirectTo: '/publico/talentos-f/:feature', pathMatch: 'full' },
-
                     {
                       path: 'seja-um-worbbior', component: BecomeWorbbiorComponent, data: {
                         meta: {

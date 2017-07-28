@@ -1,0 +1,70 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form *ngIf="active" #requestBalanceTransferForm="ngForm" novalidate>
+        <div class="modal-header">
+					<button type="button" class="close" aria-label="Close" (click)="close()">
+          				<i class="fa fa-remove"></i>
+        			</button>
+					<h3 class="modal-title m-t-xs m-b-xxs text-center">Preencha ou confira os dados bancários para transferência</h3>
+				</div>
+        <div class="modal-body">
+          <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Bank")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input class="form-control" type="text" name="Bank" [(ngModel)]="balanceTransfer.bankAccount.bank" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("Agency")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input class="form-control" type="text" name="Agency" [(ngModel)]="balanceTransfer.bankAccount.agency" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("CurrentAccount")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input class="form-control" type="text" name="CurrentAccount" [(ngModel)]="balanceTransfer.bankAccount.currentAccount" />
+                    </div>   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">                 
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("HolderName")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input class="form-control" type="text" name="HolderName" [(ngModel)]="balanceTransfer.bankAccount.holderName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12"> 
+                    <div class="form-group no-hint">
+                        <label class="control-label">{{l("HolderCpf")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
+                        <input [textMask] = "{mask: AppConsts.cpfMask}" class="form-control" type="tel" name="HolderCpf" [(ngModel)]="balanceTransfer.bankAccount.holderCpf" />
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around btn-block m-b-xxs" (click)="close()">
+                {{l("Cancel")}}
+              </button>
+            </div>
+            <div class="col-xs-12 col-md-4 col-md-offset-4">
+              <button type="button" class="btn btn-secondary btn-around btn-block m-b-xxs" [disabled]="!requestBalanceTransferForm.form.valid"
+                [buttonBusy]="saving" [busyText]="'Confirmando...'" (click)="save()">
+                <span>Confirmar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

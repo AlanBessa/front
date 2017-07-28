@@ -2883,8 +2883,8 @@ export class BankAccountServiceProxy {
     /**
      * @return Success
      */
-    getBankAccountByUserId(id: number): Observable<CreateBankAccountInput> {
-        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountByUserId?";
+    getBankAccountForEditProfileByUserId(id: number): Observable<CreateBankAccountInput> {
+        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountForEditProfileByUserId?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -2901,11 +2901,11 @@ export class BankAccountServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetBankAccountByUserId(response_);
+            return this.processGetBankAccountForEditProfileByUserId(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processGetBankAccountByUserId(response_);
+                    return this.processGetBankAccountForEditProfileByUserId(response_);
                 } catch (e) {
                     return <Observable<CreateBankAccountInput>><any>Observable.throw(e);
                 }
@@ -2914,7 +2914,7 @@ export class BankAccountServiceProxy {
         });
     }
 
-    protected processGetBankAccountByUserId(response: Response): Observable<CreateBankAccountInput> {
+    protected processGetBankAccountForEditProfileByUserId(response: Response): Observable<CreateBankAccountInput> {
         const status = response.status; 
 
         if (status === 200) {
@@ -2928,6 +2928,56 @@ export class BankAccountServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<CreateBankAccountInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getBankAccountForRequestBalanceTransferfileByUserId(id: number): Observable<BankAccountDto> {
+        let url_ = this.baseUrl + "/api/services/app/BankAccount/GetBankAccountForRequestBalanceTransferfileByUserId?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBankAccountForRequestBalanceTransferfileByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBankAccountForRequestBalanceTransferfileByUserId(response_);
+                } catch (e) {
+                    return <Observable<BankAccountDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<BankAccountDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBankAccountForRequestBalanceTransferfileByUserId(response: Response): Observable<BankAccountDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: BankAccountDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? BankAccountDto.fromJS(resultData200) : new BankAccountDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<BankAccountDto>(<any>null);
     }
 
     /**
@@ -10134,7 +10184,7 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    getPaymentsAdmin(filter: string, permission: string, paymentStateCombo: number, typePayment: string, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
+    getPaymentsAdmin(filter: string, permission: string, paymentStateCombo: number, typePaymentCombo: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPaymentsGridAdminDto> {
         let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentsAdmin?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -10142,8 +10192,8 @@ export class SaleServiceProxy {
             url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
         if (paymentStateCombo !== undefined)
             url_ += "PaymentStateCombo=" + encodeURIComponent("" + paymentStateCombo) + "&"; 
-        if (typePayment !== undefined)
-            url_ += "TypePayment=" + encodeURIComponent("" + typePayment) + "&"; 
+        if (typePaymentCombo !== undefined)
+            url_ += "TypePaymentCombo=" + encodeURIComponent("" + typePaymentCombo) + "&"; 
         if (startDate !== undefined)
             url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
         if (endDate !== undefined)
@@ -19324,6 +19374,7 @@ export class RequestBalanceTransferInput implements IRequestBalanceTransferInput
     userId: number;
     bankAccountId: number;
     amount: number;
+    bankAccount: BankAccountDto;
 
     constructor(data?: IRequestBalanceTransferInput) {
         if (data) {
@@ -19339,6 +19390,7 @@ export class RequestBalanceTransferInput implements IRequestBalanceTransferInput
             this.userId = data["userId"];
             this.bankAccountId = data["bankAccountId"];
             this.amount = data["amount"];
+            this.bankAccount = data["bankAccount"] ? BankAccountDto.fromJS(data["bankAccount"]) : <any>undefined;
         }
     }
 
@@ -19353,6 +19405,7 @@ export class RequestBalanceTransferInput implements IRequestBalanceTransferInput
         data["userId"] = this.userId;
         data["bankAccountId"] = this.bankAccountId;
         data["amount"] = this.amount;
+        data["bankAccount"] = this.bankAccount ? this.bankAccount.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -19361,6 +19414,70 @@ export interface IRequestBalanceTransferInput {
     userId: number;
     bankAccountId: number;
     amount: number;
+    bankAccount: BankAccountDto;
+}
+
+export class BankAccountDto implements IBankAccountDto {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+    id: number;
+
+    constructor(data?: IBankAccountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.bank = data["bank"];
+            this.agency = data["agency"];
+            this.currentAccount = data["currentAccount"];
+            this.holderName = data["holderName"];
+            this.holderCpf = data["holderCpf"];
+            this.tenantId = data["tenantId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BankAccountDto {
+        let result = new BankAccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["bank"] = this.bank;
+        data["agency"] = this.agency;
+        data["currentAccount"] = this.currentAccount;
+        data["holderName"] = this.holderName;
+        data["holderCpf"] = this.holderCpf;
+        data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBankAccountDto {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+    id: number;
 }
 
 export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
@@ -19441,6 +19558,7 @@ export class CreateBankAccountInput implements ICreateBankAccountInput {
     holderName: string;
     holderCpf: string;
     tenantId: number;
+    id: number;
 
     constructor(data?: ICreateBankAccountInput) {
         if (data) {
@@ -19460,6 +19578,7 @@ export class CreateBankAccountInput implements ICreateBankAccountInput {
             this.holderName = data["holderName"];
             this.holderCpf = data["holderCpf"];
             this.tenantId = data["tenantId"];
+            this.id = data["id"];
         }
     }
 
@@ -19478,6 +19597,7 @@ export class CreateBankAccountInput implements ICreateBankAccountInput {
         data["holderName"] = this.holderName;
         data["holderCpf"] = this.holderCpf;
         data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
         return data; 
     }
 }
@@ -19490,6 +19610,7 @@ export interface ICreateBankAccountInput {
     holderName: string;
     holderCpf: string;
     tenantId: number;
+    id: number;
 }
 
 export class BinaryObjectDto implements IBinaryObjectDto {

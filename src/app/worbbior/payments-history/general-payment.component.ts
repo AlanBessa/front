@@ -1,13 +1,14 @@
 import { AppComponentBase } from "shared/common/app-component-base";
 import { Component, AfterViewInit, Injector, ViewChild } from "@angular/core";
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { CreateBankAccountInput, BankAccountServiceProxy, BalanceTransferOutput, EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
+import { BankAccountDto, BankAccountServiceProxy, BalanceTransferOutput, EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
 import { BalanceTransferStatus } from "shared/AppEnums";
 import * as _ from 'lodash';
 import * as moment from "moment";
 import 'moment/min/locales';
 import { DateFilter } from "shared/AppEnums";
 import { AppConsts } from '@shared/AppConsts';
+import { ConfirmBalanceTransferModalComponent } from './confirm-balance-transfer-modal.component';
 
 @Component({
     templateUrl: './general-payment.component.html', 
@@ -16,6 +17,8 @@ import { AppConsts } from '@shared/AppConsts';
 })
 
 export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements AfterViewInit {
+
+    @ViewChild('confirmBalanceTransferModal') confirmBalanceTransferModal: ConfirmBalanceTransferModalComponent;
 
     public active: boolean = false; 
 
@@ -27,7 +30,7 @@ export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements
     public balanceTransfers:BalanceTransferOutput[] = [];
     public balanceAvailable:number;
     public transferId:number;
-    public banckAccount:CreateBankAccountInput;
+    public banckAccount:BankAccountDto;
 
     pager: any = {};
 
@@ -50,13 +53,22 @@ export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements
     ngAfterViewInit(): void {
     }
 
+    requestBalanceModalReturn():void{
+        this.getBankAccountByUserId();
+        this.getBalanceAvailableByUserId();
+        this.getBalanceTransfers(1);
+    }
+
     getBankAccountByUserId():void{
-        this._bankAccountServiceProxy.getBankAccountByUserId(abp.session.userId)
+        this._bankAccountServiceProxy.getBankAccountForRequestBalanceTransferfileByUserId(abp.session.userId)
         .finally(() => { 
 
          })
         .subscribe(result => {
             this.banckAccount = result;
+            if (!this.banckAccount.userId) {
+                this.banckAccount.userId = abp.session.userId;
+            }
         }, error => {
             console.log(error);
         });
@@ -96,16 +108,10 @@ export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements
         var input = new RequestBalanceTransferInput();
         input.amount = this.balanceAvailable;
         input.userId = abp.session.userId;
-        input.bankAccountId = 1;
+        input.bankAccountId = this.banckAccount.id;
+        input.bankAccount = this.banckAccount;
 
-        this._balanceTransferService.requestBalanceTransfer(input)
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-        }, error => {
-            console.log(error);
-        });
+        this.confirmBalanceTransferModal.show(input);
     }
 
 

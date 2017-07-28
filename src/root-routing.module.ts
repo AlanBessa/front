@@ -22,6 +22,11 @@ const routes: Routes = [
     },
     { path: 'home', redirectTo: '', pathMatch: 'full' },
     {
+        path: 'talentos',
+        loadChildren: 'app/find-talent/talent.module#TalentModule', //Lazy load find talent module  
+        data: { preload: true }
+    },
+    {
         path: 'publico',
         loadChildren: 'app/public/public.module#PublicModule', //Lazy load public module
         data: { preload: true }
@@ -102,8 +107,8 @@ const routes: Routes = [
     { path: 'tarefas', redirectTo: '/publico/tarefas', pathMatch: 'full' },
     { path: 'find-a-tasks', redirectTo: '/publico/tarefas', pathMatch: 'full' },
 
-    { path: 'talentos', redirectTo: '/publico/talentos', pathMatch: 'full' },
-    { path: 'find-a-talents', redirectTo: '/publico/talentos', pathMatch: 'full' },
+    //{ path: 'talentos', redirectTo: '/publico/talentos', pathMatch: 'full' },
+    { path: 'find-a-talents', redirectTo: 'talentos', pathMatch: 'full' },
 
     { path: 'talentos/:interestCenterId', redirectTo: '/publico/talentos/:interestCenterId', pathMatch: 'full' },
     { path: 'find-a-talents/:interestCenterId', redirectTo: '/publico/talentos/:interestCenterId', pathMatch: 'full' },

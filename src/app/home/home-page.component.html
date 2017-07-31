@@ -6,17 +6,11 @@
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
                     <h1 class="m-t-lg">{{l("Work")}} + {{l("Hobby")}} =</h1>
                     <h2>{{l("YourTasksPerformedWithTalentAndPassion")}}</h2>
-                    <button (click)="becomeWorbbior()" class="btn btn-prime btn-around white-space m-t-20px padding-responsive-60px-30px">
-                        <p class="no-m-b">
-                            <strong>Cadastre já seus talentos!</strong>
-                            <small class="btn-prime-sub">Vantagens para os primeiros</small>
-                        </p>
-                    </button>
                     <div class="search-box no-m-t-xs">
                         <button class="btn btn-anchor hidden-xs m-t-20px-991px" (click)="goTo('nextStep')">
                             <i class="fa fa-angle-double-down no-m-x"></i>
                         </button>
-                        <div>
+                        <div class="m-t-sm">
                             <h2>{{l("SearchWorbby")}}</h2>
                             <div class="input-group stylish-input-group">
                                 <input type="text" class="form-control" name="Filter" [(ngModel)]="filter" placeholder="O que você precisa?">

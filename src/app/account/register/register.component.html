@@ -1,11 +1,10 @@
-
 <div class="card xs-p-x-xs">
     <h3 class="text-center no-m-t m-b-xss role-name" *ngIf="roleName == 'Worbbient'">{{l("WorbbientRegister")}}</h3>
     <h3 class="text-center no-m-t m-b-xss role-name" *ngIf="roleName == 'Worbbior'">{{l("WorbbiorRegister")}}</h3>
 
     <div class="clearfix"></div>
 
-    <div class="form-group no-hint col-divider-botton m-b-xss p-b-xs">
+    <div class="form-group no-hint col-divider-botton m-b-xss">
         <label class="control-label">{{l("ChooseAdministrativeArea")}}</label>
         <ng-select [allowClear]="true" class="select-prime-inverted txt-md-only-mobile"
               [items]="administrativeAreas.items"
@@ -15,30 +14,9 @@
               placeholder="Selecione seu estado">
         </ng-select>
     </div>
-    <!--<div *ngIf="roleName == 'Worbbior'" class="form-group">
-        <label class="control-label">Insira o seu código <span *ngIf="roleName == 'Worbbior'">(Não tem código? Clique <a class="btn-link" (click)="getWorbbiorRegisterCode()">aqui</a>)</span></label>
-        <input class="form-control placeholder-no-fix" type="text" placeholder="Código (Ex: 0f8fad5b)" [(ngModel)]="model.worbbiorRegisterCode" name="WorbbiorRegisterCode" required />
-    </div>-->
 
-    <!-- Registro Social : inicio -->
-    <div class="social-login margin-bottom-15" *ngIf="multiTenancySideIsTeanant && loginService.externalLoginProviders.length > 0">
-        <div class="social-icons">
-            <div class="row">
-                <div class="col-xs-12 col-md-6 m-t-xss" *ngFor="let provider of loginService.externalLoginProviders">
-                    <a class="btn btn-block btn-around btn-social btn-{{provider.icon | lowercase}}"
-                    (click)="externalRegister(provider)"
-                    [ngClass]="{'disabled':saving}"
-                    title="{{provider.name}}">
-                        <span>{{provider.name}}</span>
-                        <i class="fa fa-{{provider.name | lowercase}}"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Registro Social : Fim -->
-    <h6 class="text-center">{{l("OrCreateAnEmailAccount")}}</h6>
-    <div class="clearfix"></div>
+    
+    
     <!-- Criar conta : Inicio -->
     <div class="simple-register">
         <form #registerForm="ngForm" class="register-form" method="post" novalidate (ngSubmit)="save()">
@@ -95,6 +73,26 @@
                 <re-captcha (resolved)="captchaResolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
             </div>
             <p class="m-t-xs" *ngIf="endorse">Ao recomendar um talento você estará cadastrado na plataforma.</p>
+
+            <h6 class="text-center">{{l("OrCreateAnEmailAccount")}}</h6>
+            <div class="clearfix"></div>
+            <!-- Registro Social : inicio -->
+            <div class="social-login m-b-xs" *ngIf="multiTenancySideIsTeanant && loginService.externalLoginProviders.length > 0">
+                <div class="social-icons">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 m-t-xss" *ngFor="let provider of loginService.externalLoginProviders">
+                            <a class="btn btn-block btn-around btn-social btn-{{provider.icon | lowercase}}"
+                            (click)="externalRegister(provider)"
+                            [ngClass]="{'disabled':saving}"
+                            title="{{provider.name}}">
+                                <span>{{provider.name}}</span>
+                                <i class="fa fa-{{provider.name | lowercase}}"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Registro Social : Fim -->
 
             <div class="form-group clearfix">
                 <div class="btn-group btn-check pull-left">

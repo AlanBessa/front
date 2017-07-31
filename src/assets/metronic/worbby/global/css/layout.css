@@ -130,6 +130,10 @@ app-root {
     margin-right: 20px;
 }
 
+.m-r-12px {
+    margin-right: 12px;
+}
+
 .m-l-xss{margin-left: 25px !important;}
 .m-l-xxs{margin-left: 10px;}
 

@@ -75,7 +75,8 @@
             <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile txt-small-tablet" (click)="refusedWorbbyTaskProposed()">Recusar</button>
         </div>
         <div *ngIf="isWorbbyTaskHired || isWorbbyTaskStart" class="col-xs-12">
-            <button type="button" (click)="worbbyTaskDelivered()" class="btn btn-prime btn-block">{{pageType == 'list' ? 'Confirmar a entrega da tarefa' : 'Confirmar entrega'}}</button>                                                                       
+            <!--<button type="button" (click)="worbbyTaskDelivered()" class="btn btn-prime btn-block">{{pageType == 'list' ? 'Confirmar a entrega da tarefa' : 'Confirmar entrega'}}</button>-->
+            <button type="button" (click)="worbbyTaskDelivered()" class="btn btn-prime btn-block txt-small-only-mobile txt-small-mobile">Confirmar a entrega da tarefa</button>                                                                       
         </div>
     </div>
 </div>

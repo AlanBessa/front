@@ -20,6 +20,12 @@
   }
 }
 
+app-root {
+    height: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
 
 /*CORES*/
 /*background*/
@@ -122,6 +128,10 @@
 
 .m-r-20px {
     margin-right: 20px;
+}
+
+.m-r-12px {
+    margin-right: 12px;
 }
 
 .m-l-xss{margin-left: 25px !important;}
@@ -879,8 +889,7 @@ a.invert{
 /* Page Loading */
 
 .page-content {
-    min-height: 300px;
-    /*margin-top: 10px;*/
+    min-height: 300px;    
 }
 
 .page-loading {
@@ -889,6 +898,7 @@ a.invert{
     z-index: 9999;
     background: rgba(255,255,255,0.7);
     height:100%;
+    margin-top: 10px;
 }
 
 /* LOADING (SPIN) */
@@ -5256,6 +5266,24 @@ recaptcha {
 
         .table-cell-container .icon-white {
             height: 50px;
+        }
+
+        .txt-small-mobile {
+            font-size: 14px !important;
+        }
+
+        /* FEEDBACK COMPONENT */
+
+        feedbackComponent {
+            position: absolute;
+            bottom: 410px;
+            right: 0;
+            z-index: 10000;
+        }
+
+        .box-feedback {
+            position: absolute;            
+            top: initial;
         }
     }    
 

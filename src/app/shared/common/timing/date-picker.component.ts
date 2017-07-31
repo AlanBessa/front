@@ -47,7 +47,7 @@ export class DatePickerComponent extends AppComponentBase implements AfterViewIn
     setElementText(val: any) {
         const $element = $(this.hostElement.nativeElement);
         if (val) {
-            $element.val(moment(val).format('L'));
+            $element.val(moment(val).format('DD/MM/YYYY'));
         } else {
             $element.val('');
         }

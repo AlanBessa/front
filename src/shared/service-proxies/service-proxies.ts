@@ -19265,7 +19265,10 @@ export interface IBalanceTransferOutput {
 
 export class BalanceTransferDto implements IBalanceTransferDto {
     userId: number;
+    userName: string;
+    userEmail: string;
     bankAccountId: number;
+    bankAccount: BankAccountDto;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
     lastModificationTime: moment.Moment;
@@ -19284,7 +19287,10 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     init(data?: any) {
         if (data) {
             this.userId = data["userId"];
+            this.userName = data["userName"];
+            this.userEmail = data["userEmail"];
             this.bankAccountId = data["bankAccountId"];
+            this.bankAccount = data["bankAccount"] ? BankAccountDto.fromJS(data["bankAccount"]) : <any>undefined;
             this.amount = data["amount"];
             this.balanceTransferStatus = data["balanceTransferStatus"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
@@ -19302,7 +19308,10 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
+        data["userName"] = this.userName;
+        data["userEmail"] = this.userEmail;
         data["bankAccountId"] = this.bankAccountId;
+        data["bankAccount"] = this.bankAccount ? this.bankAccount.toJSON() : <any>undefined;
         data["amount"] = this.amount;
         data["balanceTransferStatus"] = this.balanceTransferStatus;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
@@ -19314,7 +19323,10 @@ export class BalanceTransferDto implements IBalanceTransferDto {
 
 export interface IBalanceTransferDto {
     userId: number;
+    userName: string;
+    userEmail: string;
     bankAccountId: number;
+    bankAccount: BankAccountDto;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
     lastModificationTime: moment.Moment;
@@ -19363,6 +19375,69 @@ export class ListResultDtoOfBalanceTransferHistoryDto implements IListResultDtoO
 
 export interface IListResultDtoOfBalanceTransferHistoryDto {
     items: BalanceTransferHistoryDto[];
+}
+
+export class BankAccountDto implements IBankAccountDto {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+    id: number;
+
+    constructor(data?: IBankAccountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.bank = data["bank"];
+            this.agency = data["agency"];
+            this.currentAccount = data["currentAccount"];
+            this.holderName = data["holderName"];
+            this.holderCpf = data["holderCpf"];
+            this.tenantId = data["tenantId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BankAccountDto {
+        let result = new BankAccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["bank"] = this.bank;
+        data["agency"] = this.agency;
+        data["currentAccount"] = this.currentAccount;
+        data["holderName"] = this.holderName;
+        data["holderCpf"] = this.holderCpf;
+        data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBankAccountDto {
+    userId: number;
+    bank: string;
+    agency: string;
+    currentAccount: string;
+    holderName: string;
+    holderCpf: string;
+    tenantId: number;
+    id: number;
 }
 
 export class BalanceTransferHistoryDto implements IBalanceTransferHistoryDto {
@@ -19465,69 +19540,6 @@ export interface IRequestBalanceTransferInput {
     bankAccountId: number;
     amount: number;
     bankAccount: BankAccountDto;
-}
-
-export class BankAccountDto implements IBankAccountDto {
-    userId: number;
-    bank: string;
-    agency: string;
-    currentAccount: string;
-    holderName: string;
-    holderCpf: string;
-    tenantId: number;
-    id: number;
-
-    constructor(data?: IBankAccountDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.userId = data["userId"];
-            this.bank = data["bank"];
-            this.agency = data["agency"];
-            this.currentAccount = data["currentAccount"];
-            this.holderName = data["holderName"];
-            this.holderCpf = data["holderCpf"];
-            this.tenantId = data["tenantId"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): BankAccountDto {
-        let result = new BankAccountDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        data["bank"] = this.bank;
-        data["agency"] = this.agency;
-        data["currentAccount"] = this.currentAccount;
-        data["holderName"] = this.holderName;
-        data["holderCpf"] = this.holderCpf;
-        data["tenantId"] = this.tenantId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IBankAccountDto {
-    userId: number;
-    bank: string;
-    agency: string;
-    currentAccount: string;
-    holderName: string;
-    holderCpf: string;
-    tenantId: number;
-    id: number;
 }
 
 export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {

@@ -37,8 +37,8 @@ export class BecomeWorbbiorComponent extends AppComponentBase implements AfterVi
 
 
     private getInterestCenters(): void {
-        if(this.interestCentersTopLevel.length == 0){
-            this.getInterestCentersTopLeve();
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
             this.activatedRoute.fragment.subscribe(f => {
                 this.goTo(f);
             })   

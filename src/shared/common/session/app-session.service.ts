@@ -7,7 +7,8 @@ import {
     GetCurrentLoginInformationsOutput,
     ActivityEndorsementForCreateUpdate,
     UserLoginServiceProxy,
-    WorbbiorServiceProxy
+    WorbbiorServiceProxy,
+    InterestCenterDto
 } from '@shared/service-proxies/service-proxies'
 import { AbpMultiTenancyService } from '@abp/multi-tenancy/abp-multi-tenancy.service'
 import { WorbbiorState } from '@shared/AppEnums';
@@ -29,6 +30,9 @@ export class AppSessionService {
     public _worbbiorDisplayName: string;
     public _worbbiorPremium: boolean;
     public _firstAccess:boolean = true;
+    public _isMobileDevice:boolean;
+    
+    public _interestCentersTopLevel: InterestCenterDto[] = [];
 
     constructor(
         private _sessionService: SessionServiceProxy,
@@ -37,6 +41,14 @@ export class AppSessionService {
         private _authService: AppAuthService,
         private _userLoginService: UserLoginServiceProxy,
         private _worbbiorService: WorbbiorServiceProxy) {
+    }
+
+    get interestCentersTopLevel():InterestCenterDto[]{
+        return this._interestCentersTopLevel;
+    }
+
+    set interestCentersTopLevel(value: InterestCenterDto[]){
+        this._interestCentersTopLevel = value;
     }
 
     get application(): ApplicationInfoDto {
@@ -136,6 +148,14 @@ export class AppSessionService {
         return this._utilsService.getCookieValue("firstLoginUser")
     }
 
+    set isMobileDevice(value:boolean){
+        this._isMobileDevice = value;
+    }
+
+    get isMobileDevice(): boolean{
+        return this._isMobileDevice;
+    }
+
     getShownLoginName(): string {
         let userName = this._user.userName;
         if (!this._abpMultiTenancyService.isEnabled) {
@@ -154,6 +174,8 @@ export class AppSessionService {
 
                 this._currentRoleName = result.defaultRoleName;
                 this._defaultRoleName = result.defaultRoleName;
+
+                this.isMobileDevice = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/).test(navigator.userAgent.toLowerCase());
 
                 if (this._utilsService.getCookieValue("userRoleName")) {
                     this._currentRoleName = this._utilsService.getCookieValue("userRoleName");
@@ -210,4 +232,6 @@ export class AppSessionService {
 
         return true;
     }
+
+    
 }

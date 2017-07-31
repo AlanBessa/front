@@ -29,7 +29,6 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
     public galleryImages: GalleryActivityDto[];
-    public isMobile:boolean = AppConsts.isMobile;
     public whatsappLink:SafeUrl = "";
     public showLoginRegister:boolean = false;
 

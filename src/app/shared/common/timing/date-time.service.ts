@@ -12,7 +12,7 @@ export class DateTimeService  {
     createDateRangePickerOptions(): any {
         var options = {
             locale: {
-                format: 'L',
+                format: 'DD/MM/YYYY',
                 applyLabel: this._appLocalizationService.l('Apply'),
                 cancelLabel: this._appLocalizationService.l('Cancel'),
                 customRangeLabel: this._appLocalizationService.l('CustomRange')

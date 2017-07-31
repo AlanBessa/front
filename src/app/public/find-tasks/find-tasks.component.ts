@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute } from '@angular/router';
@@ -13,8 +13,7 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
 
     worbbyTasks: WorbbyTaskDto[] = [];
     public active: boolean = false;
-    
-    public interestCentersTopLevel: InterestCenterDto[] = [];
+
     public interestCentersChidren: InterestCenterDto[] = [];
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();
@@ -44,33 +43,33 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
 
         $("body").scrollTop(0);
         $(".page-loading").hide();
-
-        this.findWorbbyTaskInput.interestCenterTopLevelId = this._activatedRoute.snapshot.params['interestCenterTopLevelId'];
-        this.findWorbbyTaskInput.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
-        this.findWorbbyTaskInput.filter = this._activatedRoute.snapshot.params['filter'];
-
-        this.getInterestCentersTopLevel();
-        this.getLocation();
     }
 
     ngOnDestroy(): void {
         
     }
 
+    ngOnInit():void{
+        this.findWorbbyTaskInput.interestCenterTopLevelId = this._activatedRoute.snapshot.params['interestCenterTopLevelId'];
+        this.findWorbbyTaskInput.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
+        this.findWorbbyTaskInput.filter = this._activatedRoute.snapshot.params['filter'];
 
-    private getInterestCentersTopLevel(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCentersTopLevel = result.items;
-           
-            this.currentInterestCenterTopLevel.displayName = "Selecione";
-            this.currentInterestCenterChild.displayName = "Selecione";
-            this.active = true;
-            if (this.interestCenterId) {
-                this.setInterestCenter(this.interestCenterId);
-                this.interestCenterId = null;
-            } else {
-            }
-        });
+        this.getInterestCenters();
+        this.getLocation();
+    }
+
+    private getInterestCenters(): void {
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
+        }
+        this.currentInterestCenterTopLevel.displayName = "Selecione";
+        this.currentInterestCenterChild.displayName = "Selecione";
+        this.active = true;
+        if (this.interestCenterId) {
+            this.setInterestCenter(this.interestCenterId);
+            this.interestCenterId = null;
+        } else {
+        }
     }
 
     private getInterestCentersChidren(interestCenter: InterestCenterDto): void {
@@ -84,12 +83,12 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
     }
 
     setInterestCenter(id: number): void {
-        var interestCenter = this.interestCentersTopLevel.filter(x => x.id == id)[0];
+        var interestCenter = this.appSession.interestCentersTopLevel.filter(x => x.id == id)[0];
         this.changeInterestCenterTopLevel(interestCenter);
     }
 
     setSubcategory(parentId: number, id: number): void {
-        var interestCenterTopLevel = this.interestCentersTopLevel.filter(x => x.id == parentId)[0];
+        var interestCenterTopLevel = this.appSession.interestCentersTopLevel.filter(x => x.id == parentId)[0];
         this.currentInterestCenterTopLevel = interestCenterTopLevel;
         this._interestCenterService.getInterestCentersChildrenById(parentId).subscribe((result: ListResultDtoOfInterestCenterDto) => {
             this.interestCentersChidren = result.items;

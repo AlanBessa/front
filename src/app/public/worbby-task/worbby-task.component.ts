@@ -49,7 +49,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
 
-            this.scheduleDateDisplay = moment(result.creationTime).format('L');
+            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('DD/MM/YYYY') : null;
 
             this.active = true;
         });

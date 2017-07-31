@@ -122,8 +122,8 @@ export class HomePageComponent extends AppComponentBase implements AfterViewInit
     }
 
     private getInterestCenters(): void {
-        if(this.interestCentersTopLevel.length == 0){
-            this.getInterestCentersTopLeve();
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
         }
     }
 

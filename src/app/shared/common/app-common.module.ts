@@ -27,6 +27,7 @@ import { NotificationsComponent } from "app/shared/layout/notifications/notifica
 import { WorbbientWorbbyTaskActions } from '@app/worbbient/worbby-task/worbbient-task-actions.component';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 import { SlickSliderComponent } from 'shared/slick-slider.component';
+import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import { SlickSliderComponent } from 'shared/slick-slider.component';
         NotificationsComponent,
         WorbbientWorbbyTaskActions,
         SendReportModalComponent,
-        SlickSliderComponent
+        SlickSliderComponent,
+        AwaitingComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -70,7 +72,8 @@ import { SlickSliderComponent } from 'shared/slick-slider.component';
         NotificationsComponent,
         WorbbientWorbbyTaskActions,
         SendReportModalComponent,
-        SlickSliderComponent
+        SlickSliderComponent,
+        AwaitingComponent
     ],
     providers: [
         DateTimeService,

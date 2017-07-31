@@ -104,7 +104,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
             this.worbbyOfferSide = this.worbbyTask.offerDto && this.worbbyTask.offerDto.userId == abp.session.userId ? "1" : "2";
-            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
+            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('DD/MM/YYYY') : this.scheduleDateDisplay;
 
             this.getPictureByGuid(this.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;
@@ -122,7 +122,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
         this._worbbyTaskService.getWorbbyTask(this.worbbyTaskId).subscribe(result => {
             this.worbbyTask = result;
             this.worbbyOfferSide = this.worbbyTask.offerDto && this.worbbyTask.offerDto.userId == abp.session.userId ? "1" : "2";
-            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('L') : this.scheduleDateDisplay;
+            this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('DD/MM/YYYY') : this.scheduleDateDisplay;
 
             this.getPictureByGuid(this.worbbyTask.worbbient.userPictureId).then((result) => {
                 this.worbbyTask.worbbient.userPicture = result ? result : AppConsts.defaultProfilePicture;;

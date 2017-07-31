@@ -18,7 +18,6 @@ import * as _ from 'lodash';
 export class EndorsementsComponent extends AppComponentBase implements AfterViewInit {
 
     EndorsementState: typeof EndorsementState = EndorsementState;
-    public interestCentersTopLevel: InterestCenterDto[];
     public interestCentersChidren: InterestCenterDto[];
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();

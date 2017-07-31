@@ -83,7 +83,7 @@ export class DateRangePickerComponent extends AppComponentBase implements AfterV
         let self = this;
         let options: any = {
             locale: {
-                format: 'L',
+                format: 'DD/MM/YYYY',
                 applyLabel: self.l('Apply'),
                 cancelLabel: self.l('Cancel'),
                 customRangeLabel: self.l('CustomRange')

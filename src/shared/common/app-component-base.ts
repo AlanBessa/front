@@ -27,7 +27,6 @@ export abstract class AppComponentBase {
     activatedRoute: ActivatedRoute;
     mediaQuery: string;
     interestCenterService: InterestCenterServiceProxy;
-    public interestCentersTopLevel: InterestCenterDto[] = [];
 
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
@@ -227,9 +226,9 @@ export abstract class AppComponentBase {
         }
     }
 
-    public getInterestCentersTopLeve(): void {
+    public getInterestCentersTopLevel(): void {
         this.interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCentersTopLevel = result.items;
+            this.appSession.interestCentersTopLevel = result.items;
         });
     }
 }

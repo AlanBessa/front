@@ -25,7 +25,6 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
     public worbbyTask: WorbbyTaskDto = new WorbbyTaskDto();
     public address: AddressDto = new AddressDto();
 
-    public interestCentersTopLevel: InterestCenterDto[] = [];
     public interestCentersChidren: InterestCenterDto[] = [];
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();
@@ -99,8 +98,17 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
         $("body").scrollTop(0);
         $(".page-loading").hide();
         
-        this.getInterestCentersTopLevel();
+        this.getInterestCenters();
         this.getWorbbyTaskDetails();
+    }
+
+    private getInterestCenters(): void {
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
+        }
+        this.currentInterestCenterTopLevel.displayName = "Selecione";
+        this.currentInterestCenterChild.displayName = "Selecione";
+        this.active = true; 
     }
 
     getWorbbyTaskDetails(): void {
@@ -111,7 +119,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
             this.currentUnitMeasureOptions = UnitMeasure[result.unitMeasure].toString();
             this.currentTimeEnumOptions = TimeEnum[result.time];
 
-            if(result.scheduledDate) this.scheduleDateDisplay = result.scheduledDate.format('L');
+            if(result.scheduledDate) this.scheduleDateDisplay = result.scheduledDate.format('DD/MM/YYYY');
 
             if(result.userActivity != null) {
                 this.isOffer = true;
@@ -137,14 +145,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
         });
     }
 
-    private getInterestCentersTopLevel(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCentersTopLevel = result.items;
-            this.currentInterestCenterTopLevel.displayName = "Selecione";
-            this.currentInterestCenterChild.displayName = "Selecione";
-            this.active = true; 
-        });
-    }
+    
 
     private getInterestCentersChidren(interestCenter: InterestCenterDto): void {
         this.changeInterestCenterChildren(null);
@@ -217,7 +218,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
     }
 
     scheduleDateDone(event):void {
-        this.scheduleDateDisplay = moment(event).format('L');
+        this.scheduleDateDisplay = moment(event).format('DD/MM/YYYY');
         this.showDataPicker = false;
     }
 

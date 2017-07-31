@@ -66,7 +66,6 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
     public administrativeAreas: AdministrativeAreas = new AdministrativeAreas();
     public currentAdministrativeArea: KeyValueAddress;
 
-    public interestCentersTopLevel: InterestCenterDto[] = [];
     public interestCentersChidren: InterestCenterDto[] = [];
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();
@@ -147,19 +146,19 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         $("body").scrollTop(0);
         $(".page-loading").hide();
         //this.setValidSteps();
-        this.getInterestCentersTopLevel();    
+        this.getInterestCenters();    
     }
 
     ngOnDestroy(): void {
         
     }
 
-    private getInterestCentersTopLevel(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCentersTopLevel = result.items;
-            this.currentInterestCenterTopLevel.displayName = "Selecione";
-            this.currentInterestCenterChild.displayName = "Selecione";
-        });
+    private getInterestCenters(): void {
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
+        }
+        this.currentInterestCenterTopLevel.displayName = "Selecione";
+        this.currentInterestCenterChild.displayName = "Selecione";
     }
 
     private getInterestCentersChidren(interestCenter: InterestCenterDto): void {
@@ -223,7 +222,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         if(date < currentDate){
             this.message.error("Selecione um data igual ou posterior à data atual.", "Data inválida!")
         }else{
-            this.scheduleDateDisplay = moment(date).format('L');
+            this.scheduleDateDisplay = moment(date).format('DD/MM/YYYY');
             this.showDataPicker = false;
         }
     }

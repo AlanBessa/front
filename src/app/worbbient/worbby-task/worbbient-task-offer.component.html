@@ -205,7 +205,7 @@
                                             <div class="arrow-chat"></div>
                                             <div class="card-chat-content cor-Cinder">
                                                 <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 1, 'cor-Sunglow': worbbyTaskMessage.side == 2}">
-                                                    {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'L HH:mm:ss'}}
+                                                    {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'DD/MM/YYYY HH:mm:ss'}}
                                                 </div>
                                                 {{worbbyTaskMessage.message}}
                                             </div>
@@ -227,7 +227,7 @@
                                             <div class="arrow-chat"></div>
                                             <div class="card-chat-content">
                                                 <div class="card-chat-title m-b-xxs" [ngClass]="{'cor-Denim': worbbyTaskMessage.side == 2, 'cor-Sunglow': worbbyTaskMessage.side == 1}">
-                                                    {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'L HH:mm:ss'}}
+                                                    {{worbbyTaskMessage.userDisplayName}} - {{worbbyTaskMessage.creationTime | amDateFormat:'DD/MM/YYYY HH:mm:ss'}}
                                                 </div>
                                                 {{worbbyTaskMessage.message}}
                                             </div>

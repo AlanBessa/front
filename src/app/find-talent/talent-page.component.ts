@@ -19,7 +19,6 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
     public active: boolean = false;
     public filter: string = "";
     public address: string  = "";
-    public interestCentersTopLevel: InterestCenterDto[] = [];
     public interestCentersChidren: InterestCenterDto[] = [];
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();
@@ -39,7 +38,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
     public totalWorbbiorActivities: number = 0; 
     public showButtonMore = false;
 
-    public setSubcategoryClick:boolean = false;
+    public isCleanFilters:boolean = true;
 
     constructor(
         injector: Injector,
@@ -72,11 +71,10 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
             $("body").scrollTop(0);
             if(self.tabFeaturesActive){
                 //self.cleanFilters();
-            }else if(self.setSubcategoryClick){
-                self.setSubcategoryClick = false;
-            }else{
+            }else if(self.isCleanFilters){
                 self.cleanFilters();
-            }            
+                self.isCleanFilters = true;
+            }         
         })
 
         this.getLocation();
@@ -90,7 +88,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         $("body").scrollTop(0);
         $(".page-loading").hide();
         // if(!self.tabFeaturesActive){
-        //     this.getInterestCentersTopLevel();
+            // this.getInterestCenters();
         // }               
     }
 
@@ -104,26 +102,25 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         }
     }
 
-    private getInterestCentersTopLevel(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCentersTopLevel = result.items;
+    private getInterestCenters(): void {
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
+        }
 
+        this.currentInterestCenterTopLevel.displayName = "Selecione";
+        this.currentInterestCenterChild.displayName = "Selecione";
+        this.active = true;
 
-            this.currentInterestCenterTopLevel.displayName = "Selecione";
-            this.currentInterestCenterChild.displayName = "Selecione";
-            this.active = true;
-
-            if(this.interestCenterId && this.interestCenterChildId) {
-                this.setSubcategory(Number(this.interestCenterId), Number(this.interestCenterChildId));
-            } 
-            else if (this.interestCenterId) {
-                this.setInterestCenter(this.interestCenterId);
-                this.interestCenterId = null;
-            } else {
-                this.carregado = false;
-                //this.getTalents();
-            }
-        });
+        if(this.interestCenterId && this.interestCenterChildId) {
+            this.setSubcategory(Number(this.interestCenterId), Number(this.interestCenterChildId));
+        } 
+        else if (this.interestCenterId) {
+            this.setInterestCenter(this.interestCenterId);
+            this.interestCenterId = null;
+        } else {
+            this.carregado = false;
+            //this.getTalents();
+        }
     }
 
     private getInterestCentersChidren(interestCenter: InterestCenterDto): void {
@@ -137,14 +134,14 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
     }
 
     setInterestCenter(id: number): void {
-        var interestCenter = this.interestCentersTopLevel.filter(x => x.id == id)[0];
+        var interestCenter = this.appSession.interestCentersTopLevel.filter(x => x.id == id)[0];
         this.changeInterestCenterTopLevel(interestCenter);
         $('.find-talent-content a[href="#talents"]').click();
     }
 
     setSubcategory(parentId: number, id: number): void {
-        this.setSubcategoryClick = true;
-        var interestCenterTopLevel = this.interestCentersTopLevel.filter(x => x.id == parentId)[0];
+        this.isCleanFilters = false;
+        var interestCenterTopLevel = this.appSession.interestCentersTopLevel.filter(x => x.id == parentId)[0];
         this.currentInterestCenterTopLevel = interestCenterTopLevel;
         this._interestCenterService.getInterestCentersChildrenById(parentId).subscribe((result: ListResultDtoOfInterestCenterDto) => {
             this.interestCentersChidren = result.items;
@@ -237,6 +234,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
 
 
     findByTerm(): void {
+        this.isCleanFilters = false;
         $('.find-talent-content a[href="#talents"]').click();
         this.getTalentsByFilter();
     }
@@ -251,12 +249,12 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude.toString();
                 this.longitude = position.coords.longitude.toString();
-                this.getInterestCentersTopLevel();
+                this.getInterestCenters();
             },(error) => {
-                this.getInterestCentersTopLevel();
+                this.getInterestCenters();
             });
         }else{
-            this.getInterestCentersTopLevel();
+            this.getInterestCenters();
         }
     }
 
@@ -301,7 +299,15 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         }
     }
 
+    onKeyUpTerm(event: any):void {
+        if (event.keyCode == 13){
+            this.isCleanFilters = false;
+            $('.find-talent-content a[href="#talents"]').click();
+            this.getTalentsByFilter();
+        }
+    }
+
     getTalentOnBlur():void{
-        this.getTalentsByFilter();
+        //this.getTalentsByFilter();
     }
 }

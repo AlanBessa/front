@@ -348,9 +348,9 @@
                         {{l("ViewAll")}} <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                     </a>
                 </h4>
-                <slick-slider *ngIf="interestCentersTopLevel.length" class="row text-center">
+                <slick-slider *ngIf="appSession.interestCentersTopLevel.length" class="row text-center">
                     <!-- card-talent : inicio -->
-                    <div class="" *ngFor="let interestCenter of interestCentersTopLevel" class="card-shadow card-talent hovereffect">
+                    <div class="" *ngFor="let interestCenter of appSession.interestCentersTopLevel" class="card-shadow card-talent hovereffect">
                         <a (click)="clickRouterInterestCenter(interestCenter)">
                             <img class="ico-btn" [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
                             <h5>{{interestCenter.displayName}}</h5>

@@ -3422,6 +3422,20 @@ recaptcha {
 .social-footer .ico-youtube:hover, .social-footer .ico-youtube:focus{background: url(/assets/metronic/worbby/global/img/social-youtube-black.svg) no-repeat;}
 .worbbior .social-footer .ico-youtube:hover, .worbbior .social-footer .ico-youtube:focus{background: url(/assets/metronic/worbby/global/img/social-youtube-sunglow.svg) no-repeat;}
 
+
+/* AWAITING */
+
+.awaiting {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(255,255,255, 0.8);
+    z-index: 99999;
+}
+
+
 /*CARD TRANSITION*/
 .hovereffect {
   width: 150px;

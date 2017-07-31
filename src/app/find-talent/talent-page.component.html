@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 p-l-md p-l-xss-sm">
                         <div class="input-group stylish-input-group">
-                            <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="filter" (keyup)="onKeyUp($event)" (blur)="getTalentOnBlur()"  placeholder="O que você precisa?">
+                            <input type="text" class="form-control txt-small" name="Filter" [(ngModel)]="filter" (keyup)="onKeyUpTerm($event)" (blur)="getTalentOnBlur()"  placeholder="O que você precisa?">
                             <span class="input-group-addon">
                                 <button class="close-nav" type="button" (click)="findByTerm()">
                                     <svg class="ico-search" width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -181,9 +181,9 @@
                                         <a [routerLink]="['/find-a-talents-f', 'features']">
                                             <h4 class="m-t-sm"> {{l("ViewAll")}}</h4>
                                         </a>
-                                        <slick-slider *ngIf="interestCentersTopLevel.length > 0 && tabFeaturesActive" class="row text-center">
+                                        <slick-slider *ngIf="appSession.interestCentersTopLevel.length > 0 && tabFeaturesActive" class="row text-center">
                                             <!-- card-talent : inicio -->
-                                            <div *ngFor="let interestCenter of interestCentersTopLevel" class="card-shadow card-talent hovereffect">
+                                            <div *ngFor="let interestCenter of appSession.interestCentersTopLevel" class="card-shadow card-talent hovereffect">
                                                 <a [routerLink]="['/centro-interesse', interestCenter.slugName]">
                                                     <img class="ico-btn" [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
                                                     <h5>{{interestCenter.displayName}}</h5>
@@ -599,7 +599,7 @@
                                             <p class="m-b-20px">Filtro</p>
                                             <div class="form-group no-hint">
                                                 <label class="control-label font-weigth-normal m-b-10px">{{l("ChooseMainInterest")}}</label>
-                                                <div *ngIf="interestCentersTopLevel.length" class="dropdown">
+                                                <div *ngIf="appSession.interestCentersTopLevel.length" class="dropdown">
                                                     <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                                         data-close-others="true">
                                                         {{currentInterestCenterTopLevel.displayName}}
@@ -611,7 +611,7 @@
                                                                 {{l('Select')}}
                                                             </a>
                                                         </li>
-                                                        <li *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                                                        <li *ngFor="let interestCenterTopLevel of appSession.interestCentersTopLevel">
                                                             <a href="javascript:;" (click)="changeInterestCenterTopLevel(interestCenterTopLevel)">
                                                                 {{interestCenterTopLevel.displayName}}
                                                             </a>
@@ -702,7 +702,7 @@
             <p class="m-b-20px">Filtro</p>
             <div class="form-group no-hint">
                 <label class="control-label font-weigth-normal m-b-10px">{{l("ChooseMainInterest")}}</label>
-                <div *ngIf="interestCentersTopLevel.length" class="dropdown">
+                <div *ngIf="appSession.interestCentersTopLevel.length" class="dropdown">
                     <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                         data-close-others="true">
                         {{currentInterestCenterTopLevel.displayName}}
@@ -714,7 +714,7 @@
                                 {{l('Select')}}
                             </a>
                         </li>
-                        <li *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                        <li *ngFor="let interestCenterTopLevel of appSession.interestCentersTopLevel">
                             <a href="javascript:;" (click)="changeInterestCenterTopLevel(interestCenterTopLevel)">
                                 {{interestCenterTopLevel.displayName}}
                             </a>

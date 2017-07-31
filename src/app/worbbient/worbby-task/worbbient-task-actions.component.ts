@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CieloServiceProxy, EntityDtoOfInt64, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -44,6 +44,9 @@ export class WorbbientWorbbyTaskActions extends AppComponentBase implements OnIn
         if(this.worbbyOffer){
             this.worbbyTask = this.worbbyOffer.worbbyTask;
         }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
     }
 
     get isWorbbyTaskOfferConfirmed():boolean{

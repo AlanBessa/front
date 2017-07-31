@@ -1,10 +1,11 @@
-import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Injector, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { EntityDtoOfInt64, WorbbyTaskServiceProxy, WorbbyTaskDto, WorbbyOfferDto, CieloServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorbbyTaskStatus, ScheduleDateType } from '@shared/AppEnums';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 import { WorbbiorScheduleDateModalComponent } from './worbbior-task-scheduledate-modal.component';
+import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
 
 @Component({
     selector: 'worbbiorWorbbyTaskActions',
@@ -21,6 +22,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
 
     @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
     @ViewChild('worbbiorTaskScheduleDateModal') worbbiorTaskScheduleDateModal: WorbbiorScheduleDateModalComponent;
+    @ViewChild('awaiting') awaiting: AwaitingComponent;
 
     public ScheduleDateType: typeof ScheduleDateType = ScheduleDateType;
 
@@ -34,6 +36,10 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         private _cieloService: CieloServiceProxy
     ) {
         super(injector);
+    }
+
+
+    ngOnChanges(changes: SimpleChanges) {
     }
 
     ngOnInit(): void {
@@ -108,10 +114,13 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             '', 'Deseja confirmar a sua oferta para esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
+                    this.awaiting.show("Aguarde, confirmando...", "Confirmação de oferta");
                     self._worbbyTaskService.offerConfirmedByWorbbior(entityDto)
                     .finally(() => {
+                        this.awaiting.hide();
                     })
                     .subscribe(() => {
+                        
                         self.message.custom('', 'Oferta confirmada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
                             if(self.pageType == "page"){
                                 self.actionReturn.emit(null);
@@ -131,10 +140,13 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             '', 'Deseja recusar essa oferta?',
             isConfirmed => {
                 if (isConfirmed) {
+                    this.awaiting.show("Aguarde, recusando...", "Recusa de oferta");
                     this._worbbyTaskService.offerCanceledByWorbbior(entityDto)
                         .finally(() => {
+                            this.awaiting.hide();
                         })
                         .subscribe(() => {
+                            
                             this.message.custom('', 'Oferta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
                                 this.actionReturn.emit(null);
                             });
@@ -153,8 +165,10 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
                 '', 'Deseja aceitar essa proposta?',
                 isConfirmed => {
                     if (isConfirmed) {
+                        this.awaiting.show("Aguarde, aceitando...", "Aceitação de oferta");
                         this._worbbyTaskService.worbbyTaskProposalAcceptedByWorbbior(this.worbbyTask)
                         .finally(() => {
+                            this.awaiting.hide();
                         })
                         .subscribe(() => {
                             this.message.custom('', 'Proposta aceita com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
@@ -174,8 +188,10 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             '', 'Deseja recusar essa proposta?',
             isConfirmed => {
                 if (isConfirmed) {
+                    this.awaiting.show("Aguarde, recusando...", "Recusa de proposta");
                     this._worbbyTaskService.worbbyTaskProposalRefusedByWorbbior(new EntityDtoOfInt64(entityDto))
                         .finally(() => {
+                            this.awaiting.hide();
                         })
                         .subscribe(() => {
                             this.message.custom('', 'Proposta recusada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
@@ -201,8 +217,10 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             '', 'Deseja cancelar essa oferta?',
             isConfirmed => {
                 if (isConfirmed) {
+                    this.awaiting.show("Aguarde, cancelando...", "Cancelamento de oferta");
                     this._worbbyTaskService.offerUnboundCanceledByWorbbior(new EntityDtoOfInt64(entityDto))
                         .finally(() => {
+                            this.awaiting.hide();
                         })
                         .subscribe(() => {
                             this.message.custom('', 'Oferta cancelada com sucesso!', 'assets/common/images/icon-dove@2x.png').done(() => {
@@ -219,8 +237,10 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
             '', 'Tem certeza que quer cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
+                    this.awaiting.show("Aguarde, cancelando...", "Cancelamento de tarefa");
                     this._cieloService.cancelWorbbyTaskPaymentTransaction(this.worbbyTask.id)
                     .finally(() => {
+                        this.awaiting.hide();
                     })
                     .subscribe(() => {
                         this.message.success("Sua tarefa foi cancelada com sucesso!");
@@ -249,8 +269,10 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
         this.message.confirm('','Deseja confirmar a entrega desta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
+                    this.awaiting.show("Aguarde, confirmando...", "Confirmação de entrega de tarefa");
                     this._worbbyTaskService.worbbyTaskDelivered(new EntityDtoOfInt64(this.worbbyTask))
                         .finally(() => {
+                            this.awaiting.hide();
                         })
                         .subscribe(() => {
                             this.message.success("O Worbbient será notificado para que possa liberar o pagamento.", "Confirmada a entrega da tarefa!");

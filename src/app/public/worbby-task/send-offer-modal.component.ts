@@ -93,7 +93,7 @@ export class SendOfferModalComponent extends AppComponentBase implements OnInit 
         if(date < currentDate){
             this.message.error("Selecione um data igual ou posterior à data atual.", "Data inválida!")
         }else{
-            this.scheduleDateDisplay = moment(date).format('L');
+            this.scheduleDateDisplay = moment(date).format('DD/MM/YYYY');
             this.showDataPicker = false;
         }
     }

@@ -105,7 +105,7 @@
                                                                                     <tr>
                                                                                         <td>
                                                                                             <p class="small">
-                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}}<br /> 
                                                                                                 <span class="cor-CaribbeanGreen">Confirmada pelo Worbbior</span>
                                                                                             </p>
                                                                                         </td>
@@ -164,7 +164,7 @@
                                                                                     <tr>
                                                                                         <td>
                                                                                             <p class="small">
-                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}<br /> 
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}}<br /> 
                                                                                                 <span class="cor-CaribbeanGreen">Confirmada pelo Worbbior</span>
                                                                                             </p>
                                                                                         </td>
@@ -222,7 +222,7 @@
                                                                                 <tr>
                                                                                     <td>
                                                                                         <p class="small">
-                                                                                            Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}} | <strong class="cor-Cinder display-inline-block">{{worbbyTask.countOffers}} oferta(s)</strong>
+                                                                                            Publicado em {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}} | <strong class="cor-Cinder display-inline-block">{{worbbyTask.countOffers}} oferta(s)</strong>
                                                                                         </p>
                                                                                     </td>
                                                                                     <td class="text-right">
@@ -282,7 +282,7 @@
                                                                                     <tr>
                                                                                         <td>
                                                                                             <p class="small">
-                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}} <br />
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}} <br />
                                                                                                 <span class="cor-CaribbeanGreen">Oferta Aceita, aguardando confirmação do Worbbior</span>
                                                                                             </p>
                                                                                         </td>
@@ -338,7 +338,7 @@
                                                                                     <tr>
                                                                                         <td>
                                                                                             <p class="small">
-                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'L'}}
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}}
                                                                                             </p>
                                                                                         </td>
                                                                                         <td class="text-right">
@@ -399,22 +399,25 @@
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-divider-top p-t-xxs m-t-xxs">
                                                                     <div class="row">
-                                                                        <div class="col-xs-6">
-                                                                            <div class="row">
-                                                                                <div class="col-xs-12 col-md-6 no-p-r">
-                                                                                    <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-xs-6 text-right">
-                                                                            <div class="row">
-                                                                                <div class="col-xs-12 col-md-6 no-p-l">
-                                                                                    <p *ngIf="worbbyTask.distance" class="inline small cor-Botticelli text-right"> {{worbbyTask.distance}} km <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
-                                                                                </div>
-                                                                                <div class="col-xs-12 col-md-6 no-p-l">
-                                                                                    <p class="no-m-y small cor-Botticelli text-right"><span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
-                                                                                </div>
-                                                                            </div>
+                                                                        <div class="col-xs-12">
+                                                                            <table class="w-100">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <p class="small">
+                                                                                                Publicado em {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}}<br />
+                                                                                                <span class="cor-CaribbeanGreen">{{worbbyTask.status == WorbbyTaskStatus.Delivered ? 'Tarefa entregue, aguardando liberação do pagamento' : 'Tarefa em progresso'}}</span>
+                                                                                            </p>
+                                                                                            <p class="small profileName cor-Botticelli">{{worbbyTask.worbbior.displayName}}</p>
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            <p class="no-m-y small cor-Botticelli text-right">
+                                                                                                <span class="cor-Denim">{{worbbyTask.totalPrice | currency:'BRL':true:'1.2-2'}}</span>
+                                                                                            </p>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>

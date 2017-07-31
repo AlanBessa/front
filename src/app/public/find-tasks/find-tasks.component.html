@@ -83,7 +83,7 @@
                                                                 </div>
                                                                 <div class="col-xs-9 col-md-7 card-simple-info m-b-xxs">
                                                                     <p class="no-m-t m-b-xxxs">{{worbbyTask.title}}</p>
-                                                                    <p class="m-b-xxs small txt-small-tablet txt-small-only-mobile">Publicado: {{worbbyTask.creationTime | amDateFormat:'L'}}</p>
+                                                                    <p class="m-b-xxs small txt-small-tablet txt-small-only-mobile">Publicado: {{worbbyTask.creationTime | amDateFormat:'DD/MM/YYYY'}}</p>
                                                                     <p class="no-m-y cor-Botticelli small txt-small-tablet txt-small-only-mobile block-with-text">{{worbbyTask.description}}</p>
                                                                 </div>
                                                                 <div class="col-xs-12 col-md-3">
@@ -124,7 +124,7 @@
                             <p>Filtro</p>
                             <div class="form-group no-hint">
                                 <label class="control-label">{{l("ChooseMainInterest")}}</label>
-                                <div *ngIf="interestCentersTopLevel.length" class="dropdown">
+                                <div *ngIf="appSession.interestCentersTopLevel.length" class="dropdown">
                                     <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                         data-close-others="true">
                                         {{currentInterestCenterTopLevel.displayName}}
@@ -136,7 +136,7 @@
                                                 {{l('Select')}}
                                             </a>
                                         </li>
-                                        <li *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                                        <li *ngFor="let interestCenterTopLevel of appSession.interestCentersTopLevel">
                                             <a href="javascript:;" (click)="changeInterestCenterTopLevel(interestCenterTopLevel)">
                                                 {{interestCenterTopLevel.displayName}}
                                             </a>
@@ -223,7 +223,7 @@
             <p>Filtro</p>
             <div class="form-group no-hint">
                 <label class="control-label">{{l("ChooseMainInterest")}}</label>
-                <div *ngIf="interestCentersTopLevel.length" class="dropdown">
+                <div *ngIf="appSession.interestCentersTopLevel.length" class="dropdown">
                     <button type="button" class="dropdown-toggle btn btn-prime-inverted btn-block select-dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                         data-close-others="true">
                         {{currentInterestCenterTopLevel.displayName}}
@@ -235,7 +235,7 @@
                                 {{l('Select')}}
                             </a>
                         </li>
-                        <li *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                        <li *ngFor="let interestCenterTopLevel of appSession.interestCentersTopLevel">
                             <a href="javascript:;" (click)="changeInterestCenterTopLevel(interestCenterTopLevel)">
                                 {{interestCenterTopLevel.displayName}}
                             </a>

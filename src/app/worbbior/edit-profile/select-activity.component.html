@@ -48,7 +48,7 @@
                                         <div class="row">
                                             <div class="ic-top-dropdown">
                                                 <div *ngIf="showInterestCentersTopLevel" class="ic-top-dropdown-background"></div>
-                                                <div *ngIf="interestCentersTopLevel.length" class="col-xs-12 col-sm-12 col-md-6 col-lg-5 ic-top-dropdown-select">
+                                                <div *ngIf="appSession.interestCentersTopLevel.length" class="col-xs-12 col-sm-12 col-md-6 col-lg-5 ic-top-dropdown-select">
                                                     <div class="form-group no-hint">
                                                         <label class="control-label cor-Botticelli">{{l("ChooseMainInterest")}}</label>
                                                         <div class="dropdown" (click)="selectInterestCenterTopLevel()">
@@ -70,7 +70,7 @@
                                                 </div>
                                                 <div *ngIf="showInterestCentersTopLevel" class="dropdown-interest-center col-xs-12">
                                                     <div class="row">
-                                                        <div class="col-xs-12 col-sm-3" *ngFor="let interestCenterTopLevel of interestCentersTopLevel">
+                                                        <div class="col-xs-12 col-sm-3" *ngFor="let interestCenterTopLevel of appSession.interestCentersTopLevel">
                                                             <a (click)="changeInterestCenterTopLevel(interestCenterTopLevel)" class="card-shadow card-talent hovereffect">
                                                                 <img *ngIf="interestCenterTopLevel.interestCenterPicture != ''" class="ico-btn" [src]="interestCenterTopLevel.interestCenterPicture"
                                                                     alt="{{interestCenterTopLevel.displayName}}" />

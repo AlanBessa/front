@@ -24,7 +24,6 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
     public showInterestCentersTopLevel: boolean = false;
 
     public interestCenters: InterestCenterForActivityDto[] = [];
-    public interestCentersTopLevel: InterestCenterDto[] = [];
     public interestCentersChidren: InterestCenterDto[] = [];
     public currentInterestCenterTopLevel: InterestCenterDto = new InterestCenterDto();
     public currentInterestCenterChild: InterestCenterDto = new InterestCenterDto();
@@ -61,21 +60,21 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
         $(".page-loading").hide();
-        this.getInterestCentersTopLevel();
+        this.getInterestCenters();
     }
 
     ngOnInit(): void {
         this.worbbiorState = this._appSessionService.worbbiorState;
     }
 
-    private getInterestCentersTopLevel(): void {
-        this._interestCenterService.getInterestCentersTopLevel().subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.interestCentersTopLevel = result.items;
-            this.currentInterestCenterTopLevel.displayName = "Selecione";
-            this.currentInterestCenterChild.displayName = "Selecione";
-            this.getActivities();
-            this.active = true;
-        });
+    private getInterestCenters(): void {
+        if(this.appSession.interestCentersTopLevel.length == 0){
+            this.getInterestCentersTopLevel();
+        }
+        this.currentInterestCenterTopLevel.displayName = "Selecione";
+        this.currentInterestCenterChild.displayName = "Selecione";
+        this.getActivities();
+        this.active = true;
     }
 
     private getInterestCentersChidren(interestCenter: InterestCenterDto): void {

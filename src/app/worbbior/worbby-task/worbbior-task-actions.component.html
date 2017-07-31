@@ -75,10 +75,12 @@
             <button type="button" class="btn btn-secondary btn-block txt-small-only-mobile txt-small-tablet" (click)="refusedWorbbyTaskProposed()">Recusar</button>
         </div>
         <div *ngIf="isWorbbyTaskHired || isWorbbyTaskStart" class="col-xs-12">
-            <button type="button" (click)="worbbyTaskDelivered()" class="btn btn-prime btn-block">Confirmar a entrega da tarefa</button>                                                                       
+            <button type="button" (click)="worbbyTaskDelivered()" class="btn btn-prime btn-block">{{pageType == 'list' ? 'Confirmar a entrega da tarefa' : 'Confirmar entrega'}}</button>                                                                       
         </div>
     </div>
 </div>
 
 <sendReportModal #sendReportModal [inputId]="worbbyTask.worbbient.id" [inputType]="'worbbient'" [inputIdTask]="worbbyTask.id"></sendReportModal>
 <worbbiorTaskScheduleDateModal #worbbiorTaskScheduleDateModal (modalSave)="modalSave()"></worbbiorTaskScheduleDateModal>
+
+<awaiting #awaiting></awaiting>

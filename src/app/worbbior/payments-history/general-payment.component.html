@@ -166,8 +166,8 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let balanceTransferOutput of balanceTransfers">
-                                    <td>{{balanceTransferOutput.balanceTransfer.lastModificationTime ? (balanceTransferOutput.balanceTransfer.lastModificationTime | amDateFormat:'L')  : (balanceTransferOutput.balanceTransfer.creationTime | amDateFormat:'L')}}</td>
-                                    <td>Conta Itaú 123456<br /> <small><i class="cor-DarkDenim">{{l(BalanceTransferStatus[balanceTransferOutput.balanceTransfer.balanceTransferStatus.toString()])}}</i></small></td>
+                                    <td>{{balanceTransferOutput.balanceTransfer.lastModificationTime ? (balanceTransferOutput.balanceTransfer.lastModificationTime | amDateFormat:'DD/MM/YYYY')  : (balanceTransferOutput.balanceTransfer.creationTime | amDateFormat:'DD/MM/YYYY')}}</td>
+                                    <td>Conta {{balanceTransferOutput.balanceTransfer.bankAccount.bank}} {{balanceTransferOutput.balanceTransfer.bankAccount.agency}} {{balanceTransferOutput.balanceTransfer.bankAccount.currentAccount}}<br /> <small><i class="cor-DarkDenim">{{l(BalanceTransferStatus[balanceTransferOutput.balanceTransfer.balanceTransferStatus.toString()])}}</i></small></td>
                                     <td>R$ 
                                         <span [ngClass]="{
                                                 'cor-CaribbeanGreen': balanceTransferOutput.balanceTransfer.balanceTransferStatus == BalanceTransferStatus.Credited,

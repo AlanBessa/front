@@ -6,7 +6,7 @@ import { UserMenu } from '@app/shared/layout/user-menu';
 import { UserMenuItem } from '@app/shared/layout/user-menu-item';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { AppAuthService } from '@app/shared/common/auth/app-auth.service';
-import { UnitMeasure } from '@shared/AppEnums';
+import { UnitMeasure, WorbbyTaskStatus } from '@shared/AppEnums';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 
@@ -34,6 +34,7 @@ export class MyWorbbyWorbbiorComponent extends AppComponentBase implements After
     public tasksProposedAcceptedByWorbbior: WorbbyTaskDto[] = [];
     public worbbyTasksInProgress: WorbbyTaskDto[] = [];
 
+    public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
     public UnitMeasure: typeof UnitMeasure = UnitMeasure;
 
     public filter: string;

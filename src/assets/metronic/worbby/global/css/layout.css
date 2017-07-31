@@ -890,7 +890,7 @@ a.invert{
 
 .page-content {
     min-height: 300px;
-    /*margin-top: 10px;*/
+    margin-top: 10px;
 }
 
 .page-loading {

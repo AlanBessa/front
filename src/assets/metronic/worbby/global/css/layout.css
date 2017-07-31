@@ -5243,6 +5243,10 @@ recaptcha {
         .table-cell-container .icon-white {
             height: 50px;
         }
+
+        .txt-small-mobile {
+            font-size: 14px !important;
+        }
     }    
 
     @media (max-width: 320px) {

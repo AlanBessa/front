@@ -889,8 +889,7 @@ a.invert{
 /* Page Loading */
 
 .page-content {
-    min-height: 300px;
-    margin-top: 10px;
+    min-height: 300px;    
 }
 
 .page-loading {
@@ -899,6 +898,7 @@ a.invert{
     z-index: 9999;
     background: rgba(255,255,255,0.7);
     height:100%;
+    margin-top: 10px;
 }
 
 /* LOADING (SPIN) */

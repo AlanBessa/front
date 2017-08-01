@@ -45,21 +45,24 @@
                     <ul class="visible-xs menu-mobile">
                         <li>
                             <a routerLink="/conta/entrar" (click)="showHideMenu()">{{l("Login")}}/{{l("SignIn")}}</a>
-                        </li>                        
+                        </li>
+                        <li>
+                            <a (click)="showHideMenu()" routerLink="/find-a-talents">
+                                {{l("FindATalent")}}            
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="showHideMenu()" routerLink="/find-a-tasks">Tarefas postadas</a>
+                        </li>
                         <li>
                             <a routerLink="/sobre" (click)="showHideMenu()">{{l("AboutWorbby")}}</a>
                         </li>
                         <li>
                             <a routerLink="/como-funciona" (click)="showHideMenu()">{{l("HowDoesItWork")}}</a>
-                        </li> 
+                        </li>
                         <li>
                             <a routerLink="/seja-um-worbbior" (click)="showHideMenu()">{{l("BecomeWorbbior")}}</a>
-                        </li>   
-                        <li>
-                            <a (click)="showHideMenu()" routerLink="/find-a-talents">
-                                {{l("FindATalent")}}            
-                            </a>
-                        </li>                    
+                        </li>
                         <li>
                             <a routerLink="/perguntas-frequentes" (click)="showHideMenu()">FAQ</a>
                         </li>

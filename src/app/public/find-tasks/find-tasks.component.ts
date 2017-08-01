@@ -28,7 +28,7 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
     public totalWorbbyTask: number = 0; 
     public showButtonMore = false;
 
-    public findWorbbyTaskInput: FindWorbbyTaskInput = new FindWorbbyTaskInput();    
+    public findWorbbyTaskInput: FindWorbbyTaskInput = new FindWorbbyTaskInput();  
 
     constructor(
         injector: Injector,
@@ -48,6 +48,8 @@ export class FindTasksComponent extends AppComponentBase implements AfterViewIni
     ngOnDestroy(): void {
         
     }
+
+    
 
     ngOnInit():void{
         this.findWorbbyTaskInput.interestCenterTopLevelId = this._activatedRoute.snapshot.params['interestCenterTopLevelId'];

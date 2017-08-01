@@ -53,18 +53,19 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
 
     ngOnInit(){
         let self = this;
-        this.interestCenterId = this._activatedRoute.snapshot.params['interestCenterId'];
-        this.interestCenterChildId = this._activatedRoute.snapshot.params['interestCenterChildId'];
-        this.filter = this._activatedRoute.snapshot.params['filter'] == undefined || this._activatedRoute.snapshot.params['filter'] == "undefined" ? "" : this._activatedRoute.snapshot.params['filter'];
+        self.interestCenterId = self._activatedRoute.snapshot.params['interestCenterId'];
+        self.interestCenterChildId = self._activatedRoute.snapshot.params['interestCenterChildId'];
+        self.filter = self._activatedRoute.snapshot.params['filter'] == undefined || self._activatedRoute.snapshot.params['filter'] == "undefined" ? "" : self._activatedRoute.snapshot.params['filter'];
         //this.tabFeaturesActive = this._activatedRoute.snapshot.params['feature'];
         
-        if (this.interestCenterId || this.filter) {
+        if (self.interestCenterId || this.filter) {
+            self.isCleanFilters = false;
             $('.find-talent-content a[href="#talents"]').click();
-        }else if(this.tabFeaturesActive){
+        }else if(self.tabFeaturesActive){
             $('.find-talent-content a[href="#featured"]').click();
         } 
 
-        this.tabFeaturesActive = $("#featured").hasClass("active"); 
+        self.tabFeaturesActive = $("#featured").hasClass("active"); 
         
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             self.tabFeaturesActive = $("#featured").hasClass("active");
@@ -73,11 +74,11 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
                 //self.cleanFilters();
             }else if(self.isCleanFilters){
                 self.cleanFilters();
-                self.isCleanFilters = true;
             }         
+            self.isCleanFilters = true
         })
 
-        this.getLocation();
+        self.getLocation();
     }
 
     ngOnDestroy(): void {

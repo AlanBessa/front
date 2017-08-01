@@ -895,10 +895,9 @@ a.invert{
 .page-loading {
     position: absolute;
     width: 100%;
-    z-index: 9999;
+    z-index: 999;
     background: rgba(255,255,255,0.7);
     height:100%;
-    margin-top: 10px;
 }
 
 /* LOADING (SPIN) */

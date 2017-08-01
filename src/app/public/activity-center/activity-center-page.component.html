@@ -1,16 +1,17 @@
-<div [@routerTransition] *ngIf="active" class="activity-center-page" id="topo" name="topo">
+<div [@routerTransition] class="activity-center-page" id="topo" name="topo">
     <section class="container-fluid activity-center">
-        <div class="activity-center-banner" [style.background]="'url(' + imagemBanner + ')'"></div>
+        <div class="activity-center-banner" [style.background]="'url(' + imagemBanner + ')'"></div> 
         <div class="container m-t-sm">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 m-b-xs">
                     <div class="icone-box pull-left m-t-xs">
-                        <img [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
+                        <img [src]="interestCenter.interestCenterPicture" *ngIf="interestCenter != undefined" alt="{{interestCenter.displayName}}" />                        
+                        <img [src]="loading" alt="Carregando" *ngIf="interestCenter == undefined" width="80px" />
                     </div>
                     <div class="describe-box">
-                        <h1>{{interestCenter.displayName}}</h1>
-                        <p>{{interestCenter.description}}</p>
-                        <a (click)="goTo('torneWorbbior')" class="cursor-pointer">
+                        <h1>{{interestCenter == undefined ? "Carregando..." : interestCenter.displayName}}</h1>
+                        <p>{{interestCenter == undefined ? "Carregando..." : interestCenter.description}}</p>
+                        <a (click)="goTo('torneWorbbior')" class="cursor-pointer" *ngIf="interestCenter != undefined">
                             Junte-se à nossa comunidade de {{interestCenter.displayName}}
                             <i class="fa fa-angle-double-right"></i> 
                         </a>
@@ -18,14 +19,21 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="sub-activities-box" [ngClass]="{'open': isOpenedSubActivities}">
-                        <h5>Nossos talentos de <i>{{interestCenter.displayName}}</i> podem ajudar você com:</h5>
-                        <ul class="list-inline">
+                        <h5 *ngIf="interestCenter != undefined">Nossos talentos de <i>{{interestCenter.displayName}}</i> podem ajudar você com:</h5>
+                        <ul class="list-inline" *ngIf="subActivitiesList.length > 0">
                             <li class="list-inline-item" *ngFor="let subActivities of subActivitiesList">
                                 <a (click)="navigateToFindATalent(interestCenter.id, subActivities.id)" class="cursor-pointer">{{subActivities.displayName}}</a>
                             </li>
-                        </ul>                        
+                        </ul>
+                        <div class="text-center cor-Cinder" *ngIf="subActivitiesList.length == 0 && carregadoSubActivitiesList">
+                            Não foi encontrado nenhum resultado para esta pesquisa
+                        </div>
+                        <div class="text-center cor-Cinder bg-White" *ngIf="!carregadoSubActivitiesList">
+                            <img [src]="loading" width="50px" />
+                            Carregando
+                        </div>
                     </div>
-                    <button class="btn btn-block btn-accordion visible-xs visible-sm" (click)="toogleSubActivity(isOpenedSubActivities)">
+                    <button class="btn btn-block btn-accordion visible-xs visible-sm" (click)="toogleSubActivity(isOpenedSubActivities)" [disabled]="!carregadoSubActivitiesList">
                         <i class="fa" [ngClass]="{'fa-angle-double-down': !isOpenedSubActivities, 'fa-angle-double-up': isOpenedSubActivities}"></i>
                     </button>
                 </div>
@@ -38,7 +46,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12" [ngClass]="{'col-md-8': hasSpecialPartner, 'col-md-12': !hasSpecialPartner}"> 
-                    <h3 class="m-b-20px display-inline-block">Conheça nossos melhores talentos de <i>{{interestCenter.displayName}}</i></h3>                   
+                    <h3 *ngIf="interestCenter != undefined" class="m-b-20px display-inline-block">Conheça nossos melhores talentos de <i>{{interestCenter.displayName}}</i></h3>                   
                     <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregado">                        
                         <div *ngFor="let worbbiorActivity of worbbiorTopTalentList; let i = index" [attr.data-index]="i">                        
                             <div *ngIf="i % 3 == 0 && (i < 6 || !hasSpecialPartner)" class="col-xs-12" [ngClass]="{'col-md-6': hasSpecialPartner, 'col-md-4': !hasSpecialPartner}">
@@ -102,11 +110,11 @@
                     <div class="well well-lg" *ngIf="worbbiorTopTalentList.length == 0 && carregado">
                         Não foi encontrado nenhum resultado para esta pesquisa
                     </div>
-                    <div class="well text-center" *ngIf="!carregado">
-                        <img src="assets/metronic/worbby/global/img/loading2.gif" width="50px" />
+                    <div class="well text-center bg-White" *ngIf="!carregado">
+                        <img [src]="loading" width="50px" />
                         Carregando
                     </div>
-                    <div class="text-center m-t-20px m-b-xss">
+                    <div class="text-center m-t-20px m-b-xss" *ngIf="interestCenter != undefined">
                         <a [routerLink]="['/find-a-talents', interestCenter.id]" class="btn btn-prime-lg btn-around">Veja todos os talentos de {{interestCenter.displayName | lowercase}}</a>
                     </div>                    
                 </div>
@@ -125,10 +133,10 @@
     <!-- TOP TALENTS : Fim -->
 
     <!-- SUGGESTED ACTIVITIES : Inicio -->
-    <article class="container-fluid bg-Tangerine p-y-md">
+    <article class="container-fluid bg-Tangerine p-y-md" *ngIf="active">
         <div class="container">
             <h2 class="text-center m-b-sm sizelg-xs">Atividades sugeridas</h2>
-            <div class="row" *ngIf="suggestedActivitiesList.length > 0 && carregado">                        
+            <div class="row" *ngIf="suggestedActivitiesList.length > 0 && carregadoSuggestedActivitiesList">                        
                 <div *ngFor="let suggestedActivity of suggestedActivitiesList; let i = index" [attr.data-index]="i">                        
                     <div *ngIf="i % 3 == 0 && i < 9" class="col-xs-12 col-md-4">
                         <a (click)="navigateToFindATalent(suggestedActivitiesList[i].listInterestCenter.items[0].parentId, suggestedActivitiesList[i].listInterestCenter.items[0].id, suggestedActivitiesList[i].title)" 
@@ -173,11 +181,11 @@
                     </div>                        
                 </div>
             </div>
-            <div class="well well-lg" *ngIf="suggestedActivitiesList.length == 0 && carregado">
+            <div class="well well-lg" *ngIf="suggestedActivitiesList.length == 0 && carregadoSuggestedActivitiesList">
                 Não foi encontrado nenhum resultado para esta pesquisa
             </div>
-            <div class="well text-center" *ngIf="!carregado">
-                <img src="assets/metronic/worbby/global/img/loading2.gif" width="50px" />
+            <div class="well text-center" *ngIf="!carregadoSuggestedActivitiesList">
+                <img [src]="loading" width="50px" />
                 Carregando
             </div>
         </div>
@@ -190,7 +198,7 @@
             <div class="row">                
                 <div class="col-xs-12 col-md-12">
                     <h3 class="m-b-xss">Exemplos de tarefas concluidas recentementes</h3>
-                    <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregado">                        
+                    <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregadoWorbbiorTopTalentList">                        
                         <div *ngFor="let completedTask of completedTasksList; let i = index" [attr.data-index]="i">                        
                             <div *ngIf="i % 3 == 0 && i < 6" class="col-xs-12 col-md-6">
                                 <a [routerLink]="['/worbbior/pagina', completedTasksList[i].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i]">
@@ -286,6 +294,13 @@
                             </div>                        
                         </div>
                     </div>
+                    <div class="well well-lg" *ngIf="worbbiorTopTalentList.length == 0 && carregadoWorbbiorTopTalentList">
+                        Não foi encontrado nenhum resultado para esta pesquisa
+                    </div>
+                    <div class="well text-center" *ngIf="!carregadoWorbbiorTopTalentList">
+                        <img [src]="loading" width="50px" />
+                        Carregando
+                    </div>
                 </div>
             </div>
         </div>
@@ -338,7 +353,7 @@
     <!-- SEARCH : Fim -->
 
     <!-- SLIDE ENCONTRE TALENTO : Inicio -->
-    <section class="container find-talent-interest-home m-t-md">
+    <section class="container find-talent-interest-home m-t-md" *ngIf="active">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-12 col-lg-offset-0">
                 <h4>

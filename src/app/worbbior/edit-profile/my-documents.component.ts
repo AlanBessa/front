@@ -108,6 +108,10 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
         this.viewdocumentModal.show(guid);
     }
 
+    testeAndre(value):void{
+        console.log(this.userBankAccount.bank);
+    }
+
     initFileUploader(fileName: string): FileUploader {
         let self = this;
         var uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/File/UploadFileDocumentsInfo" });

@@ -2778,6 +2778,74 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
+    getBalanceTransfersAdmin(filter: string, permission: string, transferenceStateCombo: number, bankCombo: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferDto> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersAdmin?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (transferenceStateCombo !== undefined)
+            url_ += "TransferenceStateCombo=" + encodeURIComponent("" + transferenceStateCombo) + "&"; 
+        if (bankCombo !== undefined)
+            url_ += "BankCombo=" + encodeURIComponent("" + bankCombo) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetBalanceTransfersAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetBalanceTransfersAdmin(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfBalanceTransferDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfBalanceTransferDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetBalanceTransfersAdmin(response: Response): Observable<PagedResultDtoOfBalanceTransferDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfBalanceTransferDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfBalanceTransferDto.fromJS(resultData200) : new PagedResultDtoOfBalanceTransferDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfBalanceTransferDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getCurrentUserId(): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetCurrentUserId";
         url_ = url_.replace(/[?&]$/, "");
@@ -18402,6 +18470,8 @@ export class EvaluationDto implements IEvaluationDto {
     comments: string;
     evaluationValues: ListResultDtoOfEvaluationValueDto;
     averageEvaluation: number;
+    creationTime: moment.Moment;
+    nameUserId: string;
     id: number;
 
     constructor(data?: IEvaluationDto) {
@@ -18425,6 +18495,8 @@ export class EvaluationDto implements IEvaluationDto {
             this.comments = data["comments"];
             this.evaluationValues = data["evaluationValues"] ? ListResultDtoOfEvaluationValueDto.fromJS(data["evaluationValues"]) : <any>undefined;
             this.averageEvaluation = data["averageEvaluation"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.nameUserId = data["nameUserId"];
             this.id = data["id"];
         }
     }
@@ -18447,6 +18519,8 @@ export class EvaluationDto implements IEvaluationDto {
         data["comments"] = this.comments;
         data["evaluationValues"] = this.evaluationValues ? this.evaluationValues.toJSON() : <any>undefined;
         data["averageEvaluation"] = this.averageEvaluation;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["nameUserId"] = this.nameUserId;
         data["id"] = this.id;
         return data; 
     }
@@ -18463,6 +18537,8 @@ export interface IEvaluationDto {
     comments: string;
     evaluationValues: ListResultDtoOfEvaluationValueDto;
     averageEvaluation: number;
+    creationTime: moment.Moment;
+    nameUserId: string;
     id: number;
 }
 
@@ -19610,6 +19686,53 @@ export class BalanceAvailableOutput implements IBalanceAvailableOutput {
 
 export interface IBalanceAvailableOutput {
     amount: number;
+}
+
+export class PagedResultDtoOfBalanceTransferDto implements IPagedResultDtoOfBalanceTransferDto {
+    totalCount: number;
+    items: BalanceTransferDto[];
+
+    constructor(data?: IPagedResultDtoOfBalanceTransferDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(BalanceTransferDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfBalanceTransferDto {
+        let result = new PagedResultDtoOfBalanceTransferDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfBalanceTransferDto {
+    totalCount: number;
+    items: BalanceTransferDto[];
 }
 
 export class CreateBankAccountInput implements ICreateBankAccountInput {

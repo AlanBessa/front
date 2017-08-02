@@ -6,6 +6,7 @@ import { WorbbiorServiceProxy, WorbbiorProfileDto } from "shared/service-proxies
 import { AppConsts } from "shared/AppConsts";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { MetaService } from "@nglibs/meta";
+import { DayOfWeek } from "shared/AppEnums";
 
 @Component({
   templateUrl: './activity-page.component.html',
@@ -18,6 +19,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
   public worbbiorId: number;
   public activityId: number;
+  public DayOfWeek: typeof DayOfWeek = DayOfWeek;
 
   public worbbiorProfile: WorbbiorProfileDto;
   public whatsappLink: SafeUrl = "";
@@ -42,9 +44,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
   getPreviewWorbbiorProfile(): void{
       this._worbbiorService.getPreviewWorbbiorProfile(this.worbbiorId).subscribe((result) => {
-          this.worbbiorProfile = result;
-
-          this.active = true;
+          this.worbbiorProfile = result;          
 
           this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
               if(!this.isNullOrEmpty(result)){
@@ -52,7 +52,26 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
               }else{
                   this.worbbiorProfile.worbbior.userPicture = AppConsts.defaultProfilePicture;
               }
+
+              this.active = true;
           });
+
+          this.worbbiorProfile.userActivities.items.forEach(element => {
+                element.listGalleryActivity.items.forEach(element => {
+                    var image = new Image();
+                    if (element.galleryPictureId) {
+                        this.getPictureByGuid(element.galleryPictureId).then((result) => {
+                            element.image = result;
+                            element.thumbnail = result;
+                        });
+                    } 
+                });
+                element.evaluation.evaluations.items.forEach(element => {
+                    this.getPictureByGuid(element.profilePictureId).then((result) => {
+                        element.userPicture = result;
+                    });
+                })
+            });
           
           this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName); 
           

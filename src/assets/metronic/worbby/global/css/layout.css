@@ -2608,6 +2608,16 @@ body {
 
 /* SIDEBAR NOTIFICAÇÕES */
 
+.user-notification-item {
+    background: none;
+    border: 0;
+    text-align: left;
+}
+
+.user-notification-item:hover {
+    text-decoration: underline;
+}
+
 .sidebar-notifications {
     position: fixed;
     width: 320px;

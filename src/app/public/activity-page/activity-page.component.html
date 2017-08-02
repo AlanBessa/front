@@ -55,12 +55,12 @@
                                             <div class="display-cell">
                                                 <p class="small cor-Botticelli text-right">{{l("Availabilities")}}</p>
                                             </div>
-                                            <div class="display-cell" *ngIf="worbbiorProfile != undefined && worbbiorProfile.availabilities.items.length > 0">                                            
+                                            <div class="display-cell" *ngIf="worbbiorProfile != undefined && worbbiorProfile.availabilities.items.length > 0">
                                                 <p class="no-m-y p-y-xxs" *ngFor="let availability of worbbiorProfile.availabilities.items">
                                                     {{l(DayOfWeek[availability.dayOfWeek.toString()])}} - 
                                                     {{availability.startTime}} - 
                                                     {{availability.endTime}}
-                                                </p>                                             
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

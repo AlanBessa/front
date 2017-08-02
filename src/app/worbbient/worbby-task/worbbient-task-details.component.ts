@@ -84,6 +84,7 @@ export class WorbbientTaskDetailsComponent extends AppComponentBase implements A
     ngOnDestroy():void{
         if(window.screen.width < 480) {
             $('.footer').show();
+            $('.box-feedback').hide();
             $('.container-fluid.bg-Solititude').removeClass('p-b-lg');
         }
     }

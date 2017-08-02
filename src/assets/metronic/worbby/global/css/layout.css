@@ -1748,6 +1748,11 @@ body {
     border: none;
 }
 
+.navbar-fixed-bottom, 
+.navbar-fixed-top {
+    z-index: 10300!important;
+}
+
 .header .btn-worbby {
     width: 320px;
     margin: 0 10px 0 25px;

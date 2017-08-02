@@ -224,6 +224,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
 
     sharedFacebook():void {
         FB.ui({
+            app_id: '1248516721862974',
             method: 'feed',
             link: AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName,
             picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',

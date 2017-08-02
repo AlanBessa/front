@@ -234,7 +234,7 @@ export class WorbbiorWorbbyTaskActions extends AppComponentBase implements OnIni
 
     cancelWorbbyTaskHired(): void {
         this.message.confirm(
-            '', 'Tem certeza que quer cancelar esta tarefa?',
+            'O worbbior que cancelar várias tarefas corre o risco de ser excluído da plataforma.', 'Tem certeza que quer cancelar esta tarefa?',
             isConfirmed => {
                 if (isConfirmed) {
                     this.awaiting.show("Aguarde, cancelando...", "Cancelamento de tarefa");

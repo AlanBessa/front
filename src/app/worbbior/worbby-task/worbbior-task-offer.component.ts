@@ -60,6 +60,7 @@ export class WorbbiorTaskOfferComponent extends AppComponentBase implements Afte
 
         if (window.screen.width < 480) {
             $('.footer').hide();
+            $('.box-feedback').hide();
             $('.container-fluid.bg-Solititude').addClass('p-b-lg');
         }
         this.ehReverso = window.screen.width > 768 ? false : true;

@@ -22,6 +22,7 @@ import { WorbbyTaskComponent } from './worbby-task/worbby-task.component';
 import { ActivityCenterComponent } from "./activity-center/activity-center-page.component";
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { PublicComponent } from './public.component';
+import { ActivityPageComponent } from "app/public/activity-page/activity-page.component";
 
 
 @NgModule({
@@ -242,7 +243,14 @@ import { PublicComponent } from './public.component';
                       }
                     },
                     { path: 'support', redirectTo: '/publico/suporte', pathMatch: 'full' },
-
+                    {
+                      path: 'worbbior/:worbbior/atividade/:activity', component: ActivityPageComponent, data: {
+                        meta: {
+                          title: 'Worbby',
+                          description: ''
+                        }
+                      }
+                    },
                     {
                       path: 'termos-de-uso', component: TermsAndConditionsComponent, data: {
                         meta: {

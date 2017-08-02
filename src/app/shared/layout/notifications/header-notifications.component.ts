@@ -83,6 +83,7 @@ export class HeaderNotificationsComponent extends AppComponentBase implements On
     gotoUrl(url): void {
         if (url) {
             this._router.navigate([url]);
+            this.showHideNotifications();
             //location.href = url;
         }
     }

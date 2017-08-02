@@ -357,15 +357,15 @@
                                             </p>
                                         </div>
                                         <div class="col-xs-12 col-md-6">                                            
-                                            <div class="form-group no-hint">                                    
-                                                <div class="col-xs-12 no-pad-x">
+                                            <div class="form-group no-hint row">                                    
+                                                <div class="col-xs-12">
                                                     <label class="control-label">Data <i class="fa fa-asterisk cor-Botticelli txt-small"></i></label>
                                                     <button type="button" class="btn btn-block btn-secondary btn-check" [ngClass]="{'active' : worbbyTask?.scheduleDateType == 1}" (click)="scheduleDateWhenPossibleChange()">Quando possível</button>
                                                 </div>
                                                 <div class="col-xs-12 text-center">
                                                     <div class="divOu">- ou -</div>
                                                 </div>
-                                                <div class="col-xs-12 no-pad-x">
+                                                <div class="col-xs-12">
                                                     <button type="button" class="btn btn-block btn-secondary btn-check btn-calendar no-m-t-xs" [ngClass]="{'active' : worbbyTask?.scheduleDateType == 2}" (click)="scheduleDateFixeChange()">
                                                         <i class="fa fa-calendar-o"></i>
                                                         {{scheduleDateDisplay}}

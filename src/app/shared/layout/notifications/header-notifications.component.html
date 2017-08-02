@@ -23,15 +23,15 @@
                 <span *ngIf="notification.state=='UNREAD'" id="icone" name="icone">
                     <i class="{{notification.icon}}"></i>
                 </span>  
-                <a (click)="gotoUrl(notification.url)" class="user-notification-item" [ngClass]="{'user-notification-item-unread': notification.state=='UNREAD', 'cursor-pointer': notification.url != ''}">
+                <button (click)="gotoUrl(notification.url)" class="user-notification-item" [ngClass]="{'user-notification-item-unread': notification.state=='UNREAD', 'cursor-pointer': notification.url != ''}">
                     <span class="details">
                         {{notification.text}}
-                    </span>
-                    <div class="cor-Botticelli m-t-xxs">
-                        <span class="notification-time" title="{{notification.time}}" jq-plugin="timeago"></span>
-                        <span *ngIf="notification.state=='UNREAD'"> - <span class="set-as-read-text" (click)="setNotificationAsRead(notification); $event.preventDefault(); $event.stopPropagation();">{{l("SetAsRead")}}</span></span>
-                    </div>
-                </a>
+                    </span>                    
+                </button>
+                <div class="cor-Botticelli m-t-xxs">
+                    <span class="notification-time" title="{{notification.time}}" jq-plugin="timeago"></span>
+                    <span *ngIf="notification.state=='UNREAD'"> - <button class="set-as-read-text user-notification-item" (click)="setNotificationAsRead(notification); $event.preventDefault(); $event.stopPropagation();">{{l("SetAsRead")}}</button></span>
+                </div>
             </li>
         </ul>
         <div class="sidebar-notifications-empty" *ngIf="!notifications.length">

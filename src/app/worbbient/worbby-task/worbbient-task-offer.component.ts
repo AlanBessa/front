@@ -57,6 +57,7 @@ export class WorbbientTaskOfferComponent extends AppComponentBase implements Aft
         this.registerEvents();
         if(window.screen.width < 480) {
             $('.footer').hide();
+            $('.box-feedback').hide();
             $('.container-fluid.bg-Solititude').addClass('p-b-lg');
         }
         this.ehReverso = window.screen.width > 768 ? false : true;

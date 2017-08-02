@@ -44,6 +44,7 @@ import { Ng2ImageGalleryModule } from 'ng2-image-gallery';
 import { MomentModule } from 'angular2-moment';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
+import { ActivityPageComponent } from './activity-page/activity-page.component';
 
 @NgModule({
     imports: [
@@ -93,7 +94,8 @@ import { ShareButtonsModule } from 'ngx-sharebuttons';
         EndorsementSuccessComponent,
         WorbbyTaskComponent,
         ActivityCenterComponent,
-        SideMenuComponent
+        SideMenuComponent,
+        ActivityPageComponent
     ],
     providers: [
         LoginService

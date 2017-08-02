@@ -1748,6 +1748,11 @@ body {
     border: none;
 }
 
+.navbar-fixed-bottom, 
+.navbar-fixed-top {
+    z-index: 10300!important;
+}
+
 .header .btn-worbby {
     width: 320px;
     margin: 0 10px 0 25px;
@@ -2471,15 +2476,20 @@ body {
     width: 240px;
     position: fixed;
     z-index: 10;
-    right: -240px;
+    right: -244px;
     top: 30%;
     -webkit-transition: right 0.5s ease;
     -moz-transition: right 0.5s ease;
-    transition: right 0.5s ease;
+    transition: right 0.5s ease;    
+    border-radius: 5px;
+    background-color: #FFCB33;
 }
 
 .box-feedback.open {
     right: 0px;
+    -webkit-box-shadow: -8px 10px 32px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: -8px 10px 32px -9px rgba(0,0,0,0.75);
+    box-shadow: -8px 10px 32px -9px rgba(0,0,0,0.75);
 }
 
 .box-feedback .content-feedback {
@@ -2496,6 +2506,9 @@ body {
     border-radius: 10px 0 0 10px !important;
     position: absolute;
     left: -40px;
+    -webkit-box-shadow: -8px 10px 32px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: -8px 10px 32px -9px rgba(0,0,0,0.75);
+    box-shadow: -8px 10px 32px -9px rgba(0,0,0,0.75);
 }
 
 .box-feedback .btn-feedback:hover {
@@ -2602,6 +2615,16 @@ body {
 }
 
 /* SIDEBAR NOTIFICAÇÕES */
+
+.user-notification-item {
+    background: none;
+    border: 0;
+    text-align: left;
+}
+
+.user-notification-item:hover {
+    text-decoration: underline;
+}
 
 .sidebar-notifications {
     position: fixed;

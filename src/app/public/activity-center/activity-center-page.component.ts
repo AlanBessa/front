@@ -24,11 +24,16 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
 
     public active: boolean = false;
     public carregado: boolean = false;
+    public carregadoSubActivitiesList: boolean = false;
+    public carregadoSuggestedActivitiesList: boolean = false;
+    public carregadoWorbbiorTopTalentList: boolean = false;
     public imagemBanner: string = "";
     public searchBanner: string = "";
     public hasSpecialPartner: boolean = false;
     public filter: string;
     public worbbiorPremium: boolean;
+
+    public loading: string;
     
     constructor(
         injector: Injector,
@@ -44,6 +49,7 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     }
 
     ngOnInit(): void {
+        this.loading = "assets/metronic/worbby/global/img/loading2.gif";
         this.interestCenterId = Number(this._activatedRoute.snapshot.params['interestCenterId'].slice(0, this._activatedRoute.snapshot.params['interestCenterId'].indexOf("-"))); 
         
         var resolution = window.screen.width < 768 ? "770" : window.screen.width < 990 ? "1000" : "1910";
@@ -101,9 +107,10 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     }
 
     private getActivitiesByInterestCenter(): void {
+        this.carregadoSuggestedActivitiesList = false;
         this._activitiesService.getActivities(undefined, this.interestCenterId, undefined, undefined, undefined, undefined, undefined, undefined, undefined).subscribe((result: WorbbyPagedResultDtoOfActivityDto) => {
             this.suggestedActivitiesList = result.items;
-            this.carregado = true;
+            this.carregadoSuggestedActivitiesList = true;
         });
     }
 
@@ -120,18 +127,20 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
     }
 
     private getInterestCentersChidren(): void {
+        this.carregadoSubActivitiesList = false;
         this._interestCenterService.getInterestCentersChildrenById(this.interestCenterId).subscribe((result: ListResultDtoOfInterestCenterDto) => {
-            this.carregado = true;
+            this.carregadoSubActivitiesList = true;
             this.subActivitiesList = result.items;
         });
     }
 
     private getTopWorbbiorByInterestCenter(): void {
-        this.carregado = false;
+        this.carregadoWorbbiorTopTalentList = false;
+        
         this._activitiesService.getWorbbiorActivities(undefined, this.interestCenterId, undefined, undefined, undefined, undefined, undefined, undefined, undefined).subscribe((result: WorbbyPagedResultDtoOfWorbbiorActivityDto) => {
             this.worbbiorTopTalentList = result.items;            
-            this.carregado = true;
-             this.worbbiorTopTalentList.forEach(element => {
+            
+            this.worbbiorTopTalentList.forEach(element => {
                 this.getPictureByGuid(element.worbbior.userPictureId).then((result) => {
                     if(!this.isNullOrEmpty(result)){
                         element.worbbior.userPicture = result;
@@ -140,6 +149,8 @@ export class ActivityCenterComponent extends AppComponentBase implements AfterVi
                     }
                 });                
             });
+
+            this.carregadoWorbbiorTopTalentList = true;
         });
     }
 

@@ -2414,6 +2414,14 @@ body {
   }
 }
 
+/* Bank select */
+
+.bootstrap-select .dropdown-toggle:focus, .bootstrap-select.open .dropdown-toggle, .bootstrap-select .dropdown-toggle:hover {
+    color: #ffffff !important;
+    background-color: #FFB247 !important;
+    border: 1px solid #FFB247 !important;
+}
+
 /* PAYMENT */
 
 .payment-date-picker input {

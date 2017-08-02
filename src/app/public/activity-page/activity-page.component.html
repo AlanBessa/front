@@ -1,0 +1,136 @@
+<div [@routerTransition] class="activity-page" id="topo" name="topo">
+    <section *ngIf="active">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <!-- menu perfil : inicio -->
+                        <div *ngIf="!showLoginRegister" class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
+                            <div class="card-profile">
+                                <div class="col-xs-12">
+                                    <div class="sidebar-header m-t-sm p-b-sm">
+                                        <div class="display-table">
+                                            <div class="divProfile m-r-20px-sm">
+                                                <img id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.worbbior.userPicture" />
+                                               <span *ngIf="worbbiorProfile.worbbior.premium" class="profile-pro"></span>
+                                            </div>
+                                            <div class="display-cell alignTop">
+                                                <h4 class="no-m-y profileName">{{worbbiorProfile.worbbior.displayName}}</h4>
+                                                <p class="no-m-y cor-Botticelli small hidden-xs">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
+                                                <p class="cor-Botticelli small visible-xs">{{worbbiorProfile.worbbior.description}}</p>
+                                                <div class="dropdown dropdown-user dropdown-dark">
+                                                    <a class="dropdown-toggle cursor-pointer" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" title="{{showUserNameTitle}}">
+                                                        <img src="/assets/metronic/worbby/global/img/Yellow.png" alt="icon menu profile" />
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box">
+                                                        <li class="arrow-up"></li>
+                                                        <li class="close-nav"><a (click)="endorse()">Recomende este worbbior</a></li>
+                                                        <!--<li class="close-nav"><a (click)="task()">Oferte uma tarefa<i class="icon-logout close-nav"></i></a></li>-->
+                                                        <li class="close-nav"><a (click)="sendReport()">Reporte este usuário</a></li>
+                                                    </ul>
+                                                </div>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Profile details : inicio -->
+                                <div class="profile-details">
+                                    <div class="col-xs-12 hidden-xs">
+                                        <p class="m-t-sm">{{l("AboutMe")}}</p>
+                                        <p class="cor-Botticelli">{{worbbiorProfile.worbbior.description}}</p>
+                                    </div>
+                                    <div class="col-xs-12 divider">
+                                        <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Location")}}</p>
+                                            </div>
+                                            <div class="display-cell">
+                                                <p class="inline">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
+                                                <p *ngIf="worbbiorProfile.worbbior.distance" class="no-m-b small cor-Botticelli"> {{worbbiorProfile.worbbior.distance}} km <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 divider">
+                                        <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Availabilities")}}</p>
+                                            </div>
+                                            <div class="display-cell" *ngIf="worbbiorProfile != undefined && worbbiorProfile.availabilities.items.length > 0">                                            
+                                                <p class="no-m-y p-y-xxs" *ngFor="let availability of worbbiorProfile.availabilities.items">
+                                                    {{l(DayOfWeek[availability.dayOfWeek.toString()])}} - 
+                                                    {{availability.startTime}} - 
+                                                    {{availability.endTime}}
+                                                </p>                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 divider">
+                                         <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Evaluation")}}</p>
+                                            </div>
+                                            <div class="display-cell">
+                                                <rating [(ngModel)]="worbbiorProfile.evaluation.averageEvaluations"
+                                                        max="5"
+                                                        required="true"
+                                                        [readonly]="true"
+                                                        stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                        [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                </rating>
+                                                <p class="inline">{{worbbiorProfile.evaluation.evaluations.items.length}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 m-t-sm divider">
+                                        <p class="cor-Botticelli m-b-20px m-t-sm">Compartilhar este perfil com seus amigos:</p>
+                                        <div class="social-list">
+                                            <ul class="list-unstyled list-inline">
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a (click)="sharedFacebook()">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-fb.svg" alt="icon Facebook" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a [shareButton]="'twitter'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-twitter.svg" alt="icon Twitter" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a [shareButton]="'googleplus'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-gplus.svg" alt="icon G+" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-xss m-b-xxs" *ngIf="appSession.isMobileDevice">
+                                                    <a [attr.href]="whatsappLink" target="_blank">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-whatsapp5.svg" alt="icon Whatsapp" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a [shareButton]="'pinterest'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-pin.svg" alt="icon Pintrest" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-b-xxs">
+                                                    <a [shareButton]="'linkedIn'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-in.svg" alt="icon LinkedIn" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <!-- Profile details : Fim -->
+                            </div>
+                        </div>
+                        <!-- menu perfil : Fim -->
+                        <!-- Conteudo perfil : inicio -->
+                        <div *ngIf="!showLoginRegister" class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                            esquerda
+                        </div>
+                        <!-- Conteudo perfil : Fim -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

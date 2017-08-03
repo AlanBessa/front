@@ -18085,6 +18085,8 @@ export class UserActivityInput implements IUserActivityInput {
     title: string;
     description: string;
     price: number;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     listGalleryActivity: ListResultDtoOfGalleryActivityDto;
     evaluation: EvaluationAverageDto;
@@ -18115,6 +18117,8 @@ export class UserActivityInput implements IUserActivityInput {
             this.title = data["title"];
             this.description = data["description"];
             this.price = data["price"];
+            this.featuredImageId = data["featuredImageId"];
+            this.featuredImageThumbnailId = data["featuredImageThumbnailId"];
             this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
             this.listGalleryActivity = data["listGalleryActivity"] ? ListResultDtoOfGalleryActivityDto.fromJS(data["listGalleryActivity"]) : <any>undefined;
             this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
@@ -18144,6 +18148,8 @@ export class UserActivityInput implements IUserActivityInput {
         data["title"] = this.title;
         data["description"] = this.description;
         data["price"] = this.price;
+        data["featuredImageId"] = this.featuredImageId;
+        data["featuredImageThumbnailId"] = this.featuredImageThumbnailId;
         data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
         data["listGalleryActivity"] = this.listGalleryActivity ? this.listGalleryActivity.toJSON() : <any>undefined;
         data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
@@ -18167,6 +18173,8 @@ export interface IUserActivityInput {
     title: string;
     description: string;
     price: number;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     listGalleryActivity: ListResultDtoOfGalleryActivityDto;
     evaluation: EvaluationAverageDto;
@@ -18360,8 +18368,10 @@ export interface IEvaluationAverageDto {
 export class GalleryActivityDto implements IGalleryActivityDto {
     activityUserId: number;
     galleryPictureId: string;
+    galleryPictureThumbnailId: string;
     fileName: string;
     fileBase64: string;
+    thumbnailFile: string;
     image: string;
     thumbnail: string;
     id: number;
@@ -18379,8 +18389,10 @@ export class GalleryActivityDto implements IGalleryActivityDto {
         if (data) {
             this.activityUserId = data["activityUserId"];
             this.galleryPictureId = data["galleryPictureId"];
+            this.galleryPictureThumbnailId = data["galleryPictureThumbnailId"];
             this.fileName = data["fileName"];
             this.fileBase64 = data["fileBase64"];
+            this.thumbnailFile = data["thumbnailFile"];
             this.image = data["image"];
             this.thumbnail = data["thumbnail"];
             this.id = data["id"];
@@ -18397,8 +18409,10 @@ export class GalleryActivityDto implements IGalleryActivityDto {
         data = typeof data === 'object' ? data : {};
         data["activityUserId"] = this.activityUserId;
         data["galleryPictureId"] = this.galleryPictureId;
+        data["galleryPictureThumbnailId"] = this.galleryPictureThumbnailId;
         data["fileName"] = this.fileName;
         data["fileBase64"] = this.fileBase64;
+        data["thumbnailFile"] = this.thumbnailFile;
         data["image"] = this.image;
         data["thumbnail"] = this.thumbnail;
         data["id"] = this.id;
@@ -18409,8 +18423,10 @@ export class GalleryActivityDto implements IGalleryActivityDto {
 export interface IGalleryActivityDto {
     activityUserId: number;
     galleryPictureId: string;
+    galleryPictureThumbnailId: string;
     fileName: string;
     fileBase64: string;
+    thumbnailFile: string;
     image: string;
     thumbnail: string;
     id: number;
@@ -18470,8 +18486,6 @@ export class EvaluationDto implements IEvaluationDto {
     comments: string;
     evaluationValues: ListResultDtoOfEvaluationValueDto;
     averageEvaluation: number;
-    creationTime: moment.Moment;
-    nameUserId: string;
     id: number;
 
     constructor(data?: IEvaluationDto) {
@@ -18495,8 +18509,6 @@ export class EvaluationDto implements IEvaluationDto {
             this.comments = data["comments"];
             this.evaluationValues = data["evaluationValues"] ? ListResultDtoOfEvaluationValueDto.fromJS(data["evaluationValues"]) : <any>undefined;
             this.averageEvaluation = data["averageEvaluation"];
-            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.nameUserId = data["nameUserId"];
             this.id = data["id"];
         }
     }
@@ -18519,8 +18531,6 @@ export class EvaluationDto implements IEvaluationDto {
         data["comments"] = this.comments;
         data["evaluationValues"] = this.evaluationValues ? this.evaluationValues.toJSON() : <any>undefined;
         data["averageEvaluation"] = this.averageEvaluation;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["nameUserId"] = this.nameUserId;
         data["id"] = this.id;
         return data; 
     }
@@ -18537,8 +18547,6 @@ export interface IEvaluationDto {
     comments: string;
     evaluationValues: ListResultDtoOfEvaluationValueDto;
     averageEvaluation: number;
-    creationTime: moment.Moment;
-    nameUserId: string;
     id: number;
 }
 
@@ -18775,6 +18783,8 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
     price: number;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     evaluation: EvaluationAverageDto;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     tenantId: number;
     unitMeasure: UserActivityAdminInputUnitMeasure;
     cancellationPolicy: UserActivityAdminInputCancellationPolicy;
@@ -18807,6 +18817,8 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
             this.price = data["price"];
             this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
             this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
+            this.featuredImageId = data["featuredImageId"];
+            this.featuredImageThumbnailId = data["featuredImageThumbnailId"];
             this.tenantId = data["tenantId"];
             this.unitMeasure = data["unitMeasure"];
             this.cancellationPolicy = data["cancellationPolicy"];
@@ -18838,6 +18850,8 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
         data["price"] = this.price;
         data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
         data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
+        data["featuredImageId"] = this.featuredImageId;
+        data["featuredImageThumbnailId"] = this.featuredImageThumbnailId;
         data["tenantId"] = this.tenantId;
         data["unitMeasure"] = this.unitMeasure;
         data["cancellationPolicy"] = this.cancellationPolicy;
@@ -18863,6 +18877,8 @@ export interface IUserActivityAdminInput {
     price: number;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     evaluation: EvaluationAverageDto;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     tenantId: number;
     unitMeasure: UserActivityAdminInputUnitMeasure;
     cancellationPolicy: UserActivityAdminInputCancellationPolicy;

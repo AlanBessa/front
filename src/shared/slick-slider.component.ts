@@ -19,7 +19,6 @@ export class SlickSliderComponent implements AfterContentInit{
             speed: 300,
             slidesToShow: 6,
             slidesToScroll: 6,
-            variableWidth: true,
             responsive: [
                 {
                     breakpoint: 1024,

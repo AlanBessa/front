@@ -1,0 +1,302 @@
+﻿<div [@routerTransition]>
+    <section class="worbbior-profile" *ngIf="active">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div *ngIf="showLoginRegister" class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="bg-White bg-shadow box">
+                                    <a class="register-ancora btn-link visible-xs" (click)="goTo('cadastrar')">Cadastre-se</a>
+                                    <loginComponent #loginComponent></loginComponent>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="bg-White bg-shadow box">
+                                    <h3 class="text-center no-m-t" id="cadastrar">Não tem cadastro ainda? Registre-se</h3>
+                                    <registerComponent #registerComponent></registerComponent>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="!showLoginRegister" class="col-xs-12">
+                            <h3 class="visible-xs titulo-WorbbiorProfile">{{l("WorbbiorProfile")}}</h3>
+                        </div>
+                        <!-- menu perfil : inicio -->
+                        <div *ngIf="!showLoginRegister" class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
+                            <div class="card-profile">
+                                <div class="col-xs-12">
+                                    <div class="sidebar-header m-t-sm p-b-sm">
+                                        <div class="display-table">
+                                            <div class="divProfile m-r-20px-sm">
+                                                <img id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.worbbior.userPicture" />
+                                               <span *ngIf="worbbiorProfile.worbbior.premium" class="profile-pro"></span>
+                                            </div>
+                                            <div class="display-cell alignTop">
+                                                <h4 class="no-m-y profileName">{{worbbiorProfile.worbbior.displayName}}</h4>
+                                                <p class="no-m-y cor-Botticelli small hidden-xs">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
+                                                <p class="cor-Botticelli small visible-xs">{{worbbiorProfile.worbbior.description}}</p>
+                                                <div class="dropdown dropdown-user dropdown-dark">
+                                                    <a class="dropdown-toggle cursor-pointer" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" title="{{showUserNameTitle}}">
+                                                        <img src="/assets/metronic/worbby/global/img/Yellow.png" alt="icon menu profile" />
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box">
+                                                        <li class="arrow-up"></li>
+                                                        <li class="close-nav"><a (click)="endorse()">Recomende este worbbior</a></li>
+                                                        <!--<li class="close-nav"><a (click)="task()">Oferte uma tarefa<i class="icon-logout close-nav"></i></a></li>-->
+                                                        <li class="close-nav"><a (click)="sendReport()">Reporte este usuário</a></li>
+                                                    </ul>
+                                                </div>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Profile details : inicio -->
+                                <div class="profile-details">
+                                    <div class="col-xs-12 hidden-xs">
+                                        <p class="m-t-sm">{{l("AboutMe")}}</p>
+                                        <p class="cor-Botticelli">{{worbbiorProfile.worbbior.description}}</p>
+                                    </div>
+                                    <div class="col-xs-12 divider">
+                                        <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Location")}}</p>
+                                            </div>
+                                            <div class="display-cell">
+                                                <p class="inline">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
+                                                <p *ngIf="worbbiorProfile.worbbior.distance" class="no-m-b small cor-Botticelli"> {{worbbiorProfile.worbbior.distance}} km <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 divider">
+                                        <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Availabilities")}}</p>
+                                            </div>
+                                            <div class="display-cell">                                            
+                                                <p class="no-m-y p-y-xxs" *ngFor="let availability of worbbiorProfile.availabilities.items">
+                                                    {{l(DayOfWeek[availability.dayOfWeek.toString()])}} - 
+                                                    {{availability.startTime}} - 
+                                                    {{availability.endTime}}
+                                                </p>                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 divider">
+                                         <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Evaluation")}}</p>
+                                            </div>
+                                            <div class="display-cell">
+                                                <rating [(ngModel)]="worbbiorProfile.evaluation.averageEvaluations"
+                                                        max="5"
+                                                        required="true"
+                                                        [readonly]="true"
+                                                        stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                        [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                </rating>
+                                                <p class="inline">{{worbbiorProfile.evaluation.evaluations.items.length}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 m-t-sm divider">
+                                        <p class="cor-Botticelli m-b-20px m-t-sm">Compartilhar este perfil com seus amigos:</p>
+                                        <div class="social-list">
+                                            <ul class="list-unstyled list-inline">
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a (click)="sharedFacebook()">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-fb.svg" alt="icon Facebook" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a [shareButton]="'twitter'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-twitter.svg" alt="icon Twitter" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a [shareButton]="'googleplus'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-gplus.svg" alt="icon G+" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-r-xss m-b-xxs" *ngIf="appSession.isMobileDevice">
+                                                    <a [attr.href]="whatsappLink" target="_blank">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-whatsapp5.svg" alt="icon Whatsapp" />
+                                                    </a>
+                                                </li>
+                                                <!--<li class="m-r-12px m-b-xxs">
+                                                    <a href="#">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-instagram.svg" alt="icon Instagram" />
+                                                    </a>
+                                                </li>-->
+                                                <li class="m-r-12px m-b-xxs">
+                                                    <a [shareButton]="'pinterest'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-pin.svg" alt="icon Pintrest" />
+                                                    </a>
+                                                </li>
+                                                <li class="m-b-xxs">
+                                                    <a [shareButton]="'linkedIn'">
+                                                        <img class="" src="/assets/metronic/worbby/global/img/social-in.svg" alt="icon LinkedIn" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <!-- Profile details : Fim -->
+                            </div>
+                        </div>
+                        <!-- menu perfil : Fim -->
+                        <!-- Conteudo perfil : inicio -->
+                        <div *ngIf="!showLoginRegister" class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                            <h3 class="hidden-xs m-b-xss">{{l("WorbbiorProfile")}}</h3>
+                            <div>
+                                <h4 class="cor-Botticelli hidden-xs m-b-20px">Os talentos de {{worbbiorProfile.worbbior.displayName}}</h4>
+                                <h6 class="cor-Botticelli visible-xs">Os talentos de {{worbbiorProfile.worbbior.displayName}}</h6>
+                                <div *ngIf="worbbiorProfile.userActivities.items == 0" class="acitivities-not-find">
+                                    Você só conseguirá visualizar as atividades cadastradas que tiverem, no mínimo, duas recomendações.
+                                </div>
+                                
+                                <div *ngFor="let activityUser of worbbiorProfile.userActivities.items" [ngClass]="{'activity-inactive': activityUser.endorsementsCount < 2}" class="card-default card-details m-b-xss" id="atividade-{{activityUser.id}}">
+                                    <div *ngIf="activityUser.endorsementsCount < 2" class="cor-Flamingo activity-inactive-text">Visivel somente quando tiver pelo menos 2 recomendações</div>
+                                    <div class="card-talents">
+                                        <div class="card-header m-b-20px">
+                                            <div class="display-table">
+                                                <div class="display-cell alignMiddle col-divider no-border p-y-xs">
+                                                    <h4>{{activityUser.title}}</h4>
+                                                    <p class="small cor-Botticelli">
+                                                        Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}</a>
+                                                        <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
+                                                        <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
+                                                    </p> 
+                                                </div>
+                                                <div class="display-cell alignMiddle">
+                                                    <div class="row m-t-xs">
+                                                        <div class="col-xs-12 m-b-20px">
+                                                            <img *ngFor="let interestCenter of activityUser.listInterestCenter.items | groupBy:'parentDisplayName'" alt="" class="img-icon-list pull-right" [src]="interestCenter.value[0].parentPicture"/>
+                                                        </div>
+                                                        <div class="col-xs-12 text-right m-b-xss">
+                                                            <rating [(ngModel)]="activityUser.evaluation.averageEvaluations"
+                                                                max="5"
+                                                                required="true"
+                                                                [readonly]="true"
+                                                                stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                                [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                            </rating>
+                                                        </div>
+                                                    </div>                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="col-xs-12 m-b-xs">
+                                                    <p class="cor-Botticelli">{{activityUser.description}}</p>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="row card-list">
+                                                        <div class="col-xs-6 col-sm-3 no-pad-x">
+                                                            <div class="card-default card-default-no-hover text-center p-y-xxs m-xxs">
+                                                                <img alt="Icon money" class="" src="/assets/metronic/worbby/global/img/icon-money.svg" />
+                                                                <p class="small"> R$ {{activityUser.price}} por {{l(UnitMeasure[activityUser.unitMeasure.toString()])}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-3 no-pad-x">
+                                                            <div class="card-default card-default-no-hover text-center p-y-xxs m-xxs">
+                                                                <img alt="Icon task" class="" src="/assets/metronic/worbby/global/img/icon-tasks-done.svg" />
+                                                                <p class="small" *ngIf="activityUser.taskPerformed <= 1">{{activityUser.taskPerformed}} tarefa realizada</p>
+                                                                <p class="small" *ngIf="activityUser.taskPerformed > 2">{{activityUser.taskPerformed}} tarefas realizadas</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-3 no-pad-x">
+                                                            <div class="card-default card-default-no-hover text-center p-y-xxs m-xxs">
+                                                                <img alt="Icon Endorsements" class="" src="/assets/metronic/worbby/global/img/icon-endorsements.svg" />
+                                                                <p class="small">{{activityUser.endorsementsCount}} recomendações</p>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-xs-6 col-sm-3 activity-comments no-pad-x">
+                                                            <div (click)="commentsOnClick($event)" class="card-default text-center p-y-xxs m-xxs">
+                                                                <svg width="50px" height="24px" viewBox="0 0 50 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                                                                    <title>icon-reviews</title>
+                                                                    <desc>Created with Sketch.</desc>
+                                                                    <defs>
+                                                                        <path d="M16,7.99508929 C16,6.8932319 16.8970262,6 18.0049466,6 L40,6 L50,9.09494702e-13 L50,6 L50,22.0049107 C50,23.1067681 49.1080589,24 48.0000796,24 L17.9999204,24 C16.8953949,24 16,23.1073772 16,22.0049107 L16,7.99508929 Z" id="path-1"></path>
+                                                                        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="34" height="24" fill="white">
+                                                                            <use xlink:href="#path-1"></use>
+                                                                        </mask>
+                                                                    </defs>
+                                                                    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Desktop-Needor-Worbbior-Profile" transform="translate(-735.000000, -581.000000)">
+                                                                            <g id="Group-15-Copy" transform="translate(175.000000, 282.000000)">
+                                                                                <g id="Group-14" transform="translate(510.000000, 287.000000)">
+                                                                                    <g id="Group-7" transform="translate(10.000000, 12.000000)">
+                                                                                        <g id="icon-reviews-selected" transform="translate(40.000000, 0.000000)">
+                                                                                            <g id="icon-reviews">
+                                                                                                <path d="M9.36955554,15 L21.9941413,15 C21.9984353,15 22,1.99919648 22,1.99919648 C21.999286,1.99963122 2.00494659,2 2.00494659,2 C2.00082398,2 2,20.1586889 2,20.1586889 L9.36955554,15 Z M19.9970707,17 L10,17 L0,24 L3.19744231e-14,2.00010618 C3.55271368e-14,0.895478039 0.897026226,-7.10542736e-15 2.00494659,0 L21.9950534,2.52242671e-13 C23.1023548,2.66453526e-13 24,0.886886902 24,1.99810135 L24,11.4983274 L24,8 L22,8 L22,15 L18,15 L18,17 L19.9970707,17 L19.9970707,17 Z" id="Combined-Shape" fill="#FFCB33"></path>
+                                                                                                <use id="Rectangle-4" stroke="#FFCB33" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                                                                                                <rect id="Rectangle-13" fill="#FFCB33" x="6" y="6" width="6" height="2"></rect>
+                                                                                                <rect id="Rectangle-13" fill="#FFCB33" x="22" y="16" width="22" height="2"></rect>
+                                                                                                <rect id="Rectangle-13" fill="#FFCB33" x="22" y="12" width="8" height="2"></rect>
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                <div>
+                                                                    <p class="small">{{activityUser.evaluation.evaluations.items.length}} comentários</p>
+                                                                </div>
+                                                                <div class="arrow-nav"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 m-t-xs">
+                                                          <ng2-image-gallery [images]="activityUser.listGalleryActivity.items"></ng2-image-gallery>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 activity-comments-list">
+                                                    <div *ngFor="let evaluation of activityUser.evaluation.evaluations.items" class="row m-t-xs">
+                                                        <div class="col-xs-4 col-sm-2">
+                                                            <img alt="Photo Profile" class="img-circle img-profile pro borda-Denim" [src]="evaluation.userPicture" />
+                                                        </div>
+                                                        <div class="col-xs-8 col-sm-10">
+                                                            <div class="card-chat arrow-left">
+                                                                <div class="arrow-chat"></div>
+                                                                <div class="card-chat-content">
+                                                                    {{evaluation.comments}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 m-t-xs">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-8">
+                                                            <button type="button" (click)="offertTask(activityUser)" class="btn btn-prime btn-block txt-small">Ofereça uma tarefa</button>
+                                                        </div>
+                                                        <div class="visible-xs divider-line"></div>
+                                                        <div class="col-xs-12 col-sm-4">
+                                                            <button type="button" class="btn-block btn-activity-comments" (click)="commentsOnClick($event)"></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Conteudo perfil : Fim -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<sendReportModal #sendReportModal [inputId]="worbbiorId" [inputType]="'worbbior'"></sendReportModal>
+

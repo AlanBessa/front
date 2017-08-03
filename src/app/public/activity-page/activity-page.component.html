@@ -1,8 +1,6 @@
-<div [@routerTransition] class="activity-page worbbior-profile" id="topo" name="topo">
-    
-    <!-- REVIEWS -->
+<div [@routerTransition] class="activity-page" id="topo" name="topo">
     <section *ngIf="active">
-        <div class="container-fluid bg-WhiteLilac bg-fluid-hidden">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden">
             <div class="row">
                 <div class="container">
                     <div class="row">
@@ -19,7 +17,18 @@
                                             <div class="display-cell alignTop">
                                                 <h4 class="no-m-y profileName">{{worbbiorProfile.worbbior.displayName}}</h4>
                                                 <p class="no-m-y cor-Botticelli small hidden-xs">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
-                                                <p class="cor-Botticelli small visible-xs">{{worbbiorProfile.worbbior.description}}</p>                                                                                          
+                                                <p class="cor-Botticelli small visible-xs">{{worbbiorProfile.worbbior.description}}</p>
+                                                <div class="dropdown dropdown-user dropdown-dark">
+                                                    <a class="dropdown-toggle cursor-pointer" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" title="{{showUserNameTitle}}">
+                                                        <img src="/assets/metronic/worbby/global/img/Yellow.png" alt="icon menu profile" />
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box">
+                                                        <li class="arrow-up"></li>
+                                                        <li class="close-nav"><a (click)="endorse()">Recomende este worbbior</a></li>
+                                                        <!--<li class="close-nav"><a (click)="task()">Oferte uma tarefa<i class="icon-logout close-nav"></i></a></li>-->
+                                                        <li class="close-nav"><a (click)="sendReport()">Reporte este usuário</a></li>
+                                                    </ul>
+                                                </div>                                            
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +72,6 @@
                                             <div class="display-cell">
                                                 <rating [(ngModel)]="worbbiorProfile.evaluation.averageEvaluations"
                                                         max="5"
-                                                        class="m-r-xxs"
                                                         required="true"
                                                         [readonly]="true"
                                                         stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
@@ -117,240 +125,9 @@
                         <!-- menu perfil : Fim -->
                         <!-- Conteudo perfil : inicio -->
                         <div *ngIf="!showLoginRegister" class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <p class="m-b-sm">
-                                        {{ activityUser.description}}
-                                    </p>
-                                </div>
-                            </div>
-                            <h3 class="m-b-xss">{{activityUser.evaluation.evaluations.items.length}} Review(s)</h3>
-                            <div class="row" *ngIf="activityUser.evaluation.evaluations.items.length > 0; else empty">
-                                <!-- Desktop -->
-                                <div class="col-xs-12">
-                                    <div class="clearfix m-b-xss chat-baloon-left" *ngFor="let review of activityUser.evaluation.evaluations.items">                                
-                                        <div class="col-sm-2 col-xs-3">
-                                            <div class="divProfile divProfile-small">
-                                                <img alt="Photo Profile" class="img-responsive img-circle pro img-profile-blue" [src]="review.userPicture">
-                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10 col-xs-9">
-                                            <div class="col-sm-offset-0 no-pad-left-lg">
-                                                <div class="card-chat arrow-left">
-                                                    <div class="arrow-chat"></div>
-                                                    <div class="card-chat-content cor-Cinder">
-                                                        <div class="card-chat-title m-b-xxs cor-Denim">
-                                                            {{review.nameUserId}} - {{review.creationTime | amDateFormat:'DD/MM/YYYY HH:mm:ss'}}
-                                                        </div>
-                                                        {{review.comments}}
-                                                    </div>
-                                                </div>
-                                            </div>	
-                                        </div>                                
-                                    </div>
-                                    <button *ngIf="showButtonMore" type="button" class="btn btn-prime btn-block m-t-20px hidden-xs" (click)="loadingMore()">Ler todos</button>
-                                </div>                                
-                            </div>
-                            <ng-template #empty>
-                                <div class="well well-lg">
-                                    Não foi encontrado nenhum resultado para esta pesquisa
-                                </div>                          
-                            </ng-template>
+                            esquerda
                         </div>
                         <!-- Conteudo perfil : Fim -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SIMILAR ACTIVITIES -->
-    <section class="similar-activities">
-        <div class="container-fluid bg-Solititude bg-fluid-hidden p-y-sm">
-            <div class="row">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h3 class="m-b-xss no-m-t">Veja outras atividades similares</h3>
-                            <slick-slider class="row text-center">
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                                <!-- card-talent : inicio -->
-                                <div class="card-shadow card-talent">
-                                    <a [routerLink]="['/centro-interesse']">
-                                        <img class="ico-btn" src="/assets/metronic/worbby/global/img/destaque-familia.jpg" alt="" />
-                                        <div class="p-xss">
-                                            <h4 class="txt-small text-left no-m-y no-m-x">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
-                                            </h4>
-                                            <div class="row m-t-xss">
-                                                <div class="col-xs-6">
-                                                    <rating [(ngModel)]="teste"
-                                                            max="5"
-                                                            class="m-r-xxs txt-small"
-                                                            required="true"
-                                                            [readonly]="true"
-                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                    </rating>
-                                                </div>
-                                                <div class="col-xs-6"><span class="txt-smaller">7 Reviews</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- card-talent : Fim -->
-                            </slick-slider>
-                        </div>
                     </div>
                 </div>
             </div>

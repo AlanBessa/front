@@ -58,7 +58,7 @@
                 </h4>
                 <slick-slider *ngIf="appSession.interestCentersTopLevel.length" class="row text-center">
                     <!-- card-talent : inicio -->
-                    <div class="" *ngFor="let interestCenter of appSession.interestCentersTopLevel" class="card-shadow card-talent hovereffect">
+                    <div *ngFor="let interestCenter of appSession.interestCentersTopLevel" class="card-shadow card-talent hovereffect">
                         <a [routerLink]="['/centro-interesse', interestCenter.slugName]">
                             <img class="ico-btn" [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
                             <h5>{{interestCenter.displayName}}</h5>

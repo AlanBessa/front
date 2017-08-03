@@ -25,6 +25,8 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   public worbbiorProfile: WorbbiorProfileDto;
   public whatsappLink: SafeUrl = "";
 
+  public teste: number = 5;
+
   constructor(
     injector: Injector,
     private _activatedRoute: ActivatedRoute,

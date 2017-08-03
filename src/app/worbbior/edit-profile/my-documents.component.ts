@@ -126,6 +126,13 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
 
     }
 
+    refreshBank(): void {
+        let self = this;
+        setTimeout(() => {
+            $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
+        }, 0);
+    }
+    
     initFileUploader(fileName: string): FileUploader {
         let self = this;
         var uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/File/UploadFileDocumentsInfo" });

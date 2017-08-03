@@ -125,7 +125,47 @@
                         <!-- menu perfil : Fim -->
                         <!-- Conteudo perfil : inicio -->
                         <div *ngIf="!showLoginRegister" class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
-                            esquerda
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p class="m-b-sm">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                            </div>
+                            <h3 class="m-b-xss">Reviews</h3>
+                            <div class="row" *ngIf="activityUser.evaluation.evaluations.items.length > 0; else empty">
+                                <!-- Desktop -->
+                                <div class="col-xs-12">
+                                    <div class="clearfix m-b-xss hidden-xs chat-baloon-left" *ngFor="let review of activityUser.evaluation.evaluations.items">                                
+                                        <div class="col-sm-2 col-xs-3">
+                                            <div class="divProfile divProfile-small">
+                                                <img alt="Photo Profile" class="img-responsive img-circle pro img-profile-blue" [src]="review.userPicture">
+                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-9">
+                                            <div class="col-sm-offset-0 no-pad-left-lg">
+                                                <div class="card-chat arrow-left">
+                                                    <div class="arrow-chat"></div>
+                                                    <div class="card-chat-content cor-Cinder">
+                                                        <div class="card-chat-title m-b-xxs cor-Denim">
+                                                            {{review.nameUserId}} - {{review.creationTime | amDateFormat:'DD/MM/YYYY HH:mm:ss'}}
+                                                        </div>
+                                                        {{review.comments}}
+                                                    </div>
+                                                </div>
+                                            </div>	
+                                        </div>                                
+                                    </div>
+                                    <button *ngIf="showButtonMore" type="button" class="btn btn-prime btn-block m-t-20px hidden-xs" (click)="loadingMore()">Ler todos</button>
+                                </div>                                
+                            </div>
+                            <ng-template #empty>
+                                <div class="well well-lg">
+                                    Não foi encontrado nenhum resultado para esta pesquisa
+                                </div>                          
+                            </ng-template>
                         </div>
                         <!-- Conteudo perfil : Fim -->
                     </div>

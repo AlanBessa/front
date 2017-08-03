@@ -1748,11 +1748,6 @@ body {
     border: none;
 }
 
-.navbar-fixed-bottom, 
-.navbar-fixed-top {
-    z-index: 10300!important;
-}
-
 .header .btn-worbby {
     width: 320px;
     margin: 0 10px 0 25px;
@@ -1798,6 +1793,12 @@ body {
 .find-talent-home .padding-responsive-60px-30px {
     padding-left: 60px !important;
     padding-right: 60px !important;
+}
+
+/* ACTIVITIES PAGE */
+
+.activity-page .divProfile.divProfile-small {
+    
 }
 
 /* ACTIVITIES CENTER PAGE */
@@ -3372,7 +3373,7 @@ recaptcha {
 .footer{
     min-height: 100px;
     position: relative;
-    z-index: 9999;
+    z-index: 99;
 }
 .footer .site-logo{
     float: left;
@@ -5308,7 +5309,7 @@ recaptcha {
             position: absolute;
             bottom: 410px;
             right: 0;
-            z-index: 10000;
+            z-index: 100;
         }
 
         .box-feedback {

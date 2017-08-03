@@ -18518,6 +18518,8 @@ export class EvaluationDto implements IEvaluationDto {
     comments: string;
     evaluationValues: ListResultDtoOfEvaluationValueDto;
     averageEvaluation: number;
+    creationTime: moment.Moment;
+    nameUserId: string;
     id: number;
 
     constructor(data?: IEvaluationDto) {
@@ -18541,6 +18543,8 @@ export class EvaluationDto implements IEvaluationDto {
             this.comments = data["comments"];
             this.evaluationValues = data["evaluationValues"] ? ListResultDtoOfEvaluationValueDto.fromJS(data["evaluationValues"]) : <any>undefined;
             this.averageEvaluation = data["averageEvaluation"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.nameUserId = data["nameUserId"];
             this.id = data["id"];
         }
     }
@@ -18563,6 +18567,8 @@ export class EvaluationDto implements IEvaluationDto {
         data["comments"] = this.comments;
         data["evaluationValues"] = this.evaluationValues ? this.evaluationValues.toJSON() : <any>undefined;
         data["averageEvaluation"] = this.averageEvaluation;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["nameUserId"] = this.nameUserId;
         data["id"] = this.id;
         return data; 
     }
@@ -18579,6 +18585,8 @@ export interface IEvaluationDto {
     comments: string;
     evaluationValues: ListResultDtoOfEvaluationValueDto;
     averageEvaluation: number;
+    creationTime: moment.Moment;
+    nameUserId: string;
     id: number;
 }
 

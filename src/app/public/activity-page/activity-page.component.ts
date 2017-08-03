@@ -79,7 +79,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
           this.metaService.setTag("og:description","Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.");
           this.metaService.setTag("og:image", AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/facebok-share.jpg");
           this.metaService.setTag("og:title","Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
-          this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+          this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/publico/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
       });
   }
 }

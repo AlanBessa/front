@@ -103,8 +103,8 @@ const routes: Routes = [
     { path: 'find-a-talents-f/:feature', redirectTo: '/talentos/f/:feature', pathMatch: 'full' },
     { path: 'seja-um-worbbior', redirectTo: '/publico/seja-um-worbbior', pathMatch: 'full' },
     { path: 'become-a-worbbior', redirectTo: '/publico/seja-um-worbbior', pathMatch: 'full' },
-    { path: 'worbbior/pagina/:worbbiorId', redirectTo: '/publico/worbbior/pagina/:worbbiorId', pathMatch: 'full' },
-    { path: 'worbbior/page/:worbbiorId', redirectTo: '/publico/worbbior/pagina/:worbbiorId', pathMatch: 'full' },
+    //{ path: 'worbbior/pagina/:worbbiorId', redirectTo: '/publico/worbbior/pagina/:worbbiorId', pathMatch: 'full' },
+    //{ path: 'worbbior/page/:worbbiorId', redirectTo: '/publico/worbbior/pagina/:worbbiorId', pathMatch: 'full' },
 ];
 
 @NgModule({

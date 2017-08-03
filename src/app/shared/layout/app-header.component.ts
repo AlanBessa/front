@@ -185,7 +185,7 @@ export class AppHeaderComponent extends AppComponentBase implements OnInit {
         new UserMenuItem("TasksHistory", "Pages.Worbbior.TasksHistory", "Worbbior", "", "/worbbior/tasks-history"),
         new UserMenuItem("PaymentsHistory", "Pages.Worbbior.PaymentsHistory", "Worbbior", "", "/worbbior/payments-history"),
         new UserMenuItem("EditProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/edit-profile"),
-        new UserMenuItem("ViewProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/worbbior/page/", this.appSessionService.worbbiorSlug ? this.appSessionService.worbbiorSlug : ""),
+        new UserMenuItem("ViewProfile", "Pages.Worbbior.EditProfile", "Worbbior", "", "/publico/worbbior/page/", this.appSessionService.worbbiorSlug ? this.appSessionService.worbbiorSlug : ""),
     ]);
     
     showMenuItem(menuItem): boolean {

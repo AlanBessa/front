@@ -10,6 +10,7 @@ import { TokenService } from '@abp/auth/token.service';
 import { IAjaxResponse } from '@abp/abpHttp';
 import { Base64 } from 'js-base64';
 import { Angulartics2 } from 'angulartics2';
+import { ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 
 import * as _ from "lodash";
 
@@ -25,6 +26,8 @@ import * as _ from "lodash";
 export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
+
+    @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     active: boolean = false;
@@ -46,6 +49,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     public srcImg: string = "";
     galleryActivityDto: GalleryActivityDto = new GalleryActivityDto;
     remove: boolean = false;
+    data: any;
+    cropperSettings: CropperSettings;
 
     public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
@@ -70,6 +75,46 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
 
     }
     show(activityUser: UserActivityInput): void {
+
+        this.cropperSettings = new CropperSettings();
+        this.cropperSettings.width = 200;
+        this.cropperSettings.height = 200;
+        this.cropperSettings.keepAspect = false;
+
+        this.cropperSettings.croppedWidth = 100;
+        this.cropperSettings.croppedHeight = 100;
+
+        this.cropperSettings.canvasWidth = this.mediaQuery == "xs" ? 265 : 500;
+        this.cropperSettings.canvasHeight = this.mediaQuery == "xs" ? 200 : 300;
+
+        // this.cropperSettings.minWidth = 100;
+        // this.cropperSettings.minHeight = 100;
+
+        this.cropperSettings.rounded = true;
+        this.cropperSettings.minWithRelativeToResolution = false;
+
+        this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
+        this.cropperSettings.noFileInput = true;
+
+        this.data = {};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         this._activityService.getActivity(activityUser.activityId).subscribe((result) => {
             this.activity = result;
             this._activityService.getInterestCentersByActivityId(activityUser.activityId).subscribe((result) => {

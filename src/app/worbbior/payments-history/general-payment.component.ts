@@ -110,6 +110,7 @@ export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements
         input.userId = abp.session.userId;
         input.bankAccountId = this.banckAccount.id;
         input.bankAccount = this.banckAccount;
+        input.bankAccount.bankAccountTypeId = this.banckAccount.bankAccountTypeId;
 
         this.confirmBalanceTransferModal.show(input);
     }

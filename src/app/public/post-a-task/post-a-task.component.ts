@@ -112,6 +112,7 @@ export class PostTaskComponent extends AppComponentBase implements AfterViewInit
         this.worbbyTask.amount = 0;
         this.worbbyTask.totalPrice = 0;
         this.worbbyTask.time = TimeEnum[this.currentTimeEnumOptions];
+        this.worbbyTask.scheduleDateType = Number(ScheduleDateType.WhenPossible);
 
         if(this.activityUserId){
             this._activitiesService.getUserActivity(this.activityUserId).subscribe(result => {

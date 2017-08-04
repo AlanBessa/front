@@ -2832,7 +2832,11 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
+<<<<<<< HEAD
     getBalanceTransfersAdmin(filter: string, permission: string, transferenceStateCombo: number, bankAccountTypeId: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferDto> {
+=======
+    getBalanceTransfersAdmin(filter: string, permission: string, transferenceStateCombo: number, bankCombo: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferDto> {
+>>>>>>> f0a6f10747ea8713f42826bca352447f08dad56d
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersAdmin?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 

@@ -55,6 +55,8 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
     public pdfViewer: PdfViewerComponent;
     src: string = "";
     bankAccountTypes: BankAccountType[] = [];
+    public typeSelect: number;
+
 
     public tooltipAntecendenteCriminal: string = "Solicitamos a Certidão de Antecedentes Criminais para dar mais segurança aos usuários que forem contratar talentos na plataforma.<br /><br /> O que é?<br /> A Certidão de Antecedentes Criminais é um documento que informa se uma pessoa possui registros criminais. Ela tem validade de 90 dias, a partir da data de emissão. Depois desse prazo, é necessário emitir uma nova certidão.<br /><br /> Onde deve ser feito?<br /> Pela internet, no site da Polícia Federal (http://www.pf.gov.br/servicos-pf/antecedentes-criminais) ou no site do Detran-RJ (http://atestadodic.detran.rj.gov.br/). Também pode ser solicitada em um posto de atendimento do instituto de identificação do estado.<br /><br /> Quanto custa?<br /> A emissão pela internet é gratuita. Quando solicitada em um posto de atendimento do instituto de identificação, pode haver cobrança de taxas.";
     public tooltipComprovanteResidencia: string = "Se você não tem comprovante de residência em seu nome, deve socilitá-lo ao proprietário do imóvel, locador ou a quem tem o nome nas contas da residência, que forneça a você uma cópia do comprovante de residência com uma declaração de próprio punho no corpo do papel (ou no verso) dizendo que você reside no imóvel cujo endereço consta em seu cadastro na Worbby. Ao fim da declaração, é preciso da assinatura deste proprietário, como forma de atestar que a declaração é verdadeira. Recomendamos que juntamente com essa declaração, seja enviada uma cópia da identidade do proprietário do imóvel.";
@@ -97,6 +99,7 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
             this.userDocumentsInfo.isCompany = this.userDocumentsInfo.isCompany ? this.userDocumentsInfo.isCompany : false;
             this._bankAccountService.getBankAccountForEditProfileByUserId(abp.session.userId).subscribe((result) => {
                 this.userBankAccount = result;
+                this.typeSelect = this.userBankAccount.bankAccountTypeId;
 
                 if (!this.userBankAccount.userId) {
                     this.userBankAccount.userId = abp.session.userId;
@@ -119,20 +122,25 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
         let self = this;
         this._bankAccountService.getBankAccountTypes().subscribe((result: ListResultDtoOfBankAccountType) => {
             this.bankAccountTypes = result.items;
-            setTimeout(() => {
-                $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
-            }, 0);
+            if (this.typeSelect != null) {
+                setTimeout(() => {
+                    $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
+                }, 0);
+            }
+
         });
 
     }
 
     refreshBank(): void {
         let self = this;
-        setTimeout(() => {
-            $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
-        }, 0);
+        if (this.typeSelect != null) {
+            setTimeout(() => {
+                $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
+            }, 0);
+        }
     }
-    
+
     initFileUploader(fileName: string): FileUploader {
         let self = this;
         var uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/File/UploadFileDocumentsInfo" });

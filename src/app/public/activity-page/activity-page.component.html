@@ -18,7 +18,7 @@
                     </a>
                 </div>
             </div>
-            <div class="row" *ngIf="activityUser.listInterestCenter.items.length > 0">
+            <div class="row" *ngIf="activityUser != undefined && activityUser.listInterestCenter.items.length > 0">
                 <div class="col-xs-12 text-center">
                     <div class="icone-box m-t-xs m-x-xxs" *ngFor="let icon of activityUser.listInterestCenter.items">
                         <img [src]="icon.interestCenterPicture" *ngIf="icon != undefined" placement="bottom" [tooltip]="icon.displayName" />                        
@@ -37,7 +37,7 @@
                 <div class="container">
                     <div class="row">
                         <!-- menu perfil : inicio -->
-                        <div *ngIf="!showLoginRegister" class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
+                        <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
                             <div class="card-profile">
                                 <div class="col-xs-12">
                                     <div class="sidebar-header m-t-sm p-b-sm">

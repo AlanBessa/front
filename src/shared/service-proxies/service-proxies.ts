@@ -1527,6 +1527,60 @@ export class ActivityServiceProxy {
     /**
      * @return Success
      */
+    getUsersActivityByActivityId(activityId: number, filter: string, userActivityId: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetUsersActivityByActivityId?";
+        if (activityId !== undefined)
+            url_ += "ActivityId=" + encodeURIComponent("" + activityId) + "&"; 
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (userActivityId !== undefined)
+            url_ += "UserActivityId=" + encodeURIComponent("" + userActivityId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUsersActivityByActivityId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUsersActivityByActivityId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUsersActivityByActivityId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getInterestCentersByActivityId(id: number): Observable<ListResultDtoOfInterestCenterForActivityDto> {
         let url_ = this.baseUrl + "/api/services/app/Activity/GetInterestCentersByActivityId?";
         if (id !== undefined)
@@ -2778,7 +2832,7 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
-    getBalanceTransfersAdmin(filter: string, permission: string, transferenceStateCombo: number, bankCombo: string, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferDto> {
+    getBalanceTransfersAdmin(filter: string, permission: string, transferenceStateCombo: number, bankAccountTypeId: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfBalanceTransferDto> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetBalanceTransfersAdmin?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -2786,8 +2840,8 @@ export class BalanceTransferServiceProxy {
             url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
         if (transferenceStateCombo !== undefined)
             url_ += "TransferenceStateCombo=" + encodeURIComponent("" + transferenceStateCombo) + "&"; 
-        if (bankCombo !== undefined)
-            url_ += "BankCombo=" + encodeURIComponent("" + bankCombo) + "&"; 
+        if (bankAccountTypeId !== undefined)
+            url_ += "BankAccountTypeId=" + encodeURIComponent("" + bankAccountTypeId) + "&"; 
         if (startDate !== undefined)
             url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
         if (endDate !== undefined)
@@ -18133,6 +18187,8 @@ export class UserActivityInput implements IUserActivityInput {
     title: string;
     description: string;
     price: number;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     listGalleryActivity: ListResultDtoOfGalleryActivityDto;
     evaluation: EvaluationAverageDto;
@@ -18163,6 +18219,8 @@ export class UserActivityInput implements IUserActivityInput {
             this.title = data["title"];
             this.description = data["description"];
             this.price = data["price"];
+            this.featuredImageId = data["featuredImageId"];
+            this.featuredImageThumbnailId = data["featuredImageThumbnailId"];
             this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
             this.listGalleryActivity = data["listGalleryActivity"] ? ListResultDtoOfGalleryActivityDto.fromJS(data["listGalleryActivity"]) : <any>undefined;
             this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
@@ -18192,6 +18250,8 @@ export class UserActivityInput implements IUserActivityInput {
         data["title"] = this.title;
         data["description"] = this.description;
         data["price"] = this.price;
+        data["featuredImageId"] = this.featuredImageId;
+        data["featuredImageThumbnailId"] = this.featuredImageThumbnailId;
         data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
         data["listGalleryActivity"] = this.listGalleryActivity ? this.listGalleryActivity.toJSON() : <any>undefined;
         data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
@@ -18215,6 +18275,8 @@ export interface IUserActivityInput {
     title: string;
     description: string;
     price: number;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     listGalleryActivity: ListResultDtoOfGalleryActivityDto;
     evaluation: EvaluationAverageDto;
@@ -18408,8 +18470,10 @@ export interface IEvaluationAverageDto {
 export class GalleryActivityDto implements IGalleryActivityDto {
     activityUserId: number;
     galleryPictureId: string;
+    galleryPictureThumbnailId: string;
     fileName: string;
     fileBase64: string;
+    thumbnailFile: string;
     image: string;
     thumbnail: string;
     id: number;
@@ -18427,8 +18491,10 @@ export class GalleryActivityDto implements IGalleryActivityDto {
         if (data) {
             this.activityUserId = data["activityUserId"];
             this.galleryPictureId = data["galleryPictureId"];
+            this.galleryPictureThumbnailId = data["galleryPictureThumbnailId"];
             this.fileName = data["fileName"];
             this.fileBase64 = data["fileBase64"];
+            this.thumbnailFile = data["thumbnailFile"];
             this.image = data["image"];
             this.thumbnail = data["thumbnail"];
             this.id = data["id"];
@@ -18445,8 +18511,10 @@ export class GalleryActivityDto implements IGalleryActivityDto {
         data = typeof data === 'object' ? data : {};
         data["activityUserId"] = this.activityUserId;
         data["galleryPictureId"] = this.galleryPictureId;
+        data["galleryPictureThumbnailId"] = this.galleryPictureThumbnailId;
         data["fileName"] = this.fileName;
         data["fileBase64"] = this.fileBase64;
+        data["thumbnailFile"] = this.thumbnailFile;
         data["image"] = this.image;
         data["thumbnail"] = this.thumbnail;
         data["id"] = this.id;
@@ -18457,8 +18525,10 @@ export class GalleryActivityDto implements IGalleryActivityDto {
 export interface IGalleryActivityDto {
     activityUserId: number;
     galleryPictureId: string;
+    galleryPictureThumbnailId: string;
     fileName: string;
     fileBase64: string;
+    thumbnailFile: string;
     image: string;
     thumbnail: string;
     id: number;
@@ -18823,6 +18893,8 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
     price: number;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     evaluation: EvaluationAverageDto;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     tenantId: number;
     unitMeasure: UserActivityAdminInputUnitMeasure;
     cancellationPolicy: UserActivityAdminInputCancellationPolicy;
@@ -18855,6 +18927,8 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
             this.price = data["price"];
             this.listInterestCenter = data["listInterestCenter"] ? ListResultDtoOfInterestCenterForActivityDto.fromJS(data["listInterestCenter"]) : <any>undefined;
             this.evaluation = data["evaluation"] ? EvaluationAverageDto.fromJS(data["evaluation"]) : <any>undefined;
+            this.featuredImageId = data["featuredImageId"];
+            this.featuredImageThumbnailId = data["featuredImageThumbnailId"];
             this.tenantId = data["tenantId"];
             this.unitMeasure = data["unitMeasure"];
             this.cancellationPolicy = data["cancellationPolicy"];
@@ -18886,6 +18960,8 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
         data["price"] = this.price;
         data["listInterestCenter"] = this.listInterestCenter ? this.listInterestCenter.toJSON() : <any>undefined;
         data["evaluation"] = this.evaluation ? this.evaluation.toJSON() : <any>undefined;
+        data["featuredImageId"] = this.featuredImageId;
+        data["featuredImageThumbnailId"] = this.featuredImageThumbnailId;
         data["tenantId"] = this.tenantId;
         data["unitMeasure"] = this.unitMeasure;
         data["cancellationPolicy"] = this.cancellationPolicy;
@@ -18911,6 +18987,8 @@ export interface IUserActivityAdminInput {
     price: number;
     listInterestCenter: ListResultDtoOfInterestCenterForActivityDto;
     evaluation: EvaluationAverageDto;
+    featuredImageId: string;
+    featuredImageThumbnailId: string;
     tenantId: number;
     unitMeasure: UserActivityAdminInputUnitMeasure;
     cancellationPolicy: UserActivityAdminInputCancellationPolicy;
@@ -19392,6 +19470,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     userName: string;
     userEmail: string;
     bankAccountId: number;
+    nameBank: string;
     bankAccount: BankAccountDto;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;
@@ -19414,6 +19493,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
             this.userName = data["userName"];
             this.userEmail = data["userEmail"];
             this.bankAccountId = data["bankAccountId"];
+            this.nameBank = data["nameBank"];
             this.bankAccount = data["bankAccount"] ? BankAccountDto.fromJS(data["bankAccount"]) : <any>undefined;
             this.amount = data["amount"];
             this.balanceTransferStatus = data["balanceTransferStatus"];
@@ -19435,6 +19515,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
         data["userName"] = this.userName;
         data["userEmail"] = this.userEmail;
         data["bankAccountId"] = this.bankAccountId;
+        data["nameBank"] = this.nameBank;
         data["bankAccount"] = this.bankAccount ? this.bankAccount.toJSON() : <any>undefined;
         data["amount"] = this.amount;
         data["balanceTransferStatus"] = this.balanceTransferStatus;
@@ -19450,6 +19531,7 @@ export interface IBalanceTransferDto {
     userName: string;
     userEmail: string;
     bankAccountId: number;
+    nameBank: string;
     bankAccount: BankAccountDto;
     amount: number;
     balanceTransferStatus: BalanceTransferDtoBalanceTransferStatus;

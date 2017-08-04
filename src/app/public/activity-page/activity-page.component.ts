@@ -88,12 +88,15 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
       this.metaService.setTag("og:image", AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/facebok-share.jpg");
       this.metaService.setTag("og:title", "Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
       this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+    }, (error) => {
+      console.log(error);
     });
   }
 
   getActivity(): void {
     this._activityService.getUserActivity(this.activityUserId).subscribe((result) => {
       this.activityUser = result;
+      var filter = '{"filters":[';
 
       this.activityUser.evaluation.evaluations.items.forEach(element => {
         this.getPictureByGuid(element.profilePictureId).then((result) => {
@@ -103,7 +106,22 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
             element.userPicture = AppConsts.defaultProfilePicture;
           }
         });
-      });     
+      }); 
+      
+      for(let i = 0; i < this.activityUser.listInterestCenter.items.length; i++) {
+        if(i == 0) {
+          filter = filter + '{"interestcenterid":"' + this.activityUser.listInterestCenter.items[i].id + '", "interestcenterparentid":"' + this.activityUser.listInterestCenter.items[i].parentId + '"}';
+        }
+        else {
+          filter = filter + ',{"interestcenterid":"' + this.activityUser.listInterestCenter.items[i].id + '", "interestcenterparentid":"' + this.activityUser.listInterestCenter.items[i].parentId + '"}';
+        }
+      }
+
+      filter = filter + ']}';
+
+      this._activityService.getUsersActivityByActivityId(this.activityUser.activityId, filter, this.activityUser.id).subscribe((result) => {
+        let teste = result;
+      });
     });
   }
 }

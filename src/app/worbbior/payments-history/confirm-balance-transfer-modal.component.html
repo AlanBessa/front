@@ -14,7 +14,20 @@
                 <div class="col-xs-12 col-md-12">
                     <div class="form-group no-hint">
                         <label class="control-label">{{l("Bank")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
-                        <input class="form-control" type="text" name="Bank" [(ngModel)]="balanceTransfer.bankAccount.bank" />
+                        <!--<input class="form-control" type="text" name="Bank" [(ngModel)]="balanceTransfer.bankAccount.bank" />-->
+                        <select 
+                            name="bank"
+                            #bankAccountTypeSelect
+                            jq-plugin="selectpicker" 
+                            [attr.data-dropup-auto]="false"
+                            class="form-control" 
+                            [attr.data-live-search]="true"
+                            [attr.data-size]="15"
+                            [(ngModel)]="balanceTransfer.bankAccount.bankAccountTypeId"
+                            (ngModelChange)="changeBank($event)">
+                            <option value="0">-- Selecione --</option>
+                            <option *ngFor="let bankAccountType of bankAccountTypes" [ngValue]="bankAccountType.id">{{bankAccountType.bank}}</option>
+                        </select>
                     </div>
                 </div>
             </div>

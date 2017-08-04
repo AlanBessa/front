@@ -171,22 +171,21 @@
                 <div class="col-xs-12 col-md-12">
                     <div class="form-group no-hint">
                         <label class="control-label">{{l("Bank")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
-
                         <select 
-                            name="Teste"
+                            [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                            name="bank"
+                            #bankAccountTypeSelect
                             jq-plugin="selectpicker" 
-                            class="select-prime-inverted txt-md-only-mobile" 
+                            [attr.data-dropup-auto]="false"
+                            class="form-control" 
                             [attr.data-live-search]="true"
-                            [(ngModel)]="userBankAccount.bank"
-                            (ngModelChange)="testeAndre($event)">
-                            <option value="">-- Selecione --</option>
-                            <option [value]="1">Itaú</option>
-                            <option [value]="2">Bradesco</option>
-                            <option [value]="3">Santander</option>
-                            <option [value]="4">Banco do Brasil</option>
+                            [attr.data-size]="15"
+                            [(ngModel)]="userBankAccount.bankAccountTypeId"
+                            (ngModelChange)="changeBank($event)">
+                            <option value="0">-- Selecione --</option>
+                            <option *ngFor="let bankAccountType of bankAccountTypes" [ngValue]="bankAccountType.id">{{bankAccountType.bank}}</option>
                         </select>
-
-                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Bank" [(ngModel)]="userBankAccount.bank" />
+                        <!--<input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control" type="text" name="Bank" [(ngModel)]="userBankAccount.bank" />-->
                     </div>
                 </div>
             </div>

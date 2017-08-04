@@ -155,6 +155,9 @@ export class EditProfileWorbbiorComponent extends AppComponentBase implements Af
         this.documentTabActive = $("#myDocuments").hasClass("active");
         this.personalDataTabActive = $("#myPersonalData").hasClass("active");
         this.editMyAvailabilityWorbbior.abaActive = $("#myAvailability").hasClass("active");
+        if(this.documentTabActive){
+            this.editMyDocumentsWorbbior.refreshBank();
+        }
     }
 
     getProfilePicture(): void {

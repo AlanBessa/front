@@ -522,6 +522,10 @@ p.hint {
     font-size: 14px!important;
 }
 
+.txt-smaller {
+    font-size: 12px!important;
+}
+
 .underline {
     text-decoration: underline;
 }
@@ -1797,9 +1801,21 @@ body {
 
 /* ACTIVITIES PAGE */
 
-.activity-page .divProfile.divProfile-small {
-    
+.similar-activities .card-talent {
+    width: 240px !important;
+    margin: 0 15px;
+    padding: 0;
+    border: 0;
 }
+
+.similar-activities .card-talent img {
+    width: 240px !important;
+}
+
+.similar-activities .slick-slide {
+    height: initial !important;
+}
+
 
 /* ACTIVITIES CENTER PAGE */
 .activity-center {
@@ -2784,6 +2800,7 @@ div.jtable-main-container>div.jtable-bottom-panel {
     right: 0px;
 }
 
+
 /* SIDE BAR CADASTRO */
 
 .menu-lateral-with-icons {
@@ -3330,10 +3347,23 @@ recaptcha {
 }
 
 /* RATING */
+
 .worbbyRating i {
     font-size: 22px;
     color: #FFCB33;
     cursor: pointer;
+}
+
+rating .glyphicon-heart,
+rating .glyphicon-heart-empty {
+    font-size: 18px;
+    color:#FFCB33;
+    cursor: pointer;
+}
+
+rating.txt-small .glyphicon-heart,
+rating.txt-small .glyphicon-heart-empty {
+    font-size: 14px;
 }
 
 /* SEARCH BOX */

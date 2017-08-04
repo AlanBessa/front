@@ -98,6 +98,7 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
             this._bankAccountService.getBankAccountForEditProfileByUserId(abp.session.userId).subscribe((result) => {
                 this.userBankAccount = result;
 
+
                 if (!this.userBankAccount.userId) {
                     this.userBankAccount.userId = abp.session.userId;
                 }
@@ -120,7 +121,7 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
         this._bankAccountService.getBankAccountTypes().subscribe((result: ListResultDtoOfBankAccountType) => {
             this.bankAccountTypes = result.items;
             setTimeout(() => {
-                $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
+               /// $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
             }, 0);
         });
 
@@ -129,7 +130,7 @@ export class MyDocumentsWorbbiorComponent extends AppComponentBase implements Af
     refreshBank(): void {
         let self = this;
         setTimeout(() => {
-            $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
+           // $(self.bankAccountTypeSelect.nativeElement).selectpicker('refresh');
         }, 0);
     }
     

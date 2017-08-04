@@ -1,5 +1,35 @@
 <div [@routerTransition] class="activity-page worbbior-profile" id="topo" name="topo">
     
+    <!-- BANNER -->
+    <section class="container-fluid activity-center" style="height: 500px">
+        <div class="activity-center-banner" style="height: 500px" [style.background]="'url(' + searchBanner + ')'"></div>
+        <div class="container">
+            <div class="row m-t-20px">
+                <div class="col-xs-6">
+                    <a class="cor-White" href="#">
+                        <i class="fa fa-angle-left"></i>
+                        <span>VOLTAR</span>
+                    </a>
+                </div>
+                <div class="col-xs-6 text-right">
+                     <a class="cor-White" href="#">
+                         <span>PRÓXIMA ATIVIDADE</span>
+                         <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row" *ngIf="activityUser.listInterestCenter.items.length > 0">
+                <div class="col-xs-12 text-center">
+                    <div class="icone-box m-t-xs m-x-xxs" *ngFor="let icon of activityUser.listInterestCenter.items">
+                        <img [src]="icon.interestCenterPicture" *ngIf="icon != undefined" placement="bottom" [tooltip]="icon.displayName" />                        
+                        <img [src]="loading" alt="Carregando" *ngIf="icon == undefined" width="80px" />
+                    </div>
+                    <h2 class="m-t-40px">"{{activityUser.title}}"</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- REVIEWS -->
     <section *ngIf="active">
         <div class="container-fluid bg-WhiteLilac bg-fluid-hidden">
@@ -351,6 +381,99 @@
                                 <!-- card-talent : Fim -->
                             </slick-slider>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OTHER ACTIVITIES -->
+    <section class="other-activities">
+        <div class="container-fluid bg-WhiteLilac bg-fluid-hidden p-y-sm">
+            <div class="row">
+                <div class="container">
+                    <div class="find-talent-content no-m-t">
+                        <!-- CATEGORIA POPULAR : inicio -->
+                        <h3 class="m-b-xss no-m-t">
+                            <span>Você também pode gostar</span>
+                            <a class="small pull-right cor-Denim m-y-5px" routerLink="/talentos">
+                                {{l("ViewAll")}} <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                        <!-- desktop : inicio -->
+                        <div class="row">
+                            <!-- grupo 1 : inicio -->
+                            <div class="col-xs-12 col-md-4">
+                                <!-- imagem destaque : imicio -->
+                                <div class="feature-interest-center bg-Cinder">
+                                    <a [routerLink]="['/centro-interesse', '16-Master-chefs']">
+                                        <div class="bg-Img-Cover" style="background-image:url('/assets/metronic/worbby/global/img/destaque-masterchef.jpg')"></div>
+                                        <img class="interest-conter-icon" style="width: 65px;" src="/assets/metronic/worbby/global/img/icon-cook.svg" />
+                                        <div class="btn btn-feature-interest-center cursor-pointer">Master chefs</div>
+                                    </a>
+                                </div>
+                                <!-- imagem destaque : fim -->
+                                <!-- sub categorias : inicio -->
+                                <div class="feature-subcategory">
+                                    <button (click)="setSubcategory(16, 113)" type="button" class="btn btn-feature-subcategory">Bebidas</button>
+                                    <button (click)="setSubcategory(16, 110)" type="button" class="btn btn-feature-subcategory">Bolos</button>
+                                    <button (click)="setSubcategory(16, 108)" type="button" class="btn btn-feature-subcategory">Comida caseira</button>
+                                    <button (click)="setSubcategory(16, 109)" type="button" class="btn btn-feature-subcategory">Comida light</button>
+                                    <button (click)="setSubcategory(16, 111)" type="button" class="btn btn-feature-subcategory">Doces</button>
+                                    <button (click)="setSubcategory(16, 107)" type="button" class="btn btn-feature-subcategory">Especialidades gastronômicas</button>
+                                    <button (click)="setSubcategory(16, 112)" type="button" class="btn btn-feature-subcategory">Salgados</button>
+                                </div>
+                                <!-- sub categorias : Fim -->
+                            </div>
+                            <!-- grupo 1 : fim -->
+                            <!-- grupo 2: inicio -->
+                            <div class="col-xs-12 col-md-4">
+                                <!-- imagem destaque : Inicio -->
+                                <div class="feature-interest-center bg-Cinder">
+                                    <a [routerLink]="['/centro-interesse', '2-Apaixonados-por-bichos']">
+                                        <div class="bg-Img-Cover" style="background-image:url('/assets/metronic/worbby/global/img/destaque-pet.jpg')"></div>
+                                        <img class="interest-conter-icon" style="width: 65px;" src="/assets/metronic/worbby/global/img/icon-pets.svg" />
+                                        <div class="btn btn-feature-interest-center cursor-pointer">Apaixonados por bichos</div>
+                                    </a>
+                                </div>
+                                <!-- imagem destaque : fim -->
+                                <!-- sub categorias : inicio -->
+                                <div class="feature-subcategory">
+                                    <button (click)="setSubcategory(2, 27)" type="button" class="btn btn-feature-subcategory">Alimentação</button>
+                                    <button (click)="setSubcategory(2, 25)" type="button" class="btn btn-feature-subcategory">Cuidar</button>
+                                    <button (click)="setSubcategory(2, 28)" type="button" class="btn btn-feature-subcategory">Eventos e encontros</button>
+                                    <button (click)="setSubcategory(2, 26)" type="button" class="btn btn-feature-subcategory">Hospedagem</button>
+                                    <button (click)="setSubcategory(2, 23)" type="button" class="btn btn-feature-subcategory">Passear</button>
+                                    <button (click)="setSubcategory(2, 29)" type="button" class="btn btn-feature-subcategory">Transporte</button>
+                                    <button (click)="setSubcategory(2, 24)" type="button" class="btn btn-feature-subcategory">Treinar</button>
+                                    <button (click)="setSubcategory(2, 30)" type="button" class="btn btn-feature-subcategory">Outros</button>
+                                </div>
+                                <!-- sub categorias : Fim -->
+                            </div>
+                            <!-- Grupo 2 : Fim -->
+                            <!-- Grupo 3 : Inicio -->
+                            <div class="col-xs-12 col-md-4">
+                                <!-- imagem destaque : inicio -->
+                                <div class="feature-interest-center bg-Cinder">
+                                    <a [routerLink]="['/centro-interesse', '11-Gente-de-esportes']">
+                                        <div class="bg-Img-Cover" style="background-image:url('/assets/metronic/worbby/global/img/Destaque-esporte.jpg')"></div>
+                                        <img class="interest-conter-icon" style="width: 65px;" src="/assets/metronic/worbby/global/img/icon-sports.svg" />
+                                        <div class="btn btn-feature-interest-center cursor-pointer">Gente de esportes</div>
+                                    </a>
+                                </div>
+                                <!-- imagem destaque : fim -->
+                                <!-- sub categorias : inicio -->
+                                <div class="feature-subcategory">
+                                    <button (click)="setSubcategory(11,88)" type="button" class="btn btn-feature-subcategory">Organizar</button>
+                                    <button (click)="setSubcategory(11,86)" type="button" class="btn btn-feature-subcategory">Praticar</button>
+                                    <button (click)="setSubcategory(11,89)" type="button" class="btn btn-feature-subcategory">Reparo de equipamentos</button>
+                                    <button (click)="setSubcategory(11,87)" type="button" class="btn btn-feature-subcategory">Treinar</button>
+                                </div>
+                                <!-- sub categorias : Fim -->
+                            </div>
+                            <!-- Grupo 3 : Fim -->
+                        </div>
+                        <!-- desktop : inicio -->
                     </div>
                 </div>
             </div>

@@ -27,6 +27,9 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
   public teste: number = 5;
 
+  public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
+  public loading: string;
+
   constructor(
     injector: Injector,
     private _activatedRoute: ActivatedRoute,
@@ -41,6 +44,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.worbbiorId = Number(this._activatedRoute.snapshot.params['worbbior'].slice(0, this._activatedRoute.snapshot.params['worbbior'].indexOf("-")));
     this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
+    this.loading = "assets/metronic/worbby/global/img/loading2.gif";
 
     this.getPreviewWorbbiorProfile();
     this.getActivity();

@@ -166,6 +166,8 @@ app-root {
 
 .m-y-5px{margin-top: 5px; margin-bottom: 5px;}
 
+.m-x-xxs{margin-left: 15px; margin-right: 15px;}
+
 .m-xxs{margin: 5px;}
 
 /*NO MARGIN*/
@@ -1816,6 +1818,13 @@ body {
     height: initial !important;
 }
 
+.activity-page .activity-center .icone-box {
+    padding: 14px;
+}
+
+.activity-page .activity-center .icone-box img {
+    width: 38px;
+}
 
 /* ACTIVITIES CENTER PAGE */
 .activity-center {

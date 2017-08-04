@@ -3244,6 +3244,13 @@ recaptcha {
     padding-bottom: 60px;
 }
 
+/* ACTIVITY MODAL (CREATE OR EDIT) */
+
+.user-activity-modal .modal-dialog {
+    width: 100%;
+    max-width: 1200px;
+}
+
 /* BUSCA DE ATIVIDADES (EDITAR PERFIL WORBBIOR) */
 .select-activity .container{
     min-height: 600px;

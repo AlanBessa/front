@@ -1527,6 +1527,60 @@ export class ActivityServiceProxy {
     /**
      * @return Success
      */
+    getUsersActivityByActivityId(activityId: number, filter: string, userActivityId: number): Observable<ListResultDtoOfUserActivityInput> {
+        let url_ = this.baseUrl + "/api/services/app/Activity/GetUsersActivityByActivityId?";
+        if (activityId !== undefined)
+            url_ += "ActivityId=" + encodeURIComponent("" + activityId) + "&"; 
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (userActivityId !== undefined)
+            url_ += "UserActivityId=" + encodeURIComponent("" + userActivityId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetUsersActivityByActivityId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetUsersActivityByActivityId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfUserActivityInput>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetUsersActivityByActivityId(response: Response): Observable<ListResultDtoOfUserActivityInput> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfUserActivityInput = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfUserActivityInput.fromJS(resultData200) : new ListResultDtoOfUserActivityInput();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfUserActivityInput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getInterestCentersByActivityId(id: number): Observable<ListResultDtoOfInterestCenterForActivityDto> {
         let url_ = this.baseUrl + "/api/services/app/Activity/GetInterestCentersByActivityId?";
         if (id !== undefined)

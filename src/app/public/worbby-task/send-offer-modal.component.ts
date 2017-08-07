@@ -25,6 +25,7 @@ export class SendOfferModalComponent extends AppComponentBase implements OnInit 
     public scheduleDateDisplay:string = "Selecione uma data";
     public saving: boolean = false;
     public isMobile: boolean = false;
+    public isDateValid : boolean = false;
 
     CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
     WorbbyOfferStatus: typeof WorbbyOfferStatus = WorbbyOfferStatus;
@@ -95,6 +96,7 @@ export class SendOfferModalComponent extends AppComponentBase implements OnInit 
         }else{
             this.scheduleDateDisplay = moment(date).format('DD/MM/YYYY');
             this.showDataPicker = false;
+            this.isDateValid = true;
         }
     }
 }

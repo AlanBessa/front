@@ -27,6 +27,9 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
   public teste: number = 5;
 
+  public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
+  public loading: string;
+
   constructor(
     injector: Injector,
     private _activatedRoute: ActivatedRoute,
@@ -41,6 +44,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.worbbiorId = Number(this._activatedRoute.snapshot.params['worbbior'].slice(0, this._activatedRoute.snapshot.params['worbbior'].indexOf("-")));
     this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
+    this.loading = "assets/metronic/worbby/global/img/loading2.gif";
 
     this.getPreviewWorbbiorProfile();
     this.getActivity();
@@ -84,12 +88,15 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
       this.metaService.setTag("og:image", AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/facebok-share.jpg");
       this.metaService.setTag("og:title", "Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
       this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+    }, (error) => {
+      console.log(error);
     });
   }
 
   getActivity(): void {
     this._activityService.getUserActivity(this.activityUserId).subscribe((result) => {
       this.activityUser = result;
+      var filter = '{"filters":[';
 
       this.activityUser.evaluation.evaluations.items.forEach(element => {
         this.getPictureByGuid(element.profilePictureId).then((result) => {
@@ -99,7 +106,22 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
             element.userPicture = AppConsts.defaultProfilePicture;
           }
         });
-      });     
+      }); 
+      
+      for(let i = 0; i < this.activityUser.listInterestCenter.items.length; i++) {
+        if(i == 0) {
+          filter = filter + '{"interestcenterid":"' + this.activityUser.listInterestCenter.items[i].id + '", "interestcenterparentid":"' + this.activityUser.listInterestCenter.items[i].parentId + '"}';
+        }
+        else {
+          filter = filter + ',{"interestcenterid":"' + this.activityUser.listInterestCenter.items[i].id + '", "interestcenterparentid":"' + this.activityUser.listInterestCenter.items[i].parentId + '"}';
+        }
+      }
+
+      filter = filter + ']}';
+
+      this._activityService.getUsersActivityByActivityId(this.activityUser.activityId, filter, this.activityUser.id).subscribe((result) => {
+        let teste = result;
+      });
     });
   }
 }

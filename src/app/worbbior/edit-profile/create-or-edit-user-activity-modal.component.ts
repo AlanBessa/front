@@ -53,6 +53,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     cropperSettings2: CropperSettings;
     image:any = new Image();
     cropActive:boolean = false;
+    featureThumbnail:string;
 
     public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
@@ -77,7 +78,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
 
     }
 
-    uploadAvatarChangeListener($event):void{
+    uploadFeatureChangeListener($event):void{
         var self = this;
         var file:File = $event.target.files[0];
         var myReader:FileReader = new FileReader();
@@ -85,8 +86,78 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         this.angulartics2.eventTrack.next({ action: "Imagem do perfil", properties: { category: 'Upload', label: file.size}});
         myReader.onloadend = function (loadEvent:any) {
             self.image.src = loadEvent.target.result;
-            self.cropper.setImage(self.image);
-            self.cropActive = true;
+            
+
+            self.image.onload = function(){
+                if(self.image.width < 1400 || self.image.height < 550){
+                    self.message.error("A imagem tem que ter largura mínima de 1400 pixels e altura mínima de 550 pixels");
+                }else{
+                    self.cropper.setImage(self.image);
+                    self.cropActive = true;
+
+                    var canvas = document.createElement('canvas');
+                    var MAX_WIDTH = 330;
+                    var MAX_HEIGHT = 330;
+                    var width = self.image.width;
+                    var height = self.image.height;
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+
+                    ctx.drawImage(self.image, 0, 0, width, height);
+
+                    self.resample_single(canvas, width,height,true);
+
+                    var canvasTemp = document.createElement('canvas');
+                    var ctxTemp = canvas.getContext("2d");
+
+                    var widthTemp = canvas.width;
+                    var heightTemp = canvas.height;
+
+                    var imageData;
+
+
+                    if(canvas.width < canvas.height){
+                        heightTemp *= 330 / widthTemp;
+                        widthTemp = 330;
+                        ctx.drawImage(self.image, 0, 0, widthTemp, heightTemp);
+
+                        imageData = ctx.getImageData(0, heightTemp/2-(330/2), 330, 330);
+
+                    } else {
+                        widthTemp *= 330 / heightTemp;
+                        heightTemp = 330;
+                        ctx.drawImage(self.image, 0, 0, widthTemp, heightTemp);
+
+                        imageData = ctx.getImageData(widthTemp/2-(330/2), 0, 330, 330);
+                    }
+
+                    var canvas2 = document.createElement("canvas");
+                    canvas2.width = 330;
+                    canvas2.height = 330;
+                    var ctx1 = canvas2.getContext("2d");
+                    ctx1.rect(0, 0, 330, 330);
+                    ctx1.fillStyle = 'white';
+                    ctx1.fill();
+                    ctx1.putImageData(imageData, 0, 0);
+
+                    //self.resample_single(canvas2, canvas2.width,canvas2.height,true);
+
+                    self.activityUser.featuredImageThumbnail = canvas2.toDataURL("image/png");
+                }
+            }
         };
 
         myReader.readAsDataURL(file);
@@ -169,6 +240,16 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         this.activityUser.unitMeasure = UnitMeasure[this.currentUnitMeasureOptions];
         this.activityUser.cancellationPolicy = CancellationPolicy[this.currentCancellationPolicyOptions];
 
+        this.getPictureByGuid(this.activityUser.featuredImageId).then((result) => {
+                //element.fileBase64 = result;
+            this.activityUser.featuredImage = result;
+        });
+
+        this.getPictureByGuid(this.activityUser.featuredImageThumbnailId).then((result) => {
+                //element.fileBase64 = result;
+            this.activityUser.featuredImageThumbnail = result;
+        });
+
 
         this.modal.show();
     }
@@ -195,25 +276,44 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     }
 
     save(): void {
-        this.saving = true;
-        if (this.activityUser.tenantId == 0 || this.activityUser.tenantId == null) {
-            this.activityUser.tenantId = abp.session.tenantId;
+        let self = this;
+        self.saving = true;
+        if (self.activityUser.tenantId == 0 || self.activityUser.tenantId == null) {
+            self.activityUser.tenantId = abp.session.tenantId;
         }
-        this.activityUser.listGalleryActivity = new ListResultDtoOfGalleryActivityDto();
-        this.activityUser.listGalleryActivity.items = this.galleryImages;
+        self.activityUser.listGalleryActivity = new ListResultDtoOfGalleryActivityDto();
+        self.activityUser.listGalleryActivity.items = self.galleryImages;
 
-        this.activityUser.featuredImage = this.data.image;
-        this.activityUser.featuredImageThumbnail = this.data.image;
+        self.activityUser.featuredImage = self.data.image ? self.data.image : self.activityUser.featuredImage;
 
-        this._activityService.addActivityToUser(this.activityUser)
-            .finally(() => { this.saving = false; })
+        if(self.data.image){
+            var thumbImage = new Image();
+            thumbImage.onload = function() {
+                self._activityService.addActivityToUser(self.activityUser)
+                .finally(() => { 
+                    self.saving = false; 
+                    self.cropActive = false;
+                })
+                .subscribe(() => {
+                    //if (!this.remove) {
+                        self.message.success(self.l('SavedSuccessfully'));
+                        self.close();
+                        self.modalSave.emit(null);
+                    //}
+                });
+            };
+            thumbImage.src = this.data.image;
+        }else{
+            self._activityService.addActivityToUser(self.activityUser)
+            .finally(() => { self.saving = false; })
             .subscribe(() => {
                 //if (!this.remove) {
-                    this.message.success(this.l('SavedSuccessfully'));
-                    this.close();
-                    this.modalSave.emit(null);
+                    self.message.success(self.l('SavedSuccessfully'));
+                    self.close();
+                    self.modalSave.emit(null);
                 //}
             });
+        }
     }
 
     resample_single(canvas, width, height, resize_canvas):void {

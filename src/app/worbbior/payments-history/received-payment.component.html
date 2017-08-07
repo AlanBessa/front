@@ -36,21 +36,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let worbbyTaskSale of worbbyTasksSales">
                                     <td>
+                                        {{worbbyTaskSale.worbbyTask.totalPrice}}
+                                        {{worbbyTaskSale.balanceAvailable}}
+                                        {{worbbyTaskSale.balanceAvailableDate}}
+                                        {{worbbyTaskSale.cancellationTax}}
+                                        {{worbbyTaskSale.cancellationTaxAmount}}
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-2">
                                                 <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
                                             </div>
                                             <div class="col-xs-12 col-sm-10">
-                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>Título tarefa - título tarefa</strong></h6>
+                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>{{worbbyTaskSale.worbbyTask.title}}</strong></h6>
                                                 <p class="small m-b-xxxs">Nome Worbbient da Silva - 02/02/2017</p>
                                             </div>
                                         </div>                                        
                                     </td>
                                     <td>
-                                        <span>R$ 960,00</span><br />
-                                        <span class="cor-Flamingo">-20% | R$ 960,00</span><br />
+                                        <span>R$ {{{worbbyTaskSale.worbbyTask.totalPrice | number:'1.2-2'}}</span><br />
+                                        <span class="cor-Flamingo">-{{worbbyTaskSale.worbbyTask}}% | R$ {{{worbbyTaskSale.worbbyTask.totalPrice | number:'1.2-2'}}</span><br />
                                         <span class="cor-Botticelli">Disponível no 05/03/2017 | </span><span class="cor-CaribbeanGreen">R$ 960,00</span>
                                     </td>
                                 </tr>

@@ -9,14 +9,28 @@
           <button type="button" class="close" (click)="close()" aria-label="Close">
             <i class="fa fa-remove"></i>
           </button>
-          <div class="col-xs-12">
-            Personalize o título e a descrição da atividade escolhida.<br /> Determine o quanto você quer cobrar por ela
-            e qual será a sua política de cancelamento.<br /> Capriche, essas informações farão parte da sua apresentação
-            na plataforma.
-          </div>
         </div>
         <div *ngIf="active" class="modal-body">
           <div class="row">
+            <div class="col-xs-12 select-activity-form">
+              <div class="row activity-selected borda-Tangerine no-m-x m-b-xss">
+                <div class="col-xs-12 p-y-xss">
+                  <a class="card-talents cursor-pointer">
+                    <h4 class="modal-title">
+                      {{activity.title}}
+                    </h4>
+                    <div *ngFor="let interestCenter of interestCenters | groupBy:'parentDisplayName'" class="m-y-10px">
+                        <img alt="" class="img-circle img-icon-list pull-left" [src]="interestCenter.value[0].parentPicture" /> {{interestCenter.parentDisplayName}}
+                        <div class="p-y-xxxs p-l-40px">
+                            <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
+                                <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
+                            </span>
+                        </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
             <div class="col-xs-12 col-md-6">
               <div class="row">
                 <div class="col-xs-12">
@@ -118,7 +132,7 @@
                             {{!uploading ? 'Anexar' : 'Enviando...'}}											
                           </span>
                         </label>
-                        <input type="file" id="uploadBanner" name="uploadAvatar" style="display:none;" (change)="uploadAvatarChangeListener($event)">
+                        <input type="file" id="uploadBanner" name="uploadAvatar" style="display:none;" (change)="uploadFeatureChangeListener($event)">
                         <input type="text" id="uploader" class="form-control" readonly="" />
                       </div>
                   </div>
@@ -141,30 +155,11 @@
               </div>
             </div>
             <div class="col-xs-12">
-              <div class="row">
-                <div class="col-xs-12 select-activity-form">
-                  <div class="row activity-selected borda-Tangerine no-m-x m-b-xss">
-                    <div class="col-xs-12 p-y-xss">
-                      <a class="card-talents cursor-pointer">
-                        <h4 class="modal-title">
-                          {{activity.title}}
-                        </h4>
-                        <div *ngFor="let interestCenter of interestCenters | groupBy:'parentDisplayName'" class="m-y-10px">
-                            <img alt="" class="img-circle img-icon-list pull-left" [src]="interestCenter.value[0].parentPicture" /> {{interestCenter.parentDisplayName}}
-                            <div class="p-y-xxxs p-l-40px">
-                                <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
-                                    <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
-                                </span>
-                            </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <section class="container-fluid find-talent-home">
+                <div *ngIf="activityUser.featuredImage && !data.image" class="activity-modal-header-view" [ngStyle]="{'background-image': 'url(' + activityUser.featuredImage + ')'}"></div>
                 <div *ngIf="data.image" class="activity-modal-header-view" [ngStyle]="{'background-image': 'url(' + data.image + ')'}"></div>
               </section>
+              <div *ngIf="activityUser.featuredImageThumbnail" class="feature-thumbnail" [ngStyle]="{'background-image': 'url(' + activityUser.featuredImageThumbnail + ')'}"></div>
             </div>
           </div>
         </div>

@@ -3289,6 +3289,12 @@ recaptcha {
     left: 0;
 }
 
+.user-activity-modal .feature-thumbnail {
+    width: 330px;
+    height: 228px;
+    background-size: cover;
+}
+
 /* BUSCA DE ATIVIDADES (EDITAR PERFIL WORBBIOR) */
 .select-activity .container{
     min-height: 600px;

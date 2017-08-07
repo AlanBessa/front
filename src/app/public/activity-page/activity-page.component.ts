@@ -2,11 +2,11 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from "shared/common/app-component-base";
 import { ActivatedRoute } from "@angular/router";
-import { WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput } from "shared/service-proxies/service-proxies";
+import { WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput, ListResultDtoOfUserActivityInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { MetaService } from "@nglibs/meta";
-import { DayOfWeek } from "shared/AppEnums";
+import { DayOfWeek, CancellationPolicy, UnitMeasure } from "shared/AppEnums";
 
 @Component({
   templateUrl: './activity-page.component.html',
@@ -15,11 +15,14 @@ import { DayOfWeek } from "shared/AppEnums";
 
 export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
-  public active: boolean = false;
+  public worbbiorPerfilCarregado: boolean = false;
+  public similarActivityCarregado: boolean = false;
+  public atividadeCarregado:boolean = false;
 
-  public worbbiorId: number;
   public activityUserId: number;
   public DayOfWeek: typeof DayOfWeek = DayOfWeek;
+  public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
+  public UnitMeasure: typeof UnitMeasure = UnitMeasure;
   public activityUser: UserActivityInput;
 
   public worbbiorProfile: WorbbiorProfileDto;
@@ -29,6 +32,8 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
   public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
   public loading: string;
+
+  public similarActivityList: UserActivityInput[] = [];
 
   constructor(
     injector: Injector,
@@ -42,16 +47,18 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit() {
-    this.worbbiorId = Number(this._activatedRoute.snapshot.params['worbbior'].slice(0, this._activatedRoute.snapshot.params['worbbior'].indexOf("-")));
     this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
     this.loading = "assets/metronic/worbby/global/img/loading2.gif";
 
-    this.getPreviewWorbbiorProfile();
+    this.worbbiorPerfilCarregado = false;
+    this.atividadeCarregado = false;
+    this.similarActivityCarregado = false;
+
     this.getActivity();
   }
 
-  getPreviewWorbbiorProfile(): void {
-    this._worbbiorService.getPreviewWorbbiorProfile(this.worbbiorId).subscribe((result) => {
+  getPreviewWorbbiorProfile(worbbiorId:number): void {
+    this._worbbiorService.getPreviewWorbbiorProfile(worbbiorId).subscribe((result) => {
       this.worbbiorProfile = result;
 
       this.getPictureByGuid(this.worbbiorProfile.worbbior.userPictureId).then((result) => {
@@ -61,7 +68,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
           this.worbbiorProfile.worbbior.userPicture = AppConsts.defaultProfilePicture;
         }
 
-        this.active = true;
+        this.worbbiorPerfilCarregado = true;
       });
 
       this.worbbiorProfile.userActivities.items.forEach(element => {
@@ -106,6 +113,8 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
             element.userPicture = AppConsts.defaultProfilePicture;
           }
         });
+
+        this.atividadeCarregado = true;
       }); 
       
       for(let i = 0; i < this.activityUser.listInterestCenter.items.length; i++) {
@@ -119,9 +128,21 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
       filter = filter + ']}';
 
-      this._activityService.getUsersActivityByActivityId(this.activityUser.activityId, filter, this.activityUser.id).subscribe((result) => {
-        let teste = result;
+      
+      this._worbbiorService.getWorbbiorByUserId(this.activityUser.userId).subscribe((result) => {
+        let worbbior = result;
+
+        this.getPreviewWorbbiorProfile(worbbior.id);
+      });
+
+      this._activityService.getUsersActivityByActivityId(this.activityUser.activityId, filter, this.activityUser.id).subscribe((result: ListResultDtoOfUserActivityInput) => {
+        this.similarActivityList = result.items;
+        this.similarActivityCarregado = true;
       });
     });
+  }
+
+  goToActivityPage(userId:number, userActivityId:number, userActivityName:string): void {
+    let url = "/atividade/" + userActivityId + "-" + userActivityName.replace(/\s+/g, '-').toLowerCase();
   }
 }

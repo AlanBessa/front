@@ -179,6 +179,8 @@ app-root {
 .no-m-y{margin-top:0 !important; margin-bottom:0 !important;}
 .no-m-x{margin-left:0 !important; margin-right:0 !important;}
 
+.no-m {margin: 0 !important;}
+
 /*PADDING*/
 .p-l-md {padding-left: 90px;}
 .p-l-xs{padding-left: 30px;}
@@ -1804,14 +1806,21 @@ body {
 /* ACTIVITIES PAGE */
 
 .similar-activities .card-talent {
-    width: 240px !important;
+    width: 250px !important;
     margin: 0 15px;
     padding: 0;
     border: 0;
 }
 
-.similar-activities .card-talent img {
-    width: 240px !important;
+.similar-activities .card-talent a {
+    display: block !important;
+}
+
+.similar-activities .card-talent a .imagem-display {
+    background-size: cover !important;
+    height: 200px;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
 }
 
 .similar-activities .slick-slide {
@@ -1824,6 +1833,42 @@ body {
 
 .activity-page .activity-center .icone-box img {
     width: 38px;
+}
+
+.activity-page .container {
+    height: 100%;
+    position: relative
+}
+
+.activity-page .container .btn-gallery {
+    position: absolute;
+    bottom: 25px;
+    right: 0;    
+}
+
+.activity-page .container .btn-gallery button {
+    padding-left: 40px !important;
+}
+
+.activity-page .container .btn-gallery img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+}
+
+.activity-page .info-activities .card-list .card-default {
+    min-height: 89px;
+    box-shadow: none;
+    border-bottom: 4px solid #FFCB33;
+}
+
+.activity-page .info-activities .card-list .card-default.card-default-no-hover {
+    border-bottom: 0;
+}
+
+.activity-page .info-activities .card-list .card-default:hover {
+    border: 0;
 }
 
 /* ACTIVITIES CENTER PAGE */
@@ -4361,15 +4406,15 @@ rating.txt-small .glyphicon-heart-empty {
             display: table-cell;
             vertical-align: middle;
         }
+
+        /*RATING*/
+        .card-details rating i, .profile-details rating i {
+            font-size: 13px!important;
+        }
     }
 
     /*TABLET LANDSCAPE*/
     @media (max-width: 979px) {
-        /*RATING*/
-        .card-details rating i, .profile-details rating i {
-            font-size: 18px!important;
-        }
-
         .txt-small-tablet {
             font-size: 14px !important;
         }
@@ -4433,13 +4478,14 @@ rating.txt-small .glyphicon-heart-empty {
         .header.nav-ativo .logotipo-nav-close {
             display: block!important;
         }
+
         #menuProfileLinks{
             display: block!important
         }
 
         .col-sm-offset-0 {
             margin-left: 0;
-        }
+        }        
     }   
 
     /*TABLET PORTRAIT*/
@@ -5103,6 +5149,11 @@ rating.txt-small .glyphicon-heart-empty {
             margin: 2px 0 0 0 !important;
             width: 100% !important;
         }
+
+        /*RATING*/
+        .card-details rating i, .profile-details rating i {
+            font-size: 18px!important;
+        }
     }
 
     @media (max-width: 680px) {
@@ -5337,12 +5388,10 @@ rating.txt-small .glyphicon-heart-empty {
         }
 
         /* BOX */
-
         .box {
             padding-left: 0 !important;
             padding-right: 0 !important; 
         }
-
         
         /* LANDING PAGE */
         .btn-landing-cadastro {
@@ -5368,7 +5417,6 @@ rating.txt-small .glyphicon-heart-empty {
         }
 
         /* FEEDBACK COMPONENT */
-
         feedbackComponent {
             position: absolute;
             bottom: 410px;
@@ -5379,6 +5427,14 @@ rating.txt-small .glyphicon-heart-empty {
         .box-feedback {
             position: absolute;            
             top: initial;
+        }
+
+        .activity-page .activity-center .icone-box {
+            padding: 10px !important;
+        }
+
+        .activity-page .activity-center .icone-box img {
+            width: 20px !important;
         }
     }    
 

@@ -244,7 +244,7 @@ import { ActivityPageComponent } from "app/public/activity-page/activity-page.co
                     },
                     { path: 'support', redirectTo: '/publico/suporte', pathMatch: 'full' },
                     {
-                      path: 'worbbior/:worbbior/atividade/:activity', component: ActivityPageComponent, data: {
+                      path: 'atividade/:activity', component: ActivityPageComponent, data: {
                         meta: {
                           title: 'Worbby',
                           description: ''

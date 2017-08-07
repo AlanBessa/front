@@ -3268,6 +3268,18 @@ recaptcha {
     max-width: 1200px;
 }
 
+.user-activity-modal .activity-modal-header-view {
+    height: 500px;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.6;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
 /* BUSCA DE ATIVIDADES (EDITAR PERFIL WORBBIOR) */
 .select-activity .container{
     min-height: 600px;

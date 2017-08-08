@@ -1875,6 +1875,11 @@ body {
     border: 0;
 }
 
+.activity-page .hideGallery {
+    position: absolute;
+    z-index: -10;
+}
+
 /* ACTIVITIES CENTER PAGE */
 .activity-center {
     height: 577px;

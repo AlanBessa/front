@@ -56,8 +56,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
             this.getPreviewWorbbiorProfile();
         }else{
             this.getWorbbiorProfile();
-        }
-        
+        }        
     }
 
     ngAfterViewInit(): void {
@@ -191,7 +190,6 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         $(target).parent().parent().parent().parent().parent().find(".activity-comments-list").toggle();
         $(target).parent().parent().parent().parent().parent().find(".activity-comments").toggleClass("active-card");
         // $(target).parent().parent().find(".activity-comments-list").toggle();
-
     }
 
     sendReport(): void {
@@ -238,9 +236,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         }else{
             this.showLoginRegister = true;
         }    
-    }
-
-    
+    }    
 
     sharedFacebook():void {
         FB.ui({

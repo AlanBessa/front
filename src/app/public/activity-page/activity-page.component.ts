@@ -1,12 +1,14 @@
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from "shared/common/app-component-base";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput, ListResultDtoOfUserActivityInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { MetaService } from "@nglibs/meta";
 import { DayOfWeek, CancellationPolicy, UnitMeasure } from "shared/AppEnums";
+import { AppSessionService } from "shared/common/session/app-session.service";
+import { Ng2ImageGalleryComponent } from 'ng2-image-gallery';
 
 @Component({
   templateUrl: './activity-page.component.html',
@@ -15,9 +17,11 @@ import { DayOfWeek, CancellationPolicy, UnitMeasure } from "shared/AppEnums";
 
 export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
+  @ViewChild('gallery') gallery: Ng2ImageGalleryComponent;
+
   public worbbiorPerfilCarregado: boolean = false;
   public similarActivityCarregado: boolean = false;
-  public atividadeCarregado:boolean = false;
+  public atividadeCarregado: boolean = false;
 
   public activityUserId: number;
   public DayOfWeek: typeof DayOfWeek = DayOfWeek;
@@ -31,7 +35,7 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   public teste: number = 5;
 
   public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
-  public loading: string;
+  public loading: string = "assets/metronic/worbby/global/img/loading2.gif";
 
   public similarActivityList: UserActivityInput[] = [];
 
@@ -41,23 +45,34 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
     private _activityService: ActivityServiceProxy,
     private _worbbiorService: WorbbiorServiceProxy,
     private metaService: MetaService,
+    private _appSessionService: AppSessionService,
+    private router: Router,
     private sanitizer: DomSanitizer
   ) {
     super(injector);
   }
 
   ngOnInit() {
-    this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
-    this.loading = "assets/metronic/worbby/global/img/loading2.gif";
+    this._activatedRoute.params.subscribe(params => {
+      this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
 
-    this.worbbiorPerfilCarregado = false;
-    this.atividadeCarregado = false;
-    this.similarActivityCarregado = false;
+      this.worbbiorPerfilCarregado = false;
+      this.atividadeCarregado = false;
+      this.similarActivityCarregado = false;
 
-    this.getActivity();
+      this.worbbiorProfile = undefined;
+      this.activityUser = undefined;
+      this.similarActivityList = [];
+
+      this.getActivity();
+     }); 
   }
 
-  getPreviewWorbbiorProfile(worbbiorId:number): void {
+  openGallery(): void {
+    this.gallery.openLightboxGallery(0);
+  }
+
+  getPreviewWorbbiorProfile(worbbiorId: number): void {
     this._worbbiorService.getPreviewWorbbiorProfile(worbbiorId).subscribe((result) => {
       this.worbbiorProfile = result;
 
@@ -112,13 +127,37 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
           } else {
             element.userPicture = AppConsts.defaultProfilePicture;
           }
-        });
+        });        
+      });
 
-        this.atividadeCarregado = true;
-      }); 
-      
-      for(let i = 0; i < this.activityUser.listInterestCenter.items.length; i++) {
-        if(i == 0) {
+      this.atividadeCarregado = true;
+
+      this.getPictureByGuid(this.activityUser.featuredImageId).then((result) => {
+          if(!this.isNullOrEmpty(result)){
+              this.activityUser.featuredImage = result;
+          }else{
+              this.activityUser.featuredImage = this.searchBanner;
+          }
+      });
+
+      this.activityUser.listGalleryActivity.items.forEach(element => {
+          var image = new Image();
+          if (element.galleryPictureId) {
+              this.getPictureByGuid(element.galleryPictureId).then((result) => {
+                  element.image = result;
+                  element.thumbnail = result;
+              });
+          } 
+      });
+
+      this._worbbiorService.getWorbbiorByUserId(this.activityUser.userId).subscribe((result) => {
+        let worbbior = result;
+
+        this.getPreviewWorbbiorProfile(worbbior.id);
+      });
+
+      for (let i = 0; i < this.activityUser.listInterestCenter.items.length; i++) {
+        if (i == 0) {
           filter = filter + '{"interestcenterid":"' + this.activityUser.listInterestCenter.items[i].id + '", "interestcenterparentid":"' + this.activityUser.listInterestCenter.items[i].parentId + '"}';
         }
         else {
@@ -126,23 +165,57 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
         }
       }
 
-      filter = filter + ']}';
-
-      
-      this._worbbiorService.getWorbbiorByUserId(this.activityUser.userId).subscribe((result) => {
-        let worbbior = result;
-
-        this.getPreviewWorbbiorProfile(worbbior.id);
-      });
+      filter = filter + ']}';      
 
       this._activityService.getUsersActivityByActivityId(this.activityUser.activityId, filter, this.activityUser.id).subscribe((result: ListResultDtoOfUserActivityInput) => {
         this.similarActivityList = result.items;
+
+        this.similarActivityList.forEach(element => {
+          this.getPictureByGuid(element.featuredImageId).then((result) => {
+            if(!this.isNullOrEmpty(result)) {
+              element.featuredImage = result;
+            }
+            else {
+              element.featuredImage = this.searchBanner;
+            }
+          });
+        });
+
         this.similarActivityCarregado = true;
       });
     });
   }
 
-  goToActivityPage(userId:number, userActivityId:number, userActivityName:string): void {
-    let url = "/atividade/" + userActivityId + "-" + userActivityName.replace(/\s+/g, '-').toLowerCase();
+  goToActivityPage(userId: number, userActivityId: number, userActivityName: string): void {
+    let url = userActivityId + "-" + this.changeSpecialCharacterToNormalCharacter(userActivityName.replace(/\s+/g, '-').toLowerCase());
+    this.router.navigate(["/publico/atividade/", url]);
+  }
+
+  offertTask(activityUser: UserActivityInput): void {
+    if (abp.session.userId) {
+      if (activityUser.userId == abp.session.userId) {
+        this.message.error('Você não pode ofertar uma tarefa para si mesmo!', 'Ops! Algo deu errado.')
+          .done(() => { });
+      }
+      else {
+        if (this._appSessionService.userRoleName == 'Worbbior') {
+          this.message.confirm(
+            "", "Deseja  alterar o seu prefil para o worbbient?",
+            isConfirmed => {
+              if (isConfirmed) {
+                this._appSessionService.userRoleName = "Worbbient";
+                setTimeout(
+                  function () {
+                    location.href = "/postar-tarefa/" + activityUser.id;
+                  }, 500);
+              }
+            });
+        }
+        else if (this._appSessionService.userRoleName == 'Worbbient') {
+          this._appSessionService.userRoleName = "Worbbient";
+          this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
+        }
+      }
+    }
   }
 }

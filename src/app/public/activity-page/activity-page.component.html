@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="btn-gallery">
-                <button type="button" class="btn btn-prime-inverted">
+                <button type="button" class="btn btn-prime-inverted" [disabled]="true">
                     <img src="assets/metronic/worbby/global/img/icon-photos.svg" />
                     <span>Ver fotos (7)</span>
                 </button>
@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-sm-push-8 menuProfile">
                             <div class="m-t-24px m-b-xxxs">
-                                <button (click)="postWorbbyTask()" class="btn btn-around cor-Cinder btn-prime btn-block">
+                                <button (click)="offertTask(activityUser)" class="btn btn-around cor-Cinder btn-prime btn-block">
                                     Ofereça uma tarefa
                                 </button>
                             </div>

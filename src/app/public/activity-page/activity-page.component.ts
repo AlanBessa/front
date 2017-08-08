@@ -1,12 +1,13 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from "shared/common/app-component-base";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput, ListResultDtoOfUserActivityInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { MetaService } from "@nglibs/meta";
 import { DayOfWeek, CancellationPolicy, UnitMeasure } from "shared/AppEnums";
+import { AppSessionService } from "shared/common/session/app-session.service";
 
 @Component({
   templateUrl: './activity-page.component.html',
@@ -41,6 +42,8 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
     private _activityService: ActivityServiceProxy,
     private _worbbiorService: WorbbiorServiceProxy,
     private metaService: MetaService,
+    private _appSessionService: AppSessionService,
+    private router: Router,
     private sanitizer: DomSanitizer
   ) {
     super(injector);
@@ -143,6 +146,96 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   }
 
   goToActivityPage(userId:number, userActivityId:number, userActivityName:string): void {
-    let url = "/atividade/" + userActivityId + "-" + userActivityName.replace(/\s+/g, '-').toLowerCase();
+    let url = "/publico/atividade/" + userActivityId + "-" + this.changeSpecialCharacterToNormalCharacter(userActivityName.replace(/\s+/g, '-').toLowerCase());
+    this.router.navigate([url]);
+  }
+
+  offertTask(activityUser: UserActivityInput): void {
+    if(abp.session.userId){
+      if(activityUser.userId == abp.session.userId){
+          this.message.error('Você não pode ofertar uma tarefa para si mesmo!', 'Ops! Algo deu errado.')
+          .done(() => {});
+      }
+      else {
+        if(this._appSessionService.userRoleName == 'Worbbior') {
+          this.message.confirm(
+          "", "Deseja  alterar o seu prefil para o worbbient?",
+          isConfirmed => {
+              if (isConfirmed) {
+              this._appSessionService.userRoleName = "Worbbient";
+              setTimeout(
+                function(){ 
+                    location.href = "/postar-tarefa/" + activityUser.id;
+                },500);
+              }
+          });
+        }
+        else if(this._appSessionService.userRoleName == 'Worbbient'){
+          this._appSessionService.userRoleName = "Worbbient";
+          this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
+        }
+      }    
+    }  
+  }
+
+  changeSpecialCharacterToNormalCharacter(str: string): string {
+    var conversions = new Object();
+    conversions['ae'] = 'ä|æ|ǽ';
+    conversions['oe'] = 'ö|œ';
+    conversions['ue'] = 'ü';
+    conversions['Ae'] = 'Ä';
+    conversions['Ue'] = 'Ü';
+    conversions['Oe'] = 'Ö';
+    conversions['A'] = 'À|Á|Â|Ã|Ä|Å|Ǻ|Ā|Ă|Ą|Ǎ';
+    conversions['a'] = 'à|á|â|ã|å|ǻ|ā|ă|ą|ǎ|ª';
+    conversions['C'] = 'Ç|Ć|Ĉ|Ċ|Č';
+    conversions['c'] = 'ç|ć|ĉ|ċ|č';
+    conversions['D'] = 'Ð|Ď|Đ';
+    conversions['d'] = 'ð|ď|đ';
+    conversions['E'] = 'È|É|Ê|Ë|Ē|Ĕ|Ė|Ę|Ě';
+    conversions['e'] = 'è|é|ê|ë|ē|ĕ|ė|ę|ě';
+    conversions['G'] = 'Ĝ|Ğ|Ġ|Ģ';
+    conversions['g'] = 'ĝ|ğ|ġ|ģ';
+    conversions['H'] = 'Ĥ|Ħ';
+    conversions['h'] = 'ĥ|ħ';
+    conversions['I'] = 'Ì|Í|Î|Ï|Ĩ|Ī|Ĭ|Ǐ|Į|İ';
+    conversions['i'] = 'ì|í|î|ï|ĩ|ī|ĭ|ǐ|į|ı';
+    conversions['J'] = 'Ĵ';
+    conversions['j'] = 'ĵ';
+    conversions['K'] = 'Ķ';
+    conversions['k'] = 'ķ';
+    conversions['L'] = 'Ĺ|Ļ|Ľ|Ŀ|Ł';
+    conversions['l'] = 'ĺ|ļ|ľ|ŀ|ł';
+    conversions['N'] = 'Ñ|Ń|Ņ|Ň';
+    conversions['n'] = 'ñ|ń|ņ|ň|ŉ';
+    conversions['O'] = 'Ò|Ó|Ô|Õ|Ō|Ŏ|Ǒ|Ő|Ơ|Ø|Ǿ';
+    conversions['o'] = 'ò|ó|ô|õ|ō|ŏ|ǒ|ő|ơ|ø|ǿ|º';
+    conversions['R'] = 'Ŕ|Ŗ|Ř';
+    conversions['r'] = 'ŕ|ŗ|ř';
+    conversions['S'] = 'Ś|Ŝ|Ş|Š';
+    conversions['s'] = 'ś|ŝ|ş|š|ſ';
+    conversions['T'] = 'Ţ|Ť|Ŧ';
+    conversions['t'] = 'ţ|ť|ŧ';
+    conversions['U'] = 'Ù|Ú|Û|Ũ|Ū|Ŭ|Ů|Ű|Ų|Ư|Ǔ|Ǖ|Ǘ|Ǚ|Ǜ';
+    conversions['u'] = 'ù|ú|û|ũ|ū|ŭ|ů|ű|ų|ư|ǔ|ǖ|ǘ|ǚ|ǜ';
+    conversions['Y'] = 'Ý|Ÿ|Ŷ';
+    conversions['y'] = 'ý|ÿ|ŷ';
+    conversions['W'] = 'Ŵ';
+    conversions['w'] = 'ŵ';
+    conversions['Z'] = 'Ź|Ż|Ž';
+    conversions['z'] = 'ź|ż|ž';
+    conversions['AE'] = 'Æ|Ǽ';
+    conversions['ss'] = 'ß';
+    conversions['IJ'] = 'Ĳ';
+    conversions['ij'] = 'ĳ';
+    conversions['OE'] = 'Œ';
+    conversions['f'] = 'ƒ';
+
+    for(var i in conversions){
+        var re = new RegExp(conversions[i],"g");
+        str = str.replace(re,i);
+    }
+
+    return str;
   }
 }

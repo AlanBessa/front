@@ -54,7 +54,7 @@
                                         <div class="card-default card-default-no-hover text-center p-y-xxs">
                                             <img alt="Icon task" class="" src="/assets/metronic/worbby/global/img/icon-tasks-done.svg" />
                                             <p class="small" *ngIf="activityUser.taskPerformed <= 1">{{activityUser.taskPerformed}} tarefa realizada</p>
-                                            <p class="small" *ngIf="activityUser.taskPerformed > 2">{{activityUser.taskPerformed}} tarefas realizadas</p>
+                                            <p class="small" *ngIf="activityUser.taskPerformed > 1">{{activityUser.taskPerformed}} tarefas realizadas</p>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 col-sm-3 no-pad-x">
@@ -124,7 +124,7 @@
                             <div class="card-profile" >
                                 <div class="col-xs-12">
                                     <div class="sidebar-header m-t-sm p-b-sm">
-                                        <div class="display-table">
+                                        <div (click)="goWorbbiorPage(worbbiorProfile)" class="display-table cursor-pointer">
                                             <div class="divProfile m-r-20px-sm">
                                                 <img id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.worbbior.userPicture" />
                                                <span *ngIf="worbbiorProfile.worbbior.premium" class="profile-pro"></span>

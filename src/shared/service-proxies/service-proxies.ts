@@ -2737,7 +2737,7 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
-    cancelBalanceTransfer(input: BalanceTransferMessageInput): Observable<void> {
+    cancelBalanceTransfer(input: EntityDtoOfInt64): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/CancelBalanceTransfer";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -19849,53 +19849,6 @@ export interface IEntityDtoOfInt64 {
     id: number;
 }
 
-export class BalanceTransferMessageInput implements IBalanceTransferMessageInput {
-    id: number;
-    message: string;
-    worbbiorName: string;
-    worbbiorEmail: string;
-
-    constructor(data?: IBalanceTransferMessageInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-            this.message = data["message"];
-            this.worbbiorName = data["worbbiorName"];
-            this.worbbiorEmail = data["worbbiorEmail"];
-        }
-    }
-
-    static fromJS(data: any): BalanceTransferMessageInput {
-        let result = new BalanceTransferMessageInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["message"] = this.message;
-        data["worbbiorName"] = this.worbbiorName;
-        data["worbbiorEmail"] = this.worbbiorEmail;
-        return data; 
-    }
-}
-
-export interface IBalanceTransferMessageInput {
-    id: number;
-    message: string;
-    worbbiorName: string;
-    worbbiorEmail: string;
-}
-
 export class BalanceAvailableOutput implements IBalanceAvailableOutput {
     amount: number;
 
@@ -25977,6 +25930,7 @@ export class SaleOutput implements ISaleOutput {
     saleStatus: SaleOutputSaleStatus;
     creationTime: moment.Moment;
     lastModificationTime: moment.Moment;
+    capturedAmountDate: moment.Moment;
     id: number;
 
     constructor(data?: ISaleOutput) {
@@ -25998,6 +25952,7 @@ export class SaleOutput implements ISaleOutput {
             this.saleStatus = data["saleStatus"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.capturedAmountDate = data["capturedAmountDate"] ? moment(data["capturedAmountDate"].toString()) : <any>undefined;
             this.id = data["id"];
         }
     }
@@ -26018,6 +25973,7 @@ export class SaleOutput implements ISaleOutput {
         data["saleStatus"] = this.saleStatus;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["capturedAmountDate"] = this.capturedAmountDate ? this.capturedAmountDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -26032,6 +25988,7 @@ export interface ISaleOutput {
     saleStatus: SaleOutputSaleStatus;
     creationTime: moment.Moment;
     lastModificationTime: moment.Moment;
+    capturedAmountDate: moment.Moment;
     id: number;
 }
 

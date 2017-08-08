@@ -11,6 +11,7 @@ import { MetaService } from '@nglibs/meta';
 import { AppSessionService } from '@shared/common/session/app-session.service'
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Ng2ImageGalleryComponent } from 'ng2-image-gallery';
+import { Angulartics2 } from 'angulartics2';
 declare const FB: any; //Facebook API
 
 @Component({
@@ -44,7 +45,8 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         private _galleryActivityService: GalleryActivityServiceProxy,
         private metaService: MetaService,
         private _appSessionService:AppSessionService,
-        private sanitizer:DomSanitizer
+        private sanitizer:DomSanitizer,
+        private angulartics2: Angulartics2
     ) {
         super(injector);
     }
@@ -117,7 +119,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
 
     goActivityPage(activity:UserActivityInput):void{
         console.log(activity.id + "-" + activity.title.replace(" ","-"));
-        this.router.navigate(['/publico/atividade', { 'activity': (activity.id + "-" + activity.title.split(' ').join('-')).toLocaleLowerCase() }]);
+        this.router.navigate(['/publico/atividade/' + this.changeSpecialCharacterToNormalCharacter((activity.id + "-" + activity.title.split(' ').join('-')).toLocaleLowerCase())]);
     }
 
     getPreviewWorbbiorProfile():void{
@@ -247,7 +249,21 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
             name: 'Veja as habilidades de ' + this.worbbiorProfile.worbbior.displayName,
             description: 'Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.'
         }, function(response){
-            console.log(response);
+            
+        });
+
+        this.angulartics2.eventTrack.next({ 
+            action: 'Compartilharmento da página do Worbbior', 
+            properties: { category: 'Facebook', 
+            label: AppConsts.appBaseUrl + '/publico/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName } 
+        });
+    }
+
+    shareButtonClick(name:string):void{
+        this.angulartics2.eventTrack.next({ 
+            action: 'Compartilharmento da página do Worbbior', 
+            properties: { category: name, 
+            label: AppConsts.appBaseUrl + '/publico/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName } 
         });
     }
 }

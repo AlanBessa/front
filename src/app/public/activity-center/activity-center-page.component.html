@@ -50,7 +50,7 @@
                     <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregado">                        
                         <div *ngFor="let worbbiorActivity of worbbiorTopTalentList; let i = index" [attr.data-index]="i">                        
                             <div *ngIf="i % 3 == 0 && (i < 6 || !hasSpecialPartner)" class="col-xs-12" [ngClass]="{'col-md-6': hasSpecialPartner, 'col-md-4': !hasSpecialPartner}">
-                                <a [routerLink]="['/worbbior/pagina', worbbiorTopTalentList[i].worbbior.slug]" fragment="{{worbbiorTopTalentList[i].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i]">
+                                <a [routerLink]="['/publico/worbbior/pagina', worbbiorTopTalentList[i].worbbior.slug]" fragment="{{worbbiorTopTalentList[i].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i]">
                                     <!-- card -->
                                     <div class="card-simple p-xxs">
                                         <div class="row">
@@ -68,7 +68,7 @@
                                     </div>
                                     <!-- card : fim -->
                                 </a>
-                                <a [routerLink]="['/worbbior/pagina', worbbiorTopTalentList[i + 1].worbbior.slug]" fragment="{{worbbiorTopTalentList[i + 1].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i + 1]">
+                                <a [routerLink]="['/publico/worbbior/pagina', worbbiorTopTalentList[i + 1].worbbior.slug]" fragment="{{worbbiorTopTalentList[i + 1].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i + 1]">
                                     <!-- card -->
                                     <div class="card-simple p-xxs">
                                         <div class="row">
@@ -86,7 +86,7 @@
                                     </div>
                                     <!-- card : fim -->
                                 </a>
-                                <a [routerLink]="['/worbbior/pagina', worbbiorTopTalentList[i + 2].worbbior.slug]" fragment="{{worbbiorTopTalentList[i + 2].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i + 2]">
+                                <a [routerLink]="['/publico/worbbior/pagina', worbbiorTopTalentList[i + 2].worbbior.slug]" fragment="{{worbbiorTopTalentList[i + 2].userActivity.activityId}}" class="card-talents m-y-10px w-100" *ngIf="worbbiorTopTalentList[i + 2]">
                                     <!-- card -->
                                     <div class="card-simple p-xxs">
                                         <div class="row">
@@ -201,7 +201,7 @@
                     <div class="row" *ngIf="worbbiorTopTalentList.length > 0 && carregadoWorbbiorTopTalentList">                        
                         <div *ngFor="let completedTask of completedTasksList; let i = index" [attr.data-index]="i">                        
                             <div *ngIf="i % 3 == 0 && i < 6" class="col-xs-12 col-md-6">
-                                <a [routerLink]="['/worbbior/pagina', completedTasksList[i].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i]">
+                                <a [routerLink]="['/publico/worbbior/pagina', completedTasksList[i].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i]">
                                     <!-- card -->
                                     <div class="card-simple p-xxs">
                                         <div class="row">
@@ -231,7 +231,7 @@
                                     </div>
                                     <!-- card : fim -->
                                 </a>
-                                <a [routerLink]="['/worbbior/pagina', completedTasksList[i + 1].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i + 1]">
+                                <a [routerLink]="['/publico/worbbior/pagina', completedTasksList[i + 1].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i + 1]">
                                     <!-- card -->
                                     <div class="card-simple p-xxs">
                                         <div class="row">
@@ -261,7 +261,7 @@
                                     </div>
                                     <!-- card : fim -->
                                 </a>
-                                <a [routerLink]="['/worbbior/pagina', completedTasksList[i + 2].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i + 2]">
+                                <a [routerLink]="['/publico/worbbior/pagina', completedTasksList[i + 2].id]" class="card-talents m-y-10px w-100" *ngIf="completedTasksList[i + 2]">
                                     <!-- card -->
                                     <div class="card-simple p-xxs">
                                         <div class="row">

@@ -1,9 +1,9 @@
 import { Component, Injector, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SlickSliderComponent } from '@shared/slick-slider.component';
-import { ListResultDtoOfInterestCenterDto, InterestCenterServiceProxy, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, WorbbyPagedResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
+import { UserActivityInput, ListResultDtoOfInterestCenterDto, InterestCenterServiceProxy, InterestCenterDto, ActivityServiceProxy, WorbbiorActivityDto, WorbbyPagedResultDtoOfWorbbiorActivityDto } from '@shared/service-proxies/service-proxies';
 import { UnitMeasure } from '@shared/AppEnums';
 import {AppConsts} from '@shared/AppConsts';
 import { AppSessionService } from '@shared/common/session/app-session.service';
@@ -46,7 +46,8 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         private _interestCenterService: InterestCenterServiceProxy,
         private _activatedRoute: ActivatedRoute,
         private _appSessionService: AppSessionService,
-        private angulartics2: Angulartics2
+        private angulartics2: Angulartics2,
+        private router: Router,
     ) {
         super(injector);
     }
@@ -205,6 +206,12 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
             });
         });
     }
+
+    goActivityPage(activity:UserActivityInput):void{
+        console.log(activity.id + "-" + activity.title.replace(" ","-"));
+        this.router.navigate(['/publico/atividade/' + this.changeSpecialCharacterToNormalCharacter((activity.id + "-" + activity.title.split(' ').join('-')).toLocaleLowerCase())]);
+    }
+
 
     loadingMore(): void {
         this.page++;

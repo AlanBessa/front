@@ -267,7 +267,6 @@ import { ActivityPageComponent } from "app/public/activity-page/activity-page.co
                       }
                     },
                     { path: 'terms-and-conditions', redirectTo: '/publico/termos-de-uso', pathMatch: 'full' },
-
                     {
                       path: 'tarefas', component: FindTasksComponent, data: {
                         meta: {
@@ -300,7 +299,6 @@ import { ActivityPageComponent } from "app/public/activity-page/activity-page.co
                       }
                     },
                     { path: 'become-a-worbbior', redirectTo: '/publico/seja-um-worbbior', pathMatch: 'full' },
-
                     {
                       path: 'worbbior/pagina/:worbbiorId', component: PageWorbbiorComponent, data: {
                         meta: {

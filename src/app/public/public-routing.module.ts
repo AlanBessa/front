@@ -252,6 +252,14 @@ import { ActivityPageComponent } from "app/public/activity-page/activity-page.co
                       }
                     },
                     {
+                      path: 'atividade', component: ActivityPageComponent, data: {
+                        meta: {
+                          title: 'Worbby',
+                          description: ''
+                        }
+                      }
+                    },
+                    {
                       path: 'termos-de-uso', component: TermsAndConditionsComponent, data: {
                         meta: {
                           title: 'Termos de uso |WORBBY = WORK + HOBBY',

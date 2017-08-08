@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { InterestCenterServiceProxy, GalleryActivityServiceProxy, GalleryActivityDto, ListResultDtoOfGalleryActivityDto, InterestCenterForActivityDto, ActivityDto, UserActivityInput, ActivityServiceProxy, UserActivityInputUnitMeasure } from '@shared/service-proxies/service-proxies';
+import { WorbbiorDto, WorbbiorProfileDto, WorbbiorServiceProxy, InterestCenterServiceProxy, GalleryActivityServiceProxy, GalleryActivityDto, ListResultDtoOfGalleryActivityDto, InterestCenterForActivityDto, ActivityDto, UserActivityInput, ActivityServiceProxy, UserActivityInputUnitMeasure } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { UnitMeasure, CancellationPolicy, WorbbiorState } from '@shared/AppEnums';
@@ -55,6 +55,10 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     cropActive:boolean = false;
     featureThumbnail:string;
 
+    public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
+
+    public worbbiorProfile: WorbbiorDto;
+
     public tooltipPoliticaCancelamento: string = "Você é quem decide qual será o valor a ser devolvido ao cliente (worbbient) caso a tarefa contratada seja cancelada por ele. Escolha uma das opções:<br /><br /> <strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
     public tooltipGaleriaImagem: string = "Extensão permitida: PNG, JPEG e JPG. <br />Tamanho máximo 1mb.";
@@ -66,7 +70,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         private _tokenService: TokenService,
         private _appSessionService: AppSessionService,
         private _galleryActivityService: GalleryActivityServiceProxy,
-        private angulartics2: Angulartics2
+        private angulartics2: Angulartics2,
+        private _worbbiorService: WorbbiorServiceProxy,
     ) {
         super(injector);
     }
@@ -164,7 +169,6 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     }
 
     show(activityUser: UserActivityInput): void {
-
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.width = 1400;
         this.cropperSettings.height = 550;
@@ -241,18 +245,33 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         this.activityUser.cancellationPolicy = CancellationPolicy[this.currentCancellationPolicyOptions];
 
         this.getPictureByGuid(this.activityUser.featuredImageId).then((result) => {
-                //element.fileBase64 = result;
             this.activityUser.featuredImage = result;
         });
 
-        this.getPictureByGuid(this.activityUser.featuredImageThumbnailId).then((result) => {
-                //element.fileBase64 = result;
-            this.activityUser.featuredImageThumbnail = result;
-        });
-
+        // this.getPictureByGuid(this.activityUser.featuredImageThumbnailId).then((result) => {
+        //         //element.fileBase64 = result;
+        //     this.activityUser.featuredImageThumbnail = result;
+        // });
+        this.getPreviewWorbbiorProfile(activityUser.userId);
 
         this.modal.show();
     }
+
+    getPreviewWorbbiorProfile(userId:number): void {
+    this._worbbiorService.getWorbbiorByUserId(userId).subscribe((result) => {
+      this.worbbiorProfile = result;
+
+      this.getPictureByGuid(this.worbbiorProfile.userPictureId).then((result) => {
+        if (!this.isNullOrEmpty(result)) {
+          this.worbbiorProfile.userPicture = result;
+        } else {
+          this.worbbiorProfile.userPicture = AppConsts.defaultProfilePicture;
+        }
+      });
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
     removeImageGallery(id: number): void {
         this._galleryActivityService.removeOneImageGalleryActivity(id).finally(() => { this.saving = false; })

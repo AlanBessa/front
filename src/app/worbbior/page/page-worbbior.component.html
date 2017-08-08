@@ -162,7 +162,7 @@
                                         <div class="card-header m-b-20px">
                                             <div class="display-table">
                                                 <div class="display-cell alignMiddle col-divider no-border p-y-xs">
-                                                    <h4>{{activityUser.title}}</h4>
+                                                    <h4 (click)="goActivityPage(activityUser)">{{activityUser.title}}</h4>
                                                     <p class="small cor-Botticelli">
                                                         Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}</a>
                                                         <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
@@ -256,7 +256,8 @@
                                                 <div class="col-xs-12">
                                                     <div class="row">
                                                         <div class="col-xs-12 m-t-xs">
-                                                          <ng2-image-gallery [images]="activityUser.listGalleryActivity.items"></ng2-image-gallery>
+                                                            <button type="button" (click)="openGallery($event)"></button>
+                                                          <ng2-image-gallery #gallery [images]="activityUser.listGalleryActivity.items"></ng2-image-gallery>
                                                         </div>
                                                     </div>
                                                 </div>

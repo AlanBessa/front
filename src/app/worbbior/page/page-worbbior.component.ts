@@ -10,6 +10,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { MetaService } from '@nglibs/meta';
 import { AppSessionService } from '@shared/common/session/app-session.service'
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Ng2ImageGalleryComponent } from 'ng2-image-gallery';
 declare const FB: any; //Facebook API
 
 @Component({
@@ -21,6 +22,7 @@ declare const FB: any; //Facebook API
 export class PageWorbbiorComponent extends AppComponentBase implements AfterViewInit, OnInit {
 
     @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
+    @ViewChild('gallery') gallery: Ng2ImageGalleryComponent;
 
     public active: boolean = false;
     public worbbiorId: number;
@@ -61,6 +63,11 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
         $(".page-loading").hide();    
+    }
+
+    openGallery(event){
+        console.log(event);
+        this.gallery.openLightboxGallery(1);
     }
 
     getWorbbiorProfile():void{
@@ -109,6 +116,11 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         });
     }
 
+    goActivityPage(activity:UserActivityInput):void{
+        console.log(activity.id + "-" + activity.title.replace(" ","-"));
+        this.router.navigate(['/publico/atividade', { 'activity': (activity.id + "-" + activity.title.split(' ').join('-')).toLocaleLowerCase() }]);
+    }
+
     getPreviewWorbbiorProfile():void{
         this._worbbiorService.getPreviewWorbbiorProfile(this.worbbiorId).subscribe((result) => {
             this.worbbiorProfile = result;
@@ -129,6 +141,10 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                     if (element.galleryPictureId) {
                         this.getPictureByGuid(element.galleryPictureId).then((result) => {
                             element.image = result;
+                        });
+                    } 
+                    if (element.galleryPictureThumbnailId) {
+                        this.getPictureByGuid(element.galleryPictureThumbnailId).then((result) => {
                             element.thumbnail = result;
                         });
                     } 

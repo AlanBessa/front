@@ -49,6 +49,9 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
         })
         .subscribe(result => {
             this.worbbyTasksSales = result.items;
+            this.pager.totalCount = result.totalCount;
+            this.pager.currentPage = page;
+            this.buildPager(Math.ceil(this.pager.totalCount/AppConsts.maxResultCount));  
             // this.worbbyTasksSales.forEach(element => {
             //     element.worbbyTask.totalPrice;
             //     element.balanceAvailable

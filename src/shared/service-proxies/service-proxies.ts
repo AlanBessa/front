@@ -2737,7 +2737,7 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
-    cancelBalanceTransfer(input: EntityDtoOfInt64): Observable<void> {
+    cancelBalanceTransfer(input: BalanceTransferMessageInput): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/CancelBalanceTransfer";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -19847,6 +19847,53 @@ export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
 
 export interface IEntityDtoOfInt64 {
     id: number;
+}
+
+export class BalanceTransferMessageInput implements IBalanceTransferMessageInput {
+    id: number;
+    message: string;
+    worbbiorName: string;
+    worbbiorEmail: string;
+
+    constructor(data?: IBalanceTransferMessageInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.message = data["message"];
+            this.worbbiorName = data["worbbiorName"];
+            this.worbbiorEmail = data["worbbiorEmail"];
+        }
+    }
+
+    static fromJS(data: any): BalanceTransferMessageInput {
+        let result = new BalanceTransferMessageInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["message"] = this.message;
+        data["worbbiorName"] = this.worbbiorName;
+        data["worbbiorEmail"] = this.worbbiorEmail;
+        return data; 
+    }
+}
+
+export interface IBalanceTransferMessageInput {
+    id: number;
+    message: string;
+    worbbiorName: string;
+    worbbiorEmail: string;
 }
 
 export class BalanceAvailableOutput implements IBalanceAvailableOutput {

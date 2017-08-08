@@ -82,6 +82,10 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
                     if (element.galleryPictureId) {
                         this.getPictureByGuid(element.galleryPictureId).then((result) => {
                             element.image = result;
+                        });
+                    } 
+                    if (element.galleryPictureThumbnailId) {
+                        this.getPictureByGuid(element.galleryPictureThumbnailId).then((result) => {
                             element.thumbnail = result;
                         });
                     } 

@@ -40,8 +40,7 @@
                         </table>
                     </div>                    
                 </div>
-                <!--div *ngIf="balanceAvailable > 0" class="row">  -->
-                    <div class="row">                   
+                <div *ngIf="balanceAvailable > 0" class="row">             
                     <div class="col-xs-12 text-center m-t-20px">
                         <button class="btn btn-prime white-space" type="button" (click)="requestBalanceAvailable()">Transferir saldo</button>
                     </div>

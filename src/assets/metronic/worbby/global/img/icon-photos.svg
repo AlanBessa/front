@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-photos</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="20" height="20" rx="2"></rect>
+        <circle id="path-2" cx="11.5" cy="5.5" r="2.5"></circle>
+        <path d="M20,15.5788662 L20,18 C20,19.1045695 19.1045695,20 18,20 L10.0252786,20 L10.1499466,15.1962139 L13.283322,10.4961509 C13.8960269,9.57709351 15.1377656,9.32874577 16.056823,9.94145069 C16.2765275,10.0879204 16.4650534,10.2764463 16.6115231,10.4961509 L20,15.5788662 Z" id="path-3"></path>
+        <path d="M0.149946597,12.1962139 L3.28332197,7.49615088 C3.89602689,6.57709351 5.13776557,6.32874577 6.05682295,6.94145069 C6.27652753,7.0879204 6.46505343,7.27644631 6.61152315,7.49615088 L14.9474226,20 L2,20 C0.8954305,20 0,19.1045695 0,18 C0,17.9827023 0.00022440805,17.9654053 0.000673167501,17.9481134 L0.149946597,12.1962139 Z" id="path-4"></path>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Individual-Worbbior's-Talent-Page" transform="translate(-995.000000, -615.000000)">
+            <g id="Group-8" transform="translate(985.000000, 605.000000)">
+                <g id="icon-photos" transform="translate(10.000000, 10.000000)">
+                    <g id="Rectangle-21">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <rect stroke="#90A3B1" stroke-width="1" x="0.5" y="0.5" width="19" height="19" rx="2"></rect>
+                    </g>
+                    <g id="Oval-2">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <circle stroke="#90A3B1" stroke-width="1" cx="11.5" cy="5.5" r="2"></circle>
+                    </g>
+                    <g id="Combined-Shape">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <path stroke="#90A3B1" stroke-width="1" d="M19.5,15.730254 L16.195498,10.773501 C16.0856457,10.6087226 15.9442513,10.4673281 15.7794729,10.3574758 C15.0901798,9.89794715 14.1588758,10.0842079 13.6993471,10.773501 L10.6460338,15.3534709 L10.538423,19.5 L18,19.5 C18.8284271,19.5 19.5,18.8284271 19.5,18 L19.5,15.730254 Z"></path>
+                    </g>
+                    <g id="Combined-Shape">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        <path stroke="#90A3B1" stroke-width="1" d="M0.646033809,12.3534709 L0.500504876,17.9610851 C0.500084153,17.9805404 0.500084153,17.9805404 0.5,18 C0.5,18.8284271 1.17157288,19.5 2,19.5 L14.013164,19.5 L6.195498,7.77350098 C6.08564571,7.60872255 5.94425128,7.46732812 5.77947285,7.35747583 C5.09017982,6.89794715 4.15887581,7.08420795 3.69934712,7.77350098 L0.646033809,12.3534709 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

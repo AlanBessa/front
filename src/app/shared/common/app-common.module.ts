@@ -73,7 +73,8 @@ import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
         WorbbientWorbbyTaskActions,
         SendReportModalComponent,
         SlickSliderComponent,
-        AwaitingComponent
+        AwaitingComponent,
+        ImageCropperModule
     ],
     providers: [
         DateTimeService,

@@ -1,4 +1,4 @@
-<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="user-activity-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
   aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -6,6 +6,11 @@
       <form #userActivityForm="ngForm" novalidate>
 
         <div *ngIf="active" class="modal-header">
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <i class="fa fa-remove"></i>
+          </button>
+        </div>
+        <div *ngIf="active" class="modal-body">
           <div class="row">
             <div class="col-xs-12 select-activity-form">
               <div class="row activity-selected borda-Tangerine no-m-x m-b-xss">
@@ -23,138 +28,157 @@
                         </div>
                     </div>
                   </a>
-                  <button type="button" class="close btn btn-close" (click)="close()" aria-label="Close">
-                    <i class="fa fa-remove"></i>   
-                  </button>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              Personalize o título e a descrição da atividade escolhida.<br /> Determine o quanto você quer cobrar por ela
-              e qual será a sua política de cancelamento.<br /> Capriche, essas informações farão parte da sua apresentação
-              na plataforma.
-            </div>
-          </div>
-        </div>
-        <div *ngIf="active" class="modal-body">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="form-group no-hint">
-                <label>{{l("Title")}}<small> (Máximo de 120 caracteres)</small></label>
-                <input placeholder="{{interestCenters[0]?.titleSuggestionActivity}}" maxlength="120" [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                  class="form-control edited" type="text" name="Title" [(ngModel)]="activityUser.title" required />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="form-group no-hint">
-                <label>{{l("Description")}} <small>(Máximo de 400 caracteres)</small></label>
-                <textarea [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" 
-                  placeholder="{{interestCenters[0]?.descriptionSuggestionActivity}}"
-                  rows="6" 
-                  class="form-control edited m-b-xxxs" 
-                  name="Description" 
-                  [(ngModel)]="activityUser.description" 
-                  maxlength="400"
-                  required #description>
-                </textarea>
-                <p class="small">{{description.value.length}} / 400 caracteres usados.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-md-6">
-              <div class="form-group no-hint">
-                <label>{{l("Price")}}(R$)</label>
-                <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" 
-                       class="form-control edited"  type="text" 
-                       onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" 
-                       name="Price" [(ngModel)]="activityUser.price"   maxlength="8" required />
               </div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="form-group no-hint">
-                <label>Por</label>
-                <div *ngIf="unitMeasureOptions.length" class="dropdown">
-                  <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
-                    data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    {{l(currentUnitMeasureOptions)}}
-                    <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li *ngFor="let name of unitMeasureOptions">
-                      <a href="javascript:;" (click)="changeUnitMeasure(name)">
-                          {{l(name)}}
-                      </a>
-                    </li>
-                  </ul>
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>1. Personalize o título da sua atividade</h4>
+                  <div class="form-group no-hint">
+                    <label><small> (Máximo de 120 caracteres)</small></label>
+                    <input placeholder="{{interestCenters[0]?.titleSuggestionActivity}}" maxlength="120" [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                      class="form-control edited" type="text" name="Title" [(ngModel)]="activityUser.title" required />
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <h4>2. Descreva a sua atividade</h4>
+                  <div class="form-group no-hint">
+                    <label><small>(Máximo de 400 caracteres)</small></label>
+                    <textarea [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" 
+                      placeholder="{{interestCenters[0]?.descriptionSuggestionActivity}}"
+                      rows="6" 
+                      class="form-control edited m-b-xxxs" 
+                      name="Description" 
+                      [(ngModel)]="activityUser.description" 
+                      maxlength="400"
+                      required #description>
+                    </textarea>
+                    <p class="small">{{description.value.length}} / 400 caracteres usados.</p>
+                  </div>
+                </div>                
+                <div class='col-xs-12'>
+                  <h4>3. Determine o seu preço</h4>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                      <div class="form-group no-hint">
+                        <label>{{l("Price")}}(R$)</label>
+                        <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" 
+                              class="form-control edited"  type="text" 
+                              onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" 
+                              name="Price" [(ngModel)]="activityUser.price"   maxlength="8" required />
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      <div class="form-group no-hint">
+                        <label>Por</label>
+                        <div *ngIf="unitMeasureOptions.length" class="dropdown">
+                          <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
+                            data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            {{l(currentUnitMeasureOptions)}}
+                            <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li *ngFor="let name of unitMeasureOptions">
+                              <a href="javascript:;" (click)="changeUnitMeasure(name)">
+                                  {{l(name)}}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>4. Escolha a sua política de cancelamento</h4>
+                  <div class="form-group no-hint">
+                    <label>
+                      Política de cancelamento
+                      <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
+                      <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
+                    </label>
+                    <div *ngIf="cancellationPolicyOptions.length" class="dropdown">
+                      <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
+                        data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                          {{l(currentCancellationPolicyOptions)}}
+                          <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li *ngFor="let name of cancellationPolicyOptions">
+                          <a href="javascript:;" (click)="changeCancellationPolicy(name)">
+                              {{l(name)}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <h4>5. Monte a sua galeria de imagens</h4>
+                  <div class="form-group">
+                      <label class="control-label">
+                          Escolha a imagem do banner
+                          <ng-template #popGaleriaImagem><div class="text-left" [innerHtml]="tooltipGaleriaImagem"></div></ng-template>
+                          <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popGaleriaImagem"></i>
+                      </label>
+                      <div class="input-group">
+                        <label for="uploadBanner">
+                          <span class="btn btn-file">
+                            {{!uploading ? 'Anexar' : 'Enviando...'}}											
+                          </span>
+                        </label>
+                        <input type="file" id="uploadBanner" name="uploadAvatar" style="display:none;" (change)="uploadFeatureChangeListener($event)">
+                        <input type="text" id="uploader" class="form-control" readonly="" />
+                      </div>
+                  </div>
+                  <img-cropper [hidden]="!cropActive" class="feature-image-edit" #cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
+                </div>
+                <div class="col-xs-12">                    
+                    <div *ngFor="let galleryImage of galleryImages; let i = index" class="gallery col-xs-4">                
+                      <label [attr.for]="i" class="cursor-pointer">
+                        <span class="btn-image">
+                            <img class="img-responsive" [src]="galleryImage.thumbnail">                      
+                        </span>
+                      </label>
+                      <input type="file" style="display:none;" [attr.id]="i" [attr.name]="i" *ngIf="active" (change)="fileSelect($event, galleryImage)"/>
+                      <button *ngIf=" galleryImage.galleryPictureId && worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit" (click)="removeImageGallery(galleryImage.id)"
+                          title="{{l('Remove')}}" class="btn btn-secondary delete-activity-user" href="javascript:;">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                </div>
+              </div>
+            </div>
             <div class="col-xs-12">
-              <div class="form-group no-hint">
-                <label>
-                  Política de cancelamento
-                  <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
-                  <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplatePoliticaCancelamento"></i>
-                </label>
-                <div *ngIf="cancellationPolicyOptions.length" class="dropdown">
-                  <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle"
-                    data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                      {{l(currentCancellationPolicyOptions)}}
-                      <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li *ngFor="let name of cancellationPolicyOptions">
-                      <a href="javascript:;" (click)="changeCancellationPolicy(name)">
-                          {{l(name)}}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div>
-              <label class="col-xs-12 m-b-10px">
-                Galeria de imagens
-                <ng-template #popGaleriaImagem><div class="text-left" [innerHtml]="tooltipGaleriaImagem"></div></ng-template>
-                <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popGaleriaImagem"></i>
-              </label>
-              <div *ngFor="let galleryImage of galleryImages; let i = index" class="gallery col-xs-4">                
-                <label [attr.for]="i" class="cursor-pointer">
-                  <span class="btn-image">
-                      <img class="img-responsive" [src]="galleryImage.thumbnail">                      
-                  </span>
-                </label>
-                <input type="file" style="display:none;" [attr.id]="i" [attr.name]="i" *ngIf="active" (change)="fileSelect($event, galleryImage)"/>
-                <!--<input [attr.id]="i" [attr.name]="i" style="display:none;" *ngIf="active" type="file" ng2FileSelect [uploader]="galleryImagesUploader[i]" />-->
-                <button *ngIf=" galleryImage.galleryPictureId && worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit" (click)="removeImageGallery(galleryImage.id)"
-                    title="{{l('Remove')}}" class="btn btn-secondary delete-activity-user" href="javascript:;">
-                    <i class="fa fa-trash"></i>
-                </button>
-              </div>
+              <section class="container-fluid find-talent-home">
+                <div *ngIf="activityUser.featuredImage && !data.image" class="activity-modal-header-view" [ngStyle]="{'background-image': 'url(' + activityUser.featuredImage + ')'}"></div>
+                <div *ngIf="data.image" class="activity-modal-header-view" [ngStyle]="{'background-image': 'url(' + data.image + ')'}"></div>
+              </section>
+              <div *ngIf="activityUser.featuredImageThumbnail" class="feature-thumbnail" [ngStyle]="{'background-image': 'url(' + activityUser.featuredImageThumbnail + ')'}"></div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <div class="row">
-            <div class="col-xs-12 col-md-4">
-              <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around btn-block m-b-xxs" (click)="close()">
-                {{l("Cancel")}}
-              </button>
-            </div>
-            <div *ngIf="active" class="col-xs-12 col-md-4 col-md-offset-4">
-              <button type="button" class="btn btn-secondary btn-around btn-block m-b-xxs" [disabled]="!userActivityForm.form.valid || worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" (click)="save()">
-                <span>{{l("Save")}}</span>
-              </button>
+            <div class="col-xs-12 col-md-6">
+              <div class="row">
+                <div class="col-xs-12 col-md-4">
+                  <button [disabled]="saving" type="button" class="btn btn-prime-inverted btn-around btn-block m-b-xxs" (click)="close()">
+                    {{l("Cancel")}}
+                  </button>
+                </div>
+                <div *ngIf="active" class="col-xs-12 col-md-4 col-md-offset-4">
+                  <button type="button" class="btn btn-secondary btn-around btn-block m-b-xxs" [disabled]="!userActivityForm.form.valid || worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                    [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" (click)="save()">
+                    <span>{{l("Save")}}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

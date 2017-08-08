@@ -24,7 +24,7 @@
                         </button>
                     </div>
                </div>               
-               <div class="row">
+               <div *ngIf="worbbyTasksSales.length > 0" class="row">
                    <div class="col-xs-12">
                        <table class="table table-hover table-payment">
                             <thead>
@@ -36,25 +36,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let worbbyTaskSale of worbbyTasksSales">
                                     <td>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-2">
                                                 <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
                                             </div>
                                             <div class="col-xs-12 col-sm-10">
-                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>Título tarefa - título tarefa</strong></h6>
-                                                <p class="small m-b-xxxs">Nome Worbbient da Silva - 02/02/2017</p>
+                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>{{worbbyTaskSale.worbbyTask.title}}</strong></h6>
+                                                <p class="small m-b-xxxs">{{worbbyTaskSale.worbbyTask.worbbient.name}} {{worbbyTaskSale.worbbyTask.worbbient.surname}} - 02/02/2017</p>
                                             </div>
                                         </div>                                        
                                     </td>
                                     <td>
-                                        <span>R$ 960,00</span><br />
-                                        <span class="cor-Flamingo">-20% | R$ 960,00</span><br />
-                                        <span class="cor-Botticelli">Disponível no 05/03/2017 | </span><span class="cor-CaribbeanGreen">R$ 960,00</span>
+                                        <span>R$ {{worbbyTaskSale.worbbyTask.totalPrice | number:'1.2-2'}}</span><br />
+                                        <span class="cor-Flamingo">-{{worbbyTaskSale.cancellationTax}}% | R$ {{worbbyTaskSale.cancellationTaxAmount / 100 | number:'1.2-2'}}</span><br />
+                                        <span class="cor-Flamingo">-{{worbbyTaskSale.worbbyTask.worbbyTax}}% | R$ {{worbbyTaskSale.worbbyTaxAmount / 100 | number:'1.2-2'}}</span><br />
+                                        <span class="cor-Botticelli">Disponível no 05/03/2017 | </span><span class="cor-CaribbeanGreen">R$ {{worbbyTaskSale.balanceAvailable / 100 | number:'1.2-2'}}</span>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-2">
@@ -98,38 +99,38 @@
                                         </div> 
                                     </td>
                                     <td><span class="cor-Botticelli">R$ 4200,00</span></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="3">
                                         <div class="text-center">
-                                            <ul class="pagination no-m-b">
+                                            <ul *ngIf="pager.totalPages?.length > 1" class="pagination">
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByTargetUserId(1)" [ngClass]="{disabled:pager.currentPage === 1}">
                                                         <i class="fa fa-angle-double-left"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByTargetUserId(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a>
                                                 </li>
-                                                <li class="active">
-                                                    <a href="#">1</a>
+                                                <li *ngFor="let page of pager.totalPages" [ngClass]="{active:pager.currentPage === page}">
+                                                    <a (click)="getPaymentsByTargetUserId(page)">{{page}}</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByTargetUserId(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByTargetUserId(pager.totalPages?.length)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
                                                         <i class="fa fa-angle-double-right"></i>
                                                     </a>
                                                 </li>
                                             </ul>    
-                                        </div> 
+                                        </div>
                                     </td>
                                 </tr>
                             </tfoot>

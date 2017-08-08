@@ -101,7 +101,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
             this.metaService.setTag("og:description","Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.");
             this.metaService.setTag("og:image", AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/facebok-share.jpg");
             this.metaService.setTag("og:title","Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
-            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/publico/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
         });
     }
 
@@ -143,7 +143,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
             this.metaService.setTag("og:description","Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.");
             this.metaService.setTag("og:image", AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/facebok-share.jpg");
             this.metaService.setTag("og:title","Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
-            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/publico/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
         });
     }
 
@@ -226,7 +226,7 @@ export class PageWorbbiorComponent extends AppComponentBase implements AfterView
         FB.ui({
             app_id: '1248516721862974',
             method: 'feed',
-            link: AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName,
+            link: AppConsts.appBaseUrl + '/publico/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName,
             picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
             name: 'Veja as habilidades de ' + this.worbbiorProfile.worbbior.displayName,
             description: 'Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.'

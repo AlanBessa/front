@@ -447,7 +447,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                     self.resample_single(canvas, width,height,true);
 
                     var canvasTemp = document.createElement('canvas');
-                    var ctxTemp = canvas.getContext("2d");
+                    var ctxTemp = canvasTemp.getContext("2d");
 
                     var widthTemp = canvas.width;
                     var heightTemp = canvas.height;
@@ -458,16 +458,20 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                     if(canvas.width < canvas.height){
                         heightTemp *= 330 / widthTemp;
                         widthTemp = 330;
-                        ctx.drawImage(image, 0, 0, widthTemp, heightTemp);
+                        canvasTemp.width = widthTemp;
+                        canvasTemp.height = heightTemp;
+                        ctxTemp.drawImage(image, 0, 0, widthTemp, heightTemp);
 
-                        imageData = ctx.getImageData(0, heightTemp/2-(330/2), 330, 330);
+                        imageData = ctxTemp.getImageData(0, heightTemp/2-(330/2), 330, 330);
 
                     } else {
                         widthTemp *= 330 / heightTemp;
                         heightTemp = 330;
-                        ctx.drawImage(image, 0, 0, widthTemp, heightTemp);
+                        canvasTemp.width = widthTemp;
+                        canvasTemp.height = heightTemp;
+                        ctxTemp.drawImage(image, 0, 0, widthTemp, heightTemp);
 
-                        imageData = ctx.getImageData(widthTemp/2-(330/2), 0, 330, 330);
+                        imageData = ctxTemp.getImageData(widthTemp/2-(330/2), 0, 330, 330);
                     }
 
                     var canvas2 = document.createElement("canvas");

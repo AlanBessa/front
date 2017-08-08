@@ -115,30 +115,6 @@ export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements
         this.confirmBalanceTransferModal.show(input);
     }
 
-
-    testConfirmRequest():void{
-
-        this._balanceTransferService.confirmBalanceTransfer(new EntityDtoOfInt64({id: this.transferId}))
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-        }, error => {
-            console.log(error);
-        });
-    }
-
-    testCancelRequest():void{
-        this._balanceTransferService.cancelBalanceTransfer(new EntityDtoOfInt64({id: this.transferId}))
-        .finally(() => { 
-
-         })
-        .subscribe(result => {
-        }, error => {
-            console.log(error);
-        });
-    }
-
     get balanceTransfersTotal():number{
         let total = 0;
         

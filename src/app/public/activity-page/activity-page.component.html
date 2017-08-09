@@ -57,13 +57,15 @@
                                     <div class="col-xs-6 col-sm-3 no-pad-x">
                                         <div class="card-default card-default-no-hover text-center p-y-xxs">
                                             <img alt="Icon task" class="" src="/assets/metronic/worbby/global/img/icon-tasks-done.svg" />
-                                            <p class="small">{{activityUser.taskPerformed}} tarefa(s) realizada(s)</p>
+                                            <p class="small" *ngIf="activityUser.taskPerformed <= 1">{{activityUser.taskPerformed}} tarefa realizada</p>
+                                            <p class="small" *ngIf="activityUser.taskPerformed > 1">{{activityUser.taskPerformed}} tarefas realizadas</p>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 col-sm-3 no-pad-x">
                                         <div class="card-default card-default-no-hover text-center p-y-xxs">
                                             <img alt="Icon Endorsements" class="" src="/assets/metronic/worbby/global/img/icon-endorsements.svg" />
-                                            <p class="small">{{activityUser.endorsementsCount}} recomendações</p>
+                                            <p class="small" *ngIf="activityUser.endorsementsCount <= 1">{{activityUser.endorsementsCount}} recomendação</p>
+                                            <p class="small" *ngIf="activityUser.endorsementsCount > 1">{{activityUser.endorsementsCount}} recomendações</p>
                                         </div>
                                     </div> 
                                     <div class="col-xs-6 col-sm-3 activity-comments no-pad-x">

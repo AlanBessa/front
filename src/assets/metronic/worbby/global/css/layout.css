@@ -1880,7 +1880,6 @@ body {
 .activity-page .info-activities .card-list .card-default {
     min-height: 89px;
     box-shadow: none;
-    border-bottom: 4px solid #FFCB33;
 }
 
 .activity-page .info-activities .card-list .card-default.card-default-no-hover {
@@ -1889,7 +1888,6 @@ body {
 
 .activity-page .info-activities .card-list .card-default:hover {
     border: 0;
-    border-bottom: 4px solid #FFCB33;
 }
 
 .activity-page .hideGallery {
@@ -2014,6 +2012,18 @@ body {
 .ng2-image-gallery-thumbnail {
     max-width: 100% !important;
     max-height: 100% !important;
+}
+
+.ng2-image-gallery-lightbox .ng2-igl-close .fa-close {    
+    background: url(/assets/metronic/worbby/global/img/icon-close-white.svg) no-repeat center center;
+    width: 30px;
+    display: block;
+    height: 30px;
+    background-size: cover;
+}
+
+.ng2-image-gallery-lightbox .ng2-igl-close .fa-close:before {
+    content: '';
 }
 
 /* Wizard */

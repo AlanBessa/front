@@ -8,6 +8,9 @@ import { AppConsts } from '@shared/AppConsts';
 import { SendOfferModalComponent } from './send-offer-modal.component';
 import * as _ from 'lodash';
 import * as moment from "moment";
+import { Angulartics2 } from 'angulartics2';
+import { MetaService } from '@nglibs/meta';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 declare const FB: any;
 
 @Component({
@@ -31,12 +34,16 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     public AppConsts: typeof AppConsts = AppConsts;
     public isLogged:boolean = false;
     public isMobile: boolean = false;
+    public whatsappLink:SafeUrl = "";
 
     constructor(
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
         private _worbbyTaskService: WorbbyTaskServiceProxy,
-        private _router: Router
+        private _router: Router,
+        private angulartics2: Angulartics2,
+        private metaService: MetaService,
+        private sanitizer:DomSanitizer,
     ) {
         super(injector);
     }
@@ -52,6 +59,14 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
             this.scheduleDateDisplay = result.scheduledDate ? moment(result.scheduledDate).format('DD/MM/YYYY') : null;
 
             this.active = true;
+
+            this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=" + this.worbbyTask.title + " - " + AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id); 
+
+            this.metaService.setTitle(this.worbbyTask.title);
+            this.metaService.setTag("og:description", this.worbbyTask.description);
+            this.metaService.setTag("og:image", AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg');
+            this.metaService.setTag("og:title", this.worbbyTask.title);
+            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id);
         });
 
         this.isMobile = window.screen.width < 768;
@@ -83,12 +98,26 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     sharedFacebook():void {
         FB.ui({
             method: 'feed',
-            link: AppConsts.appBaseUrl + '/publico/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName,
+            link: AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id,
             picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
-            name: 'Veja as habilidades de ' + this.worbbiorProfile.worbbior.displayName,
-            description: 'Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.'
+            name: this.worbbyTask.title,
+            description: this.worbbyTask.description
         }, function(response){
             console.log(response);
+        });
+
+        this.angulartics2.eventTrack.next({ 
+            action: 'Compartilharmento de tarefa', 
+            properties: { category: 'Facebook', 
+            label: AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id } 
+        });
+    }
+
+    shareButtonClick(name:string):void{
+        this.angulartics2.eventTrack.next({ 
+            action: 'Compartilharmento de tarefa', 
+            properties: { category: name, 
+            label: AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id } 
         });
     }
 }

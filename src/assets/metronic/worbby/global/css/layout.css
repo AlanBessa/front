@@ -1843,6 +1843,10 @@ body {
     height: initial !important;
 }
 
+.activity-page.accordion-content {
+    position:relative;
+}
+
 .activity-page .activity-center .icone-box {
     padding: 14px;
 }

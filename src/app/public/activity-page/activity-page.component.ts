@@ -4,11 +4,13 @@ import { AppComponentBase } from "shared/common/app-component-base";
 import { ActivatedRoute, Router } from "@angular/router";
 import { WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput, ListResultDtoOfUserActivityInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { MetaService } from "@nglibs/meta";
 import { DayOfWeek, CancellationPolicy, UnitMeasure } from "shared/AppEnums";
 import { AppSessionService } from "shared/common/session/app-session.service";
 import { Ng2ImageGalleryComponent } from 'ng2-image-gallery';
+import { Angulartics2 } from 'angulartics2';
+import { MetaService } from '@nglibs/meta';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+declare const FB: any;
 
 @Component({
   templateUrl: './activity-page.component.html',
@@ -47,7 +49,8 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
     private metaService: MetaService,
     private _appSessionService: AppSessionService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private angulartics2: Angulartics2,
   ) {
     super(injector);
   }
@@ -107,13 +110,13 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
         })
       });
 
-      this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName + " - " + AppConsts.appBaseUrl + '/worbbior/page/' + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+      this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=" + this.activityUser.title + " - " + AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title);
 
-      this.metaService.setTitle("Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
-      this.metaService.setTag("og:description", "Contrate uma tarefa com esse e outros talentos na Worbby. São diversas opções para facilitar o seu dia a dia.");
+      this.metaService.setTitle(this.activityUser.title);
+      this.metaService.setTag("og:description", this.activityUser.description);
       this.metaService.setTag("og:image", AppConsts.appBaseUrl + "/assets/metronic/worbby/global/img/facebok-share.jpg");
-      this.metaService.setTag("og:title", "Veja as habilidades de " + this.worbbiorProfile.worbbior.displayName);
-      this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/worbbior/page/" + this.worbbiorProfile.worbbior.id + "-" + this.worbbiorProfile.worbbior.displayName);
+      this.metaService.setTag("og:title", this.activityUser.title);
+      this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title);
     }, (error) => {
       console.log(error);
     });
@@ -195,6 +198,10 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
     this.router.navigate(["/publico/atividade/", url]);
   }
 
+  goWorbbiorPage(worbbior:WorbbiorProfileDto):void{
+      this.router.navigate(['/publico/worbbior/pagina/' + this.changeSpecialCharacterToNormalCharacter((worbbior.worbbior.slug).toLocaleLowerCase())]);
+  }
+
   offertTask(activityUser: UserActivityInput): void {
     if (abp.session.userId) {
       if (activityUser.userId == abp.session.userId) {
@@ -224,8 +231,34 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   }
 
   private getInterestCenters(): void {
-      if(this.appSession.interestCentersTopLevel.length == 0){
+      if(this.appSession.interestCentersTopLevel.length == 0) {
           this.getInterestCentersTopLevel();
       }
+  }
+
+  shareButtonClick(name:string): void{
+      this.angulartics2.eventTrack.next({ 
+          action: 'Compartilharmento da atividade do Worbbior', 
+          properties: { category: name, 
+          label: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title } 
+      });
+  }
+
+  sharedFacebook(): void {
+      FB.ui({
+          method: 'feed',
+          link: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title,
+          picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
+          name: this.activityUser.title,
+          description: this.activityUser.description
+      }, function(response){
+          console.log(response);
+      });
+
+      this.angulartics2.eventTrack.next({ 
+          action: 'Compartilharmento da atividade do Worbbior', 
+          properties: { category: 'Facebook', 
+          label: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title } 
+      });
   }
 }

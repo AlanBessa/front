@@ -32,27 +32,27 @@
                                 </a>
                             </li>
                             <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}">
-                                <a [shareButton]="'twitter'">
+                                <a (click)="shareButtonClick('twitter')" [shareButton]="'twitter'">
                                     <img class="" src="/assets/metronic/worbby/global/img/social-twitter.svg" alt="icon Twitter" />
                                 </a>
                             </li>
                             <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}">
-                                <a [shareButton]="'googleplus'">
+                                <a (click)="shareButtonClick('googleplus')" [shareButton]="'googleplus'">
                                     <img class="" src="/assets/metronic/worbby/global/img/social-gplus.svg" alt="icon G+" />
                                 </a>
                             </li>
                             <li class="m-r-xxs m-b-xxs" *ngIf="isMobile">
-                                <a [attr.href]="whatsappLink" target="_blank">
+                                <a (click)="shareButtonClick('whatsapp')" [attr.href]="whatsappLink" target="_blank">
                                     <img class="" src="/assets/metronic/worbby/global/img/social-whatsapp5.svg" alt="icon Whatsapp" />
                                 </a>
                             </li>
                             <li class="m-r-xxs" [ngClass]="{'m-b-xxs': isMobile}">
-                                <a [shareButton]="'pinterest'">
+                                <a (click)="shareButtonClick('pinterest')" [shareButton]="'pinterest'">
                                     <img class="" src="/assets/metronic/worbby/global/img/social-pin.svg" alt="icon Pintrest" />
                                 </a>
                             </li>
                             <li class="" [ngClass]="{'m-b-xxs': isMobile}">
-                                <a [shareButton]="'linkedIn'">
+                                <a (click)="shareButtonClick('linkedIn')" [shareButton]="'linkedIn'">
                                     <img class="" src="/assets/metronic/worbby/global/img/social-in.svg" alt="icon LinkedIn" />
                                 </a>
                             </li>

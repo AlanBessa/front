@@ -1,10 +1,12 @@
 <div [@routerTransition] class="activity-page worbbior-profile" id="topo" name="topo">
     <div class="hideGallery" *ngIf="activityUser != undefined && activityUser.listGalleryActivity != undefined">   
         <ng2-image-gallery #gallery [images]="activityUser.listGalleryActivity.items"></ng2-image-gallery>  
-    </div>      
+    </div>
+
     <!-- BANNER -->
-    <section class="container-fluid activity-center" style="height: 500px">
-        <div class="activity-center-banner" *ngIf="activityUser != undefined && activityUser.featuredImage != undefined" style="height: 500px" [style.background]="'url(' + activityUser.featuredImage + ')'"></div>
+    <section id="Banner" class="container-fluid activity-center">
+        <div class="activity-center-banner" [ngClass]="{'image-default': activityUser != undefined && activityUser.featuredImage == searchBanner}" *ngIf="activityUser != undefined && activityUser.featuredImage != undefined" [style.background]="'url(' + activityUser.featuredImage + ')'"></div>
+        <div class="activity-center-banner image-default" *ngIf="activityUser == undefined || activityUser.featuredImage == undefined" [style.background]="'url(' + searchBanner + ')'"></div>
         <div class="container">
             <div class="row m-t-20px" *ngIf="activityUser != undefined && activityUser.listInterestCenter.items.length > 0">
                 <div class="col-xs-12 text-center">
@@ -26,7 +28,7 @@
     </section>
 
     <!-- INFO -->
-    <section class="info-activities">
+    <section id="Info" class="info-activities">
         <div class="container-fluid bg-White bg-fluid-hidden" *ngIf="atividadeCarregado">
             <div class="row borda-bottom-1 borda-Botticelli">
                 <div class="container">
@@ -38,7 +40,9 @@
                                 </button>
                             </div>
                             <p class="small cor-Botticelli text-center m-b-xxs">
-                                Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}</a>
+                                <span class="politica">Politica de cancelamento:</span> {{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}
+                                <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
+                                <i class="fa fa-question-circle tooltip-icone" placement="left" container="body" [tooltip]="popTemplatePoliticaCancelamento"></i>
                             </p>
                         </div>
                         <div class="col-xs-12 col-md-8 col-md-pull-4 m-t-24px no-m-t-xs">
@@ -53,8 +57,7 @@
                                     <div class="col-xs-6 col-sm-3 no-pad-x">
                                         <div class="card-default card-default-no-hover text-center p-y-xxs">
                                             <img alt="Icon task" class="" src="/assets/metronic/worbby/global/img/icon-tasks-done.svg" />
-                                            <p class="small" *ngIf="activityUser.taskPerformed <= 1">{{activityUser.taskPerformed}} tarefa realizada</p>
-                                            <p class="small" *ngIf="activityUser.taskPerformed > 2">{{activityUser.taskPerformed}} tarefas realizadas</p>
+                                            <p class="small">{{activityUser.taskPerformed}} tarefa(s) realizada(s)</p>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 col-sm-3 no-pad-x">
@@ -114,20 +117,65 @@
     </section>
 
     <!-- REVIEWS -->
-    <section>
+    <section id="Reviews">
         <div class="container-fluid bg-WhiteLilac bg-fluid-hidden" *ngIf="worbbiorPerfilCarregado">
             <div class="row">
                 <div class="container">
-                    <div class="row">
+                    <div class="row">                        
+                        <!-- Conteudo perfil : inicio -->
+                        <div class="perfil-content col-xs-12 col-sm-8 m-t-sm no-m-t-xs">
+                            <div class="row m-t-xs">
+                                <div class="col-xs-12">
+                                    <p class="m-b-sm">
+                                        {{ activityUser.description}}
+                                    </p>
+                                </div>
+                            </div>
+                            <h3 class="m-b-xss">{{activityUser.evaluation.evaluations.items.length}} Comentário(s)</h3>
+                            <div class="row" *ngIf="activityUser.evaluation.evaluations.items.length > 0; else empty">
+                                <!-- Desktop -->
+                                <div class="col-xs-12">
+                                    <div class="clearfix m-b-xss chat-baloon-left" *ngFor="let review of activityUser.evaluation.evaluations.items">                                
+                                        <div class="col-sm-2 col-xs-3">
+                                            <div class="divProfile divProfile-small">
+                                                <img alt="Photo Profile" class="img-responsive img-circle pro img-profile-blue" [src]="review.userPicture">
+                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-9">
+                                            <div class="col-sm-offset-0 no-pad-left-lg">
+                                                <div class="card-chat arrow-left">
+                                                    <div class="arrow-chat"></div>
+                                                    <div class="card-chat-content cor-Cinder">
+                                                        <div class="card-chat-title m-b-xxs cor-Denim">
+                                                            {{review.nameUserId}} - {{review.creationTime | amDateFormat:'DD/MM/YYYY HH:mm:ss'}}
+                                                        </div>
+                                                        {{review.comments}}
+                                                    </div>
+                                                </div>
+                                            </div>	
+                                        </div>                                
+                                    </div>
+                                    <button *ngIf="showButtonMore" type="button" class="btn btn-prime btn-block m-t-20px hidden-xs" (click)="loadingMore()">Ler todos</button>
+                                </div>                                
+                            </div>
+                            <ng-template #empty>
+                                <div class="well well-lg">
+                                    Não foi encontrado nenhum resultado para esta pesquisa
+                                </div>                          
+                            </ng-template>
+                        </div>
+                        <!-- Conteudo perfil : Fim -->
                         <!-- menu perfil : inicio -->
-                        <div class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
+                        <div class="col-xs-12 col-sm-4 bg-White bg-fluid menuProfile m-b-xss">
+                            <p class="small visible-xs cor-Botticelli m-t-xxs">Perfil do Talento</p>
                             <div class="card-profile" >
                                 <div class="col-xs-12">
                                     <div class="sidebar-header m-t-sm p-b-sm">
                                         <div class="display-table">
                                             <div class="divProfile m-r-20px-sm">
                                                 <img id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.worbbior.userPicture" />
-                                               <span *ngIf="worbbiorProfile.worbbior.premium" class="profile-pro"></span>
+                                                <span *ngIf="worbbiorProfile.worbbior.premium" class="profile-pro"></span>
                                             </div>
                                             <div class="display-cell alignTop">
                                                 <h4 class="no-m-y profileName">{{worbbiorProfile.worbbior.displayName}}</h4>
@@ -155,20 +203,6 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 divider">
-                                        <div class="display-table">
-                                            <div class="display-cell">
-                                                <p class="small cor-Botticelli text-right">{{l("Availabilities")}}</p>
-                                            </div>
-                                            <div class="display-cell" *ngIf="worbbiorProfile != undefined && worbbiorProfile.availabilities.items.length > 0">
-                                                <p class="no-m-y p-y-xxs" *ngFor="let availability of worbbiorProfile.availabilities.items">
-                                                    {{l(DayOfWeek[availability.dayOfWeek.toString()])}} - 
-                                                    {{availability.startTime}} - 
-                                                    {{availability.endTime}}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 divider">
                                          <div class="display-table">
                                             <div class="display-cell">
                                                 <p class="small cor-Botticelli text-right">{{l("Evaluation")}}</p>
@@ -186,6 +220,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 divider">
+                                        <div class="display-table">
+                                            <div class="display-cell">
+                                                <p class="small cor-Botticelli text-right">{{l("Availabilities")}}</p>
+                                            </div>
+                                            <div class="display-cell" *ngIf="worbbiorProfile != undefined && worbbiorProfile.availabilities.items.length > 0">
+                                                <p class="no-m-y p-y-xxs" *ngFor="let availability of worbbiorProfile.availabilities.items">
+                                                    {{l(DayOfWeek[availability.dayOfWeek.toString()])}} - 
+                                                    {{availability.startTime}} - 
+                                                    {{availability.endTime}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>                                    
                                     <div class="col-xs-12 m-t-sm divider">
                                         <p class="cor-Botticelli m-b-20px m-t-sm">Compartilhar este perfil com seus amigos:</p>
                                         <div class="social-list">
@@ -228,50 +276,6 @@
                             </div>                            
                         </div>
                         <!-- menu perfil : Fim -->
-                        <!-- Conteudo perfil : inicio -->
-                        <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
-                            <div class="row m-t-xs">
-                                <div class="col-xs-12">
-                                    <p class="m-b-sm">
-                                        {{ activityUser.description}}
-                                    </p>
-                                </div>
-                            </div>
-                            <h3 class="m-b-xss">{{activityUser.evaluation.evaluations.items.length}} Review(s)</h3>
-                            <div class="row" *ngIf="activityUser.evaluation.evaluations.items.length > 0; else empty">
-                                <!-- Desktop -->
-                                <div class="col-xs-12">
-                                    <div class="clearfix m-b-xss chat-baloon-left" *ngFor="let review of activityUser.evaluation.evaluations.items">                                
-                                        <div class="col-sm-2 col-xs-3">
-                                            <div class="divProfile divProfile-small">
-                                                <img alt="Photo Profile" class="img-responsive img-circle pro img-profile-blue" [src]="review.userPicture">
-                                                <span *ngIf="worbbiorPremium" class="profile-pro"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10 col-xs-9">
-                                            <div class="col-sm-offset-0 no-pad-left-lg">
-                                                <div class="card-chat arrow-left">
-                                                    <div class="arrow-chat"></div>
-                                                    <div class="card-chat-content cor-Cinder">
-                                                        <div class="card-chat-title m-b-xxs cor-Denim">
-                                                            {{review.nameUserId}} - {{review.creationTime | amDateFormat:'DD/MM/YYYY HH:mm:ss'}}
-                                                        </div>
-                                                        {{review.comments}}
-                                                    </div>
-                                                </div>
-                                            </div>	
-                                        </div>                                
-                                    </div>
-                                    <button *ngIf="showButtonMore" type="button" class="btn btn-prime btn-block m-t-20px hidden-xs" (click)="loadingMore()">Ler todos</button>
-                                </div>                                
-                            </div>
-                            <ng-template #empty>
-                                <div class="well well-lg">
-                                    Não foi encontrado nenhum resultado para esta pesquisa
-                                </div>                          
-                            </ng-template>
-                        </div>
-                        <!-- Conteudo perfil : Fim -->
                     </div>
                 </div>
             </div>
@@ -282,8 +286,8 @@
     </section>
 
     <!-- SIMILAR ACTIVITIES -->
-    <section class="similar-activities">
-        <div class="container-fluid bg-Solititude bg-fluid-hidden p-y-sm" *ngIf="similarActivityCarregado">
+    <section id="similar-activities" class="similar-activities">
+        <div class="container-fluid bg-Solititude bg-fluid-hidden p-y-sm" *ngIf="similarActivityCarregado && similarActivityList.length > 0">
             <div class="row">
                 <div class="container">
                     <div class="row">
@@ -310,7 +314,10 @@
                                                     </rating>
                                                 </div>
                                                 <div class="col-xs-6 text-right">
-                                                    <span class="txt-smaller">{{similarActivity.evaluation.evaluations.items.length}} Review(s)</span>
+                                                    <span class="txt-smaller">
+                                                        {{similarActivity.evaluation.evaluations.items.length}} 
+                                                        <img alt="Icon Reviews" class="m-l-5px display-inline-block" src="/assets/metronic/worbby/global/img/icon-reviews.svg" style="width:32px;" />
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -329,7 +336,7 @@
     </section>
 
     <!-- OTHER ACTIVITIES -->
-    <section class="other-activities">
+    <section id="other-activities" class="other-activities">
         <div class="container-fluid bg-WhiteLilac bg-fluid-hidden p-y-sm">
             <div class="row">
                 <div class="container">
@@ -337,12 +344,12 @@
                         <!-- CATEGORIA POPULAR : inicio -->
                         <h3 class="m-b-xss no-m-t">
                             <span>Você também pode gostar</span>
-                            <a class="small pull-right cor-Denim m-y-5px" routerLink="/talentos">
+                            <a class="small pull-right cor-Denim m-y-5px hidden-xs" routerLink="/talentos">
                                 {{l("ViewAll")}} <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                             </a>
                         </h3>
                         <!-- desktop : inicio -->
-                        <div class="row">
+                        <div class="row hidden-xs">
                             <!-- grupo 1 : inicio -->
                             <div class="col-xs-12 col-md-4">
                                 <!-- imagem destaque : imicio -->
@@ -414,7 +421,26 @@
                             </div>
                             <!-- Grupo 3 : Fim -->
                         </div>
-                        <!-- desktop : inicio -->
+                        <!-- desktop : fim -->
+                        <!-- mobile : inicio -->
+                        <div class="row visible-xs">
+                            <div class="col-xs-12">
+                                <slick-slider *ngIf="appSession.interestCentersTopLevel.length" class="row text-center">
+                                    <!-- card-talent : inicio -->
+                                    <div *ngFor="let interestCenter of appSession.interestCentersTopLevel" class="card-shadow card-talent hovereffect">
+                                        <a [routerLink]="['/centro-interesse', interestCenter.slugName]">
+                                            <img class="ico-btn" [src]="interestCenter.interestCenterPicture" alt="{{interestCenter.displayName}}" />
+                                            <h5>{{interestCenter.displayName}}</h5>
+                                            <div class="overlay">
+                                                <p>{{interestCenter.description}}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- card-talent : Fim -->
+                                </slick-slider>
+                            </div>
+                        </div>
+                        <!-- mobile : fim -->
                     </div>
                 </div>
             </div>

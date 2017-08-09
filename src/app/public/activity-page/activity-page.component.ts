@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild, AfterViewInit } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from "shared/common/app-component-base";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -15,7 +15,7 @@ import { Ng2ImageGalleryComponent } from 'ng2-image-gallery';
   animations: [appModuleAnimation()]
 })
 
-export class ActivityPageComponent extends AppComponentBase implements OnInit {
+export class ActivityPageComponent extends AppComponentBase implements AfterViewInit {
 
   @ViewChild('gallery') gallery: Ng2ImageGalleryComponent;
 
@@ -32,12 +32,12 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   public worbbiorProfile: WorbbiorProfileDto;
   public whatsappLink: SafeUrl = "";
 
-  public teste: number = 5;
-
-  public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
+  public searchBanner: string = "/assets/metronic/worbby/global/img/worbby-pattern.png";
   public loading: string = "assets/metronic/worbby/global/img/loading2.gif";
 
   public similarActivityList: UserActivityInput[] = [];
+
+  public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
   constructor(
     injector: Injector,
@@ -66,6 +66,10 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
       this.getActivity();
      }); 
+  }
+
+  ngAfterViewInit(): void {
+    this.getInterestCenters();
   }
 
   openGallery(): void {
@@ -217,5 +221,11 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
         }
       }
     }
+  }
+
+  private getInterestCenters(): void {
+      if(this.appSession.interestCentersTopLevel.length == 0){
+          this.getInterestCentersTopLevel();
+      }
   }
 }

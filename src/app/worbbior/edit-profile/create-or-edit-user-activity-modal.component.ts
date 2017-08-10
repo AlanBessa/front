@@ -54,6 +54,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     image:any = new Image();
     cropActive:boolean = false;
     featureThumbnail:string;
+    showPacman:boolean = false;
 
     public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
 
@@ -304,6 +305,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     save(saveExit:boolean): void {
         let self = this;
         self.saving = true;
+        self.showPacman = true;
         if (self.activityUser.tenantId == 0 || self.activityUser.tenantId == null) {
             self.activityUser.tenantId = abp.session.tenantId;
         }
@@ -320,6 +322,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                 .finally(() => { 
                     self.saving = false; 
                     self.cropActive = false;
+                    self.showPacman = false;
                 })       
                 .subscribe(event => {
                     console.log(event);
@@ -347,6 +350,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
             .finally(() => { 
                 self.saving = false; 
                 self.cropActive = false;
+                self.showPacman = false;
             })
             .subscribe(event => {
                 self.message.success(self.l('SavedSuccessfully'));

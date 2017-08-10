@@ -1806,11 +1806,27 @@ body {
 
 /* ACTIVITIES PAGE */
 
+.activity-page .activity-center,
+.activity-page .activity-center-banner {
+    height: 500px;
+}
+
+.activity-page .activity-center-banner.image-default {
+    background-size: initial !important;
+    background-repeat: repeat !important;
+    background-position: center top !important;
+}
+
 .similar-activities .card-talent {
     width: 250px !important;
     margin: 0 15px;
     padding: 0;
     border: 0;
+}
+
+.similar-activities .card-talent h4 {
+    height: 63px;
+    overflow: hidden;
 }
 
 .similar-activities .card-talent a {
@@ -1865,7 +1881,6 @@ body {
 .activity-page .info-activities .card-list .card-default {
     min-height: 89px;
     box-shadow: none;
-    border-bottom: 4px solid #FFCB33;
 }
 
 .activity-page .info-activities .card-list .card-default.card-default-no-hover {
@@ -2002,6 +2017,18 @@ body {
 .ng2-image-gallery-thumbnail {
     max-width: 100% !important;
     max-height: 100% !important;
+}
+
+.ng2-image-gallery-lightbox .ng2-igl-close .fa-close {    
+    background: url(/assets/metronic/worbby/global/img/icon-close-white.svg) no-repeat center center;
+    width: 30px;
+    display: block;
+    height: 30px;
+    background-size: cover;
+}
+
+.ng2-image-gallery-lightbox .ng2-igl-close .fa-close:before {
+    content: '';
 }
 
 /* Wizard */
@@ -4775,7 +4802,6 @@ rating.txt-small .glyphicon-heart-empty {
         }
 
         /* BOX */
-
         .box {
             min-height: auto !important;
         }
@@ -5169,6 +5195,32 @@ rating.txt-small .glyphicon-heart-empty {
         .card-details rating i, .profile-details rating i {
             font-size: 18px!important;
         }
+
+        /* ACTIVITIES PAGE */
+        .activity-page .activity-center,
+        .activity-page .activity-center-banner {
+            height: 330px;
+        }
+
+        .activity-page .politica {
+            display: block;
+        }
+
+        .activity-page .container .btn-gallery {
+            position: relative;
+            display: block;
+            text-align: center;
+            bottom: initial;
+        }
+
+        .activity-page .container .btn-gallery img {
+            top: 6px;
+        }
+
+        .activity-page .container .btn-gallery button {
+            position: relative;
+            font-size: 14px !important;
+        }
     }
 
     @media (max-width: 680px) {
@@ -5420,7 +5472,7 @@ rating.txt-small .glyphicon-heart-empty {
         }
 
         .table-wrapper .table-cell .table-cell-container {
-            padding: 0 20px;
+            padding: 20px;
         }
 
         .table-cell-container .icon-white {

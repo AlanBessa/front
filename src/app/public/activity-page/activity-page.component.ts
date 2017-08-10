@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild, AfterViewInit } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from "shared/common/app-component-base";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -18,7 +18,7 @@ declare const FB: any;
   animations: [appModuleAnimation()]
 })
 
-export class ActivityPageComponent extends AppComponentBase implements OnInit {
+export class ActivityPageComponent extends AppComponentBase implements AfterViewInit {
 
   @ViewChild('gallery') gallery: Ng2ImageGalleryComponent;
   @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
@@ -37,12 +37,12 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
   public whatsappLink: SafeUrl = "";
   public showLoginRegister:boolean = false;
 
-  public teste: number = 5;
-
-  public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
+  public searchBanner: string = "/assets/metronic/worbby/global/img/worbby-pattern.png";
   public loading: string = "assets/metronic/worbby/global/img/loading2.gif";
 
   public similarActivityList: UserActivityInput[] = [];
+
+  public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
 
   constructor(
     injector: Injector,
@@ -72,6 +72,10 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
 
       this.getActivity();
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.getInterestCenters();
   }
 
   openGallery(): void {
@@ -235,6 +239,11 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
     }   
   }
 
+  private getInterestCenters(): void {
+      if(this.appSession.interestCentersTopLevel.length == 0) {
+          this.getInterestCentersTopLevel();
+      }
+  }
 
   shareButtonClick(name: string): void {
     this.angulartics2.eventTrack.next({
@@ -244,18 +253,18 @@ export class ActivityPageComponent extends AppComponentBase implements OnInit {
         label: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title
       }
     });
-  }
+  }  
 
   sharedFacebook(): void {
-    FB.ui({
-      method: 'feed',
-      link: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title,
-      picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
-      name: this.activityUser.title,
-      description: this.activityUser.description
-    }, function (response) {
-      console.log(response);
-    });
+      FB.ui({
+          method: 'feed',
+          link: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title,
+          picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
+          name: this.activityUser.title,
+          description: this.activityUser.description
+      }, function(response){
+          console.log(response);
+      });
 
     this.angulartics2.eventTrack.next({
       action: 'Compartilharmento da atividade do Worbbior',

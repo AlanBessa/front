@@ -2022,6 +2022,10 @@ body {
     background-size: cover;
 }
 
+.ng2-image-gallery-lightbox .ng2-igl-img {
+    box-shadow: 0 2px 4px 0 rgba(30, 34, 37, 1);
+}
+
 .ng2-image-gallery-lightbox .ng2-igl-close .fa-close:before {
     content: '';
 }

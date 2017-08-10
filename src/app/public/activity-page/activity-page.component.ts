@@ -37,6 +37,8 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   public whatsappLink: SafeUrl = "";
   public showLoginRegister:boolean = false;
 
+  public worbbiorId:number;
+
   public searchBanner: string = "/assets/metronic/worbby/global/img/worbby-pattern.png";
   public loading: string = "assets/metronic/worbby/global/img/loading2.gif";
 
@@ -162,6 +164,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
 
       this._worbbiorService.getWorbbiorByUserId(this.activityUser.userId).subscribe((result) => {
         let worbbior = result;
+        this.worbbiorId = worbbior.id
 
         this.getPreviewWorbbiorProfile(worbbior.id);
       });

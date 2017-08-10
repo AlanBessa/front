@@ -23,7 +23,7 @@
 
 
 
-    <div *ngIf="!showLoginRegister" class="hideGallery" *ngIf="activityUser != undefined && activityUser.listGalleryActivity != undefined">   
+    <div class="hideGallery" *ngIf="activityUser != undefined && activityUser.listGalleryActivity != undefined && !showLoginRegister">   
         <ng2-image-gallery #gallery [images]="activityUser.listGalleryActivity.items"></ng2-image-gallery>  
     </div>
 

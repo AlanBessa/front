@@ -2950,6 +2950,74 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
+    getExportTranfrersToExcel(filter: string, permission: string, transferenceStateCombo: number, bankAccountTypeId: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetExportTranfrersToExcel?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (transferenceStateCombo !== undefined)
+            url_ += "TransferenceStateCombo=" + encodeURIComponent("" + transferenceStateCombo) + "&"; 
+        if (bankAccountTypeId !== undefined)
+            url_ += "BankAccountTypeId=" + encodeURIComponent("" + bankAccountTypeId) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetExportTranfrersToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetExportTranfrersToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetExportTranfrersToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     sendEmailWorbbior(input: BalanceTransferMessageInput): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/SendEmailWorbbior";
         url_ = url_.replace(/[?&]$/, "");

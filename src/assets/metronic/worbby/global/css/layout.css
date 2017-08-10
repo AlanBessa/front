@@ -192,6 +192,7 @@ app-root {
 .p-r-xss{padding-right: 20px;}
 
 .p-t-sm{padding-top: 60px;}
+.p-t-xs{padding-top: 30px;}
 .p-t-xxs{padding-top: 15px;}
 
 .p-t-10px {
@@ -1880,6 +1881,10 @@ body {
     z-index: -10;
 }
 
+.user-activity-modal .modal-body .col-divider-top {
+    border-top-color: #e5e5e5;
+}
+
 /* ACTIVITIES CENTER PAGE */
 .activity-center {
     height: 577px;
@@ -3329,6 +3334,7 @@ recaptcha {
 .user-activity-modal .modal-dialog {
     width: 100%;
     max-width: 1200px;
+    padding-right: 20px;
 }
 
 .user-activity-modal .activity-modal-header-view {

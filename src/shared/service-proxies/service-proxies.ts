@@ -2900,6 +2900,101 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
+    getTransferDetailAdmin(id: number): Observable<BalanceTransferDto> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetTransferDetailAdmin?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetTransferDetailAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetTransferDetailAdmin(response_);
+                } catch (e) {
+                    return <Observable<BalanceTransferDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<BalanceTransferDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetTransferDetailAdmin(response: Response): Observable<BalanceTransferDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: BalanceTransferDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? BalanceTransferDto.fromJS(resultData200) : new BalanceTransferDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<BalanceTransferDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendEmailWorbbior(input: BalanceTransferMessageInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/SendEmailWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getCurrentUserId(): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetCurrentUserId";
         url_ = url_.replace(/[?&]$/, "");
@@ -17985,6 +18080,7 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
     keyWords: string;
     interestCenterPicture: string;
     activityCount: number;
+    slugName: string;
     id: number;
 
     constructor(data?: IInterestCenterForActivityDto) {
@@ -18009,6 +18105,7 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
             this.keyWords = data["keyWords"];
             this.interestCenterPicture = data["interestCenterPicture"];
             this.activityCount = data["activityCount"];
+            this.slugName = data["slugName"];
             this.id = data["id"];
         }
     }
@@ -18032,6 +18129,7 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
         data["keyWords"] = this.keyWords;
         data["interestCenterPicture"] = this.interestCenterPicture;
         data["activityCount"] = this.activityCount;
+        data["slugName"] = this.slugName;
         data["id"] = this.id;
         return data; 
     }
@@ -18049,6 +18147,7 @@ export interface IInterestCenterForActivityDto {
     keyWords: string;
     interestCenterPicture: string;
     activityCount: number;
+    slugName: string;
     id: number;
 }
 
@@ -19535,6 +19634,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     userId: number;
     userName: string;
     userEmail: string;
+    userFinancial: string;
     bankAccountId: number;
     nameBank: string;
     bankAccount: BankAccountDto;
@@ -19558,6 +19658,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
             this.userId = data["userId"];
             this.userName = data["userName"];
             this.userEmail = data["userEmail"];
+            this.userFinancial = data["userFinancial"];
             this.bankAccountId = data["bankAccountId"];
             this.nameBank = data["nameBank"];
             this.bankAccount = data["bankAccount"] ? BankAccountDto.fromJS(data["bankAccount"]) : <any>undefined;
@@ -19580,6 +19681,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
         data["userId"] = this.userId;
         data["userName"] = this.userName;
         data["userEmail"] = this.userEmail;
+        data["userFinancial"] = this.userFinancial;
         data["bankAccountId"] = this.bankAccountId;
         data["nameBank"] = this.nameBank;
         data["bankAccount"] = this.bankAccount ? this.bankAccount.toJSON() : <any>undefined;
@@ -19596,6 +19698,7 @@ export interface IBalanceTransferDto {
     userId: number;
     userName: string;
     userEmail: string;
+    userFinancial: string;
     bankAccountId: number;
     nameBank: string;
     bankAccount: BankAccountDto;
@@ -19929,6 +20032,53 @@ export class PagedResultDtoOfBalanceTransferDto implements IPagedResultDtoOfBala
 export interface IPagedResultDtoOfBalanceTransferDto {
     totalCount: number;
     items: BalanceTransferDto[];
+}
+
+export class BalanceTransferMessageInput implements IBalanceTransferMessageInput {
+    id: number;
+    message: string;
+    worbbiorName: string;
+    worbbiorEmail: string;
+
+    constructor(data?: IBalanceTransferMessageInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.message = data["message"];
+            this.worbbiorName = data["worbbiorName"];
+            this.worbbiorEmail = data["worbbiorEmail"];
+        }
+    }
+
+    static fromJS(data: any): BalanceTransferMessageInput {
+        let result = new BalanceTransferMessageInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["message"] = this.message;
+        data["worbbiorName"] = this.worbbiorName;
+        data["worbbiorEmail"] = this.worbbiorEmail;
+        return data; 
+    }
+}
+
+export interface IBalanceTransferMessageInput {
+    id: number;
+    message: string;
+    worbbiorName: string;
+    worbbiorEmail: string;
 }
 
 export class CreateBankAccountInput implements ICreateBankAccountInput {

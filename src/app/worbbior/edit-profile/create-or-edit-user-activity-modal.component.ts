@@ -71,7 +71,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         private _appSessionService: AppSessionService,
         private _galleryActivityService: GalleryActivityServiceProxy,
         private angulartics2: Angulartics2,
-        private _worbbiorService: WorbbiorServiceProxy,
+        private _worbbiorService: WorbbiorServiceProxy
     ) {
         super(injector);
     }
@@ -87,15 +87,20 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         var self = this;
         var file:File = $event.target.files[0];
         var myReader:FileReader = new FileReader();
-        
-        this.angulartics2.eventTrack.next({ action: "Imagem do perfil", properties: { category: 'Upload', label: file.size}});
+
+        if(!self.isImageFile(file.name)){
+            self.message.error("Arquivo somente no formato JPG / JPEG / PNG");
+        }else{
+            myReader.readAsDataURL(file);
+        }
+
         myReader.onloadend = function (loadEvent:any) {
             self.image.src = loadEvent.target.result;
             
 
             self.image.onload = function(){
                 if(self.image.width < 1400 || self.image.height < 550){
-                    self.message.error("A imagem tem que ter largura mínima de 1400 pixels e altura mínima de 550 pixels");
+                    self.message.error("A imagem tem que ter no mínimo 1400 (largura) x 550 (altura) pixels");
                 }else{
                     self.cropper.setImage(self.image);
                     self.cropActive = true;
@@ -165,10 +170,11 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
             }
         };
 
-        myReader.readAsDataURL(file);
+        
     }
 
     show(activityUser: UserActivityInput): void {
+        this.setMediaQueries();
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.width = 1400;
         this.cropperSettings.height = 550;
@@ -176,6 +182,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
 
         this.cropperSettings.croppedWidth = 1400;
         this.cropperSettings.croppedHeight = 550;
+        console.log(this.mediaQuery);
 
         this.cropperSettings.canvasWidth = this.mediaQuery == "xs" ? 265 : 500;
         this.cropperSettings.canvasHeight = this.mediaQuery == "xs" ? 200 : 300;
@@ -294,7 +301,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         this.activityUser.cancellationPolicy = CancellationPolicy[name];
     }
 
-    save(): void {
+    save(saveExit:boolean): void {
         let self = this;
         self.saving = true;
         if (self.activityUser.tenantId == 0 || self.activityUser.tenantId == null) {
@@ -308,30 +315,46 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         if(self.data.image){
             var thumbImage = new Image();
             thumbImage.onload = function() {
-                self._activityService.addActivityToUser(self.activityUser)
+
+                var teste = self._activityService.addActivityToUser(self.activityUser)                
                 .finally(() => { 
                     self.saving = false; 
                     self.cropActive = false;
-                })
-                .subscribe(() => {
-                    //if (!this.remove) {
-                        self.message.success(self.l('SavedSuccessfully'));
+                })       
+                .subscribe(event => {
+                    console.log(event);
+                    self.message.success(self.l('SavedSuccessfully'));                    
+                    self.modalSave.emit(null);
+                    if(saveExit){
                         self.close();
-                        self.modalSave.emit(null);
-                    //}
-                });
+                    }
+                });     
+                // .subscribe(() => {
+                //     //if (!this.remove) {
+                //         self.message.success(self.l('SavedSuccessfully'));
+                //         self.close();
+                //         self.modalSave.emit(null);
+                //     //}
+                // }, (error) => {
+
+                // });
+
+                
             };
             thumbImage.src = this.data.image;
         }else{
             self._activityService.addActivityToUser(self.activityUser)
-            .finally(() => { self.saving = false; })
-            .subscribe(() => {
-                //if (!this.remove) {
-                    self.message.success(self.l('SavedSuccessfully'));
+            .finally(() => { 
+                self.saving = false; 
+                self.cropActive = false;
+            })
+            .subscribe(event => {
+                self.message.success(self.l('SavedSuccessfully'));
+                self.modalSave.emit(null);
+                if(saveExit){
                     self.close();
-                    self.modalSave.emit(null);
-                //}
-            });
+                }
+            });    
         }
     }
 
@@ -429,7 +452,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
             image.onload = function(){
 
                 if(image.width < 330 && image.height < 330){
-                    self.message.error("A imagem tem que ter altura e larguras maiores do que 330 pixels");
+                    self.message.error("A imagem tem que ter no mínimo 300 (largura) x 300 (altura) pixels");
                 }else{
                     if(self.isNullOrEmpty(galleryActivity.fileName) && self.isNullOrEmpty(galleryActivity.galleryPictureId)){
                         var imageItem = new GalleryActivityDto();
@@ -527,6 +550,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
 
     close(): void {
         this.active = false;
+        this.cropActive = false;
         this.modal.hide();
     }
 }

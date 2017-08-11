@@ -168,7 +168,7 @@
                 <!-- BANNER -->
                 <section class="container-fluid activity-center" style="height: 500px">
                     <div *ngIf="activityUser.featuredImage && !cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + activityUser.featuredImage + ')'"></div>
-                    <div *ngIf="!activityUser.featuredImage && !cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + searchBanner + ')'"></div>
+                    <div *ngIf="!activityUser.featuredImage && !cropActive" class="activity-center-banner image-default" style="height: 500px" [style.background]="'url(' + searchBanner + ')'"></div>
                     <div *ngIf="cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + data.image + ')'"></div>
                     <div class="container">
                         <div class="row m-t-20px" *ngIf="interestCenters.length > 0">

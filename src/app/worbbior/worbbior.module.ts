@@ -12,7 +12,6 @@ import { MyPersonalDataWorbbiorComponent } from './edit-profile/my-personal-data
 import { MyDocumentsWorbbiorComponent } from './edit-profile/my-documents.component';
 import { MyActivitiesWorbbiorComponent } from './edit-profile/my-activities.component';
 import { SelectActivityComponent } from './edit-profile/select-activity.component';
-import { CreateOrEditUserActivityModalComponent } from './edit-profile/create-or-edit-user-activity-modal.component';
 import { CreateOrEditAvailabilityModalComponent } from './edit-profile/create-or-edit-availability-modal.component';
 import { MyAvailabilityWorbbiorComponent } from './edit-profile/my-availability.component';
 import { MyEndorsementsWorbbiorComponent } from './edit-profile/my-endorsements.component';
@@ -80,7 +79,6 @@ import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-hist
         WorbbiorTaskOfferComponent,
         WorbbiorTaskDetailsComponent,
         InfoTutorialCadastroModalComponent,
-        CreateOrEditUserActivityModalComponent,
         SendEndorsementModalComponent,
         GeneralPaymentWorbbiorComponent,
         ReceivedPaymentWorbbiorComponent,

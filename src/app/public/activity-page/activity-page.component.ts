@@ -11,6 +11,7 @@ import { Angulartics2 } from 'angulartics2';
 import { MetaService } from '@nglibs/meta';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
+import { CreateOrEditUserActivityModalComponent } from '@app/worbbior/edit-profile/create-or-edit-user-activity-modal.component';
 declare const FB: any;
 
 @Component({
@@ -22,6 +23,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
 
   @ViewChild('gallery') gallery: Ng2ImageGalleryComponent;
   @ViewChild('sendReportModal') sendReportModal: SendReportModalComponent;
+  @ViewChild('createOrEditUserActivityModal') createOrEditUserActivityModal: CreateOrEditUserActivityModalComponent;
 
   public worbbiorPerfilCarregado: boolean = false;
   public similarActivityCarregado: boolean = false;
@@ -38,6 +40,8 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   public showLoginRegister:boolean = false;
 
   public worbbiorId:number;
+
+  public isMyActivity:boolean = false;
 
   public searchBanner: string = "/assets/metronic/worbby/global/img/worbby-pattern.png";
   public loading: string = "assets/metronic/worbby/global/img/loading2.gif";
@@ -82,6 +86,10 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
 
   openGallery(): void {
     this.gallery.openLightboxGallery(0);
+  }
+
+  updateActivity(): void {
+      this.createOrEditUserActivityModal.show(new UserActivityInput(this.activityUser));
   }
 
   getPreviewWorbbiorProfile(worbbiorId: number): void {
@@ -130,6 +138,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   getActivity(): void {
     this._activityService.getUserActivity(this.activityUserId).subscribe((result) => {
       this.activityUser = result;
+      this.isMyActivity = this.activityUser.userId == abp.session.userId;
       var filter = '{"filters":[';
 
       this.activityUser.evaluation.evaluations.items.forEach(element => {

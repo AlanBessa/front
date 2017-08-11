@@ -2701,6 +2701,10 @@ body {
 .payment-date-picker button {
     padding: 6px 17px 6px !important;
 }
+
+.table-payment .cancellation-tax-amount {
+    text-decoration: underline;
+}
   
 .table-payment > thead > tr > th {
     border-bottom: 1px solid #1E2225;

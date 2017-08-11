@@ -22,12 +22,20 @@
                 <span [ngClass]="{'cor-Flamingo': activityUser.endorsementsCount < 2 || activityUser.activityState == ActivityState.Inactive || activityUser.activityState == ActivityState.InactiveByWorbbior, 'cor-CaribbeanGreen': activityUser.activityState != ActivityState.InactiveByWorbbior && activityUser.endorsementsCount > 1}" *ngIf="activityUser.activityState != ActivityState.Inactive">                    
                     <span *ngIf="activityUser.activityState == ActivityState.InactiveByWorbbior || activityUser.endorsementsCount < 2" class="cursor-pointer underline" placement="left" container="body" [tooltip]="popTemplateStatusText">{{activityUser.endorsementsCount < 2 ? 'Inativa' : 'Desativada'}}</span>
                     <span *ngIf="activityUser.activityState != ActivityState.InactiveByWorbbior && activityUser.endorsementsCount > 1">Ativa</span>
-                </span>              
+                </span>
+                <a class="btn-cog" (click)="updateActivity(activityUser)">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>  
                 <a href="#" class="dropdown-toggle btn-cog" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <i class="fa fa-cog"></i>
                 </a> 
                 <ul class="dropdown-menu dropdown-menu-default box-user-menu box-user-menu-grey position-box config-atividades-xs">
                     <li class="arrow-up"></li>
+                    <li>
+                        <a (click)="updateActivity(activityUser)">
+                            Editar Atividade
+                        </a>
+                    </li>
                     <li *ngIf="activityUser.activityState != ActivityState.Inactive">
                         <a (click)="toogleUserActivityState(activityUser)" class="cursor-pointer" placement="left" container="body" [tooltip]="popTemplateStatus">
                             <span class="title" >{{activityUser.activityState == ActivityState.InactiveByWorbbior ? 'Ativar' : 'Desativar'}}</span>
@@ -42,13 +50,13 @@
                         </a> 
                     </li>
                     <li>
-                        <a [routerLink]="['/publico/worbbior/pagina', worbbiorSlug]" fragment="atividade-{{activityUser.id}}">
+                        <a (click)="goActivityPage(activityUser)">
                             Visualizar Atividade
                         </a>
                     </li>
                 </ul>                        
             </div>
-            <a class="card-talents" (click)="updateActivity(activityUser)">
+            <div class="card-talents">
                 <h4 class="m-b-xxs no-pad-right-lg w-77">"{{activityUser.title}}"</h4>
                
                 <div class="card-content clearfix" *ngFor="let interestCenter of activityUser.listInterestCenter.items  | groupBy:'parentDisplayName'">
@@ -59,7 +67,7 @@
                         </span>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
     <div class="col-xs-12">

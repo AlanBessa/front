@@ -119,4 +119,9 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
         );
 
     }
+
+    goActivityPage(activity:UserActivityInput):void{
+        console.log(activity.id + "-" + activity.title.replace(" ","-"));
+        this._router.navigate(['/publico/atividade/' + this.changeSpecialCharacterToNormalCharacter((activity.id + "-" + activity.title.split(' ').join('-')).toLocaleLowerCase())]);
+    }
 }

@@ -56,7 +56,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
     featureThumbnail:string;
     showPacman:boolean = false;
 
-    public searchBanner: string = "/assets/metronic/worbby/global/img/exemplo.jpg";
+    public searchBanner: string = "/assets/metronic/worbby/global/img/worbby-pattern.png";
 
     public worbbiorProfile: WorbbiorDto;
 
@@ -88,12 +88,6 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
         var self = this;
         var file:File = $event.target.files[0];
         var myReader:FileReader = new FileReader();
-
-        if(!self.isImageFile(file.name)){
-            self.message.error("Arquivo somente no formato JPG / JPEG / PNG");
-        }else{
-            myReader.readAsDataURL(file);
-        }
 
         myReader.onloadend = function (loadEvent:any) {
             self.image.src = loadEvent.target.result;
@@ -171,7 +165,11 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
             }
         };
 
-        
+        if(!self.isImageFile(file.name)){
+            self.message.error("Arquivo somente no formato JPG / JPEG / PNG");
+        }else{
+            myReader.readAsDataURL(file);
+        }
     }
 
     show(activityUser: UserActivityInput): void {

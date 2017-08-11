@@ -10693,6 +10693,56 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
+    getPaymentHistoryWorbbyTaskId(worbbyTaskId: number): Observable<ListResultDtoOfPaymentHistoryDto> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentHistoryWorbbyTaskId?";
+        if (worbbyTaskId !== undefined)
+            url_ += "worbbyTaskId=" + encodeURIComponent("" + worbbyTaskId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentHistoryWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentHistoryWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfPaymentHistoryDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfPaymentHistoryDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentHistoryWorbbyTaskId(response: Response): Observable<ListResultDtoOfPaymentHistoryDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfPaymentHistoryDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfPaymentHistoryDto.fromJS(resultData200) : new ListResultDtoOfPaymentHistoryDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfPaymentHistoryDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getCurrentUserId(): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Sale/GetCurrentUserId";
         url_ = url_.replace(/[?&]$/, "");
@@ -23679,6 +23729,7 @@ export class CreateInterestCenterInput implements ICreateInterestCenterInput {
     displayName: string;
     description: string;
     keyWords: string;
+    interestCenterPicture: string;
 
     constructor(data?: ICreateInterestCenterInput) {
         if (data) {
@@ -23695,6 +23746,7 @@ export class CreateInterestCenterInput implements ICreateInterestCenterInput {
             this.displayName = data["displayName"];
             this.description = data["description"];
             this.keyWords = data["keyWords"];
+            this.interestCenterPicture = data["interestCenterPicture"];
         }
     }
 
@@ -23710,6 +23762,7 @@ export class CreateInterestCenterInput implements ICreateInterestCenterInput {
         data["displayName"] = this.displayName;
         data["description"] = this.description;
         data["keyWords"] = this.keyWords;
+        data["interestCenterPicture"] = this.interestCenterPicture;
         return data; 
     }
 }
@@ -23719,6 +23772,7 @@ export interface ICreateInterestCenterInput {
     displayName: string;
     description: string;
     keyWords: string;
+    interestCenterPicture: string;
 }
 
 export class UpdateInterestCenterInput implements IUpdateInterestCenterInput {
@@ -26245,6 +26299,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
     deliveredDate: moment.Moment;
     canceledDate: moment.Moment;
     paymentDate: moment.Moment;
+    paymentId: string;
     creationTime: moment.Moment;
     worbbyTax: number;
     cancellationTax: number;
@@ -26295,6 +26350,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
             this.deliveredDate = data["deliveredDate"] ? moment(data["deliveredDate"].toString()) : <any>undefined;
             this.canceledDate = data["canceledDate"] ? moment(data["canceledDate"].toString()) : <any>undefined;
             this.paymentDate = data["paymentDate"] ? moment(data["paymentDate"].toString()) : <any>undefined;
+            this.paymentId = data["paymentId"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.worbbyTax = data["worbbyTax"];
             this.cancellationTax = data["cancellationTax"];
@@ -26344,6 +26400,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
         data["deliveredDate"] = this.deliveredDate ? this.deliveredDate.toISOString() : <any>undefined;
         data["canceledDate"] = this.canceledDate ? this.canceledDate.toISOString() : <any>undefined;
         data["paymentDate"] = this.paymentDate ? this.paymentDate.toISOString() : <any>undefined;
+        data["paymentId"] = this.paymentId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["worbbyTax"] = this.worbbyTax;
         data["cancellationTax"] = this.cancellationTax;
@@ -26387,6 +26444,7 @@ export interface IWorbbyTaskDto {
     deliveredDate: moment.Moment;
     canceledDate: moment.Moment;
     paymentDate: moment.Moment;
+    paymentId: string;
     creationTime: moment.Moment;
     worbbyTax: number;
     cancellationTax: number;
@@ -26987,6 +27045,7 @@ export class PaymentHistoryDto implements IPaymentHistoryDto {
     type: string;
     lastModificationTime: moment.Moment;
     status: PaymentHistoryDtoStatus;
+    paymentId: string;
 
     constructor(data?: IPaymentHistoryDto) {
         if (data) {
@@ -27002,6 +27061,7 @@ export class PaymentHistoryDto implements IPaymentHistoryDto {
             this.type = data["type"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
             this.status = data["status"];
+            this.paymentId = data["paymentId"];
         }
     }
 
@@ -27016,6 +27076,7 @@ export class PaymentHistoryDto implements IPaymentHistoryDto {
         data["type"] = this.type;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
         data["status"] = this.status;
+        data["paymentId"] = this.paymentId;
         return data; 
     }
 }
@@ -27024,6 +27085,7 @@ export interface IPaymentHistoryDto {
     type: string;
     lastModificationTime: moment.Moment;
     status: PaymentHistoryDtoStatus;
+    paymentId: string;
 }
 
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {

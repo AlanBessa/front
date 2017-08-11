@@ -328,6 +328,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                     self.modalSave.emit(null);
                     if(saveExit){
                         self.close();
+                    }else{
+                        self.show(self.activityUser);
                     }
                 });     
                 // .subscribe(() => {
@@ -355,6 +357,8 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                 self.modalSave.emit(null);
                 if(saveExit){
                     self.close();
+                }else{
+                    self.show(self.activityUser);
                 }
             });    
         }

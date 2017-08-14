@@ -21,6 +21,8 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
 
     public worbbyTasksSales: WorbbyTaskSaleDto[] = [];
 
+    public notFound: boolean = false;
+
     public filtroDataRecebidos: DateFilter = new DateFilter(moment().startOf("day").subtract(30, "days"), moment().endOf("day"));
 
     constructor(
@@ -52,6 +54,7 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
             this.pager.totalCount = result.totalCount;
             this.pager.currentPage = page;
             this.buildPager(Math.ceil(this.pager.totalCount/AppConsts.maxResultCount));  
+            this.notFound = this.worbbyTasksSales.length == 0;
             // this.worbbyTasksSales.forEach(element => {
             //     element.worbbyTask.totalPrice;
             //     element.balanceAvailable
@@ -66,6 +69,15 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
 
     changePaymentType():void {
         
+    }
+
+    get totalPaymentsReceived():number{
+        let total = 0;
+        
+        this.worbbyTasksSales.forEach(element => {
+            total += element.balanceAvailable;
+        });
+        return total;
     }
 
 

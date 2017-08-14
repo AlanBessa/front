@@ -58,6 +58,7 @@ export class SendOfferModalComponent extends AppComponentBase implements OnInit 
         this.worbbyOffer.worbbyOfferStatus = Number(WorbbyOfferStatus.Post);
         this.worbbyOffer.cancellationPolicy = CancellationPolicy[this.currentCancellationPolicyOptions];
         this.active = true;
+        this.isDateValid = this.worbbyTask.scheduleDateType == Number(ScheduleDateType.Fixed);
         this.modal.show();
     }
 

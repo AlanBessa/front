@@ -356,7 +356,7 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
                 self.message.success(self.l('SavedSuccessfully'));
                 self.modalSave.emit(null);
                 if(saveExit){
-                    self.close();
+                    self.close(); 
                 }else{
                     self.show(self.activityUser);
                 }

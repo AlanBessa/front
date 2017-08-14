@@ -124,7 +124,9 @@
 
         "../src/assets/metronic/worbby/global/plugin/slick/slick.min.js",
 
-        "../node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js"
+        "../node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js",
+
+        "../src/assets/metronic/worbby/global/plugin/js-marker-clusterer/markerclusterer.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

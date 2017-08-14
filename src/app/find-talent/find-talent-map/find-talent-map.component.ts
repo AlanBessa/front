@@ -19,6 +19,7 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
   public worbbior: worbbior;
 
   public worbbiorList: worbbior[] = [];
+  public points: point[] = [];
 
   public userLoginAddressCoord: any = {
     lat: -22.9009167,
@@ -64,6 +65,8 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
 
         this.worbbior = <worbbior>{};
         this.worbbior.profile = worbbiorActivities[i].worbbior;
+
+        this.points.push(<point>{Latitude: this.worbbior.profile.address.latitude , Longitude: this.worbbior.profile.address.longitude});
 
         this.worbbior.userActivitiesList = [];
         this.worbbior.userActivitiesList.push(worbbiorActivities[i].userActivity);
@@ -113,7 +116,7 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
     ];
   }
 
-  goToActivityPage(userActivityId: number, userActivityName: string): void {
+  public goToActivityPage(userActivityId: number, userActivityName: string): void {
     let url = userActivityId + "-" + this.changeSpecialCharacterToNormalCharacter(userActivityName.replace(/\s+/g, '-').toLowerCase());
     this.router.navigate(["/publico/atividade/", url]);
   }
@@ -122,4 +125,9 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
 interface worbbior {
   profile: any,
   userActivitiesList: any[]
+}
+
+interface point {
+  Latitude: number,
+  Longitude: number
 }

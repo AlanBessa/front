@@ -1,4 +1,4 @@
-import { Component, Injector, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, AfterViewInit, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,12 +8,15 @@ import { UnitMeasure } from '@shared/AppEnums';
 import {AppConsts} from '@shared/AppConsts';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { Angulartics2 } from 'angulartics2';
+import { FindTalentMapComponent } from "app/find-talent/find-talent-map/find-talent-map.component";
 
 @Component({
     templateUrl: './talent-page.component.html',
     animations: [appModuleAnimation()]
 })
 export class TalentPageComponent extends AppComponentBase implements AfterViewInit {
+
+    @ViewChild('findTalentMapComponent') findTalentMapComponent: FindTalentMapComponent;
 
     worbbiorActivities: WorbbiorActivityDto[] = [];
     public active: boolean = false;
@@ -81,7 +84,7 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
             self.isCleanFilters = true
         })
 
-        self.getLocation();
+        self.getLocation();        
     }
 
     ngOnDestroy(): void {
@@ -206,6 +209,10 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
                     }
                 });                
             });
+
+            if(this.tipoDoDisplay == 'mapa') {
+                this.findTalentMapComponent.organizeListWorbbiorActivities(this.worbbiorActivities);
+            }
         });
     }
 

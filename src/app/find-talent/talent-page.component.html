@@ -492,7 +492,7 @@
                             <div role="tabpanel" class="tab-pane fade" id="talents">
                                 <div class="row">
                                     <!-- conteudo Activities : início -->
-                                    <div class="col-xs-12 col-sm-8" *ngIf="tipoDoDisplay == 'lista'">
+                                    <div class="col-xs-12 col-sm-8" *ngIf="tipoDoDisplay == 'lista'"> 
                                         <div class="row">
                                             <div *ngIf="!filtersActive" class="col-xs-12">
                                                 <h3>Todos os talentos</h3>
@@ -594,8 +594,36 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-8" *ngIf="tipoDoDisplay == 'mapa'">
                                         <div class="row">
+                                            <div *ngIf="!filtersActive" class="col-xs-12">
+                                                <h3>Todos os talentos</h3>
+                                                <p class="cor-Botticelli m-b-20px">Filtre por centro de interesse, subcategoria e localização.</p>
+                                            </div>
+                                            <div *ngIf="filtersActive" class="clearfix">
+                                                <div *ngIf="currentInterestCenterTopLevel.id" class="col-xs-12">                                               
+                                                    <h3 class="no-m-b"><img class="img-icon-list pull-left m-r-xxs" [src]="currentInterestCenterTopLevel.interestCenterPicture" />  
+                                                        {{currentInterestCenterTopLevel.displayName}}
+                                                    </h3>
+                                                </div>
+                                                <div class="col-xs-12 m-t-xs">
+                                                    <button (click)="cleanTermFilter()" type="button" class="btn btn-filtered m-b-20px" *ngIf="filter && filter != ''">
+                                                        {{filter}}
+                                                    </button>
+                                                    <button (click)="cleanInterestCenterTopLevelFilter()" type="button" class="btn btn-filtered m-b-20px" *ngIf="currentInterestCenterTopLevel.id">
+                                                        {{currentInterestCenterTopLevel.displayName}}
+                                                    </button>
+                                                    <button (click)="cleanInterestCenterChildFilter()" type="button" class="btn btn-filtered m-b-20px" *ngIf="currentInterestCenterChild.id">
+                                                        {{currentInterestCenterChild.displayName}}
+                                                    </button>
+                                                    <button (click)="cleanAddresFilter()" type="button" class="btn btn-filtered m-b-20px" *ngIf="address && address != ''">
+                                                        {{address}}
+                                                    </button>
+                                                    <button (click)="cleanOrderFilter()" type="button" class="btn btn-filtered m-b-20px" *ngIf="orderby && orderby != ''">
+                                                        {{l(orderby)}}
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <div class="col-xs-12 m-t-xxs m-b-xxs">
-                                                <find-talent-map-component [activities]="worbbiorActivities"></find-talent-map-component>
+                                                <find-talent-map-component #findTalentMapComponent [activities]="worbbiorActivities"></find-talent-map-component>
                                             </div>
                                         </div>
                                     </div>

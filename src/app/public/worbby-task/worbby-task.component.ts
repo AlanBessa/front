@@ -60,13 +60,13 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
 
             this.active = true;
 
-            this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=" + this.worbbyTask.title + " - " + AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id); 
+            this.whatsappLink = this.sanitizer.bypassSecurityTrustUrl("whatsapp://send?text=" + this.worbbyTask.title + " - " + AppConsts.appBaseUrl + "/publico/worbby-task/" + this.worbbyTask.id); 
 
             this.metaService.setTitle(this.worbbyTask.title);
             this.metaService.setTag("og:description", this.worbbyTask.description);
             this.metaService.setTag("og:image", AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg');
             this.metaService.setTag("og:title", this.worbbyTask.title);
-            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id);
+            this.metaService.setTag("og:url", AppConsts.appBaseUrl + "/publico/worbby-task/" + this.worbbyTask.id);
         });
 
         this.isMobile = window.screen.width < 768;
@@ -98,7 +98,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
     sharedFacebook():void {
         FB.ui({
             method: 'feed',
-            link: AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id,
+            link: AppConsts.appBaseUrl + "/publico/worbby-task/" + this.worbbyTask.id,
             picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
             name: this.worbbyTask.title,
             description: this.worbbyTask.description
@@ -109,7 +109,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
         this.angulartics2.eventTrack.next({ 
             action: 'Compartilharmento de tarefa', 
             properties: { category: 'Facebook', 
-            label: AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id } 
+            label: AppConsts.appBaseUrl + "/publico/worbby-task/" + this.worbbyTask.id } 
         });
     }
 
@@ -117,7 +117,7 @@ export class WorbbyTaskComponent extends AppComponentBase implements AfterViewIn
         this.angulartics2.eventTrack.next({ 
             action: 'Compartilharmento de tarefa', 
             properties: { category: name, 
-            label: AppConsts.appBaseUrl + "publico/worbby-task/" + this.worbbyTask.id } 
+            label: AppConsts.appBaseUrl + "/publico/worbby-task/" + this.worbbyTask.id } 
         });
     }
 }

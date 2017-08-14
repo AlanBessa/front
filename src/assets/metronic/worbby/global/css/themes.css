@@ -127,6 +127,11 @@ body.worbbior .activity-center {
     background-color: #FFB247;
 }
 
+body.worbbior .activity-page .activity-center {
+    color: #fff;
+    background-color: #000;
+}
+
 body.worbbior .footer {
     color: #fff;
     background-color: #1E2225;

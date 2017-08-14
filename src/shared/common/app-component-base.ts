@@ -185,7 +185,7 @@ export abstract class AppComponentBase {
         var fileExtension = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName) : undefined;
 
         var isValid: boolean = false;
-        switch (fileExtension.toString()) {
+        switch (fileExtension.toString().toLocaleLowerCase()) {
             case 'jpeg':
                 isValid = true
                 break;

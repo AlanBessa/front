@@ -29,6 +29,7 @@ import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.c
 import { SlickSliderComponent } from 'shared/slick-slider.component';
 import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
 import { AgmCoreModule } from "@agm/core";
+import { CreateOrEditUserActivityModalComponent } from 'app/worbbior/edit-profile/create-or-edit-user-activity-modal.component';
 
 @NgModule({
     imports: [
@@ -61,7 +62,8 @@ import { AgmCoreModule } from "@agm/core";
         WorbbientWorbbyTaskActions,
         SendReportModalComponent,
         SlickSliderComponent,
-        AwaitingComponent
+        AwaitingComponent,
+        CreateOrEditUserActivityModalComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -79,7 +81,8 @@ import { AgmCoreModule } from "@agm/core";
         SlickSliderComponent,
         AwaitingComponent,
         ImageCropperModule,
-        AgmCoreModule
+        AgmCoreModule,
+        CreateOrEditUserActivityModalComponent
     ],
     providers: [
         DateTimeService,

@@ -59,12 +59,12 @@ export class SelectActivityComponent extends AppComponentBase implements AfterVi
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
-        $(".page-loading").hide();
-        this.getInterestCenters();
+        $(".page-loading").hide();        
     }
 
     ngOnInit(): void {
         this.worbbiorState = this._appSessionService.worbbiorState;
+        this.getInterestCenters();
     }
 
     private getInterestCenters(): void {

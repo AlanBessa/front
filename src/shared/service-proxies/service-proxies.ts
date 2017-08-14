@@ -2900,6 +2900,169 @@ export class BalanceTransferServiceProxy {
     /**
      * @return Success
      */
+    getTransferDetailAdmin(id: number): Observable<BalanceTransferDto> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetTransferDetailAdmin?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetTransferDetailAdmin(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetTransferDetailAdmin(response_);
+                } catch (e) {
+                    return <Observable<BalanceTransferDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<BalanceTransferDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetTransferDetailAdmin(response: Response): Observable<BalanceTransferDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: BalanceTransferDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? BalanceTransferDto.fromJS(resultData200) : new BalanceTransferDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<BalanceTransferDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getExportTranfrersToExcel(filter: string, permission: string, transferenceStateCombo: number, bankAccountTypeId: number, startDate: moment.Moment, endDate: moment.Moment, advancedFiltersAreShown: boolean, sorting: string, maxResultCount: number, skipCount: number): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetExportTranfrersToExcel?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (transferenceStateCombo !== undefined)
+            url_ += "TransferenceStateCombo=" + encodeURIComponent("" + transferenceStateCombo) + "&"; 
+        if (bankAccountTypeId !== undefined)
+            url_ += "BankAccountTypeId=" + encodeURIComponent("" + bankAccountTypeId) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (advancedFiltersAreShown !== undefined)
+            url_ += "advancedFiltersAreShown=" + encodeURIComponent("" + advancedFiltersAreShown) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetExportTranfrersToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetExportTranfrersToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetExportTranfrersToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    sendEmailWorbbior(input: BalanceTransferMessageInput): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/SendEmailWorbbior";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processSendEmailWorbbior(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processSendEmailWorbbior(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processSendEmailWorbbior(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getCurrentUserId(): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/BalanceTransfer/GetCurrentUserId";
         url_ = url_.replace(/[?&]$/, "");
@@ -10530,6 +10693,56 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
+    getPaymentHistoryWorbbyTaskId(worbbyTaskId: number): Observable<ListResultDtoOfPaymentHistoryDto> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentHistoryWorbbyTaskId?";
+        if (worbbyTaskId !== undefined)
+            url_ += "worbbyTaskId=" + encodeURIComponent("" + worbbyTaskId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentHistoryWorbbyTaskId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentHistoryWorbbyTaskId(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfPaymentHistoryDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfPaymentHistoryDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentHistoryWorbbyTaskId(response: Response): Observable<ListResultDtoOfPaymentHistoryDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfPaymentHistoryDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfPaymentHistoryDto.fromJS(resultData200) : new ListResultDtoOfPaymentHistoryDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfPaymentHistoryDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getCurrentUserId(): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Sale/GetCurrentUserId";
         url_ = url_.replace(/[?&]$/, "");
@@ -17985,6 +18198,7 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
     keyWords: string;
     interestCenterPicture: string;
     activityCount: number;
+    slugName: string;
     id: number;
 
     constructor(data?: IInterestCenterForActivityDto) {
@@ -18009,6 +18223,7 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
             this.keyWords = data["keyWords"];
             this.interestCenterPicture = data["interestCenterPicture"];
             this.activityCount = data["activityCount"];
+            this.slugName = data["slugName"];
             this.id = data["id"];
         }
     }
@@ -18032,6 +18247,7 @@ export class InterestCenterForActivityDto implements IInterestCenterForActivityD
         data["keyWords"] = this.keyWords;
         data["interestCenterPicture"] = this.interestCenterPicture;
         data["activityCount"] = this.activityCount;
+        data["slugName"] = this.slugName;
         data["id"] = this.id;
         return data; 
     }
@@ -18049,6 +18265,7 @@ export interface IInterestCenterForActivityDto {
     keyWords: string;
     interestCenterPicture: string;
     activityCount: number;
+    slugName: string;
     id: number;
 }
 
@@ -19535,6 +19752,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
     userId: number;
     userName: string;
     userEmail: string;
+    userFinancial: string;
     bankAccountId: number;
     nameBank: string;
     bankAccount: BankAccountDto;
@@ -19558,6 +19776,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
             this.userId = data["userId"];
             this.userName = data["userName"];
             this.userEmail = data["userEmail"];
+            this.userFinancial = data["userFinancial"];
             this.bankAccountId = data["bankAccountId"];
             this.nameBank = data["nameBank"];
             this.bankAccount = data["bankAccount"] ? BankAccountDto.fromJS(data["bankAccount"]) : <any>undefined;
@@ -19580,6 +19799,7 @@ export class BalanceTransferDto implements IBalanceTransferDto {
         data["userId"] = this.userId;
         data["userName"] = this.userName;
         data["userEmail"] = this.userEmail;
+        data["userFinancial"] = this.userFinancial;
         data["bankAccountId"] = this.bankAccountId;
         data["nameBank"] = this.nameBank;
         data["bankAccount"] = this.bankAccount ? this.bankAccount.toJSON() : <any>undefined;
@@ -19596,6 +19816,7 @@ export interface IBalanceTransferDto {
     userId: number;
     userName: string;
     userEmail: string;
+    userFinancial: string;
     bankAccountId: number;
     nameBank: string;
     bankAccount: BankAccountDto;
@@ -19929,6 +20150,53 @@ export class PagedResultDtoOfBalanceTransferDto implements IPagedResultDtoOfBala
 export interface IPagedResultDtoOfBalanceTransferDto {
     totalCount: number;
     items: BalanceTransferDto[];
+}
+
+export class BalanceTransferMessageInput implements IBalanceTransferMessageInput {
+    id: number;
+    message: string;
+    worbbiorName: string;
+    worbbiorEmail: string;
+
+    constructor(data?: IBalanceTransferMessageInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.message = data["message"];
+            this.worbbiorName = data["worbbiorName"];
+            this.worbbiorEmail = data["worbbiorEmail"];
+        }
+    }
+
+    static fromJS(data: any): BalanceTransferMessageInput {
+        let result = new BalanceTransferMessageInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["message"] = this.message;
+        data["worbbiorName"] = this.worbbiorName;
+        data["worbbiorEmail"] = this.worbbiorEmail;
+        return data; 
+    }
+}
+
+export interface IBalanceTransferMessageInput {
+    id: number;
+    message: string;
+    worbbiorName: string;
+    worbbiorEmail: string;
 }
 
 export class CreateBankAccountInput implements ICreateBankAccountInput {
@@ -23461,6 +23729,7 @@ export class CreateInterestCenterInput implements ICreateInterestCenterInput {
     displayName: string;
     description: string;
     keyWords: string;
+    interestCenterPicture: string;
 
     constructor(data?: ICreateInterestCenterInput) {
         if (data) {
@@ -23477,6 +23746,7 @@ export class CreateInterestCenterInput implements ICreateInterestCenterInput {
             this.displayName = data["displayName"];
             this.description = data["description"];
             this.keyWords = data["keyWords"];
+            this.interestCenterPicture = data["interestCenterPicture"];
         }
     }
 
@@ -23492,6 +23762,7 @@ export class CreateInterestCenterInput implements ICreateInterestCenterInput {
         data["displayName"] = this.displayName;
         data["description"] = this.description;
         data["keyWords"] = this.keyWords;
+        data["interestCenterPicture"] = this.interestCenterPicture;
         return data; 
     }
 }
@@ -23501,6 +23772,7 @@ export interface ICreateInterestCenterInput {
     displayName: string;
     description: string;
     keyWords: string;
+    interestCenterPicture: string;
 }
 
 export class UpdateInterestCenterInput implements IUpdateInterestCenterInput {
@@ -26027,6 +26299,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
     deliveredDate: moment.Moment;
     canceledDate: moment.Moment;
     paymentDate: moment.Moment;
+    paymentId: string;
     creationTime: moment.Moment;
     worbbyTax: number;
     cancellationTax: number;
@@ -26077,6 +26350,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
             this.deliveredDate = data["deliveredDate"] ? moment(data["deliveredDate"].toString()) : <any>undefined;
             this.canceledDate = data["canceledDate"] ? moment(data["canceledDate"].toString()) : <any>undefined;
             this.paymentDate = data["paymentDate"] ? moment(data["paymentDate"].toString()) : <any>undefined;
+            this.paymentId = data["paymentId"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.worbbyTax = data["worbbyTax"];
             this.cancellationTax = data["cancellationTax"];
@@ -26126,6 +26400,7 @@ export class WorbbyTaskDto implements IWorbbyTaskDto {
         data["deliveredDate"] = this.deliveredDate ? this.deliveredDate.toISOString() : <any>undefined;
         data["canceledDate"] = this.canceledDate ? this.canceledDate.toISOString() : <any>undefined;
         data["paymentDate"] = this.paymentDate ? this.paymentDate.toISOString() : <any>undefined;
+        data["paymentId"] = this.paymentId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["worbbyTax"] = this.worbbyTax;
         data["cancellationTax"] = this.cancellationTax;
@@ -26169,6 +26444,7 @@ export interface IWorbbyTaskDto {
     deliveredDate: moment.Moment;
     canceledDate: moment.Moment;
     paymentDate: moment.Moment;
+    paymentId: string;
     creationTime: moment.Moment;
     worbbyTax: number;
     cancellationTax: number;
@@ -26769,6 +27045,7 @@ export class PaymentHistoryDto implements IPaymentHistoryDto {
     type: string;
     lastModificationTime: moment.Moment;
     status: PaymentHistoryDtoStatus;
+    paymentId: string;
 
     constructor(data?: IPaymentHistoryDto) {
         if (data) {
@@ -26784,6 +27061,7 @@ export class PaymentHistoryDto implements IPaymentHistoryDto {
             this.type = data["type"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
             this.status = data["status"];
+            this.paymentId = data["paymentId"];
         }
     }
 
@@ -26798,6 +27076,7 @@ export class PaymentHistoryDto implements IPaymentHistoryDto {
         data["type"] = this.type;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
         data["status"] = this.status;
+        data["paymentId"] = this.paymentId;
         return data; 
     }
 }
@@ -26806,6 +27085,7 @@ export interface IPaymentHistoryDto {
     type: string;
     lastModificationTime: moment.Moment;
     status: PaymentHistoryDtoStatus;
+    paymentId: string;
 }
 
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {

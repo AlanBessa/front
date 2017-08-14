@@ -28,6 +28,7 @@ import { WorbbientWorbbyTaskActions } from '@app/worbbient/worbby-task/worbbient
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
 import { SlickSliderComponent } from 'shared/slick-slider.component';
 import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
+import { AgmCoreModule } from "@agm/core";
 
 @NgModule({
     imports: [
@@ -41,7 +42,10 @@ import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
         SelectModule,
         RecaptchaModule.forRoot(),
         ImageCropperModule,
-        RouterModule
+        RouterModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDmAf99svQmS-Oi0BDl2Zpn0YtMGccRZRM'
+        })
     ],
     declarations: [
         TimeZoneComboComponent,
@@ -74,7 +78,8 @@ import { AwaitingComponent } from '@app/shared/layout/awaiting.component';
         SendReportModalComponent,
         SlickSliderComponent,
         AwaitingComponent,
-        ImageCropperModule
+        ImageCropperModule,
+        AgmCoreModule
     ],
     providers: [
         DateTimeService,

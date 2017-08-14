@@ -72,7 +72,7 @@ import { ActivityPageComponent } from './activity-page/activity-page.component';
         TextMaskModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDmAf99svQmS-Oi0BDl2Zpn0YtMGccRZRM'
-        }),
+        })
     ],
     declarations: [
         PublicComponent,

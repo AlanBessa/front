@@ -122,7 +122,6 @@
         "../src/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
         "../node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
 
-
         "../src/assets/metronic/worbby/global/plugin/slick/slick.min.js",
 
         "../node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js"

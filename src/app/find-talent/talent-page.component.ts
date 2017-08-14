@@ -40,6 +40,8 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
 
     public isCleanFilters:boolean = true;
 
+    public tipoDoDisplay: string = "lista";
+
     constructor(
         injector: Injector,
         private _activitiesService: ActivityServiceProxy,
@@ -212,10 +214,18 @@ export class TalentPageComponent extends AppComponentBase implements AfterViewIn
         this.router.navigate(['/publico/atividade/' + this.changeSpecialCharacterToNormalCharacter((activity.id + "-" + activity.title.split(' ').join('-')).toLocaleLowerCase())]);
     }
 
-
     loadingMore(): void {
         this.page++;
         this.getTalents();
+    }
+
+    openDisplay(): void {
+        if(this.tipoDoDisplay == "lista") {
+            this.tipoDoDisplay = "mapa";
+        }
+        else {
+            this.tipoDoDisplay = "lista";
+        }
     }
 
     orderbyTalentsPrice(): void {

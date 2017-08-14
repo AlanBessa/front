@@ -11,6 +11,7 @@ import { UtilsModule } from '@shared/utils/utils.module';
 import { TalentComponent } from './talent.component';
 import { TalentPageComponent } from './talent-page.component';
 import { TalentRoutingModule } from './talent-routing.module';
+import { FindTalentMapComponent } from './find-talent-map/find-talent-map.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { TalentRoutingModule } from './talent-routing.module';
     ],
     declarations: [
         TalentComponent,
-        TalentPageComponent
+        TalentPageComponent,
+        FindTalentMapComponent
     ]
 })
 export class TalentModule {

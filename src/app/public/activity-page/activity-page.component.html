@@ -101,7 +101,8 @@
                                                 </g>
                                             </svg>
                                             <div>
-                                                <p class="small">{{activityUser.evaluation.evaluations.items.length}} comentários</p>
+                                                <p class="small" *ngIf="activityUser.evaluation.evaluations.items.length <= 1">{{activityUser.evaluation.evaluations.items.length}} comentário</p>
+                                                <p class="small" *ngIf="activityUser.evaluation.evaluations.items.length > 1">{{activityUser.evaluation.evaluations.items.length}} comentários</p>
                                             </div>
                                             <div class="arrow-nav"></div>
                                         </div>

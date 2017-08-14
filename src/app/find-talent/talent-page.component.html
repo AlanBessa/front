@@ -492,7 +492,7 @@
                             <div role="tabpanel" class="tab-pane fade" id="talents">
                                 <div class="row">
                                     <!-- conteudo Activities : início -->
-                                    <div class="col-xs-12 col-sm-8">
+                                    <div class="col-xs-12 col-sm-8" *ngIf="tipoDoDisplay == 'lista'">
                                         <div class="row">
                                             <div *ngIf="!filtersActive" class="col-xs-12">
                                                 <h3>Todos os talentos</h3>
@@ -592,9 +592,31 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-sm-8" *ngIf="tipoDoDisplay == 'mapa'">
+                                        <div class="row">
+                                            <div class="col-xs-12 m-t-xxs m-b-xxs">
+                                                <find-talent-map-component [activities]="worbbiorActivities"></find-talent-map-component>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- conteudo Activities : Fim -->
                                     <div class="col-xs-4 hidden-xs p-l-md">
                                         <div class="sidebar-filter bg-fluid bg-White"></div>
+                                        <div class="sidebar m-b-xss">
+                                            <p class="m-b-20px">Display</p>
+                                            <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist"> 
+                                                <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'lista' }">
+                                                    <a (click)="openDisplay()">
+                                                        Lista
+                                                    </a>
+                                                </li>
+                                                <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'mapa' }">
+                                                    <a (click)="openDisplay()">
+                                                        Mapa
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <div *ngIf="active" class="sidebar">
                                             <p class="m-b-20px">Filtro</p>
                                             <div class="form-group no-hint">
@@ -686,7 +708,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Card Activities : Fim -->
+                            <!-- Card Activities : Fim -->                            
                         </div>
                         <!-- Conteudo Busca Talentos : Fim -->
                     </div>

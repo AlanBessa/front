@@ -12,11 +12,11 @@ import { ConfirmBalanceTransferModalComponent } from './confirm-balance-transfer
 
 @Component({
     templateUrl: './general-payment.component.html', 
-    selector: 'generalPaymentWorbbiorComponent',
+    selector: 'generalPaymentComponent',
     animations: [appModuleAnimation()]
 })
 
-export class GeneralPaymentWorbbiorComponent extends AppComponentBase implements AfterViewInit {
+export class GeneralPaymentComponent extends AppComponentBase implements AfterViewInit {
 
     @ViewChild('confirmBalanceTransferModal') confirmBalanceTransferModal: ConfirmBalanceTransferModalComponent;
 

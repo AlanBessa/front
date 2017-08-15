@@ -4,7 +4,6 @@ import { WorbbientComponent } from './worbbient.component';
 import { EditProfileWorbbientComponent } from './edit-profile/edit-profile.component';
 import { MessagesWorbbientComponent } from './messages/messages.component';
 import { MyWorbbyWorbbientComponent } from './my-worbby/my-worbby.component';
-import { PaymentsHistoryWorbbientComponent } from './payments-history/payments-history.component';
 import { TasksHistoryWorbbientComponent } from './tasks-history/tasks-history.component';
 import { WorbbientTaskOffersComponent } from './worbby-task/worbbient-task-offers.component';
 import { ComingSoonComponent } from '@app/public/coming-soon/coming-soon.component';
@@ -16,6 +15,7 @@ import { WorbbientEditWorbbyTaskComponent } from './worbby-task/worbbient-edit-w
 import { WorbbientTaskPaymentComponent } from './worbby-task/worbbient-task-payment.component';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
 import { NotificationsComponent } from "app/shared/layout/notifications/notifications.component";
+import { PaymentsHistoryComponent } from 'app/payments-history/payments-history.component';
 
 @NgModule({
     imports: [
@@ -29,7 +29,7 @@ import { NotificationsComponent } from "app/shared/layout/notifications/notifica
                     { path: 'edit-profile', component: EditProfileWorbbientComponent, data: { permission: 'Pages.Worbbient.EditProfile' } },
                     //{ path: 'messages', component: MessagesWorbbientComponent, data: { permission: 'Pages.Worbbient.Messages' } },
                     { path: 'my-worbby', component: MyWorbbyWorbbientComponent, data: { permission: 'Pages.Worbbient.MyWorbby' } },
-                    { path: 'payments-history', component: PaymentsHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
+                    { path: 'payments-history', component: PaymentsHistoryComponent, data: { permission: 'Pages.Worbbient.PaymentsHistory' } },
                     { path: 'tasks-history', component: TasksHistoryWorbbientComponent, data: { permission: 'Pages.Worbbient.TasksHistory' } },
                     { path: 'worbby-task-offers/:worbbyTaskId', component: WorbbientTaskOffersComponent, data: { permission: 'Pages.Worbbient.PostTask' } },
                     { path: 'worbby-task-offer/:worbbyOfferId', component: WorbbientTaskOfferComponent, data: { permission: 'Pages.Worbbient.PostTask' } },

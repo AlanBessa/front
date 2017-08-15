@@ -13,7 +13,6 @@ import { MyPersonalDataWorbbientComponent } from './edit-profile/my-personal-dat
 import { MyAddressWorbbientComponent } from './edit-profile/my-address.component'
 import { MessagesWorbbientComponent } from './messages/messages.component';
 import { MyWorbbyWorbbientComponent } from './my-worbby/my-worbby.component';
-import { PaymentsHistoryWorbbientComponent } from './payments-history/payments-history.component';
 import { TasksHistoryWorbbientComponent } from './tasks-history/tasks-history.component';
 import { WorbbientTaskOffersComponent } from './worbby-task/worbbient-task-offers.component';
 import { WorbbientTaskOfferComponent } from './worbby-task/worbbient-task-offer.component';
@@ -26,7 +25,7 @@ import { MomentModule } from "angular2-moment";
 import { TextMaskModule } from 'angular2-text-mask';
 import { SelectModule } from 'ng2-select';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
-
+import { PaymentsHistoryModule } from 'app/payments-history/payments-history.module';
 
 
 @NgModule({
@@ -48,7 +47,8 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
         AppCommonModule,
         MomentModule,
         TextMaskModule,
-        SelectModule
+        SelectModule,
+        PaymentsHistoryModule
     ],
     declarations: [
         WorbbientComponent,
@@ -57,7 +57,6 @@ import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
         MyAddressWorbbientComponent,
         MessagesWorbbientComponent,
         MyWorbbyWorbbientComponent,
-        PaymentsHistoryWorbbientComponent,
         TasksHistoryWorbbientComponent,
         WorbbientTaskOffersComponent,
         WorbbientTaskOfferComponent,

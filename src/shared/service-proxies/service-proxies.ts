@@ -10517,14 +10517,18 @@ export class SaleServiceProxy {
     /**
      * @return Success
      */
-    getPaymentsByTargetUserId(targetUserId: number, startDate: moment.Moment, endDate: moment.Moment, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbyTaskSaleDto> {
+    getPaymentsByTargetUserId(targetUserId: number, userId: number, startDate: moment.Moment, endDate: moment.Moment, type: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbyTaskSaleDto> {
         let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentsByTargetUserId?";
         if (targetUserId !== undefined)
             url_ += "TargetUserId=" + encodeURIComponent("" + targetUserId) + "&"; 
+        if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
         if (startDate !== undefined)
             url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
         if (endDate !== undefined)
             url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (type !== undefined)
+            url_ += "Type=" + encodeURIComponent("" + type) + "&"; 
         if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount !== undefined)
@@ -10557,6 +10561,68 @@ export class SaleServiceProxy {
     }
 
     protected processGetPaymentsByTargetUserId(response: Response): Observable<PagedResultDtoOfWorbbyTaskSaleDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfWorbbyTaskSaleDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfWorbbyTaskSaleDto.fromJS(resultData200) : new PagedResultDtoOfWorbbyTaskSaleDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfWorbbyTaskSaleDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPaymentsByUserId(targetUserId: number, userId: number, startDate: moment.Moment, endDate: moment.Moment, type: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfWorbbyTaskSaleDto> {
+        let url_ = this.baseUrl + "/api/services/app/Sale/GetPaymentsByUserId?";
+        if (targetUserId !== undefined)
+            url_ += "TargetUserId=" + encodeURIComponent("" + targetUserId) + "&"; 
+        if (userId !== undefined)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
+        if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent("" + startDate.toJSON()) + "&"; 
+        if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent("" + endDate.toJSON()) + "&"; 
+        if (type !== undefined)
+            url_ += "Type=" + encodeURIComponent("" + type) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPaymentsByUserId(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPaymentsByUserId(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfWorbbyTaskSaleDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfWorbbyTaskSaleDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPaymentsByUserId(response: Response): Observable<PagedResultDtoOfWorbbyTaskSaleDto> {
         const status = response.status; 
 
         if (status === 200) {

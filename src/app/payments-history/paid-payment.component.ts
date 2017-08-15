@@ -1,19 +1,19 @@
 import { AppComponentBase } from "shared/common/app-component-base";
 import { Component, AfterViewInit, Injector } from "@angular/core";
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { DateFilter } from "shared/AppEnums";
+import { DateFilter, WorbbyTaskStatus, CancellationPolicy, SaleTypes, KeyValueItem } from "shared/AppEnums";
 import { SaleServiceProxy, WorbbyTaskSaleDto } from "shared/service-proxies/service-proxies";
 import { AppConsts } from '@shared/AppConsts';
 import * as moment from "moment";
 import 'moment/min/locales';
 
 @Component({
-    templateUrl: './received-payment.component.html', 
-    selector: 'receivedPaymentWorbbiorComponent',
+    templateUrl: './paid-payment.component.html', 
+    selector: 'paidPaymentComponent',
     animations: [appModuleAnimation()]
 })
 
-export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implements AfterViewInit {
+export class PaidPaymentComponent extends AppComponentBase implements AfterViewInit {
 
     public active: boolean = false;
 
@@ -21,9 +21,16 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
 
     public worbbyTasksSales: WorbbyTaskSaleDto[] = [];
 
+    public WorbbyTaskStatus: typeof WorbbyTaskStatus = WorbbyTaskStatus;
+
+    public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
+
     public notFound: boolean = false;
 
-    public filtroDataRecebidos: DateFilter = new DateFilter(moment().startOf("day").subtract(30, "days"), moment().endOf("day"));
+    public saleTypes: SaleTypes = new SaleTypes();
+    public currentsaleType: KeyValueItem;
+
+    public filtroDataPago: DateFilter = new DateFilter(moment().startOf("day").subtract(30, "days"), moment().endOf("day"));
 
     constructor(
         injector: Injector,
@@ -34,18 +41,19 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
 
     ngOnInit() {
         moment.locale('pt-br');
-        this.getPaymentsByTargetUserId(1);
+        this.currentsaleType = this.saleTypes.items.find(x => x.key == "");
+        this.getPaymentsByUserId(1);
     }
 
     ngAfterViewInit(): void {
 
     }
 
-    getPaymentsByTargetUserId(page:number):void{
+    getPaymentsByUserId(page:number):void{
 
         var skipCount = AppConsts.maxResultCount * (page-1);
 
-        this._saleService.getPaymentsByTargetUserId(abp.session.userId, this.filtroDataRecebidos.start, this.filtroDataRecebidos.end, AppConsts.maxResultCount, skipCount)
+        this._saleService.getPaymentsByUserId(undefined, abp.session.userId, this.filtroDataPago.start, this.filtroDataPago.end, this.currentsaleType.key, AppConsts.maxResultCount, skipCount)
         .finally(() => { 
 
         })
@@ -55,34 +63,27 @@ export class ReceivedPaymentWorbbiorComponent extends AppComponentBase implement
             this.pager.currentPage = page;
             this.buildPager(Math.ceil(this.pager.totalCount/AppConsts.maxResultCount));  
             this.notFound = this.worbbyTasksSales.length == 0;
-            // this.worbbyTasksSales.forEach(element => {
-            //     element.worbbyTask.totalPrice;
-            //     element.balanceAvailable
-            //     element.balanceAvailableDate
-            //     element.cancellationTax
-            //     element.cancellationTaxAmount
-            // });
         }, error => {
             console.log(error);
         });
     }
 
-    changePaymentType():void {
-        
+    changePaymentType(item: KeyValueItem): void {
+        this.currentsaleType = item;
+        this.getPaymentsByUserId(1);
     }
 
-    get totalPaymentsReceived():number{
+    get totalPaymentsPaid():number{
         let total = 0;
         
         this.worbbyTasksSales.forEach(element => {
-            total += element.balanceAvailable;
+            total += element.sale.capturedAmount;
         });
         return total;
     }
 
 
     buildPager(total) {
-        //Quantas casa para frente e para trás
         let range = 5;
 
         this.pager.totalPages = [];

@@ -1477,10 +1477,12 @@ export class ActivityServiceProxy {
     /**
      * @return Success
      */
-    getUserActivity(id: number): Observable<UserActivityInput> {
+    getUserActivity(activityUserId: number, token: string): Observable<UserActivityInput> {
         let url_ = this.baseUrl + "/api/services/app/Activity/GetUserActivity?";
-        if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (activityUserId !== undefined)
+            url_ += "ActivityUserId=" + encodeURIComponent("" + activityUserId) + "&"; 
+        if (token !== undefined)
+            url_ += "Token=" + encodeURIComponent("" + token) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = "";

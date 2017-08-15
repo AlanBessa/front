@@ -136,7 +136,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   }
 
   getActivity(): void {
-    this._activityService.getUserActivity(this.activityUserId).subscribe((result) => {
+    this._activityService.getUserActivity(this.activityUserId, undefined).subscribe((result) => {
       this.activityUser = result;
       this.isMyActivity = this.activityUser.userId == abp.session.userId;
       var filter = '{"filters":[';

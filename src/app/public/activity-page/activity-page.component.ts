@@ -2,7 +2,7 @@ import { Component, OnInit, Injector, ViewChild, AfterViewInit } from '@angular/
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from "shared/common/app-component-base";
 import { ActivatedRoute, Router } from "@angular/router";
-import { InterestCenterDto, WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput, ListResultDtoOfUserActivityInput } from "shared/service-proxies/service-proxies";
+import { InterestCenterDto, WorbbiorServiceProxy, WorbbiorProfileDto, ActivityServiceProxy, ActivityDto, UserActivityInput, ListResultDtoOfUserActivityInput, InterestCenterForActivityDto } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { DayOfWeek, CancellationPolicy, UnitMeasure } from "shared/AppEnums";
 import { AppSessionService } from "shared/common/session/app-session.service";
@@ -49,6 +49,8 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   public similarActivityList: UserActivityInput[] = [];
 
   public tooltipPoliticaCancelamento: string = "<strong>Superflexível:</strong> 100% de reembolso do valor da tarefa até 4 horas antes da hora prevista.<br /><br /> <strong>Flexível:</strong> 100% de reembolso do valor da tarefa até 24 horas antes da data prevista.<br /><br /> <strong>Moderada:</strong> 50% de reembolso do valor da tarefa até 48 horas da data prevista.<br /><br /> <strong>Rígida:</strong> 50% de reembolso do valor da tarefa até 5 dias (120 horas) antes da data prevista.";
+
+  public listInterestCenter: any[] = [];
 
   constructor(
     injector: Injector,
@@ -139,6 +141,22 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
     this._activityService.getUserActivity(this.activityUserId).subscribe((result) => {
       this.activityUser = result;
       this.isMyActivity = this.activityUser.userId == abp.session.userId;
+
+      let interestCenterParentController: any;
+
+      this.activityUser.listInterestCenter.items.forEach(element => {
+        if(interestCenterParentController == undefined) {
+          this.listInterestCenter.push(element);
+
+          interestCenterParentController = element;
+        }        
+        else if(element.parentId != interestCenterParentController.parentId) {
+          this.listInterestCenter.push(element);
+
+          interestCenterParentController = element;
+        } 
+      });      
+
       var filter = '{"filters":[';
 
       this.activityUser.evaluation.evaluations.items.forEach(element => {
@@ -247,7 +265,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
         }
       }
     }else{
-        this.showLoginRegister = true;
+        this.showLoginRegister = true; 
     }   
   }
 
@@ -296,7 +314,8 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
     this.router.navigate(['/publico/endosso', { 'userId': this.worbbiorProfile.worbbior.userId }]);
   }
 
-  goToInterestCenterPage(interestCenter:InterestCenterDto){
-    this.router.navigate(['/centro-interesse', { 'interestCenterId': interestCenter.slugName }]);
+  goToInterestCenterPage(interestCenter:InterestCenterForActivityDto){
+    let url = interestCenter.parentId + "-" + this.changeSpecialCharacterToNormalCharacter(interestCenter.parentDisplayName.toLowerCase())
+    this.router.navigate(['/centro-interesse', url]);
   }
 }

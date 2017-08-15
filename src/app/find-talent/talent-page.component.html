@@ -522,7 +522,45 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-12 visible-xs m-b-xxxs">
+                                            <div class="col-xs-6 visible-xs m-b-xxxs">
+                                                <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist"> 
+                                                    <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'lista' }">
+                                                        <a (click)="openDisplay()" class="btn-display btn-small">                                                        
+                                                            <span>
+                                                                <svg style="top: 2px !important;" width="20px" height="13px" viewBox="0 0 20 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+                                                                    <title>icon-list-active copy</title>
+                                                                    <desc>Created with Sketch.</desc>
+                                                                    <defs></defs>
+                                                                    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Desktop-Needor-Map" transform="translate(-1052.000000, -406.000000)" fill="#FFCB33">
+                                                                            <g id="Group-8" transform="translate(985.000000, 393.000000)">
+                                                                                <g id="Group-2" transform="translate(33.000000, 11.000000)">
+                                                                                    <g id="icon-list-active" transform="translate(34.000000, 2.000000)">
+                                                                                        <path d="M6,1.5 C6,1.22385763 6.21990657,1 6.49826741,1 L19.5017326,1 C19.7769181,1 20,1.23193359 20,1.5 C20,1.77614237 19.7800934,2 19.5017326,2 L6.49826741,2 C6.22308192,2 6,1.76806641 6,1.5 Z M6,6.5 C6,6.22385763 6.21990657,6 6.49826741,6 L19.5017326,6 C19.7769181,6 20,6.23193359 20,6.5 C20,6.77614237 19.7800934,7 19.5017326,7 L6.49826741,7 C6.22308192,7 6,6.76806641 6,6.5 Z M6,11.5 C6,11.2238576 6.21990657,11 6.49826741,11 L19.5017326,11 C19.7769181,11 20,11.2319336 20,11.5 C20,11.7761424 19.7800934,12 19.5017326,12 L6.49826741,12 C6.22308192,12 6,11.7680664 6,11.5 Z M0,1.5 C0,0.671572875 0.665797234,0 1.5,0 C2.32842712,0 3,0.665797234 3,1.5 C3,2.32842712 2.33420277,3 1.5,3 C0.671572875,3 0,2.33420277 0,1.5 Z M0,6.5 C0,5.67157288 0.665797234,5 1.5,5 C2.32842712,5 3,5.66579723 3,6.5 C3,7.32842712 2.33420277,8 1.5,8 C0.671572875,8 0,7.33420277 0,6.5 Z M0,11.5 C0,10.6715729 0.665797234,10 1.5,10 C2.32842712,10 3,10.6657972 3,11.5 C3,12.3284271 2.33420277,13 1.5,13 C0.671572875,13 0,12.3342028 0,11.5 Z" id="icon-list-active-copy"></path>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                Lista
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'mapa' }">
+                                                        <a (click)="openDisplay()" class="btn-display btn-small">                                                        
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 20 13">
+                                                                    <path fill="#FFCB33" fill-rule="evenodd" d="M0 .7903c0-.5568.3937-.8165.8983-.571l4.2034 2.0464c.496.2415.8983.889.8983 1.4455v8.4985c0 .5568-.3937.8165-.8983.571L.8983 10.7342C.4023 10.4928 0 9.8453 0 9.2888V.7903zm7.3333 2.921c0-.557.401-1.228.8807-1.4907L11.786.2644c.4864-.2663.8807-.0305.8807.526v8.4984c0 .557-.401 1.2278-.8807 1.4906l-3.572 1.9562c-.4864.2663-.8807.0305-.8807-.526V3.7113zM14 .7902c0-.5568.3937-.8165.8983-.571l4.2034 2.0464c.496.2415.8983.889.8983 1.4455v8.4985c0 .5568-.3937.8165-.8983.571l-4.2034-2.0464c-.496-.2415-.8983-.889-.8983-1.4455V.7903z"/>
+                                                                </svg>
+                                                                Mapa
+                                                            </span>                                                        
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-6 visible-xs m-b-xxxs">
                                                 <button (click)="showMobileFilter()" type="button" class="btn btn-filter btn-small pull-right">Filtro</button>
                                             </div>
                                             <div class="col-xs-12 m-t-xxs m-b-xxs">
@@ -622,6 +660,47 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <div class="col-xs-6 visible-xs m-b-xxxs">
+                                                <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist"> 
+                                                    <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'lista' }">
+                                                        <a (click)="openDisplay()" class="btn-display btn-small">                                                        
+                                                            <span>
+                                                                <svg style="top: 2px !important;" width="20px" height="13px" viewBox="0 0 20 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+                                                                    <title>icon-list-active copy</title>
+                                                                    <desc>Created with Sketch.</desc>
+                                                                    <defs></defs>
+                                                                    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g id="Desktop-Needor-Map" transform="translate(-1052.000000, -406.000000)" fill="#FFCB33">
+                                                                            <g id="Group-8" transform="translate(985.000000, 393.000000)">
+                                                                                <g id="Group-2" transform="translate(33.000000, 11.000000)">
+                                                                                    <g id="icon-list-active" transform="translate(34.000000, 2.000000)">
+                                                                                        <path d="M6,1.5 C6,1.22385763 6.21990657,1 6.49826741,1 L19.5017326,1 C19.7769181,1 20,1.23193359 20,1.5 C20,1.77614237 19.7800934,2 19.5017326,2 L6.49826741,2 C6.22308192,2 6,1.76806641 6,1.5 Z M6,6.5 C6,6.22385763 6.21990657,6 6.49826741,6 L19.5017326,6 C19.7769181,6 20,6.23193359 20,6.5 C20,6.77614237 19.7800934,7 19.5017326,7 L6.49826741,7 C6.22308192,7 6,6.76806641 6,6.5 Z M6,11.5 C6,11.2238576 6.21990657,11 6.49826741,11 L19.5017326,11 C19.7769181,11 20,11.2319336 20,11.5 C20,11.7761424 19.7800934,12 19.5017326,12 L6.49826741,12 C6.22308192,12 6,11.7680664 6,11.5 Z M0,1.5 C0,0.671572875 0.665797234,0 1.5,0 C2.32842712,0 3,0.665797234 3,1.5 C3,2.32842712 2.33420277,3 1.5,3 C0.671572875,3 0,2.33420277 0,1.5 Z M0,6.5 C0,5.67157288 0.665797234,5 1.5,5 C2.32842712,5 3,5.66579723 3,6.5 C3,7.32842712 2.33420277,8 1.5,8 C0.671572875,8 0,7.33420277 0,6.5 Z M0,11.5 C0,10.6715729 0.665797234,10 1.5,10 C2.32842712,10 3,10.6657972 3,11.5 C3,12.3284271 2.33420277,13 1.5,13 C0.671572875,13 0,12.3342028 0,11.5 Z" id="icon-list-active-copy"></path>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                Lista
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'mapa' }">
+                                                        <a (click)="openDisplay()" class="btn-display btn-small">                                                        
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 20 13">
+                                                                    <path fill="#FFCB33" fill-rule="evenodd" d="M0 .7903c0-.5568.3937-.8165.8983-.571l4.2034 2.0464c.496.2415.8983.889.8983 1.4455v8.4985c0 .5568-.3937.8165-.8983.571L.8983 10.7342C.4023 10.4928 0 9.8453 0 9.2888V.7903zm7.3333 2.921c0-.557.401-1.228.8807-1.4907L11.786.2644c.4864-.2663.8807-.0305.8807.526v8.4984c0 .557-.401 1.2278-.8807 1.4906l-3.572 1.9562c-.4864.2663-.8807.0305-.8807-.526V3.7113zM14 .7902c0-.5568.3937-.8165.8983-.571l4.2034 2.0464c.496.2415.8983.889.8983 1.4455v8.4985c0 .5568-.3937.8165-.8983.571l-4.2034-2.0464c-.496-.2415-.8983-.889-.8983-1.4455V.7903z"/>
+                                                                </svg>
+                                                                Mapa
+                                                            </span>                                                        
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-6 visible-xs m-b-xxxs text-right">
+                                                <button (click)="showMobileFilter()" type="button" class="btn btn-filter btn-small pull-right">Filtro</button>
+                                            </div>
                                             <div class="col-xs-12 m-t-xxs m-b-xxs">
                                                 <find-talent-map-component #findTalentMapComponent [activities]="worbbiorActivities"></find-talent-map-component>
                                             </div>
@@ -634,13 +713,37 @@
                                             <p class="m-b-20px">Display</p>
                                             <ul class="nav nav-pills nav-justified sub-nav-worbby" role="tablist"> 
                                                 <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'lista' }">
-                                                    <a (click)="openDisplay()">
-                                                        Lista
+                                                    <a (click)="openDisplay()" class="btn-display">                                                        
+                                                        <span>
+                                                            <svg style="top: 2px !important;" width="20px" height="13px" viewBox="0 0 20 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+                                                                <title>icon-list-active copy</title>
+                                                                <desc>Created with Sketch.</desc>
+                                                                <defs></defs>
+                                                                <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <g id="Desktop-Needor-Map" transform="translate(-1052.000000, -406.000000)" fill="#FFCB33">
+                                                                        <g id="Group-8" transform="translate(985.000000, 393.000000)">
+                                                                            <g id="Group-2" transform="translate(33.000000, 11.000000)">
+                                                                                <g id="icon-list-active" transform="translate(34.000000, 2.000000)">
+                                                                                    <path d="M6,1.5 C6,1.22385763 6.21990657,1 6.49826741,1 L19.5017326,1 C19.7769181,1 20,1.23193359 20,1.5 C20,1.77614237 19.7800934,2 19.5017326,2 L6.49826741,2 C6.22308192,2 6,1.76806641 6,1.5 Z M6,6.5 C6,6.22385763 6.21990657,6 6.49826741,6 L19.5017326,6 C19.7769181,6 20,6.23193359 20,6.5 C20,6.77614237 19.7800934,7 19.5017326,7 L6.49826741,7 C6.22308192,7 6,6.76806641 6,6.5 Z M6,11.5 C6,11.2238576 6.21990657,11 6.49826741,11 L19.5017326,11 C19.7769181,11 20,11.2319336 20,11.5 C20,11.7761424 19.7800934,12 19.5017326,12 L6.49826741,12 C6.22308192,12 6,11.7680664 6,11.5 Z M0,1.5 C0,0.671572875 0.665797234,0 1.5,0 C2.32842712,0 3,0.665797234 3,1.5 C3,2.32842712 2.33420277,3 1.5,3 C0.671572875,3 0,2.33420277 0,1.5 Z M0,6.5 C0,5.67157288 0.665797234,5 1.5,5 C2.32842712,5 3,5.66579723 3,6.5 C3,7.32842712 2.33420277,8 1.5,8 C0.671572875,8 0,7.33420277 0,6.5 Z M0,11.5 C0,10.6715729 0.665797234,10 1.5,10 C2.32842712,10 3,10.6657972 3,11.5 C3,12.3284271 2.33420277,13 1.5,13 C0.671572875,13 0,12.3342028 0,11.5 Z" id="icon-list-active-copy"></path>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                            Lista
+                                                        </span>
                                                     </a>
                                                 </li>
                                                 <li role="presentation" [ngClass]="{'active' : tipoDoDisplay == 'mapa' }">
-                                                    <a (click)="openDisplay()">
-                                                        Mapa
+                                                    <a (click)="openDisplay()" class="btn-display">                                                        
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 20 13">
+                                                                <path fill="#FFCB33" fill-rule="evenodd" d="M0 .7903c0-.5568.3937-.8165.8983-.571l4.2034 2.0464c.496.2415.8983.889.8983 1.4455v8.4985c0 .5568-.3937.8165-.8983.571L.8983 10.7342C.4023 10.4928 0 9.8453 0 9.2888V.7903zm7.3333 2.921c0-.557.401-1.228.8807-1.4907L11.786.2644c.4864-.2663.8807-.0305.8807.526v8.4984c0 .557-.401 1.2278-.8807 1.4906l-3.572 1.9562c-.4864.2663-.8807.0305-.8807-.526V3.7113zM14 .7902c0-.5568.3937-.8165.8983-.571l4.2034 2.0464c.496.2415.8983.889.8983 1.4455v8.4985c0 .5568-.3937.8165-.8983.571l-4.2034-2.0464c-.496-.2415-.8983-.889-.8983-1.4455V.7903z"/>
+                                                            </svg>
+                                                            Mapa
+                                                        </span>                                                        
                                                     </a>
                                                 </li>
                                             </ul>

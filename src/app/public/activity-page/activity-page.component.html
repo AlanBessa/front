@@ -37,8 +37,8 @@
                     </button>
                 </div>
                 <div class="col-xs-12 text-center">
-                    <div (click)="goToInterestCenterPage(interestCenter)" class="icone-box m-t-xs m-x-xxs cursor-pointer" *ngFor="let interestCenter of activityUser.listInterestCenter.items">
-                        <img [src]="interestCenter.interestCenterPicture" *ngIf="interestCenter != undefined" placement="bottom" [tooltip]="interestCenter.displayName" />                        
+                    <div (click)="goToInterestCenterPage(interestCenter)" class="icone-box m-t-xs m-x-xxs cursor-pointer" *ngFor="let interestCenter of listInterestCenter">
+                        <img [src]="interestCenter.parentPicture" *ngIf="interestCenter != undefined" placement="bottom" [tooltip]="interestCenter.parentDisplayName" />                        
                         <img [src]="loading" alt="Carregando" *ngIf="interestCenter == undefined" width="80px" />
                     </div>
                     <h2 class="m-t-40px">"{{activityUser.title}}"</h2>                    

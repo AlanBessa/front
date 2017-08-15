@@ -5,7 +5,7 @@ import { EditProfileWorbbiorComponent } from './edit-profile/edit-profile.compon
 import { TalentQuestionnaireComponent } from './edit-profile/talent-questionnaire.component';
 import { MessagesWorbbiorComponent } from './messages/messages.component';
 import { MyWorbbyWorbbiorComponent } from './my-worbby/my-worbby.component';
-import { PaymentsHistoryWorbbiorComponent } from './payments-history/payments-history.component';
+import { PaymentsHistoryComponent } from 'app/payments-history/payments-history.component';
 import { TasksHistoryWorbbiorComponent } from './tasks-history/tasks-history.component';
 import { SelectActivityComponent } from './edit-profile/select-activity.component';
 import { ComingSoonComponent } from '@app/public/coming-soon/coming-soon.component';
@@ -28,7 +28,7 @@ import { NotificationsComponent } from "app/shared/layout/notifications/notifica
                     { path: 'select-activity', component: SelectActivityComponent, data: { permission: 'Pages.Worbbior.EditProfile' } },
                     // { path: 'messages', component: MessagesWorbbiorComponent, data: { permission: 'Pages.Worbbior.Messages' } },
                     { path: 'my-worbby', component: MyWorbbyWorbbiorComponent, data: { permission: 'Pages.Worbbior.MyWorbby' } },
-                    { path: 'payments-history', component: PaymentsHistoryWorbbiorComponent, data: { permission: 'Pages.Worbbior.PaymentsHistory' } },
+                    { path: 'payments-history', component: PaymentsHistoryComponent, data: { permission: 'Pages.Worbbior.PaymentsHistory' } },
                     { path: 'tasks-history', component: TasksHistoryWorbbiorComponent, data: { permission: 'Pages.Worbbior.TasksHistory' } },
                     { path: 'talent-questionnaire', component: TalentQuestionnaireComponent, data: { } },
                     { path: 'worbby-task-offer/:worbbyOfferId', component: WorbbiorTaskOfferComponent, data: { } },

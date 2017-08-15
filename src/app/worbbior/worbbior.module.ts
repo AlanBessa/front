@@ -17,7 +17,6 @@ import { MyAvailabilityWorbbiorComponent } from './edit-profile/my-availability.
 import { MyEndorsementsWorbbiorComponent } from './edit-profile/my-endorsements.component';
 import { MessagesWorbbiorComponent } from './messages/messages.component';
 import { MyWorbbyWorbbiorComponent } from './my-worbby/my-worbby.component';
-import { PaymentsHistoryWorbbiorComponent } from './payments-history/payments-history.component';
 import { TasksHistoryWorbbiorComponent } from './tasks-history/tasks-history.component';
 import { TalentQuestionnaireComponent } from './edit-profile/talent-questionnaire.component';
 import { WorbbiorTaskOfferComponent } from './worbby-task/worbbior-task-offer.component';
@@ -26,9 +25,6 @@ import { MomentModule } from "angular2-moment";
 import { TextMaskModule } from 'angular2-text-mask';
 import { InfoTutorialCadastroModalComponent } from "app/worbbior/edit-profile/info-tutorial-cadastro-modal.component";
 import { SendEndorsementModalComponent } from 'app/worbbior/edit-profile/send-endorsement-modal.component';
-import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
-import { ReceivedPaymentWorbbiorComponent } from "app/worbbior/payments-history/received-payment.component";
-import { PaidPaymentWorbbiorComponent } from "app/worbbior/payments-history/paid-payment.component";
 import { ViewDocumentModalComponent } from '@app/worbbior/edit-profile/view-document-modal.component';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { AppRouteGuard } from '@app/shared/common/auth/auth-route-guard';
@@ -36,7 +32,7 @@ import { WorbbiorWorbbyTaskActions } from './worbby-task/worbbior-task-actions.c
 import { WorbbiorScheduleDateModalComponent } from './worbby-task/worbbior-task-scheduledate-modal.component';
 import { LoginService } from "app/account/login/login.service";
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-history/confirm-balance-transfer-modal.component';
+import { PaymentsHistoryModule } from 'app/payments-history/payments-history.module';
 
 @NgModule({
     imports: [
@@ -55,7 +51,8 @@ import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-hist
         AppCommonModule,
         MomentModule,
         FileUploadModule,
-        TextMaskModule
+        TextMaskModule,
+        PaymentsHistoryModule
     ],
     declarations: [
         WorbbiorComponent,
@@ -66,7 +63,6 @@ import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-hist
         MyAvailabilityWorbbiorComponent,
         MessagesWorbbiorComponent,
         MyWorbbyWorbbiorComponent,
-        PaymentsHistoryWorbbiorComponent,
         TasksHistoryWorbbiorComponent,
         MyDocumentsWorbbiorComponent,
         CreateOrEditAvailabilityModalComponent,
@@ -76,14 +72,10 @@ import { ConfirmBalanceTransferModalComponent } from 'app/worbbior/payments-hist
         WorbbiorTaskDetailsComponent,
         InfoTutorialCadastroModalComponent,
         SendEndorsementModalComponent,
-        GeneralPaymentWorbbiorComponent,
-        ReceivedPaymentWorbbiorComponent,
-        PaidPaymentWorbbiorComponent,
         ViewDocumentModalComponent,
         PdfViewerComponent,
         WorbbiorWorbbyTaskActions,
         WorbbiorScheduleDateModalComponent,
-        ConfirmBalanceTransferModalComponent
     ],
     providers: [
         AppRouteGuard,

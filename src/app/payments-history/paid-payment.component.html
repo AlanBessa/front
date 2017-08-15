@@ -14,7 +14,22 @@
                 
                  <div class="row m-b-20px">
                     <div class="col-xs-12 col-sm-5 m-b-10px">
+
                         <div class="dropdown">
+                            <button type="button" class="dropdown-toggle btn-select btn-block" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    {{currentsaleType.value}}
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                            <ul class="dropdown-menu">
+                                <li *ngFor="let item of saleTypes.items">
+                                    <a href="javascript:;" (click)="changePaymentType(item)">
+                                        {{item.value}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- <div class="dropdown">
                             <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" 
                                 data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true">
@@ -31,50 +46,54 @@
                                 <li><a href="javascript:;">Crédito Worbby</a></li>
                                 <li><a href="javascript:;">Cartão de crédito</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-xs-12 col-sm-5 text-right payment-date-picker m-b-10px">
                         <date-range-picker [(startDate)]="filtroDataPago.start" 
                                            [(endDate)]="filtroDataPago.end"
-                                           [dateRangePickerOptions]="{'opens': 'left'}">
+                                           [dateRangePickerOptions]="{'opens': 'left'}"
+                                           (applyClick)="getPaymentsByUserId(1)">
                         </date-range-picker>                        
                     </div>
                     <div class="col-xs-12 col-sm-2 payment-date-picker m-b-10px">
-                        <button class="btn btn-prime btn-block">
+                        <button (click)="getPaymentsByUserId(1)" class="btn btn-prime btn-block">
                             <i class="fa fa-filter"></i>
                         </button>
                     </div>
                </div>               
-               <div class="row">
+               <div *ngIf="worbbyTasksSales.length > 0" class="row">
                    <div class="col-xs-12">
                        <table class="table table-hover table-payment">
                             <thead>
                                 <tr>
                                     <th>TOTAL</th>
                                     <th>
-                                        <span>R$ 960,00</span>
+                                        R$ <span>{{totalPaymentsPaid / 100 | number:'1.2-2'}}</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let worbbyTaskSale of worbbyTasksSales">
                                     <td>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-2">
                                                 <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
                                             </div>
                                             <div class="col-xs-12 col-sm-10">
-                                                <p class="no-m-t m-b-xxxs small"><i>Com crédito Worbby</i></p>
-                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>Título tarefa - título tarefa</strong></h6>
-                                                <p class="small m-b-xxxs">Nome Worbbient da Silva - 02/02/2017</p>
+                                                <p class="no-m-t m-b-xxxs small"><i>{{worbbyTaskSale.sale.type}}</i></p>
+                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>{{worbbyTaskSale.worbbyTask.title}}</strong></h6>
+                                                <p class="small m-b-xxxs">{{worbbyTaskSale.worbbyTask.worbbior.displayName}} - {{worbbyTaskSale.sale.capturedAmountDate | amDateFormat:'DD/MM/YYYY'}}</p>
+                                                <p *ngIf="worbbyTaskSale.worbbyTask.status == WorbbyTaskStatus.Canceled" class="small m-b-xxxs">
+                                                    <span class="cor-Flamingo">Cancelada</span><br /> Política de cancelamento {{l(CancellationPolicy[worbbyTaskSale.worbbyTask.cancellationPolicy.toString()])}} <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="Explicação"></i>
+                                                </p>
                                             </div>
                                         </div>                                        
                                     </td>
                                     <td>
-                                        <span>R$ 960,00</span>
+                                        <span>R$ {{worbbyTaskSale.sale.capturedAmount / 100 | number:'1.2-2'}}</span>
                                     </td>
                                 </tr>
-                                <tr>
+                                 <!-- <tr>
                                     <td>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-2">
@@ -121,44 +140,51 @@
                                         </div> 
                                     </td>
                                     <td><span>R$ 4200,00</span></td>
-                                </tr>
+                                </tr>  -->
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="3">
                                         <div class="text-center">
-                                            <ul class="pagination no-m-b">
+                                            <ul *ngIf="pager.totalPages?.length > 1" class="pagination">
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByUserId(1)" [ngClass]="{disabled:pager.currentPage === 1}">
                                                         <i class="fa fa-angle-double-left"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByUserId(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a>
                                                 </li>
-                                                <li class="active">
-                                                    <a href="#">1</a>
+                                                <li *ngFor="let page of pager.totalPages" [ngClass]="{active:pager.currentPage === page}">
+                                                    <a (click)="getPaymentsByUserId(page)">{{page}}</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByUserId(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a (click)="getPaymentsByUserId(pager.totalPages?.length)" [ngClass]="{disabled:pager.currentPage == pager.totalPages?.length}">
                                                         <i class="fa fa-angle-double-right"></i>
                                                     </a>
                                                 </li>
                                             </ul>    
-                                        </div> 
+                                        </div>
                                     </td>
                                 </tr>
                             </tfoot>
                        </table>
                    </div>
                </div> 
+                <div *ngIf="notFound"  class="row">
+                    <div class="col-xs-12 m-b-10px">
+                        <div class="well well-lg bg-White">
+                            Nenhum dado disponível para o período selecionado.
+                        </div>
+                    </div>
+                </div> 
             </div>
         </div>
     </div>

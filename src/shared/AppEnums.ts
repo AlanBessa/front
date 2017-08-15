@@ -265,6 +265,17 @@ export class ContactSubjects {
     }
 }
 
+export class SaleTypes {
+    items: KeyValueItem[];
+
+    constructor() {
+        this.items = [];
+        this.items.push(new KeyValueItem("", "Todos"));
+        this.items.push(new KeyValueItem("CreditCard", "Cartão de crédito"));
+        this.items.push(new KeyValueItem("CreditWorbby", "Crédito Worbby"));
+    }
+}
+
 export class KeyValueItem {
     key: string = '';
     value: string = '';

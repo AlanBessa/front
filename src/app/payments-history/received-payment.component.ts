@@ -8,12 +8,12 @@ import * as moment from "moment";
 import 'moment/min/locales';
 
 @Component({
-    templateUrl: './paid-payment.component.html', 
-    selector: 'paidPaymentWorbbiorComponent',
+    templateUrl: './received-payment.component.html', 
+    selector: 'receivedPaymentComponent',
     animations: [appModuleAnimation()]
 })
 
-export class PaidPaymentWorbbiorComponent extends AppComponentBase implements AfterViewInit {
+export class ReceivedPaymentComponent extends AppComponentBase implements AfterViewInit {
 
     public active: boolean = false;
 
@@ -21,7 +21,9 @@ export class PaidPaymentWorbbiorComponent extends AppComponentBase implements Af
 
     public worbbyTasksSales: WorbbyTaskSaleDto[] = [];
 
-    public filtroDataPago: DateFilter = new DateFilter(moment().startOf("day").subtract(30, "days"), moment().endOf("day"));
+    public notFound: boolean = false;
+
+    public filtroDataRecebidos: DateFilter = new DateFilter(moment().startOf("day").subtract(30, "days"), moment().endOf("day"));
 
     constructor(
         injector: Injector,
@@ -43,19 +45,16 @@ export class PaidPaymentWorbbiorComponent extends AppComponentBase implements Af
 
         var skipCount = AppConsts.maxResultCount * (page-1);
 
-        this._saleService.getPaymentsByTargetUserId(abp.session.userId,this.filtroDataPago.start,this.filtroDataPago.end,AppConsts.maxResultCount,skipCount)
+        this._saleService.getPaymentsByTargetUserId(abp.session.userId, undefined, this.filtroDataRecebidos.start, this.filtroDataRecebidos.end, undefined, AppConsts.maxResultCount, skipCount)
         .finally(() => { 
 
         })
         .subscribe(result => {
             this.worbbyTasksSales = result.items;
-            // this.worbbyTasksSales.forEach(element => {
-            //     element.worbbyTask.totalPrice;
-            //     element.balanceAvailable
-            //     element.balanceAvailableDate
-            //     element.cancellationTax
-            //     element.cancellationTaxAmount
-            // });
+            this.pager.totalCount = result.totalCount;
+            this.pager.currentPage = page;
+            this.buildPager(Math.ceil(this.pager.totalCount/AppConsts.maxResultCount));  
+            this.notFound = this.worbbyTasksSales.length == 0;
         }, error => {
             console.log(error);
         });
@@ -65,9 +64,17 @@ export class PaidPaymentWorbbiorComponent extends AppComponentBase implements Af
         
     }
 
+    get totalPaymentsReceived():number{
+        let total = 0;
+        
+        this.worbbyTasksSales.forEach(element => {
+            total += element.balanceAvailable;
+        });
+        return total;
+    }
+
 
     buildPager(total) {
-        //Quantas casa para frente e para trás
         let range = 5;
 
         this.pager.totalPages = [];

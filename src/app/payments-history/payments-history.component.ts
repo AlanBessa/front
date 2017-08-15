@@ -9,19 +9,19 @@ import { AppAuthService } from "app/shared/common/auth/app-auth.service";
 import { BalanceTransferOutput, EntityDtoOfInt64, ProfileServiceProxy, CurrentUserProfileEditDto, AddressServiceProxy, AddressDto, BalanceAvailableOutput, BalanceTransferServiceProxy, RequestBalanceTransferInput } from "shared/service-proxies/service-proxies";
 import { AppConsts } from "shared/AppConsts";
 import { WorbbiorState } from "shared/AppEnums";
-import { GeneralPaymentWorbbiorComponent } from "app/worbbior/payments-history/general-payment.component";
-import { ReceivedPaymentWorbbiorComponent } from "app/worbbior/payments-history/received-payment.component";
-import { PaidPaymentWorbbiorComponent } from "app/worbbior/payments-history/paid-payment.component";
+import { GeneralPaymentComponent } from "app/payments-history/general-payment.component";
+import { ReceivedPaymentComponent } from "app/payments-history/received-payment.component";
+import { PaidPaymentComponent } from "app/payments-history/paid-payment.component";
 
 @Component({
     templateUrl: './payments-history.component.html',
     animations: [appModuleAnimation()]
 })
-export class PaymentsHistoryWorbbiorComponent extends AppComponentBase implements AfterViewInit {
+export class PaymentsHistoryComponent extends AppComponentBase implements AfterViewInit {
 
-    @ViewChild('generalPayment') generalPayment: GeneralPaymentWorbbiorComponent;
-    @ViewChild('receivedPayment') receivedPayment: ReceivedPaymentWorbbiorComponent;
-    @ViewChild('paidPayment') paidPayment: PaidPaymentWorbbiorComponent;
+    @ViewChild('generalPayment') generalPayment: GeneralPaymentComponent;
+    @ViewChild('receivedPayment') receivedPayment: ReceivedPaymentComponent;
+    @ViewChild('paidPayment') paidPayment: PaidPaymentComponent;
 
     public filter: string;
     public active: boolean = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Injector } from '@angular/core';
+import { Component, OnInit, Input, Injector, Output, EventEmitter } from '@angular/core';
 import { WorbbiorActivityDto, AddressServiceProxy, AddressDto } from "shared/service-proxies/service-proxies";
 import { AppComponentBase } from "shared/common/app-component-base";
 import { GoogleMapsAPIWrapper, MapsAPILoader } from "@agm/core";
@@ -19,10 +19,11 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
   public worbbior: worbbior;
 
   public worbbiorList: worbbior[] = [];
+  public points: point[] = [];
 
   public userLoginAddressCoord: any = {
-    lat: -22.249802,
-    lon: -44.7939593
+    lat: -22.9009167,
+    lon: -43.1795591
   };
 
   constructor(
@@ -37,11 +38,13 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.applyStyleMap();
     this.getAddresDefault();
-    this.organizeListWorbbiorActivities();
+    this.organizeListWorbbiorActivities(this.worbbiorActivities);
   }
 
-  public organizeListWorbbiorActivities(): void {
-    this.worbbiorActivities.sort(function (obj1, obj2) {
+  public organizeListWorbbiorActivities(worbbiorActivities: WorbbiorActivityDto[]): void {
+    this.worbbiorList = [];
+    
+    worbbiorActivities.sort(function (obj1, obj2) {
       if (obj1.worbbior.userId < obj2.worbbior.userId) {
         return -1;
       }
@@ -55,34 +58,38 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
 
     let userIdController = 0;
 
-    for (let i = 0; i < this.worbbiorActivities.length; i++) {
-      if (this.worbbiorActivities[i].worbbior.userId != userIdController) {
+    for (let i = 0; i < worbbiorActivities.length; i++) {
+      if (worbbiorActivities[i].worbbior.userId != userIdController) {
 
         if (i != 0) this.worbbiorList.push(this.worbbior);
 
         this.worbbior = <worbbior>{};
-        this.worbbior.profile = this.worbbiorActivities[i].worbbior;
+        this.worbbior.profile = worbbiorActivities[i].worbbior;
+
+        this.points.push(<point>{Latitude: this.worbbior.profile.address.latitude , Longitude: this.worbbior.profile.address.longitude});
 
         this.worbbior.userActivitiesList = [];
-        this.worbbior.userActivitiesList.push(this.worbbiorActivities[i].userActivity);
+        this.worbbior.userActivitiesList.push(worbbiorActivities[i].userActivity);
 
-        userIdController = this.worbbiorActivities[i].worbbior.userId;
+        userIdController = worbbiorActivities[i].worbbior.userId;
       }
       else {
-        this.worbbior.userActivitiesList.push(this.worbbiorActivities[i].userActivity);
+        this.worbbior.userActivitiesList.push(worbbiorActivities[i].userActivity);
       }
 
-      if (i == this.worbbiorActivities.length - 1) this.worbbiorList.push(this.worbbior);
+      if (i == worbbiorActivities.length - 1) this.worbbiorList.push(this.worbbior);
     }
   }
 
   public getAddresDefault(): void {
-    this._addressService.getAddressDefaultByUserId(abp.session.userId).subscribe((result: AddressDto) => {
-      if (result != undefined) {
-        this.userLoginAddressCoord.lat = this.toNumber(result.latitude);
-        this.userLoginAddressCoord.lon = this.toNumber(result.longitude);
-      }
-    });
+    if(abp.session.userId) {
+      this._addressService.getAddressDefaultByUserId(abp.session.userId).subscribe((result: AddressDto) => {
+        if (result != undefined) {
+          this.userLoginAddressCoord.lat = this.toNumber(result.latitude);
+          this.userLoginAddressCoord.lon = this.toNumber(result.longitude);
+        }
+      });
+    }
   }
 
   public applyStyleMap(): void {
@@ -109,7 +116,7 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
     ];
   }
 
-  goToActivityPage(userActivityId: number, userActivityName: string): void {
+  public goToActivityPage(userActivityId: number, userActivityName: string): void {
     let url = userActivityId + "-" + this.changeSpecialCharacterToNormalCharacter(userActivityName.replace(/\s+/g, '-').toLowerCase());
     this.router.navigate(["/publico/atividade/", url]);
   }
@@ -118,4 +125,9 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
 interface worbbior {
   profile: any,
   userActivitiesList: any[]
+}
+
+interface point {
+  Latitude: number,
+  Longitude: number
 }

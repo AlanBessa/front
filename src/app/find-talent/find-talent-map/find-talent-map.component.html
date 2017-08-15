@@ -5,24 +5,8 @@
          [maxZoom]="12" 
          [zoom]="10">
 
-    <agm-marker [latitude]="toNumber(wa.profile.address.latitude)" 
-                [longitude]="toNumber(wa.profile.address.longitude)" 
-                [iconUrl]="'assets/metronic/worbby/global/img/icon-worbbior-icon-map.svg'"
-                *ngFor="let wa of worbbiorList; let i = index"
-                (markerClick)="mapa.lastOpen?.close(); mapa.lastOpen = infoWindow">
-
-        <agm-info-window #infoWindow>
-            <div class="box-map">
-                <div class="text-center">
-                    <img alt="Photo Profile" class="img-circle img-profile" [src]="wa.profile.userPicture" />
-                </div>
-                <h6 class="cor-Tangerine">{{wa.profile.displayName}}</h6>
-                <ul class="activityList">
-                    <li *ngFor="let userActivity of wa.userActivitiesList">
-                        <a (click)="goToActivityPage(userActivity.id, userActivity.title)">{{ userActivity.title }}</a>
-                    </li>
-                </ul>
-            </div>
-        </agm-info-window>
-    </agm-marker>
+    <marker-cluster [points]="worbbiorList" 
+                    [iconMarker]="'assets/metronic/worbby/global/img/icon-worbbior-icon-map.svg'" 
+                    [iconCluster]="'/assets/metronic/worbby/global/img/cluster/m'">
+    </marker-cluster>
 </agm-map>

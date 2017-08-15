@@ -13,6 +13,8 @@ import { MomentFormatPipe } from './moment-format.pipe';
 import { CurrencyInputDirective } from './currency-input.directive';
 import { GroupByPipe } from './group-by.pipe';
 import { ReversePipe } from './reverse.pipe';
+import { AgmCoreModule } from "@agm/core";
+import { MarkerClusterDirective } from "shared/utils/marker-cluster.directive";
 
 @NgModule({
     providers: [
@@ -30,7 +32,8 @@ import { ReversePipe } from './reverse.pipe';
         MomentFormatPipe,
         CurrencyInputDirective,
         GroupByPipe,
-        ReversePipe
+        ReversePipe,
+        MarkerClusterDirective
     ],
     exports: [
         EqualValidator,
@@ -43,7 +46,13 @@ import { ReversePipe } from './reverse.pipe';
         MomentFormatPipe,
         CurrencyInputDirective,
         GroupByPipe,
-        ReversePipe
+        ReversePipe,
+        MarkerClusterDirective
+    ],
+    imports: [
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDmAf99svQmS-Oi0BDl2Zpn0YtMGccRZRM' 
+        })
     ]
 })
 export class UtilsModule { }

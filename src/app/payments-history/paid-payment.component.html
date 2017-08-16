@@ -28,25 +28,6 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <!-- <div class="dropdown">
-                            <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" 
-                                data-toggle="dropdown" data-hover="dropdown"
-                                data-close-others="true">
-                                Todos
-                                <i class="fa fa-angle-down pull-right" style="padding-top: 3px;"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="javascript:;" (click)="changePaymentType()">
-                                        {{l('Select')}}
-                                    </a>
-                                </li>
-                                <li><a href="javascript:;">Todos</a></li>
-                                <li><a href="javascript:;">Crédito Worbby</a></li>
-                                <li><a href="javascript:;">Cartão de crédito</a></li>
-                            </ul>
-                        </div> -->
                     </div>
                     <div class="col-xs-12 col-sm-5 text-right payment-date-picker m-b-10px">
                         <date-range-picker [(startDate)]="filtroDataPago.start" 
@@ -80,7 +61,7 @@
                                                 <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
                                             </div>
                                             <div class="col-xs-12 col-sm-10">
-                                                <p class="no-m-t m-b-xxxs small"><i>{{worbbyTaskSale.sale.type}}</i></p>
+                                                <p class="no-m-t m-b-xxxs small"><i>{{l(worbbyTaskSale.sale.type)}}</i></p>
                                                 <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>{{worbbyTaskSale.worbbyTask.title}}</strong></h6>
                                                 <p class="small m-b-xxxs">{{worbbyTaskSale.worbbyTask.worbbior.displayName}} - {{worbbyTaskSale.sale.capturedAmountDate | amDateFormat:'DD/MM/YYYY'}}</p>
                                                 <p *ngIf="worbbyTaskSale.worbbyTask.status == WorbbyTaskStatus.Canceled" class="small m-b-xxxs">

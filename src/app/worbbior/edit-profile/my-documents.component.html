@@ -15,7 +15,7 @@
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group no-hint">
                         <label class="control-label">{{l("RG")}}</label> <i class="fa fa-asterisk cor-Botticelli txt-small"></i>
-                        <input class="form-control" type="tel" name="rg" [textMask]="{mask: AppConsts.rgMask}" [(ngModel)]="userDocumentsInfo.rgNumber" [disabled]="worbbiorState != WorbbiorState.PreRegistration && worbbiorState != WorbbiorState.WaitingEdit" />                    
+                        <input class="form-control" type="text" name="rg" [(ngModel)]="userDocumentsInfo.rgNumber" [disabled]="worbbiorState != WorbbiorState.PreRegistration && worbbiorState != WorbbiorState.WaitingEdit" />                    
                     </div>                    
                 </div>
                 <div class="col-xs-12 col-md-6" *ngIf="worbbiorState == WorbbiorState.PreRegistration || worbbiorState == WorbbiorState.WaitingEdit ">

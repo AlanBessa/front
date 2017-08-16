@@ -332,8 +332,158 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h3 class="m-b-xss no-m-t">Veja outras atividades similares</h3>
+                            <h3 class="m-b-xss no-m-t">Veja outras atividades similares</h3> 
                             <slick-slider class="row text-center no-m">
+                                <!-- card-talent : inicio -->
+                                <div class="card-shadow card-talent" *ngFor="let similarActivity of similarActivityList">
+                                    <a (click)="goToActivityPage(similarActivity.userId, similarActivity.id, similarActivity.title)">
+                                        <div class="imagem-display" *ngIf="similarActivity != undefined && similarActivity.featuredImage != undefined" [style.background]="'url(' + similarActivity.featuredImage + ')'"></div>
+                                        <div class="p-xss">
+                                            <h4 class="txt-small text-left no-m-y no-m-x">
+                                                {{similarActivity.title}}
+                                            </h4>
+                                            <div class="row m-t-xss">
+                                                <div class="col-xs-6">
+                                                    <rating [(ngModel)]="similarActivity.averageEvaluations"
+                                                            max="5"
+                                                            class="m-r-xxs txt-small"
+                                                            required="true"
+                                                            [readonly]="true"
+                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                    </rating>
+                                                </div>
+                                                <div class="col-xs-6 text-right">
+                                                    <span class="txt-smaller">
+                                                        {{similarActivity.evaluation.evaluations.items.length}} 
+                                                        <img alt="Icon Reviews" class="m-l-5px display-inline-block" src="/assets/metronic/worbby/global/img/icon-reviews.svg" style="width:32px;" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- card-talent : Fim -->
+                                <!-- card-talent : inicio -->
+                                <div class="card-shadow card-talent" *ngFor="let similarActivity of similarActivityList">
+                                    <a (click)="goToActivityPage(similarActivity.userId, similarActivity.id, similarActivity.title)">
+                                        <div class="imagem-display" *ngIf="similarActivity != undefined && similarActivity.featuredImage != undefined" [style.background]="'url(' + similarActivity.featuredImage + ')'"></div>
+                                        <div class="p-xss">
+                                            <h4 class="txt-small text-left no-m-y no-m-x">
+                                                {{similarActivity.title}}
+                                            </h4>
+                                            <div class="row m-t-xss">
+                                                <div class="col-xs-6">
+                                                    <rating [(ngModel)]="similarActivity.averageEvaluations"
+                                                            max="5"
+                                                            class="m-r-xxs txt-small"
+                                                            required="true"
+                                                            [readonly]="true"
+                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                    </rating>
+                                                </div>
+                                                <div class="col-xs-6 text-right">
+                                                    <span class="txt-smaller">
+                                                        {{similarActivity.evaluation.evaluations.items.length}} 
+                                                        <img alt="Icon Reviews" class="m-l-5px display-inline-block" src="/assets/metronic/worbby/global/img/icon-reviews.svg" style="width:32px;" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- card-talent : Fim -->
+                                <!-- card-talent : inicio -->
+                                <div class="card-shadow card-talent" *ngFor="let similarActivity of similarActivityList">
+                                    <a (click)="goToActivityPage(similarActivity.userId, similarActivity.id, similarActivity.title)">
+                                        <div class="imagem-display" *ngIf="similarActivity != undefined && similarActivity.featuredImage != undefined" [style.background]="'url(' + similarActivity.featuredImage + ')'"></div>
+                                        <div class="p-xss">
+                                            <h4 class="txt-small text-left no-m-y no-m-x">
+                                                {{similarActivity.title}}
+                                            </h4>
+                                            <div class="row m-t-xss">
+                                                <div class="col-xs-6">
+                                                    <rating [(ngModel)]="similarActivity.averageEvaluations"
+                                                            max="5"
+                                                            class="m-r-xxs txt-small"
+                                                            required="true"
+                                                            [readonly]="true"
+                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                    </rating>
+                                                </div>
+                                                <div class="col-xs-6 text-right">
+                                                    <span class="txt-smaller">
+                                                        {{similarActivity.evaluation.evaluations.items.length}} 
+                                                        <img alt="Icon Reviews" class="m-l-5px display-inline-block" src="/assets/metronic/worbby/global/img/icon-reviews.svg" style="width:32px;" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- card-talent : Fim -->
+                                <!-- card-talent : inicio -->
+                                <div class="card-shadow card-talent" *ngFor="let similarActivity of similarActivityList">
+                                    <a (click)="goToActivityPage(similarActivity.userId, similarActivity.id, similarActivity.title)">
+                                        <div class="imagem-display" *ngIf="similarActivity != undefined && similarActivity.featuredImage != undefined" [style.background]="'url(' + similarActivity.featuredImage + ')'"></div>
+                                        <div class="p-xss">
+                                            <h4 class="txt-small text-left no-m-y no-m-x">
+                                                {{similarActivity.title}}
+                                            </h4>
+                                            <div class="row m-t-xss">
+                                                <div class="col-xs-6">
+                                                    <rating [(ngModel)]="similarActivity.averageEvaluations"
+                                                            max="5"
+                                                            class="m-r-xxs txt-small"
+                                                            required="true"
+                                                            [readonly]="true"
+                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                    </rating>
+                                                </div>
+                                                <div class="col-xs-6 text-right">
+                                                    <span class="txt-smaller">
+                                                        {{similarActivity.evaluation.evaluations.items.length}} 
+                                                        <img alt="Icon Reviews" class="m-l-5px display-inline-block" src="/assets/metronic/worbby/global/img/icon-reviews.svg" style="width:32px;" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- card-talent : Fim -->
+                                <!-- card-talent : inicio -->
+                                <div class="card-shadow card-talent" *ngFor="let similarActivity of similarActivityList">
+                                    <a (click)="goToActivityPage(similarActivity.userId, similarActivity.id, similarActivity.title)">
+                                        <div class="imagem-display" *ngIf="similarActivity != undefined && similarActivity.featuredImage != undefined" [style.background]="'url(' + similarActivity.featuredImage + ')'"></div>
+                                        <div class="p-xss">
+                                            <h4 class="txt-small text-left no-m-y no-m-x">
+                                                {{similarActivity.title}}
+                                            </h4>
+                                            <div class="row m-t-xss">
+                                                <div class="col-xs-6">
+                                                    <rating [(ngModel)]="similarActivity.averageEvaluations"
+                                                            max="5"
+                                                            class="m-r-xxs txt-small"
+                                                            required="true"
+                                                            [readonly]="true"
+                                                            stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                            [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                                    </rating>
+                                                </div>
+                                                <div class="col-xs-6 text-right">
+                                                    <span class="txt-smaller">
+                                                        {{similarActivity.evaluation.evaluations.items.length}} 
+                                                        <img alt="Icon Reviews" class="m-l-5px display-inline-block" src="/assets/metronic/worbby/global/img/icon-reviews.svg" style="width:32px;" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- card-talent : Fim -->
                                 <!-- card-talent : inicio -->
                                 <div class="card-shadow card-talent" *ngFor="let similarActivity of similarActivityList">
                                     <a (click)="goToActivityPage(similarActivity.userId, similarActivity.id, similarActivity.title)">

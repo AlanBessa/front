@@ -11,9 +11,20 @@ declare const MarkerClusterer;
 })
 
 export class MarkerClusterDirective extends AppComponentBase implements OnInit {
-    @Input() public points: any[];
     @Input() public iconMarker: string;
     @Input() public iconCluster: string;
+
+    _points: any[];
+    get points(): any[] {
+        return this._points;
+    }
+    
+    @Input('points')
+    set points(value: any[]) {
+        this._points = value;
+        this.markers = [];
+        this.displayMarksInMap();
+    }
 
     public markerCluster: any;
     public markers: any[] = [];
@@ -27,6 +38,9 @@ export class MarkerClusterDirective extends AppComponentBase implements OnInit {
     }
 
     public ngOnInit() {
+    }
+
+    public displayMarksInMap() {
         this.gmapsApi.getNativeMap().then((map) => {
             const markerIcon = {
                 url: this.iconMarker, // url
@@ -41,14 +55,14 @@ export class MarkerClusterDirective extends AppComponentBase implements OnInit {
 
             Observable
                 .interval(500)
-                .skipWhile((s) => this.points == null || this.points.length <= 0)
+                .skipWhile((s) => this._points == null || this._points.length <= 0)
                 .take(1)
                 .subscribe(() => {
                     if (this.markerCluster) {
                         this.markerCluster.clearMarkers();
                     }
-                    if (this.points.length > 0) {
-                        for (const point of this.points) {
+                    if (this._points.length > 0) {
+                        for (const point of this._points) {
                             const marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(point.profile.address.latitude, point.profile.address.longitude),
                                 icon: markerIcon

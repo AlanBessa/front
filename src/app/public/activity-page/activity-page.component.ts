@@ -300,7 +300,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
     this.angulartics2.eventTrack.next({
       action: 'Compartilharmento da atividade do Worbbior',
       properties: {
-        category: 'Facebook',
+         category: 'Facebook',
         label: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title
       }
     });

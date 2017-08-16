@@ -12,8 +12,8 @@ declare const MarkerClusterer;
 
 export class MarkerClusterDirective extends AppComponentBase implements OnInit {
     @Input() public points: any[];
-    @Input() public iconMarker: any[];
-    @Input() public iconCluster: any[];
+    @Input() public iconMarker: string;
+    @Input() public iconCluster: string;
 
     public markerCluster: any;
     public markers: any[] = [];
@@ -31,19 +31,12 @@ export class MarkerClusterDirective extends AppComponentBase implements OnInit {
             const markerIcon = {
                 url: this.iconMarker, // url
                 scaledSize: new google.maps.Size(60, 60)
-            };
-
-            const style = {
-                height: 40,
-                width: 40,
-                textColor: '#FFF',
-                textSize: 11,
-                backgroundPosition: 'center center'
-            };
+            };          
 
             const options = {
                 imagePath: this.iconCluster,
-                gridSize: 70
+                gridSize: 50,
+                zoomOnClick: true
             };
 
             Observable
@@ -91,4 +84,13 @@ export class MarkerClusterDirective extends AppComponentBase implements OnInit {
                 });
         });
     }
+}
+
+interface style {
+    url: string,
+    height: number,
+    width: number,
+    textColor: string,
+    textSize: number,
+    backgroundPosition: string
 }

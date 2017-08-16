@@ -30,6 +30,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   public atividadeCarregado: boolean = false;
 
   public activityUserId: number;
+  public token: string;
   public DayOfWeek: typeof DayOfWeek = DayOfWeek;
   public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
   public UnitMeasure: typeof UnitMeasure = UnitMeasure;
@@ -37,11 +38,11 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
 
   public worbbiorProfile: WorbbiorProfileDto;
   public whatsappLink: SafeUrl = "";
-  public showLoginRegister:boolean = false;
+  public showLoginRegister: boolean = false;
 
-  public worbbiorId:number;
+  public worbbiorId: number;
 
-  public isMyActivity:boolean = false;
+  public isMyActivity: boolean = false;
 
   public searchBanner: string = "/assets/metronic/worbby/global/img/worbby-pattern.png";
   public loading: string = "assets/metronic/worbby/global/img/loading2.gif";
@@ -67,7 +68,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   ngOnInit() {
     this._activatedRoute.params.subscribe(params => {
       this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
-
+      this.token = this._activatedRoute.snapshot.params['token'];
       this.worbbiorPerfilCarregado = false;
       this.atividadeCarregado = false;
       this.similarActivityCarregado = false;
@@ -89,7 +90,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   }
 
   updateActivity(): void {
-      this.createOrEditUserActivityModal.show(new UserActivityInput(this.activityUser));
+    this.createOrEditUserActivityModal.show(new UserActivityInput(this.activityUser));
   }
 
   getPreviewWorbbiorProfile(worbbiorId: number): void {
@@ -137,7 +138,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
 
   getActivity(): void {
     console.log(this.activityUserId);
-    this._activityService.getUserActivity(this.activityUserId, undefined).subscribe((result) => {
+    this._activityService.getUserActivity(this.activityUserId, this.token).subscribe((result) => {
       this.activityUser = result;
       this.isMyActivity = this.activityUser.userId == abp.session.userId;
       var filter = '{"filters":[';
@@ -247,15 +248,15 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
           this.router.navigate(['/postar-tarefa', { 'activityUserId': activityUser.id }]);
         }
       }
-    }else{
-        this.showLoginRegister = true;
-    }   
+    } else {
+      this.showLoginRegister = true;
+    }
   }
 
   private getInterestCenters(): void {
-      if(this.appSession.interestCentersTopLevel.length == 0) {
-          this.getInterestCentersTopLevel();
-      }
+    if (this.appSession.interestCentersTopLevel.length == 0) {
+      this.getInterestCentersTopLevel();
+    }
   }
 
   shareButtonClick(name: string): void {
@@ -266,18 +267,18 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
         label: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title
       }
     });
-  }  
+  }
 
   sharedFacebook(): void {
-      FB.ui({
-          method: 'feed',
-          link: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title,
-          picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
-          name: this.activityUser.title,
-          description: this.activityUser.description
-      }, function(response){
-          console.log(response);
-      });
+    FB.ui({
+      method: 'feed',
+      link: AppConsts.appBaseUrl + "/publico/atividade/" + this.activityUser.id + "-" + this.activityUser.title,
+      picture: AppConsts.appBaseUrl + '/assets/metronic/worbby/global/img/Tarefa-na-worbby-facebook.jpg',
+      name: this.activityUser.title,
+      description: this.activityUser.description
+    }, function (response) {
+      console.log(response);
+    });
 
     this.angulartics2.eventTrack.next({
       action: 'Compartilharmento da atividade do Worbbior',
@@ -297,7 +298,8 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
     this.router.navigate(['/publico/endosso', { 'userId': this.worbbiorProfile.worbbior.userId }]);
   }
 
-  goToInterestCenterPage(interestCenter:InterestCenterDto){
+  goToInterestCenterPage(interestCenter: InterestCenterDto) {
     this.router.navigate(['/centro-interesse', { 'interestCenterId': interestCenter.slugName }]);
   }
+
 }

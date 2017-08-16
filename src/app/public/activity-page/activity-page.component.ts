@@ -30,6 +30,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   public atividadeCarregado: boolean = false;
 
   public activityUserId: number;
+  public token : string;
   public DayOfWeek: typeof DayOfWeek = DayOfWeek;
   public CancellationPolicy: typeof CancellationPolicy = CancellationPolicy;
   public UnitMeasure: typeof UnitMeasure = UnitMeasure;
@@ -69,7 +70,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   ngOnInit() {
     this._activatedRoute.params.subscribe(params => {
       this.activityUserId = Number(this._activatedRoute.snapshot.params['activity'].slice(0, this._activatedRoute.snapshot.params['activity'].indexOf("-")));
-
+      this.token = this._activatedRoute.snapshot.params['token'];
       this.worbbiorPerfilCarregado = false;
       this.atividadeCarregado = false;
       this.similarActivityCarregado = false;
@@ -139,7 +140,7 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
 
   getActivity(): void {
     console.log(this.activityUserId);
-    this._activityService.getUserActivity(this.activityUserId, undefined).subscribe((result) => {
+    this._activityService.getUserActivity(this.activityUserId, this.token).subscribe((result) => {
       this.activityUser = result;
       this.isMyActivity = this.activityUser.userId == abp.session.userId;
 

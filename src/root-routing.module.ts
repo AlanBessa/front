@@ -47,7 +47,6 @@ const routes: Routes = [
     },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-
     { path: 'login', redirectTo: '/conta/entrar', pathMatch: 'full' },
     { path: 'entrar', redirectTo: '/conta/entrar', pathMatch: 'full' },
     { path: 'register/:roleName', redirectTo: '/conta/registrar/:roleName', pathMatch: 'full', },

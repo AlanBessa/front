@@ -244,6 +244,14 @@ import { ActivityPageComponent } from "app/public/activity-page/activity-page.co
                     },
                     { path: 'support', redirectTo: '/publico/suporte', pathMatch: 'full' },
                     {
+                      path: 'atividade/:activity/:token', component: ActivityPageComponent, data: {
+                        meta: {
+                          title: 'Worbby',
+                          description: ''
+                        }
+                      }
+                    },
+                    {
                       path: 'atividade/:activity', component: ActivityPageComponent, data: {
                         meta: {
                           title: 'Worbby',

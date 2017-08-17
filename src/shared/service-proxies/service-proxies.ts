@@ -19237,6 +19237,7 @@ export interface IListResultDtoOfUserActivityAdminInput {
 export class UserActivityAdminInput implements IUserActivityAdminInput {
     userId: number;
     endorsementUserId: number;
+    activityUserId: number;
     activityId: number;
     activity: ActivityDto;
     title: string;
@@ -19271,6 +19272,7 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
         if (data) {
             this.userId = data["userId"];
             this.endorsementUserId = data["endorsementUserId"];
+            this.activityUserId = data["activityUserId"];
             this.activityId = data["activityId"];
             this.activity = data["activity"] ? ActivityDto.fromJS(data["activity"]) : <any>undefined;
             this.title = data["title"];
@@ -19304,6 +19306,7 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["endorsementUserId"] = this.endorsementUserId;
+        data["activityUserId"] = this.activityUserId;
         data["activityId"] = this.activityId;
         data["activity"] = this.activity ? this.activity.toJSON() : <any>undefined;
         data["title"] = this.title;
@@ -19331,6 +19334,7 @@ export class UserActivityAdminInput implements IUserActivityAdminInput {
 export interface IUserActivityAdminInput {
     userId: number;
     endorsementUserId: number;
+    activityUserId: number;
     activityId: number;
     activity: ActivityDto;
     title: string;

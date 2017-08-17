@@ -28,25 +28,6 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <!-- <div class="dropdown">
-                            <button type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" 
-                                data-toggle="dropdown" data-hover="dropdown"
-                                data-close-others="true">
-                                Todos
-                                <i class="fa fa-angle-down pull-right" style="padding-top: 3px;"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="javascript:;" (click)="changePaymentType()">
-                                        {{l('Select')}}
-                                    </a>
-                                </li>
-                                <li><a href="javascript:;">Todos</a></li>
-                                <li><a href="javascript:;">Crédito Worbby</a></li>
-                                <li><a href="javascript:;">Cartão de crédito</a></li>
-                            </ul>
-                        </div> -->
                     </div>
                     <div class="col-xs-12 col-sm-5 text-right payment-date-picker m-b-10px">
                         <date-range-picker [(startDate)]="filtroDataPago.start" 
@@ -80,7 +61,7 @@
                                                 <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
                                             </div>
                                             <div class="col-xs-12 col-sm-10">
-                                                <p class="no-m-t m-b-xxxs small"><i>{{worbbyTaskSale.sale.type}}</i></p>
+                                                <p class="no-m-t m-b-xxxs small"><i>{{l(worbbyTaskSale.sale.type)}}</i></p>
                                                 <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>{{worbbyTaskSale.worbbyTask.title}}</strong></h6>
                                                 <p class="small m-b-xxxs">{{worbbyTaskSale.worbbyTask.worbbior.displayName}} - {{worbbyTaskSale.sale.capturedAmountDate | amDateFormat:'DD/MM/YYYY'}}</p>
                                                 <p *ngIf="worbbyTaskSale.worbbyTask.status == WorbbyTaskStatus.Canceled" class="small m-b-xxxs">
@@ -93,54 +74,6 @@
                                         <span>R$ {{worbbyTaskSale.sale.capturedAmount / 100 | number:'1.2-2'}}</span>
                                     </td>
                                 </tr>
-                                 <!-- <tr>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-2">
-                                                <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
-                                            </div>
-                                            <div class="col-xs-12 col-sm-10">
-                                                <p class="no-m-t m-b-xxxs small"><i>Com crédito Worbby</i></p>
-                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>Título tarefa - título tarefa</strong></h6>
-                                                <p class="small m-b-xxxs">Nome Worbbient da Silva - 02/02/2017</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span>R$ 960,00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-2">
-                                                <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
-                                            </div>
-                                            <div class="col-xs-12 col-sm-10">
-                                                <p class="no-m-t m-b-xxxs small"><i>Com cartão de crédito</i></p>
-                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>Título tarefa - título tarefa</strong></h6>
-                                                <p class="small m-b-xxxs">Nome Worbbient da Silva - 02/02/2017</p>
-                                                <p class="small m-b-xxxs">
-                                                    <span class="cor-Flamingo">Cancelada</span><br /> Política de cancelamento moderado <i class="fa fa-question-circle tooltip-icone" placement="right" tooltip="Explicação"></i>
-                                                </p>
-                                            </div>
-                                        </div>    
-                                    </td>
-                                    <td><span>R$ 4200,00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-2">
-                                                <img alt="Photo Profile" src="assets/metronic/worbby/global/img/icon-diy.svg" />
-                                            </div>
-                                            <div class="col-xs-12 col-sm-10">
-                                                <p class="no-m-t m-b-xxxs small"><i>Com cartão de crédito</i></p>
-                                                <h6 class="no-m-t m-b-xxxs cor-Cinder"><strong>Título tarefa - título tarefa</strong></h6>
-                                                <p class="small m-b-xxxs">Nome Worbbient da Silva - 02/02/2017</p>
-                                            </div>
-                                        </div> 
-                                    </td>
-                                    <td><span>R$ 4200,00</span></td>
-                                </tr>  -->
                             </tbody>
                             <tfoot>
                                 <tr>

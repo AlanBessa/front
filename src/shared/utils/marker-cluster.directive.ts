@@ -50,7 +50,8 @@ export class MarkerClusterDirective extends AppComponentBase implements OnInit {
             const options = {
                 imagePath: this.iconCluster,
                 gridSize: 50,
-                zoomOnClick: true
+                zoomOnClick: true,
+                maxZoom: 10
             };
 
             Observable
@@ -66,11 +67,11 @@ export class MarkerClusterDirective extends AppComponentBase implements OnInit {
                             const marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(point.profile.address.latitude, point.profile.address.longitude),
                                 icon: markerIcon
-                            });
+                            });                            
 
-                            let contentString = '<div id="info-window"><div class="box-map"><div class="text-center">' +
+                            let contentString = '<div id="info-window"><div class="box-map text-center"><a href="/publico/worbbior/pagina/' + this.changeSpecialCharacterToNormalCharacter(point.profile.slug.replace(/\s+/g, '-').toLowerCase()) + '"><div>' +
                                                   '<img alt="Photo Profile" class="img-circle img-profile" src="' + point.profile.userPicture + '" />' +
-                                                  '</div><h6 class="cor-Tangerine">' + point.profile.displayName + '</h6><ul class="activityList">';
+                                                  '</div><h6 class="cor-Tangerine">' + point.profile.displayName + '</h6></a><ul class="activityList">';
 
                             point.userActivitiesList.forEach(element => {
                                 contentString += '<li>' +

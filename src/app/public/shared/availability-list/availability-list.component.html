@@ -5,14 +5,14 @@
     </div>
     <div class="col-xs-5 text-right">
       <button type="button" class="btn btn-link availability-link" (click)="openAvailability()">
-        Abrir
-        <span class="plus-icon"></span>
+        {{ isOpen ? "Fechar" : "Abrir" }} 
+        <span class="availability-icon" [ngClass]="{'availability-icon-minus': isOpen, 'availability-icon-plus' : !isOpen}"></span>
       </button>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <div class="table-responsive display-table-availability" [ngClass]="{'open': isOpen}">
+      <div class="display-table-availability" [ngClass]="{'open': isOpen}">
         <table class="table table-condensed m-t-xxs" *ngIf="_availability.length > 0">
           <tbody>
             <tr *ngFor="let availability of _availability">

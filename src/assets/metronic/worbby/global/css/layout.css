@@ -2404,7 +2404,7 @@ body {
 } 
 
 .box-map {
-    width: 110px;
+    width: 200px;
     padding-left: 20px;
 }
 
@@ -2414,9 +2414,18 @@ body {
 
 .box-map h6 {
     margin-top: 10px;
-    margin-bottom: 5px; 
+    margin-bottom: 10px; 
     text-align: center;
     font-weight: 500;
+}
+
+.box-map > a {
+    text-decoration: underline;
+    color: #FFB247;
+}
+
+.box-map > a:hover {
+    text-decoration: none;
 }
 
 .box-map .activityList {
@@ -2427,7 +2436,19 @@ body {
 
 .box-map .activityList li {
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.box-map .activityList li a {
+    text-decoration: underline;
+}
+
+.box-map .activityList li a:hover {
+    text-decoration: none;
+}
+
+.gm-style-iw > div {
+    max-width: 200px !important;
 }
 
 .sub-nav-worbby li {

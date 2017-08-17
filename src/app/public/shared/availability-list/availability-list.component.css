@@ -7,8 +7,7 @@
     text-decoration: none;
 }
 
-.availability-component .availability-link .plus-icon {
-    background: url('/assets/metronic/worbby/global/img/icon-read-more@2x.png') no-repeat center center;
+.availability-component .availability-link .availability-icon {     
     display: inline-block;
     margin-left: 10px;
     width: 24px;
@@ -16,6 +15,14 @@
     position: absolute;
     right: 0;
     top: 3px;
+}
+
+.availability-component .availability-link .availability-icon-plus {
+    background: url('/assets/metronic/worbby/global/img/icon-read-more@2x.png') no-repeat center center;
+}
+
+.availability-component .availability-link .availability-icon-minus {
+    background: url('/assets/metronic/worbby/global/img/icon-read-less@2x.png') no-repeat center center;
 }
 
 .availability-component table {
@@ -28,11 +35,11 @@
 }
 
 .availability-component .display-table-availability {
-    height: 0;
-    -webkit-transition: height 0.5s ease-out 0.5s;
-    transition: height 0.5s ease-out 0.5s;
+    display: none;
+    -webkit-transition: display 0.5s ease-out 0.5s;
+    transition: display 0.5s ease-out 0.5s;
 }
 
 .availability-component .display-table-availability.open {
-    height: auto;
+    display: block;
 }

@@ -61,7 +61,11 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
     for (let i = 0; i < worbbiorActivities.length; i++) {
       if (worbbiorActivities[i].worbbior.userId != userIdController) {
 
-        if (i != 0) this.worbbiorList.push(this.worbbior);
+        if (i != 0) 
+        { 
+          this.worbbior.userActivitiesList = this.worbbior.userActivitiesList.slice(0, 3);
+          this.worbbiorList.push(this.worbbior);           
+        }
 
         this.worbbior = <worbbior>{};
         this.worbbior.profile = worbbiorActivities[i].worbbior;
@@ -75,10 +79,26 @@ export class FindTalentMapComponent extends AppComponentBase implements OnInit {
       }
       else {
         this.worbbior.userActivitiesList.push(worbbiorActivities[i].userActivity);
+
+        this.worbbior.userActivitiesList.sort(function (obj1, obj2) {
+          if (obj1.evaluation.averageEvaluations < obj2.evaluation.averageEvaluations) {
+            return -1;
+          }
+          else if (obj1.evaluation.averageEvaluations > obj2.evaluation.averageEvaluations) {
+            return 1;
+          }
+          else {
+            return 0;
+          }
+        });
       }
 
-      if (i == worbbiorActivities.length - 1) this.worbbiorList.push(this.worbbior);
-    }
+      if (i == worbbiorActivities.length - 1) 
+      {
+        this.worbbior.userActivitiesList = this.worbbior.userActivitiesList.slice(0, 3);
+        this.worbbiorList.push(this.worbbior);
+      } 
+    }      
   }
 
   public getAddresDefault(): void {

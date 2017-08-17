@@ -232,7 +232,7 @@ export abstract class AppComponentBase {
         });
     }
 
-    changeSpecialCharacterToNormalCharacter(str: string): string {
+    public changeSpecialCharacterToNormalCharacter(str: string): string {
         var conversions = new Object();
         conversions['ae'] = 'ä|æ|ǽ';
         conversions['oe'] = 'ö|œ';

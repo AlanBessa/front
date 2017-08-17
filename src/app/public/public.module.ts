@@ -45,6 +45,7 @@ import { MomentModule } from 'angular2-moment';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { ActivityPageComponent } from './activity-page/activity-page.component';
+import { AvailabilityListComponent } from './shared/availability-list/availability-list.component';
 
 @NgModule({
     imports: [
@@ -95,7 +96,8 @@ import { ActivityPageComponent } from './activity-page/activity-page.component';
         WorbbyTaskComponent,
         ActivityCenterComponent,
         SideMenuComponent,
-        ActivityPageComponent
+        ActivityPageComponent,
+        AvailabilityListComponent
     ],
     providers: [
         LoginService

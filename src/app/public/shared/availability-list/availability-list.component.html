@@ -1,0 +1,30 @@
+<div class="availability-component m-y-sm">
+  <div class="row">
+    <div class="col-xs-7">
+      <p class="m-y-5px">Disponibilidades</p>
+    </div>
+    <div class="col-xs-5 text-right">
+      <button type="button" class="btn btn-link availability-link" (click)="openAvailability()">
+        Abrir
+        <span class="plus-icon"></span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive display-table-availability" [ngClass]="{'open': isOpen}">
+        <table class="table table-condensed m-t-xxs" *ngIf="_availability.length > 0">
+          <tbody>
+            <tr *ngFor="let availability of _availability">
+              <td class="cor-Botticelli">{{l(DayOfWeek[availability.dayOfWeek.toString()])}}</td>
+              <td class="cor-Botticelli text-right">{{ availability.startTime }} - {{ availability.endTime }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="well well-lg" *ngIf="_availability.length == 0">
+            Não há nenhum horário disponível.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,7 +16,7 @@ import { HomeReleaseModalComponent } from './home-release-modal.component';
 @NgModule({
     imports: [
         HomeRoutingModule,
-        ngCommon.CommonModule,
+        ngCommon.CommonModule, 
         CommonModule,
         FormsModule,
         HttpModule,

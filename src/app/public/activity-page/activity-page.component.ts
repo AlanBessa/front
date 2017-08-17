@@ -11,6 +11,7 @@ import { Angulartics2 } from 'angulartics2';
 import { MetaService } from '@nglibs/meta';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SendReportModalComponent } from '@app/worbbior/page/send-report-modal.component';
+import { SlickSliderComponent } from '@shared/slick-slider.component';
 import { CreateOrEditUserActivityModalComponent } from '@app/worbbior/edit-profile/create-or-edit-user-activity-modal.component';
 declare const FB: any;
 
@@ -138,7 +139,6 @@ export class ActivityPageComponent extends AppComponentBase implements AfterView
   }
 
   getActivity(): void {
-    console.log(this.activityUserId);
     this._activityService.getUserActivity(this.activityUserId, undefined).subscribe((result) => {
       this.activityUser = result;
       this.isMyActivity = this.activityUser.userId == abp.session.userId;

@@ -92,14 +92,13 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
         this.address.administrativeArea = this.currentAdministrativeArea.id;
         this.currentCountry = this.countries.items[0];
         this.address.country = this.currentCountry.key;
+        this.getInterestCenters();
+        this.getWorbbyTaskDetails();
     }
 
     ngAfterViewInit(): void {
         $("body").scrollTop(0);
         $(".page-loading").hide();
-        
-        this.getInterestCenters();
-        this.getWorbbyTaskDetails();
     }
 
     private getInterestCenters(): void {
@@ -113,6 +112,7 @@ export class WorbbientEditWorbbyTaskComponent extends AppComponentBase implement
 
     getWorbbyTaskDetails(): void {
         this._worbbyTaskService.getWorbbyTask(this.idWorbbyTask).subscribe(result => { 
+            console.log(result.creationTime);
             this.worbbyTask = result;
             this.address = result.address;
             this.isUnitPrice = this.worbbyTask.isUnitPrice ? "1" : "0";

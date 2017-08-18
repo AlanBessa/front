@@ -99,7 +99,7 @@ export class MyActivitiesWorbbiorComponent extends AppComponentBase implements A
 
     toogleUserActivityState(activityUser: UserActivityInput): void {
         var text = "";
-        var activityUserTemp = new UserActivityInput(activityUser.toJSON());
+        var activityUserTemp = new UserActivityInput(activityUser);
         if (activityUserTemp.activityState == Number(ActivityState.Active)) {
             activityUserTemp.activityState = Number(ActivityState.InactiveByWorbbior);
             text = "Deseja desativar essa atividade? Você pode reativar essa atividade a qualquer momento."; 

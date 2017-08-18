@@ -5,314 +5,317 @@
 
       <form #userActivityForm="ngForm" novalidate>
 
-        <div *ngIf="active" class="modal-header">
+        <div class="modal-header">
           <button type="button" class="close" (click)="close()" aria-label="Close">
             <i class="fa fa-remove"></i>
           </button>
         </div>
-        <div *ngIf="active" class="modal-body">
-          <div class="row">
-            <div class="col-xs-12 col-md-6 col-md-offset-3 select-activity-form">
-                <div class="row activity-selected borda-Tangerine no-m-x m-b-xss">
-                    <div class="col-xs-12 p-y-xss">
-                        <a class="card-talents cursor-pointer">
-                            <h4 class="modal-title">
-                                {{activity.title}}
-                            </h4>
-                            <div *ngFor="let interestCenter of interestCenters | groupBy:'parentDisplayName'" class="m-y-10px">
-                                <img alt="" class="img-circle img-icon-list pull-left" [src]="interestCenter.value[0].parentPicture" />                      {{interestCenter.parentDisplayName}}
-                                <div class="p-y-xxxs p-l-40px">
-                                <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
-                                        <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
-                                </span>
-                            </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+        <div class="modal-body">
+            <div class="text-center cor-Cinder bg-White p-y-md" *ngIf="!active">
+                <img [src]="loading" width="50px" /> Carregando
             </div>
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
-              <div class="row">
-                <div class="col-xs-12">
-                    <h4>1. Personalize o título da sua atividade</h4>
-                    <div class="form-group no-hint">
-                        <!-- <label><small> (Máximo de 120 caracteres)</small></label> -->
-                        <input placeholder="{{interestCenters[0]?.titleSuggestionActivity}}" maxlength="120" [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                        class="form-control edited" type="text" name="Title" [(ngModel)]="activityUser.title" required />
-                        <p class="small">{{activityUser.title.length}} / 120 caracteres usados.</p>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <h4>2. Descreva a sua atividade</h4>
-                    <div class="form-group no-hint">
-                        <!-- <label><small>(Máximo de 400 caracteres)</small></label> -->
-                        <textarea [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                        placeholder="{{interestCenters[0]?.descriptionSuggestionActivity}}" rows="6" class="form-control edited m-b-xxxs"
-                        name="Description" [(ngModel)]="activityUser.description" maxlength="400" required #description>
-                        </textarea>
-                        <p class="small">{{description.value.length}} / 400 caracteres usados.</p>
-                    </div>
-                </div>
-                <div class='col-xs-12'>
-                    <h4>3. Determine o seu preço</h4>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                        <div class="form-group no-hint">
-                            <label>{{l("Price")}} (R$)</label>
-                            <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control edited"
-                            type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                            name="Price" [(ngModel)]="activityUser.price" maxlength="8" required />
-                        </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                        <div class="form-group no-hint">
-                            <label>Por</label>
-                            <div *ngIf="unitMeasureOptions.length" class="dropdown">
-                            <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                                type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" data-toggle="dropdown"
-                                data-hover="dropdown" data-close-others="true">
-                                {{l(currentUnitMeasureOptions)}}
-                                <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let name of unitMeasureOptions">
-                                <a href="javascript:;" (click)="changeUnitMeasure(name)">
-                                    {{l(name)}}
-                                </a>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
-              <div class="row">
-                <div class="col-xs-12">
-                    <h4>
-                        4. Escolha a sua política de cancelamento
-                        <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
-                        <i class="fa fa-question-circle tooltip-icone" placement="left" [tooltip]="popTemplatePoliticaCancelamento"></i>
-                    </h4>
-                    <div class="form-group no-hint">
-                        <div *ngIf="cancellationPolicyOptions.length" class="dropdown">
-                            <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
-                                type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" data-toggle="dropdown"
-                                data-hover="dropdown" data-close-others="true">
-                                {{l(currentCancellationPolicyOptions)}}
-                                <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let name of cancellationPolicyOptions">
-                                <a href="javascript:;" (click)="changeCancellationPolicy(name)">
-                                    {{l(name)}}
-                                </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <h4>
-                        5. Escolha a imagem do banner
-                        <ng-template #popTemplateBanner><div class="text-left" [innerHtml]="'A imagem tem que ter no mínimo 1400 (largura) x 550 (altura) pixels'"></div></ng-template>
-                        <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateBanner"></i>
-                    </h4>
-                    <div class="form-group">
-                        <div class="input-group">
-                        <label for="uploadBanner">
-                            <span class="btn btn-file">
-                                {{!uploading ? 'Anexar' : 'Enviando...'}}											
-                            </span>
-                            </label>
-                        <input type="file" id="uploadBanner" name="uploadAvatar" style="display:none;" (change)="uploadFeatureChangeListener($event)">
-                        <input type="text" id="uploader" class="form-control" readonly="" />
-                        </div>
-                    </div>
-                    <img [src]="activityUser.featuredImage" *ngIf="activityUser?.featuredImage && !cropActive" class="img-responsive" />  
-                    <img-cropper [hidden]="!cropActive" class="feature-image-edit" #cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-                </div>
-                <div class="col-xs-12">
-                    <h4>
-                        6. Monte a sua galeria de imagens
-                        <ng-template #popGaleriaImagem><div class="text-left" [innerHtml]="'A imagem tem que ter no mínimo 300 (largura) x 300 (altura) pixels'"></div></ng-template>
-                        <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popGaleriaImagem"></i>
-                    </h4>
-                    <div class="form-group">
-                        
-                        <div *ngFor="let galleryImage of galleryImages; let i = index" class="gallery col-xs-4">
-                            <label [attr.for]="i" class="cursor-pointer">
-                                <span class="btn-image">
-                                    <img class="img-responsive" [src]="galleryImage.thumbnail">                      
-                                </span>
-                            </label>
-                            <input type="file" style="display:none;" [attr.id]="i" [attr.name]="i" *ngIf="active" (change)="fileSelect($event, galleryImage)"
-                            />
-                            <button *ngIf=" galleryImage.galleryPictureId && worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit"
-                            (click)="removeImageGallery(galleryImage.id)" title="{{l('Remove')}}" class="btn btn-secondary delete-activity-user"
-                            href="javascript:;">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="active" class="row">
-            <div class="col-xs-12">
-                <h4 class="text-center">Veja como vai ficar a página da sua atividade</h4>
-                <div class="activity-page worbbior-profile row">
-                <!-- BANNER -->
-                <section class="container-fluid activity-center" style="height: 500px">
-                    <div *ngIf="activityUser.featuredImage && !cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + activityUser.featuredImage + ')'"></div>
-                    <div *ngIf="!activityUser.featuredImage && !cropActive" class="activity-center-banner image-default" style="height: 500px" [style.background]="'url(' + searchBanner + ')'"></div>
-                    <div *ngIf="cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + data.image + ')'"></div>
-                    <div class="container">
-                        <div class="row m-t-20px" *ngIf="interestCenters.length > 0">
-                            <div class="col-xs-12 text-center">
-                                <div class="icone-box m-t-xs m-x-xxs cursor-pointer" *ngFor="let icon of interestCenters">
-                                    <img [src]="icon.interestCenterPicture" *ngIf="icon != undefined" placement="bottom" [tooltip]="icon.displayName" />                        
-                                    <img [src]="loading" alt="Carregando" *ngIf="icon == undefined" width="80px" />
+            <div *ngIf="active" class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-3 select-activity-form">
+                    <div class="row activity-selected borda-Tangerine no-m-x m-b-xss">
+                        <div class="col-xs-12 p-y-xss">
+                            <a class="card-talents cursor-pointer">
+                                <h4 class="modal-title">
+                                    {{activity.title}}
+                                </h4>
+                                <div *ngFor="let interestCenter of interestCenters | groupBy:'parentDisplayName'" class="m-y-10px">
+                                    <img alt="" class="img-circle img-icon-list pull-left" [src]="interestCenter.value[0].parentPicture" />                      {{interestCenter.parentDisplayName}}
+                                    <div class="p-y-xxxs p-l-40px">
+                                    <span *ngFor="let interestCenterChild of interestCenter.value; let i = index" [attr.data-index]="i">
+                                            <span *ngIf="i != 0"> / </span>{{interestCenterChild.displayName}}
+                                    </span>
                                 </div>
-                                <h2 class="m-t-40px">"{{activityUser.title}}"</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>1. Personalize o título da sua atividade</h4>
+                        <div class="form-group no-hint">
+                            <!-- <label><small> (Máximo de 120 caracteres)</small></label> -->
+                            <input placeholder="{{interestCenters[0]?.titleSuggestionActivity}}" maxlength="120" [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                            class="form-control edited" type="text" name="Title" [(ngModel)]="activityUser.title" required />
+                            <p class="small">{{activityUser.title.length}} / 120 caracteres usados.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <h4>2. Descreva a sua atividade</h4>
+                        <div class="form-group no-hint">
+                            <!-- <label><small>(Máximo de 400 caracteres)</small></label> -->
+                            <textarea [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                            placeholder="{{interestCenters[0]?.descriptionSuggestionActivity}}" rows="6" class="form-control edited m-b-xxxs"
+                            name="Description" [(ngModel)]="activityUser.description" maxlength="400" required #description>
+                            </textarea>
+                            <p class="small">{{description.value.length}} / 400 caracteres usados.</p>
+                        </div>
+                    </div>
+                    <div class='col-xs-12'>
+                        <h4>3. Determine o seu preço</h4>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                            <div class="form-group no-hint">
+                                <label>{{l("Price")}} (R$)</label>
+                                <input [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit" class="form-control edited"
+                                type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                name="Price" [(ngModel)]="activityUser.price" maxlength="8" required />
+                            </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                            <div class="form-group no-hint">
+                                <label>Por</label>
+                                <div *ngIf="unitMeasureOptions.length" class="dropdown">
+                                <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                                    type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" data-toggle="dropdown"
+                                    data-hover="dropdown" data-close-others="true">
+                                    {{l(currentUnitMeasureOptions)}}
+                                    <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let name of unitMeasureOptions">
+                                    <a href="javascript:;" (click)="changeUnitMeasure(name)">
+                                        {{l(name)}}
+                                    </a>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- INFO -->
-                <section class="info-activities">
-                    <div class="container-fluid bg-White bg-fluid-hidden">
-                        <div class="row borda-bottom-1 borda-Botticelli">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-4 col-sm-push-8 menuProfile">
-                                        <div class="m-t-24px m-b-xxxs">
-                                            <button disabled class="btn btn-around cor-Cinder btn-prime btn-block">
-                                                Ofereça uma tarefa
-                                            </button>
-                                        </div>
-                                        <p class="small cor-Botticelli text-center m-b-xxs">
-                                            Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}</a>
-                                        </p>
+                </div>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>
+                            4. Escolha a sua política de cancelamento
+                            <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>
+                            <i class="fa fa-question-circle tooltip-icone" placement="left" [tooltip]="popTemplatePoliticaCancelamento"></i>
+                        </h4>
+                        <div class="form-group no-hint">
+                            <div *ngIf="cancellationPolicyOptions.length" class="dropdown">
+                                <button [disabled]="worbbiorState == WorbbiorState.WaitingActivation || worbbiorState == WorbbiorState.WaitingActivEdit"
+                                    type="button" class="btn btn-prime-inverted dropdown-toggle select-dropdown-toggle" data-toggle="dropdown"
+                                    data-hover="dropdown" data-close-others="true">
+                                    {{l(currentCancellationPolicyOptions)}}
+                                    <i class="fa fa-angle-down pull-right p-y-xxxs"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let name of cancellationPolicyOptions">
+                                    <a href="javascript:;" (click)="changeCancellationPolicy(name)">
+                                        {{l(name)}}
+                                    </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <h4>
+                            5. Escolha a imagem do banner
+                            <ng-template #popTemplateBanner><div class="text-left" [innerHtml]="'A imagem tem que ter no mínimo 1400 (largura) x 550 (altura) pixels'"></div></ng-template>
+                            <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popTemplateBanner"></i>
+                        </h4>
+                        <div class="form-group">
+                            <div class="input-group">
+                            <label for="uploadBanner">
+                                <span class="btn btn-file">
+                                    {{!uploading ? 'Anexar' : 'Enviando...'}}											
+                                </span>
+                                </label>
+                            <input type="file" id="uploadBanner" name="uploadAvatar" style="display:none;" (change)="uploadFeatureChangeListener($event)">
+                            <input type="text" id="uploader" class="form-control" readonly="" />
+                            </div>
+                        </div>
+                        <img [src]="activityUser.featuredImage" *ngIf="activityUser?.featuredImage && !cropActive" class="img-responsive" />  
+                        <img-cropper [hidden]="!cropActive" class="feature-image-edit" #cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
+                    </div>
+                    <div class="col-xs-12">
+                        <h4>
+                            6. Monte a sua galeria de imagens
+                            <ng-template #popGaleriaImagem><div class="text-left" [innerHtml]="'A imagem tem que ter no mínimo 300 (largura) x 300 (altura) pixels'"></div></ng-template>
+                            <i class="fa fa-question-circle tooltip-icone" placement="right" [tooltip]="popGaleriaImagem"></i>
+                        </h4>
+                        <div class="form-group">
+                            
+                            <div *ngFor="let galleryImage of galleryImages; let i = index" class="gallery col-xs-4">
+                                <label [attr.for]="i" class="cursor-pointer">
+                                    <span class="btn-image">
+                                        <img class="img-responsive" [src]="galleryImage.thumbnail">                      
+                                    </span>
+                                </label>
+                                <input type="file" style="display:none;" [attr.id]="i" [attr.name]="i" *ngIf="active" (change)="fileSelect($event, galleryImage)"
+                                />
+                                <button *ngIf=" galleryImage.galleryPictureId && worbbiorState != WorbbiorState.WaitingActivation && worbbiorState != WorbbiorState.WaitingActivEdit"
+                                (click)="removeImageGallery(galleryImage.id)" title="{{l('Remove')}}" class="btn btn-secondary delete-activity-user"
+                                href="javascript:;">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div *ngIf="active" class="row">
+                <div class="col-xs-12">
+                    <h4 class="text-center">Veja como vai ficar a página da sua atividade</h4>
+                    <div class="activity-page worbbior-profile row">
+                    <!-- BANNER -->
+                    <section class="container-fluid activity-center" style="height: 500px">
+                        <div *ngIf="activityUser.featuredImage && !cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + activityUser.featuredImage + ')'"></div>
+                        <div *ngIf="!activityUser.featuredImage && !cropActive" class="activity-center-banner image-default" style="height: 500px" [style.background]="'url(' + searchBanner + ')'"></div>
+                        <div *ngIf="cropActive" class="activity-center-banner" style="height: 500px" [style.background]="'url(' + data.image + ')'"></div>
+                        <div class="container">
+                            <div class="row m-t-20px" *ngIf="interestCenters.length > 0">
+                                <div class="col-xs-12 text-center">
+                                    <div class="icone-box m-t-xs m-x-xxs cursor-pointer" *ngFor="let icon of interestCenters">
+                                        <img [src]="icon.interestCenterPicture" *ngIf="icon != undefined" placement="bottom" [tooltip]="icon.displayName" />                        
+                                        <img [src]="loading" alt="Carregando" *ngIf="icon == undefined" width="80px" />
                                     </div>
-                                    <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-24px no-m-t-xs">
-                                        <div class="col-xs-12">
-                                            <div class="row card-list">
-                                                <div class="col-xs-6 col-sm-3 no-pad-x">
-                                                    <div class="card-default card-default-no-hover text-center p-y-xxs">
-                                                        <img alt="Icon money" class="" src="/assets/metronic/worbby/global/img/icon-money.svg" />
-                                                        <p class="small"> R$ {{activityUser.price}} por {{l(UnitMeasure[activityUser.unitMeasure.toString()])}}</p>
+                                    <h2 class="m-t-40px">"{{activityUser.title}}"</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- INFO -->
+                    <section class="info-activities">
+                        <div class="container-fluid bg-White bg-fluid-hidden">
+                            <div class="row borda-bottom-1 borda-Botticelli">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4 col-sm-push-8 menuProfile">
+                                            <div class="m-t-24px m-b-xxxs">
+                                                <button disabled class="btn btn-around cor-Cinder btn-prime btn-block">
+                                                    Ofereça uma tarefa
+                                                </button>
+                                            </div>
+                                            <p class="small cor-Botticelli text-center m-b-xxs">
+                                                Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}</a>
+                                            </p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-8 col-sm-pull-4 m-t-24px no-m-t-xs">
+                                            <div class="col-xs-12">
+                                                <div class="row card-list">
+                                                    <div class="col-xs-6 col-sm-3 no-pad-x">
+                                                        <div class="card-default card-default-no-hover text-center p-y-xxs">
+                                                            <img alt="Icon money" class="" src="/assets/metronic/worbby/global/img/icon-money.svg" />
+                                                            <p class="small"> R$ {{activityUser.price}} por {{l(UnitMeasure[activityUser.unitMeasure.toString()])}}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-xs-6 col-sm-3 no-pad-x">
-                                                    <div class="card-default card-default-no-hover text-center p-y-xxs">
-                                                        <img alt="Icon task" class="" src="/assets/metronic/worbby/global/img/icon-tasks-done.svg" />
-                                                        <p class="small" *ngIf="activityUser.taskPerformed <= 1">{{activityUser.taskPerformed ? activityUser.taskPerformed : 0}} tarefa realizada</p>
-                                                        <p class="small" *ngIf="activityUser.taskPerformed > 1">{{activityUser.taskPerformed ? activityUser.taskPerformed : 0}} tarefas realizadas</p>
+                                                    <div class="col-xs-6 col-sm-3 no-pad-x">
+                                                        <div class="card-default card-default-no-hover text-center p-y-xxs">
+                                                            <img alt="Icon task" class="" src="/assets/metronic/worbby/global/img/icon-tasks-done.svg" />
+                                                            <p class="small" *ngIf="activityUser.taskPerformed <= 1">{{activityUser.taskPerformed ? activityUser.taskPerformed : 0}} tarefa realizada</p>
+                                                            <p class="small" *ngIf="activityUser.taskPerformed > 1">{{activityUser.taskPerformed ? activityUser.taskPerformed : 0}} tarefas realizadas</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-xs-6 col-sm-3 no-pad-x">
-                                                    <div class="card-default card-default-no-hover text-center p-y-xxs">
-                                                        <img alt="Icon Endorsements" class="" src="/assets/metronic/worbby/global/img/icon-endorsements.svg" />
-                                                        <p class="small">{{activityUser.endorsementsCount ? activityUser.endorsementsCount : 0}} recomendações</p>
-                                                    </div>
-                                                </div> 
-                                                <div class="col-xs-6 col-sm-3 activity-comments no-pad-x">
-                                                    <div (click)="commentsOnClick($event)" class="card-default text-center p-y-xxs">
-                                                        <svg width="50px" height="24px" viewBox="0 0 50 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                            <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
-                                                            <title>icon-reviews</title>
-                                                            <desc>Created with Sketch.</desc>
-                                                            <defs>
-                                                                <path d="M16,7.99508929 C16,6.8932319 16.8970262,6 18.0049466,6 L40,6 L50,9.09494702e-13 L50,6 L50,22.0049107 C50,23.1067681 49.1080589,24 48.0000796,24 L17.9999204,24 C16.8953949,24 16,23.1073772 16,22.0049107 L16,7.99508929 Z" id="path-1"></path>
-                                                                <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="34" height="24" fill="white">
-                                                                    <use xlink:href="#path-1"></use>
-                                                                </mask>
-                                                            </defs>
-                                                            <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                <g id="Desktop-Needor-Worbbior-Profile" transform="translate(-735.000000, -581.000000)">
-                                                                    <g id="Group-15-Copy" transform="translate(175.000000, 282.000000)">
-                                                                        <g id="Group-14" transform="translate(510.000000, 287.000000)">
-                                                                            <g id="Group-7" transform="translate(10.000000, 12.000000)">
-                                                                                <g id="icon-reviews-selected" transform="translate(40.000000, 0.000000)">
-                                                                                    <g id="icon-reviews">
-                                                                                        <path d="M9.36955554,15 L21.9941413,15 C21.9984353,15 22,1.99919648 22,1.99919648 C21.999286,1.99963122 2.00494659,2 2.00494659,2 C2.00082398,2 2,20.1586889 2,20.1586889 L9.36955554,15 Z M19.9970707,17 L10,17 L0,24 L3.19744231e-14,2.00010618 C3.55271368e-14,0.895478039 0.897026226,-7.10542736e-15 2.00494659,0 L21.9950534,2.52242671e-13 C23.1023548,2.66453526e-13 24,0.886886902 24,1.99810135 L24,11.4983274 L24,8 L22,8 L22,15 L18,15 L18,17 L19.9970707,17 L19.9970707,17 Z" id="Combined-Shape" fill="#FFCB33"></path>
-                                                                                        <use id="Rectangle-4" stroke="#FFCB33" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
-                                                                                        <rect id="Rectangle-13" fill="#FFCB33" x="6" y="6" width="6" height="2"></rect>
-                                                                                        <rect id="Rectangle-13" fill="#FFCB33" x="22" y="16" width="22" height="2"></rect>
-                                                                                        <rect id="Rectangle-13" fill="#FFCB33" x="22" y="12" width="8" height="2"></rect>
+                                                    <div class="col-xs-6 col-sm-3 no-pad-x">
+                                                        <div class="card-default card-default-no-hover text-center p-y-xxs">
+                                                            <img alt="Icon Endorsements" class="" src="/assets/metronic/worbby/global/img/icon-endorsements.svg" />
+                                                            <p class="small">{{activityUser.endorsementsCount ? activityUser.endorsementsCount : 0}} recomendações</p>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-xs-6 col-sm-3 activity-comments no-pad-x">
+                                                        <div (click)="commentsOnClick($event)" class="card-default text-center p-y-xxs">
+                                                            <svg width="50px" height="24px" viewBox="0 0 50 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                                                                <title>icon-reviews</title>
+                                                                <desc>Created with Sketch.</desc>
+                                                                <defs>
+                                                                    <path d="M16,7.99508929 C16,6.8932319 16.8970262,6 18.0049466,6 L40,6 L50,9.09494702e-13 L50,6 L50,22.0049107 C50,23.1067681 49.1080589,24 48.0000796,24 L17.9999204,24 C16.8953949,24 16,23.1073772 16,22.0049107 L16,7.99508929 Z" id="path-1"></path>
+                                                                    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="34" height="24" fill="white">
+                                                                        <use xlink:href="#path-1"></use>
+                                                                    </mask>
+                                                                </defs>
+                                                                <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <g id="Desktop-Needor-Worbbior-Profile" transform="translate(-735.000000, -581.000000)">
+                                                                        <g id="Group-15-Copy" transform="translate(175.000000, 282.000000)">
+                                                                            <g id="Group-14" transform="translate(510.000000, 287.000000)">
+                                                                                <g id="Group-7" transform="translate(10.000000, 12.000000)">
+                                                                                    <g id="icon-reviews-selected" transform="translate(40.000000, 0.000000)">
+                                                                                        <g id="icon-reviews">
+                                                                                            <path d="M9.36955554,15 L21.9941413,15 C21.9984353,15 22,1.99919648 22,1.99919648 C21.999286,1.99963122 2.00494659,2 2.00494659,2 C2.00082398,2 2,20.1586889 2,20.1586889 L9.36955554,15 Z M19.9970707,17 L10,17 L0,24 L3.19744231e-14,2.00010618 C3.55271368e-14,0.895478039 0.897026226,-7.10542736e-15 2.00494659,0 L21.9950534,2.52242671e-13 C23.1023548,2.66453526e-13 24,0.886886902 24,1.99810135 L24,11.4983274 L24,8 L22,8 L22,15 L18,15 L18,17 L19.9970707,17 L19.9970707,17 Z" id="Combined-Shape" fill="#FFCB33"></path>
+                                                                                            <use id="Rectangle-4" stroke="#FFCB33" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                                                                                            <rect id="Rectangle-13" fill="#FFCB33" x="6" y="6" width="6" height="2"></rect>
+                                                                                            <rect id="Rectangle-13" fill="#FFCB33" x="22" y="16" width="22" height="2"></rect>
+                                                                                            <rect id="Rectangle-13" fill="#FFCB33" x="22" y="12" width="8" height="2"></rect>
+                                                                                        </g>
                                                                                     </g>
                                                                                 </g>
                                                                             </g>
                                                                         </g>
                                                                     </g>
                                                                 </g>
-                                                            </g>
-                                                        </svg>
-                                                        <div>
-                                                            <p class="small" *ngIf="activityUser.evaluation?.evaluations.items.length <= 1">{{activityUser.evaluation?.evaluations.items.length}} comentário</p>
-                                                            <p class="small" *ngIf="activityUser.evaluation?.evaluations.items.length > 1">{{activityUser.evaluation?.evaluations.items.length}} comentários</p>
-                                                        </div>
-                                                        <div class="arrow-nav"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>                        
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                    <!-- REVIEWS -->
-                <section>
-                    <div class="container-fluid bg-WhiteLilac bg-fluid-hidden">
-                        <div class="row">
-                            <div class="container">
-                                <div class="row">
-                                    <!-- menu perfil : inicio -->
-                                    <div *ngIf="worbbiorProfile" class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
-                                        <div class="card-profile" >
-                                            <div class="col-xs-12">
-                                                <div class="sidebar-header m-t-sm p-b-sm">
-                                                    <div class="display-table">
-                                                        <div class="divProfile m-r-20px-sm">
-                                                            <img id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.userPicture" />
-                                                            <span *ngIf="worbbiorProfile.premium" class="profile-pro"></span>
-                                                        </div>
-                                                        <div class="display-cell alignTop">
-                                                            <h4 class="no-m-y profileName">{{worbbiorProfile.displayName}}</h4>
-                                                            <p class="no-m-y cor-Botticelli small hidden-xs">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
-                                                            <p class="cor-Botticelli small visible-xs">{{worbbiorProfile.description}}</p>                                                                                          
+                                                            </svg>
+                                                            <div>
+                                                                <p class="small" *ngIf="activityUser.evaluation?.evaluations.items.length <= 1">{{activityUser.evaluation?.evaluations.items.length}} comentário</p>
+                                                                <p class="small" *ngIf="activityUser.evaluation?.evaluations.items.length > 1">{{activityUser.evaluation?.evaluations.items.length}} comentários</p>
+                                                            </div>
+                                                            <div class="arrow-nav"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                            
+                                        </div>                        
                                     </div>
-                                    <!-- menu perfil : Fim -->
-                                    <!-- Conteudo perfil : inicio -->
-                                    <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
-                                        <div class="row m-t-xs">
-                                            <div class="col-xs-12">
-                                                <p class="m-b-sm">
-                                                    {{ activityUser.description}}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Conteudo perfil : Fim -->
                                 </div>
                             </div>
                         </div>
+                    </section>
+                        <!-- REVIEWS -->
+                    <section>
+                        <div class="container-fluid bg-WhiteLilac bg-fluid-hidden">
+                            <div class="row">
+                                <div class="container">
+                                    <div class="row">
+                                        <!-- menu perfil : inicio -->
+                                        <div *ngIf="worbbiorProfile" class="col-xs-12 col-sm-4 col-sm-push-8 bg-White bg-fluid menuProfile m-b-xss">
+                                            <div class="card-profile" >
+                                                <div class="col-xs-12">
+                                                    <div class="sidebar-header m-t-sm p-b-sm">
+                                                        <div class="display-table">
+                                                            <div class="divProfile m-r-20px-sm">
+                                                                <img id="HeaderProfilePicture" alt="Photo Profile" class="img-responsive img-circle img-profile pro" [src]="worbbiorProfile.userPicture" />
+                                                                <span *ngIf="worbbiorProfile.premium" class="profile-pro"></span>
+                                                            </div>
+                                                            <div class="display-cell alignTop">
+                                                                <h4 class="no-m-y profileName">{{worbbiorProfile.displayName}}</h4>
+                                                                <p class="no-m-y cor-Botticelli small hidden-xs">{{worbbiorProfile.address.subLocality}}, {{worbbiorProfile.address.locality}}</p>
+                                                                <p class="cor-Botticelli small visible-xs">{{worbbiorProfile.description}}</p>                                                                                          
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                            
+                                        </div>
+                                        <!-- menu perfil : Fim -->
+                                        <!-- Conteudo perfil : inicio -->
+                                        <div class="perfil-content col-xs-12 col-sm-8 col-sm-pull-4 m-t-sm no-m-t-xs">
+                                            <div class="row m-t-xs">
+                                                <div class="col-xs-12">
+                                                    <p class="m-b-sm">
+                                                        {{ activityUser.description}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Conteudo perfil : Fim -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     </div>
-                </section>
                 </div>
             </div>
-          </div>
         </div>
         <div class="modal-footer">
             <div class="row">
@@ -339,17 +342,17 @@
     </div>
   </div>
 </div>
-
 <div *ngIf="showPacman" class="lds-css ng-scope">
-  <div style="width:100%;height:100%" class="lds-pacman">
+<div style="width:100%;height:100%" class="lds-pacman">
     <div>
-      <div></div>
-      <div></div>
-      <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
     <div>
-      <div></div>
-      <div></div>
+        <div></div>
+        <div></div>
     </div>
-  </div>
 </div>
+</div>
+

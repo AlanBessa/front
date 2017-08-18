@@ -181,7 +181,6 @@ export class CreateOrEditUserActivityModalComponent extends AppComponentBase {
 
         this.cropperSettings.croppedWidth = 1400;
         this.cropperSettings.croppedHeight = 550;
-        console.log(this.mediaQuery);
 
         this.cropperSettings.canvasWidth = this.mediaQuery == "xs" ? 265 : 500;
         this.cropperSettings.canvasHeight = this.mediaQuery == "xs" ? 200 : 300;

@@ -703,6 +703,7 @@
                                             </div>
                                             <div class="col-xs-12 m-t-xxs m-b-xxs">
                                                 <find-talent-map-component #findTalentMapComponent [activities]="worbbiorActivities"></find-talent-map-component>
+                                                <button *ngIf="showButtonMore" type="button" class="btn btn-prime-inverted btn-block m-t-xs" (click)="loadingMore()">Carregar mais...</button>
                                             </div>
                                         </div>
                                     </div>

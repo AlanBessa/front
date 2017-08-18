@@ -69,39 +69,25 @@
                                     </div>
                                     <div class="col-xs-12 divider">
                                         <div class="display-table">
-                                            <div class="display-cell">
-                                                <p class="small cor-Botticelli text-right">{{l("Availabilities")}}</p>
-                                            </div>
-                                            <div class="display-cell">                                            
-                                                <p class="no-m-y p-y-xxs" *ngFor="let availability of worbbiorProfile.availabilities.items">
-                                                    {{l(DayOfWeek[availability.dayOfWeek.toString()])}} - 
-                                                    {{availability.startTime}} - 
-                                                    {{availability.endTime}}
-                                                </p>                                             
-                                            </div>
-                                        </div>
-                                    </div>
+                                           <div class="display-cell">
+                                               <p class="small cor-Botticelli text-right">{{l("Evaluation")}}</p>
+                                           </div>
+                                           <div class="display-cell">
+                                               <rating [(ngModel)]="worbbiorProfile.evaluation.averageEvaluations"
+                                                       max="5"
+                                                       required="true"
+                                                       class="m-r-xxs"
+                                                       [readonly]="true"
+                                                       stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
+                                                       [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
+                                               </rating>
+                                               <p class="inline">{{worbbiorProfile.evaluation.evaluations.items.length}}</p>
+                                           </div>
+                                       </div>
+                                   </div>
                                     <div class="col-xs-12 divider">
                                         <availability-list-component [availability]="worbbiorProfile.availabilities.items"></availability-list-component>
-                                    </div>
-                                    <div class="col-xs-12 divider">
-                                         <div class="display-table">
-                                            <div class="display-cell">
-                                                <p class="small cor-Botticelli text-right">{{l("Evaluation")}}</p>
-                                            </div>
-                                            <div class="display-cell">
-                                                <rating [(ngModel)]="worbbiorProfile.evaluation.averageEvaluations"
-                                                        max="5"
-                                                        required="true"
-                                                        class="m-r-xxs"
-                                                        [readonly]="true"
-                                                        stateOn="glyphicon-heart" stateOff="glyphicon-heart-empty"                                                 
-                                                        [titles]="['um', 'dois', 'três', 'quatro', 'cinco']">
-                                                </rating>
-                                                <p class="inline">{{worbbiorProfile.evaluation.evaluations.items.length}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>                                    
                                     <div class="col-xs-12 m-t-sm divider">
                                         <p class="cor-Botticelli m-b-20px m-t-sm">Compartilhar este perfil com seus amigos:</p>
                                         <div class="social-list">

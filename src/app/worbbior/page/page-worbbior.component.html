@@ -160,7 +160,7 @@
                                         <div class="card-header m-b-20px">
                                             <div class="display-table">
                                                 <div (click)="goActivityPage(activityUser)" class="display-cell alignMiddle col-divider no-border p-y-xs cursor-pointer">
-                                                    <h4>{{activityUser.title}}</h4>
+                                                    <h4 class="activityTitle">{{activityUser.title}}</h4>
                                                     <p class="small cor-Botticelli">
                                                         Politica de cancelamento: <a class="btn-link" [routerLink]="['/faq']" fragment="question16">{{l(CancellationPolicy[activityUser.cancellationPolicy.toString()])}}</a>
                                                         <ng-template #popTemplatePoliticaCancelamento><div class="text-left" [innerHtml]="tooltipPoliticaCancelamento"></div></ng-template>

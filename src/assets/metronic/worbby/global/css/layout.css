@@ -2776,11 +2776,15 @@ body {
 .payment-date-picker input {
     height: initial;
     font-size: 14px;
-    padding: 7px 12px;
+    padding: 13px 12px 14px;
 }
 
 .payment-date-picker button {
-    padding: 6px 17px 6px !important;
+    padding: 11px 17px 12px !important;
+}
+
+.payment-date-picker button i {
+    margin: 0;
 }
 
 .table-payment .cancellation-tax-amount {
@@ -4422,6 +4426,10 @@ rating.txt-small .glyphicon-heart-empty {
 
 .worbbior-profile .card-list .card-default{
     min-height: 80px;
+}
+
+.worbbior-profile .perfil-content h4.activityTitle:hover {
+    text-decoration: underline;
 }
 
 .activity-comments-list {
